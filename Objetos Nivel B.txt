@@ -1,0 +1,91 @@
+Curricula: 
+- ticker:String [1]
+- personalRecord:PersonalRecord [1]
+- educationRecords:List<EducationRecord> [1] (la lista es obligatoria pero puede estar vacía).
+- professionalRecords:List<ProfesionalRecord> [1] (la lista es obligatoria pero puede estar vacía).
+- endorserRecords:List<EndorserRecord> [1] (la lista es obligatoria pero puede estar vacía).
+- miscellaneousRecords:List<MiscellaneousRecord> [1] (la lista es obligatoria pero puede estar vacía).
+
+PersonalRecord:
+- fullName:String [1]
+- photo:String [1]
+- email:String [1]
+- phoneNumber:String [1]
+- linkedIn:String [1]
+
+EducationRecord:
+- titleDiploma:String [1]
+- periodStart:Integer [1]
+- periodEnd:Integer [0..1]
+- institution:String [1]
+- attachment:String [0..1]
+- comments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+
+ProfesionalRecord:
+- companyName:String [1]
+- periodStart:Integer [1]
+- periodEnd:Integer [0..1]
+- attachment:String [0..1]
+- comments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+
+EndorserRecord:
+- fullName:String [1]
+- email:String [1]
+- phoneNumber:String [1]
+- linkedIn:String [1]
+- comments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+
+MiscellaneousRecord:
+- title:String [1]
+- attachment:String [0..1]
+- comments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+
+Finder:
+- singleKey:String [0..1]
+- category:String [0..1]
+- warranty:String [0..1]
+- priceMin:Integer [0..1]
+- priceMax:Integer [0..1]
+- dateMin:Date [0..1]
+- dateMax:Date [0..1]
+
+Complaint:
+- ticker:String [1]
+- moment:Date [1]
+- description:String [1]
+- attachments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+
+Report:
+- moment:Date [1]
+- description:String [1]
+- attachments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+- finalMode:Boolean [1]
+
+Note:
+- moment:Date [1]
+- commentCreator:String [1]
+- comments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+- finalMode:Boolean [1]
+
+Referee:
+- Igual que los demás usuarios pero con la Authority de Referee
+
+Actores (todos):
+- suspicious:Boolean [1]
+- banned:Boolean [1]
+
+Dashboard:
+- spamWords:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+- complaintsPerFixUpMin:Double [1]
+- complaintsPerFixUpMax:Double [1]
+- complaintsPerFixUpAverage:Double [1]
+- complaintsPerFixUpDesviation:Double [1]
+- notesPerRefereeReportMin:Double [1]
+- notesPerRefereeReportMax:Double [1]
+- notesPerRefereeReportAverage:Double [1]
+- notesPerRefereeReportDesviation:Double [1]
+- fixUpWithComplaintRatio:Double [1]
+- topThreeCustomers:List<String> [1] (debe contener 3 items).
+- topThreeHandyWorkers:List<String> [1] (debe contener 3 items).
+- finderCache:Integer [1] (es 60 por defecto, en minutos, con máximo 1440).
+- finderMaxResults:Integer [1] (es 10 por defecto, con máximo 100).
