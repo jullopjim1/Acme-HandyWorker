@@ -15,12 +15,12 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
-<div>
+<div align="center">
 	<a href="#"><img src="images/logo2.png"
 		alt="Acme-HandyWorker Co., Inc." /></a>
 </div>
 
-<div>
+<div align="center">
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
@@ -72,7 +72,7 @@
 	</ul>
 </div>
 
-<div>
+<div align="center">
 	<a href="?language=en">en</a> | <a href="?language=es">es</a>
 </div>
 
