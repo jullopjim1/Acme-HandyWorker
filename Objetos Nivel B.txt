@@ -27,6 +27,7 @@ ProfesionalRecord:
 - periodEnd:Integer [0..1]
 - attachment:String [0..1]
 - comments:List<String> [1] (la lista es obligatoria pero puede estar vacía).
+- role
 
 EndorserRecord:
 - fullName:String [1]
