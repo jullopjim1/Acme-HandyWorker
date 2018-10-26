@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -23,18 +24,19 @@ public class Complaint extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
-	private Date moment;
-	private String description;
-	private Collection<String> attachments;
+	private String				ticker;
+	private Date				moment;
+	private String				description;
+	private Collection<String>	attachments;
+
 
 	@NotBlank
 	@Column(unique = true)
 	public String getTicker() {
-		return ticker;
+		return this.ticker;
 	}
 
-	public void setTicker(String ticker) {
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
 
@@ -43,29 +45,29 @@ public class Complaint extends DomainEntity {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
 	@ElementCollection
 	@NotEmpty
 	public Collection<String> getAttachments() {
-		return attachments;
+		return this.attachments;
 	}
 
-	public void setAttachments(Collection<String> attachments) {
+	public void setAttachments(final Collection<String> attachments) {
 		this.attachments = attachments;
 	}
 

@@ -1,3 +1,4 @@
+
 package domain;
 
 import javax.persistence.Access;
@@ -13,25 +14,26 @@ public class Folder extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String name;
-	private boolean system;
+	private String	name;
+	private boolean	isSystem;
+
 
 	@NotBlank
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	@NotNull
 	public boolean isSystem() {
-		return system;
+		return this.isSystem;
 	}
 
-	public void setSystem(boolean system) {
-		this.system = system;
+	public void setSystem(final boolean system) {
+		this.isSystem = system;
 	}
 
 	// Relationships ---------------------------------------------------------

@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -17,45 +18,46 @@ public class Section extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String title;
-	private String text;
-	private Collection<String> pictures;
-	private Integer position;
+	private String				title;
+	private String				text;
+	private Collection<String>	pictures;
+	private int					position;
+
 
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
 	@NotBlank
 	public String getText() {
-		return text;
+		return this.text;
 	}
 
-	public void setText(String text) {
+	public void setText(final String text) {
 		this.text = text;
 	}
 
 	@ElementCollection
 	@URL
 	public Collection<String> getPictures() {
-		return pictures;
+		return this.pictures;
 	}
 
-	public void setPictures(Collection<String> pictures) {
+	public void setPictures(final Collection<String> pictures) {
 		this.pictures = pictures;
 	}
 
 	@NotNull
-	public Integer getPosition() {
-		return position;
+	public int getPosition() {
+		return this.position;
 	}
 
-	public void setPosition(Integer position) {
+	public void setPosition(final int position) {
 		this.position = position;
 	}
 

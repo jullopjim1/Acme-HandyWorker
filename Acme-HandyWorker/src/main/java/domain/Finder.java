@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Date;
@@ -7,8 +8,8 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -17,65 +18,74 @@ public class Finder extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String keyword;
-	private String category;
-	private Double priceMin;
-	private Double priceMax;
-	private Date dateMin;
-	private Date dateMax;
+	private String		keyword;
+	private String		category;
+	private Double		priceMin;
+	private Double		priceMax;
+	private Date		dateMin;
+	private Date		dateMax;
+	private Warranty	warranty;
 
+
+	@NotBlank
 	public String getKeyword() {
-		return keyword;
+		return this.keyword;
 	}
 
-	public void setKeyword(String keyword) {
+	public void setKeyword(final String keyword) {
 		this.keyword = keyword;
 	}
 
 	public String getCategory() {
-		return category;
+		return this.category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(final String category) {
 		this.category = category;
 	}
 
 	public Double getPriceMin() {
-		return priceMin;
+		return this.priceMin;
 	}
 
-	public void setPriceMin(Double priceMin) {
+	public void setPriceMin(final Double priceMin) {
 		this.priceMin = priceMin;
 	}
 
 	public Double getPriceMax() {
-		return priceMax;
+		return this.priceMax;
 	}
 
-	public void setPriceMax(Double priceMax) {
+	public void setPriceMax(final Double priceMax) {
 		this.priceMax = priceMax;
 	}
 
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDateMin() {
-		return dateMin;
+		return this.dateMin;
 	}
 
-	public void setDateMin(Date dateMin) {
+	public void setDateMin(final Date dateMin) {
 		this.dateMin = dateMin;
 	}
 
-	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDateMax() {
-		return dateMax;
+		return this.dateMax;
 	}
 
-	public void setDateMax(Date dateMax) {
+	public void setDateMax(final Date dateMax) {
 		this.dateMax = dateMax;
+	}
+
+	public Warranty getWarranty() {
+		return this.warranty;
+	}
+
+	public void setWarranty(final Warranty warranty) {
+		this.warranty = warranty;
 	}
 
 	// Relationships ---------------------------------------------------------

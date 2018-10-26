@@ -17,38 +17,39 @@ public class Warranty extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
-	private String title;
-	private String terms;
-	private Collection<String> laws;
-	
+	private String				title;
+	private String				terms;
+	private Collection<String>	laws;
+
+
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
-	
-	public void setTitle(String title) {
+
+	public void setTitle(final String title) {
 		this.title = title;
 	}
-	
+
 	@NotBlank
 	public String getTerms() {
-		return terms;
+		return this.terms;
 	}
-	
-	public void setTerms(String terms) {
+
+	public void setTerms(final String terms) {
 		this.terms = terms;
 	}
-	
+
 	@NotEmpty
 	@ElementCollection
 	public Collection<String> getLaws() {
-		return laws;
+		return this.laws;
 	}
-	
-	public void setLaws(Collection<String> laws) {
+
+	public void setLaws(final Collection<String> laws) {
 		this.laws = laws;
 	}
-	
+
 	// Relationships ---------------------------------------------------------
 	//TODO
 }

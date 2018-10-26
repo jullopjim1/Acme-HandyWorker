@@ -21,74 +21,75 @@ public class FixUpTask extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
-	private String ticker;
-	private Date moment;
-	private String description;
-	private String adress;
-	private Double maxPrice;
-	private Date deadline;
-	
+	private String	ticker;
+	private Date	moment;
+	private String	description;
+	private String	adress;
+	private double	maxPrice;
+	private Date	deadline;
+
+
 	@NotBlank
 	@Column(unique = true)
 	public String getTicker() {
-		return ticker;
+		return this.ticker;
 	}
-	
+
 	@NotBlank
-	public void setTicker(String ticker) {
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
-	
+
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
-	
-	public void setMoment(Date moment) {
+
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	
+
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
-	
-	public void setDescription(String description) {
+
+	public void setDescription(final String description) {
 		this.description = description;
 	}
-	
+
 	@NotBlank
 	public String getAdress() {
-		return adress;
+		return this.adress;
 	}
-	
-	public void setAdress(String adress) {
+
+	public void setAdress(final String adress) {
 		this.adress = adress;
 	}
-	
+
 	@NotNull
-	public Double getMaxPrice() {
-		return maxPrice;
+	public double getMaxPrice() {
+		return this.maxPrice;
 	}
-	
-	public void setMaxPrice(Double maxPrice) {
+
+	public void setMaxPrice(final double maxPrice) {
 		this.maxPrice = maxPrice;
 	}
-	
+
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDeadline() {
-		return deadline;
+		return this.deadline;
 	}
-	
-	public void setDeadline(Date deadline) {
+
+	public void setDeadline(final Date deadline) {
 		this.deadline = deadline;
 	}
-	
+
 	// Relationships ---------------------------------------------------------
 	//TODO
 }
