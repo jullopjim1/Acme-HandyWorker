@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Dashboard extends DomainEntity {
+public class Configuration extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS

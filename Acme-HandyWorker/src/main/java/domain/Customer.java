@@ -1,22 +1,28 @@
+
 package domain;
 
 import java.util.Collection;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Customer extends Actor {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	
 
 	// Relationships ---------------------------------------------------------
 	// TODO
-	
-	private Collection<Endorser> myEndorsees;
-	private Collection<Endorser> myEndorsers;
+
+	private Collection<Endorser>	myEndorsees;
+	private Collection<Endorser>	myEndorsers;
+
 
 	@NotEmpty
 	@OneToMany()
