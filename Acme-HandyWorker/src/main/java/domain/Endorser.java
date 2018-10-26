@@ -1,4 +1,3 @@
-
 package domain;
 
 import javax.persistence.Access;
@@ -14,10 +13,9 @@ import org.joda.time.DateTime;
 public class Endorser extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
-	//ATRIBUTOS
-	private String		comment;
-	private DateTime	moment;
-
+	// ATRIBUTOS
+	private String comment;
+	private DateTime moment;
 
 	@NotBlank
 	public String getComment() {
@@ -36,5 +34,8 @@ public class Endorser extends DomainEntity {
 	public void setMoment(final DateTime moment) {
 		this.moment = moment;
 	}
+
+	// Relationships ---------------------------------------------------------
+	// TODO
 
 }

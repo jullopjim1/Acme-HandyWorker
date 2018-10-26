@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -9,9 +8,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class Customer extends Actor {
 
-	private Collection<Endorser>	myEndorsees;
-	private Collection<Endorser>	myEndorsers;
+	// Identification ---------------------------------------------------------
+	// ATRIBUTOS
+	
 
+	// Relationships ---------------------------------------------------------
+	// TODO
+	
+	private Collection<Endorser> myEndorsees;
+	private Collection<Endorser> myEndorsers;
 
 	@NotEmpty
 	@OneToMany()

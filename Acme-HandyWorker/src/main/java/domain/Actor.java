@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,21 +14,16 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class Actor extends DomainEntity {
 
+	// Identification ---------------------------------------------------------
 	private String	name;
-
 	private String	middleName;
-
 	private boolean	surname;
-
 	private String	photo;
-
 	private String	email;
-
 	private String	phone;
-
 	private String	address;
-
 	private boolean	isSuspicious;
+	private boolean	isBanned;
 
 
 	@NotBlank
@@ -56,7 +52,6 @@ public class Actor extends DomainEntity {
 		this.surname = surname;
 	}
 
-	@NotBlank
 	@URL
 	public String getPhoto() {
 		return this.photo;
@@ -92,6 +87,7 @@ public class Actor extends DomainEntity {
 		this.address = address;
 	}
 
+	@NotNull
 	public boolean getIsSuspicious() {
 		return this.isSuspicious;
 	}
@@ -99,5 +95,16 @@ public class Actor extends DomainEntity {
 	public void setIsSuspicious(final boolean isSuspicious) {
 		this.isSuspicious = isSuspicious;
 	}
+	
+	@NotNull
+	public boolean getIsBanned() {
+		return this.isBanned;
+	}
 
+	public void setIsBanned(final boolean isBanned) {
+		this.isBanned = isBanned;
+	}
+	
+	// Relationships ---------------------------------------------------------
+	//TODO
 }
