@@ -13,6 +13,5 @@ public class Administrator extends Actor {
 	// ATRIBUTOS
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 
 }

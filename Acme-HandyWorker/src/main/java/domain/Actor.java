@@ -17,7 +17,7 @@ public class Actor extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	private String	name;
 	private String	middleName;
-	private boolean	surname;
+	private String	surname;
 	private String	photo;
 	private String	email;
 	private String	phone;
@@ -44,11 +44,11 @@ public class Actor extends DomainEntity {
 	}
 
 	@NotBlank
-	public boolean getSurname() {
+	public String getSurname() {
 		return this.surname;
 	}
 
-	public void setSurname(final boolean surname) {
+	public void setSurname(final String surname) {
 		this.surname = surname;
 	}
 
@@ -95,7 +95,7 @@ public class Actor extends DomainEntity {
 	public void setIsSuspicious(final boolean isSuspicious) {
 		this.isSuspicious = isSuspicious;
 	}
-	
+
 	@NotNull
 	public boolean getIsBanned() {
 		return this.isBanned;
@@ -104,7 +104,7 @@ public class Actor extends DomainEntity {
 	public void setIsBanned(final boolean isBanned) {
 		this.isBanned = isBanned;
 	}
-	
+
 	// Relationships ---------------------------------------------------------
 	//TODO
 }
