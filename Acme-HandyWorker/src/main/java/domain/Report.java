@@ -22,40 +22,62 @@ public class Report extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
-	private Date moment;
-	private String description;
-	private Collection<String> attachments;
+	private Date				moment;
+	private String				description;
+	private Collection<String>	attachments;
+	private boolean				isFinal;
+
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
-	
+
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 
 	@ElementCollection
 	public Collection<String> getAttachments() {
-		return attachments;
+		return this.attachments;
 	}
 
-	public void setAttachments(Collection<String> attachments) {
+	public void setAttachments(final Collection<String> attachments) {
 		this.attachments = attachments;
 	}
-	
+
+	@NotNull
+	public boolean isFinal() {
+		return this.isFinal;
+	}
+
+	public void setFinal(final boolean isFinal) {
+		this.isFinal = isFinal;
+	}
+
+
 	// Relationships ---------------------------------------------------------
 	//TODO
+	private Collection<Note>	note;
+
+
+	public Collection<Note> getNote() {
+		return this.note;
+	}
+
+	public void setNote(final Collection<Note> note) {
+		this.note = note;
+	}
 }

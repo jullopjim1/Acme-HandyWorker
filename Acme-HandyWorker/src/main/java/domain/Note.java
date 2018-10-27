@@ -13,7 +13,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -23,7 +22,9 @@ public class Note extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private Date				moment;
-	private String				comment;
+	private String				mandatoryCommentReferee;
+	private String				mandatoryCommentCustomer;
+	private String				mandatoryCommentHandyWorker;
 	private Collection<String>	comments;
 
 
@@ -39,13 +40,28 @@ public class Note extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@NotBlank
-	public String getComment() {
-		return this.comment;
+	public String getMandatoryCommentReferee() {
+		return this.mandatoryCommentReferee;
 	}
 
-	public void setComment(final String comment) {
-		this.comment = comment;
+	public void setMandatoryCommentReferee(final String mandatoryCommentReferee) {
+		this.mandatoryCommentReferee = mandatoryCommentReferee;
+	}
+
+	public String getMandatoryCommentCustomer() {
+		return this.mandatoryCommentCustomer;
+	}
+
+	public void setMandatoryCommentCustomer(final String mandatoryCommentCustomer) {
+		this.mandatoryCommentCustomer = mandatoryCommentCustomer;
+	}
+
+	public String getMandatoryCommentHandyWorker() {
+		return this.mandatoryCommentHandyWorker;
+	}
+
+	public void setMandatoryCommentHandyWorker(final String mandatoryCommentHandyWorker) {
+		this.mandatoryCommentHandyWorker = mandatoryCommentHandyWorker;
 	}
 
 	@ElementCollection

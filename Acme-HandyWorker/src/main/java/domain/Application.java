@@ -25,7 +25,8 @@ public class Application extends DomainEntity {
 	private Date				moment;
 	private String				status;
 	private double				price;
-	private Collection<String>	comments;
+	private Collection<String>	customerComments;
+	private Collection<String>	handyWorkerComments;
 
 
 	@NotNull
@@ -58,12 +59,21 @@ public class Application extends DomainEntity {
 	}
 
 	@ElementCollection
-	public Collection<String> getComments() {
-		return this.comments;
+	public Collection<String> getCustomerComments() {
+		return this.customerComments;
 	}
 
-	public void setComments(final Collection<String> comments) {
-		this.comments = comments;
+	public void setCustomerComments(final Collection<String> customerComments) {
+		this.customerComments = customerComments;
+	}
+
+	@ElementCollection
+	public Collection<String> getHandyWorkerComments() {
+		return this.handyWorkerComments;
+	}
+
+	public void setHandyWorkerComments(final Collection<String> handyWorkerComments) {
+		this.handyWorkerComments = handyWorkerComments;
 	}
 
 	// Relationships ---------------------------------------------------------

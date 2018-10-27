@@ -1,4 +1,7 @@
+
 package domain;
+
+import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -15,40 +18,52 @@ public class Sponsorship extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String banner;
-	private String link;
-	private CreditCard creditcard;
+	private String		banner;
+	private String		link;
+	private CreditCard	creditcard;
+
 
 	@NotBlank
 	@URL
 	public String getBanner() {
-		return banner;
+		return this.banner;
 	}
 
-	public void setBanner(String banner) {
+	public void setBanner(final String banner) {
 		this.banner = banner;
 	}
 
 	@NotBlank
 	@URL
 	public String getLink() {
-		return link;
+		return this.link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 
 	@Valid
 	@NotNull
 	public CreditCard getCreditcard() {
-		return creditcard;
+		return this.creditcard;
 	}
 
-	public void setCreditcard(CreditCard creditcard) {
+	public void setCreditcard(final CreditCard creditcard) {
 		this.creditcard = creditcard;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 	// TODO
+	private Collection<Tutorial>	tutorials;
+
+
+	public Collection<Tutorial> getTutorials() {
+		return this.tutorials;
+	}
+
+	public void setTutorials(final Collection<Tutorial> tutorials) {
+		this.tutorials = tutorials;
+	}
 }

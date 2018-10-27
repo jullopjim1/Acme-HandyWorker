@@ -1,4 +1,7 @@
+
 package domain;
+
+import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -13,18 +16,66 @@ public class Curriculum extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
+	private String	ticker;
+
 
 	@NotBlank
 	@Column(unique = true)
 	public String getTicker() {
-		return ticker;
+		return this.ticker;
 	}
 
-	public void setTicker(String ticker) {
+	public void setTicker(final String ticker) {
 		this.ticker = ticker;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 	// TODO
+	private PersonalRecord					personalRecord;
+	private Collection<EducationRecord>		educationRecord;
+	private Collection<ProfessionalRecord>	professionalRecord;
+	private Collection<EndorserRecord>		endorserRecord;
+	private Collection<MiscellaneousRecord>	miscellaneousRecords;
+
+
+	public PersonalRecord getPersonalRecord() {
+		return this.personalRecord;
+	}
+
+	public void setPersonalRecord(final PersonalRecord personalRecord) {
+		this.personalRecord = personalRecord;
+	}
+
+	public Collection<EducationRecord> getEducationRecord() {
+		return this.educationRecord;
+	}
+
+	public void setEducationRecord(final Collection<EducationRecord> educationRecord) {
+		this.educationRecord = educationRecord;
+	}
+
+	public Collection<ProfessionalRecord> getProfessionalRecord() {
+		return this.professionalRecord;
+	}
+
+	public void setProfessionalRecord(final Collection<ProfessionalRecord> professionalRecord) {
+		this.professionalRecord = professionalRecord;
+	}
+
+	public Collection<EndorserRecord> getEndorserRecord() {
+		return this.endorserRecord;
+	}
+
+	public void setEndorserRecord(final Collection<EndorserRecord> endorserRecord) {
+		this.endorserRecord = endorserRecord;
+	}
+
+	public Collection<MiscellaneousRecord> getMiscellaneousRecords() {
+		return this.miscellaneousRecords;
+	}
+
+	public void setMiscellaneousRecords(final Collection<MiscellaneousRecord> miscellaneousRecords) {
+		this.miscellaneousRecords = miscellaneousRecords;
+	}
 }

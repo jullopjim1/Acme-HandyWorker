@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
@@ -8,6 +9,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,12 +21,13 @@ public class Finder extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 	private String		keyword;
-	private String		category;
+	private String		namecategory;
 	private Double		priceMin;
 	private Double		priceMax;
 	private Date		dateMin;
 	private Date		dateMax;
-	private Warranty	warranty;
+	private Warranty	namewarranty;
+	private Date		lastUpdate;
 
 
 	@NotBlank
@@ -36,12 +39,12 @@ public class Finder extends DomainEntity {
 		this.keyword = keyword;
 	}
 
-	public String getCategory() {
-		return this.category;
+	public String getNamecategory() {
+		return this.namecategory;
 	}
 
-	public void setCategory(final String category) {
-		this.category = category;
+	public void setNamecategory(final String namecategory) {
+		this.namecategory = namecategory;
 	}
 
 	public Double getPriceMin() {
@@ -80,14 +83,34 @@ public class Finder extends DomainEntity {
 		this.dateMax = dateMax;
 	}
 
-	public Warranty getWarranty() {
-		return this.warranty;
+	public Warranty getNamewarranty() {
+		return this.namewarranty;
 	}
 
-	public void setWarranty(final Warranty warranty) {
-		this.warranty = warranty;
+	public void setNamewarranty(final Warranty namewarranty) {
+		this.namewarranty = namewarranty;
 	}
+
+	@Past
+	public Date getLastUpdate() {
+		return this.lastUpdate;
+	}
+
+	public void setLastUpdate(final Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
 
 	// Relationships ---------------------------------------------------------
 	// TODO
+	private Collection<FixUpTask>	fixUpTask;
+
+
+	public Collection<FixUpTask> getFixUpTask() {
+		return this.fixUpTask;
+	}
+
+	public void setFixUpTask(final Collection<FixUpTask> fixUpTask) {
+		this.fixUpTask = fixUpTask;
+	}
 }

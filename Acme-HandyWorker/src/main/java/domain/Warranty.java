@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -20,6 +21,7 @@ public class Warranty extends DomainEntity {
 	private String				title;
 	private String				terms;
 	private Collection<String>	laws;
+	private boolean				isFinal;
 
 
 	@NotBlank
@@ -48,6 +50,14 @@ public class Warranty extends DomainEntity {
 
 	public void setLaws(final Collection<String> laws) {
 		this.laws = laws;
+	}
+	@NotNull
+	public boolean isFinal() {
+		return this.isFinal;
+	}
+
+	public void setFinal(final boolean isFinal) {
+		this.isFinal = isFinal;
 	}
 
 	// Relationships ---------------------------------------------------------

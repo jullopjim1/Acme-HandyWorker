@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -22,17 +23,18 @@ public class Tutorial extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String title;
-	private Date moment;
-	private String summary;
-	private Collection<String> pictures;
+	private String				title;
+	private Date				moment;
+	private String				summary;
+	private Collection<String>	pictures;
+
 
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -41,32 +43,43 @@ public class Tutorial extends DomainEntity {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 
-	public void setMoment(Date moment) {
+	public void setMoment(final Date moment) {
 		this.moment = moment;
 	}
 
 	@NotBlank
 	public String getSummary() {
-		return summary;
+		return this.summary;
 	}
 
-	public void setSummary(String summary) {
+	public void setSummary(final String summary) {
 		this.summary = summary;
 	}
 
 	@ElementCollection
 	@URL
 	public Collection<String> getPictures() {
-		return pictures;
+		return this.pictures;
 	}
 
-	public void setPictures(Collection<String> pictures) {
+	public void setPictures(final Collection<String> pictures) {
 		this.pictures = pictures;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 	// TODO
+	private Collection<Section>	sections;
+
+
+	public Collection<Section> getSections() {
+		return this.sections;
+	}
+
+	public void setSections(final Collection<Section> sections) {
+		this.sections = sections;
+	}
 }
