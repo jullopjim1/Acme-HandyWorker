@@ -61,7 +61,7 @@ public class Endorsement extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
+
 	private Endorser	endorser;
 	private Endorser	endorsee;
 

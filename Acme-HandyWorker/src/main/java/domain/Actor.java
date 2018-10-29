@@ -1,14 +1,22 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
+
+import security.UserAccount;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -105,6 +113,67 @@ public class Actor extends DomainEntity {
 		this.isBanned = isBanned;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 	//TODO
+	private UserAccount			usseAccount;
+	private Collection<Profile>	profiles;
+	private Collection<Folder>	folders;
+	private Collection<Message>	sentMessages;
+	private Collection<Message>	receivedMessages;
+
+
+	@NotNull
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	public UserAccount getUsseAccount() {
+		return this.usseAccount;
+	}
+
+	public void setUsseAccount(final UserAccount usseAccount) {
+		this.usseAccount = usseAccount;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "actor")
+	public Collection<Profile> getProfiles() {
+		return this.profiles;
+	}
+
+	public void setProfiles(final Collection<Profile> profiles) {
+		this.profiles = profiles;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "sender")
+	public Collection<Message> getSentMessages() {
+		return this.sentMessages;
+	}
+
+	public void setSentMessages(final Collection<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "recipient")
+	public Collection<Message> getReceivedMessages() {
+		return this.receivedMessages;
+	}
+
+	public void setReceivedMessages(final Collection<Message> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
+	public Collection<Folder> getFolders() {
+		return this.folders;
+	}
+
+	public void setFolders(final Collection<Folder> folders) {
+		this.folders = folders;
+	}
 }

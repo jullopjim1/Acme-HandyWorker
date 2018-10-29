@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -39,6 +40,7 @@ public class Curriculum extends DomainEntity {
 	private Collection<MiscellaneousRecord>	miscellaneousRecords;
 
 
+	@OneToOne
 	public PersonalRecord getPersonalRecord() {
 		return this.personalRecord;
 	}

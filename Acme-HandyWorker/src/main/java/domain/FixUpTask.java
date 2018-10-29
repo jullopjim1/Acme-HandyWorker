@@ -1,14 +1,19 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -90,6 +95,81 @@ public class FixUpTask extends DomainEntity {
 		this.deadline = deadline;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 	//TODO
+	private Warranty				warranty;
+	private Category				category;
+	private Collection<Phase>		phases;
+	private Customer				customer;
+	private Collection<Complaint>	complaints;
+	private Collection<Application>	applications;
+
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Warranty getWarranty() {
+		return this.warranty;
+	}
+
+	public void setWarranty(final Warranty warranty) {
+		this.warranty = warranty;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Category getCategory() {
+		return this.category;
+	}
+
+	public void setCategory(final Category category) {
+		this.category = category;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
+	public Collection<Phase> getPhases() {
+		return this.phases;
+	}
+
+	public void setPhases(final Collection<Phase> phases) {
+		this.phases = phases;
+	}
+
+	@NotNull
+	@Valid
+	@ManyToOne(optional = false)
+	public Customer getCustomer() {
+		return this.customer;
+	}
+
+	public void setCustomer(final Customer customer) {
+		this.customer = customer;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "fixUpTask")
+	public Collection<Complaint> getComplaints() {
+		return this.complaints;
+	}
+
+	public void setComplaints(final Collection<Complaint> complaints) {
+		this.complaints = complaints;
+	}
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "fixUpTask")
+	public Collection<Application> getApplications() {
+		return this.applications;
+	}
+
+	public void setApplications(final Collection<Application> applications) {
+		this.applications = applications;
+	}
+
 }

@@ -1,9 +1,15 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -13,7 +19,7 @@ public class Category extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String name;
+	private String	name;
 
 
 	@NotBlank
@@ -25,6 +31,41 @@ public class Category extends DomainEntity {
 		this.name = name;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 	// TODO
+	private Collection<Category>	subcategories;
+	private Category				rootcategory;
+	private Collection<FixUpTask>	fixUpTasks;
+
+
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "rootcategory")
+	public Collection<Category> getSubcategories() {
+		return this.subcategories;
+	}
+
+	public void setSubcategories(final Collection<Category> subcategories) {
+		this.subcategories = subcategories;
+	}
+	@Valid
+	@ManyToOne(optional = true)
+	public Category getRootcategory() {
+		return this.rootcategory;
+	}
+
+	public void setRootcategory(final Category rootcategory) {
+		this.rootcategory = rootcategory;
+	}
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "category")
+	public Collection<FixUpTask> getFixUpTasks() {
+		return this.fixUpTasks;
+	}
+
+	public void setFixUpTasks(final Collection<FixUpTask> fixUpTasks) {
+		this.fixUpTasks = fixUpTasks;
+	}
 }

@@ -5,8 +5,12 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -34,9 +38,12 @@ public class HandyWorker extends Endorser {
 	private Finder					finder;
 	private Curriculum				curriculum;
 	private Collection<Tutorial>	tutorial;
+	private Collection<Application>	applications;
 
 
-	@OneToOne
+	@NotNull
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL, optional = true)
 	public Finder getFinder() {
 		return this.finder;
 	}
@@ -59,6 +66,16 @@ public class HandyWorker extends Endorser {
 
 	public void setTutorial(final Collection<Tutorial> tutorial) {
 		this.tutorial = tutorial;
+	}
+	@NotNull
+	@Valid
+	@OneToMany(mappedBy = "handyWorker")
+	public Collection<Application> getApplications() {
+		return this.applications;
+	}
+
+	public void setApplications(final Collection<Application> applications) {
+		this.applications = applications;
 	}
 
 }
