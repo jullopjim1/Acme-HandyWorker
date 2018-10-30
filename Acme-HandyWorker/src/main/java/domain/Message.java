@@ -15,6 +15,10 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9647ad8376eae1853068c78024dbcf10a495654a
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -63,7 +67,10 @@ public class Message extends DomainEntity {
 
 	@NotBlank
 	@Pattern(regexp = "^((HIGH)|(MEDIUM)|(LOW))$", message = "The priority only can be 'LOW', 'MEDIUM' or 'HIGH'.")
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 9647ad8376eae1853068c78024dbcf10a495654a
 	public String getPriority() {
 		return this.priority;
 	}
