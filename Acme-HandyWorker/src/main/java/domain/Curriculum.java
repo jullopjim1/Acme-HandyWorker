@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -17,11 +18,12 @@ public class Curriculum extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	ticker;
+	private String ticker;
 
 
 	@NotBlank
 	@Column(unique = true)
+	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
 	public String getTicker() {
 		return this.ticker;
 	}
