@@ -1,12 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -15,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -24,9 +22,9 @@ public class Endorsement extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Date				moment;
-	private Collection<String>	comments;
-	private double				score;
+	private Date	moment;
+	private String	comments;
+	private double	score;
 
 
 	public double getScore() {
@@ -49,13 +47,12 @@ public class Endorsement extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@ElementCollection
-	@NotEmpty
-	public Collection<String> getComments() {
+	@NotBlank
+	public String getComments() {
 		return this.comments;
 	}
 
-	public void setComments(final Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

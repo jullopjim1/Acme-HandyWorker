@@ -1,11 +1,10 @@
+
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,19 +21,20 @@ public class ProfessionalRecord extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String name;
-	private Date startMoment;
-	private Date endMoment;
-	private String role;
-	private String link;
-	private Collection<String> comments;
+	private String	name;
+	private Date	startMoment;
+	private Date	endMoment;
+	private String	role;
+	private String	link;
+	private String	comments;
+
 
 	@NotBlank
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -43,47 +43,46 @@ public class ProfessionalRecord extends DomainEntity {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getStartMoment() {
-		return startMoment;
+		return this.startMoment;
 	}
 
-	public void setStartMoment(Date startMoment) {
+	public void setStartMoment(final Date startMoment) {
 		this.startMoment = startMoment;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEndMoment() {
-		return endMoment;
+		return this.endMoment;
 	}
 
-	public void setEndMoment(Date endMoment) {
+	public void setEndMoment(final Date endMoment) {
 		this.endMoment = endMoment;
 	}
 
 	@NotBlank
 	public String getRole() {
-		return role;
+		return this.role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(final String role) {
 		this.role = role;
 	}
 
 	@URL
 	public String getLink() {
-		return link;
+		return this.link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 
-	@ElementCollection
-	public Collection<String> getComments() {
-		return comments;
+	public String getComments() {
+		return this.comments;
 	}
 
-	public void setComments(Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

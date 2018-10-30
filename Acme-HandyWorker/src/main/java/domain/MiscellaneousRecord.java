@@ -1,10 +1,8 @@
-package domain;
 
-import java.util.Collection;
+package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -16,35 +14,34 @@ public class MiscellaneousRecord extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String title;
-	private String link;
-	private Collection<String> comments;
+	private String	title;
+	private String	link;
+	private String	comments;
 
-	
+
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
 	@URL
 	public String getLink() {
-		return link;
+		return this.link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 
-	@ElementCollection
-	public Collection<String> getComments() {
-		return comments;
+	public String getComments() {
+		return this.comments;
 	}
 
-	public void setComments(Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

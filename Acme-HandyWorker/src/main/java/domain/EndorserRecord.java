@@ -1,10 +1,8 @@
-package domain;
 
-import java.util.Collection;
+package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 
 import org.hibernate.validator.constraints.Email;
@@ -17,56 +15,56 @@ public class EndorserRecord extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String fullName;
-	private String email;
-	private String phone;
-	private String link;
-	private Collection<String> comments;
+	private String	fullName;
+	private String	email;
+	private String	phone;
+	private String	link;
+	private String	comments;
+
 
 	@NotBlank
 	public String getFullName() {
-		return fullName;
+		return this.fullName;
 	}
 
-	public void setFullName(String fullName) {
+	public void setFullName(final String fullName) {
 		this.fullName = fullName;
 	}
 
 	@NotBlank
 	@Email
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
 	@NotBlank
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
-	public void setPhone(String phone) {
+	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
 
 	@NotBlank
 	@URL
 	public String getLink() {
-		return link;
+		return this.link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 
-	@ElementCollection
-	public Collection<String> getComments() {
-		return comments;
+	public String getComments() {
+		return this.comments;
 	}
 
-	public void setComments(Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

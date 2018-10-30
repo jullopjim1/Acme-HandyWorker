@@ -60,6 +60,8 @@ public class HandyWorker extends Endorser {
 		this.curriculum = curriculum;
 	}
 
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Tutorial> getTutorial() {
 		return this.tutorial;
 	}

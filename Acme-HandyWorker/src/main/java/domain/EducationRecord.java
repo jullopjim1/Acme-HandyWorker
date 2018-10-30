@@ -1,11 +1,10 @@
+
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,19 +21,20 @@ public class EducationRecord extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String title;
-	private Date startMoment;
-	private Date endMoment;
-	private String institution;
-	private String link;
-	private Collection<String> comments;
+	private String	title;
+	private Date	startMoment;
+	private Date	endMoment;
+	private String	institution;
+	private String	link;
+	private String	comments;
+
 
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 
@@ -43,47 +43,46 @@ public class EducationRecord extends DomainEntity {
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	@Past
 	public Date getStartMoment() {
-		return startMoment;
+		return this.startMoment;
 	}
 
-	public void setStartMoment(Date startMoment) {
+	public void setStartMoment(final Date startMoment) {
 		this.startMoment = startMoment;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getEndMoment() {
-		return endMoment;
+		return this.endMoment;
 	}
 
-	public void setEndMoment(Date endMoment) {
+	public void setEndMoment(final Date endMoment) {
 		this.endMoment = endMoment;
 	}
 
 	@NotBlank
 	public String getInstitution() {
-		return institution;
+		return this.institution;
 	}
 
-	public void setInstitution(String institution) {
+	public void setInstitution(final String institution) {
 		this.institution = institution;
 	}
 
 	@URL
 	public String getLink() {
-		return link;
+		return this.link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 
-	@ElementCollection
-	public Collection<String> getComments() {
-		return comments;
+	public String getComments() {
+		return this.comments;
 	}
 
-	public void setComments(Collection<String> comments) {
+	public void setComments(final String comments) {
 		this.comments = comments;
 	}
 

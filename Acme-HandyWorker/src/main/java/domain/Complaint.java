@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -78,6 +79,7 @@ public class Complaint extends DomainEntity {
 	// TODO
 	private FixUpTask	fixUpTask;
 	private Customer	customer;
+	private Report		report;
 
 
 	@NotNull
@@ -99,5 +101,16 @@ public class Complaint extends DomainEntity {
 
 	public void setCustomer(final Customer customer) {
 		this.customer = customer;
+	}
+
+	@NotNull
+	@Valid
+	@OneToOne(optional = true)
+	public Report getReport() {
+		return this.report;
+	}
+
+	public void setReport(final Report report) {
+		this.report = report;
 	}
 }

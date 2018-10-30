@@ -26,6 +26,8 @@ public class Configuration extends DomainEntity {
 	private Collection<String>	spamWords;
 	private int					finderCacheTime;
 	private int					finderMaxResults;
+	private Collection<String>	negativeWords;
+	private Collection<String>	positiveWords;
 
 
 	public void setFinderMaxResults(final Integer finderMaxResults) {
@@ -94,6 +96,22 @@ public class Configuration extends DomainEntity {
 
 	public void setSpamWords(final Collection<String> spamWords) {
 		this.spamWords = spamWords;
+	}
+
+	public Collection<String> getNegativeWords() {
+		return this.negativeWords;
+	}
+
+	public void setNegativeWords(final Collection<String> negativeWords) {
+		this.negativeWords = negativeWords;
+	}
+
+	public Collection<String> getPositiveWords() {
+		return this.positiveWords;
+	}
+
+	public void setPositiveWords(final Collection<String> positiveWords) {
+		this.positiveWords = positiveWords;
 	}
 
 	// Relationships ---------------------------------------------------------

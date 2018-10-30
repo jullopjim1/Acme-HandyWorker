@@ -1,12 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -24,11 +22,11 @@ public class Application extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Date				moment;
-	private String				status;
-	private double				price;
-	private Collection<String>	customerComments;
-	private Collection<String>	handyWorkerComments;
+	private Date	moment;
+	private String	status;
+	private double	price;
+	private String	customerComments;
+	private String	handyWorkerComments;
 
 
 	@NotNull
@@ -60,21 +58,19 @@ public class Application extends DomainEntity {
 		this.price = price;
 	}
 
-	@ElementCollection
-	public Collection<String> getCustomerComments() {
+	public String getCustomerComments() {
 		return this.customerComments;
 	}
 
-	public void setCustomerComments(final Collection<String> customerComments) {
+	public void setCustomerComments(final String customerComments) {
 		this.customerComments = customerComments;
 	}
 
-	@ElementCollection
-	public Collection<String> getHandyWorkerComments() {
+	public String getHandyWorkerComments() {
 		return this.handyWorkerComments;
 	}
 
-	public void setHandyWorkerComments(final Collection<String> handyWorkerComments) {
+	public void setHandyWorkerComments(final String handyWorkerComments) {
 		this.handyWorkerComments = handyWorkerComments;
 	}
 
