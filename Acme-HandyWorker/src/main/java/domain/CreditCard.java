@@ -34,7 +34,8 @@ public class CreditCard extends DomainEntity {
 		this.holderName = holderName;
 	}
 
-	@Pattern(regexp = "\\AVISA\\z|\\AMASTER\\z|\\ADINNERS\\z|\\AAMEX\\z")
+	@Pattern(regexp = "^(VISA|MASTERCARD|DINNERS|AMEX)$")
+
 	public String getBrandName() {
 		return this.brandName;
 	}
