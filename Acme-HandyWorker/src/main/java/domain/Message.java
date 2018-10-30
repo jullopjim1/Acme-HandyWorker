@@ -6,7 +6,6 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -15,7 +14,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-
+import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -25,11 +24,11 @@ public class Message extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
-	private String				subject;
-	private String				body;
-	private Date				moment;
-	private String				priority;
-	private Collection<String>	tags;
+	private String	subject;
+	private String	body;
+	private Date	moment;
+	private String	priority;
+	private String	tags;
 
 
 	@NotBlank
@@ -63,6 +62,8 @@ public class Message extends DomainEntity {
 	}
 
 	@NotBlank
+	@Pattern(regexp = "^((HIGH)|(MEDIUM)|(LOW))$", message = "The priority only can be 'LOW', 'MEDIUM' or 'HIGH'.")
+	
 	public String getPriority() {
 		return this.priority;
 	}
@@ -71,12 +72,11 @@ public class Message extends DomainEntity {
 		this.priority = priority;
 	}
 
-	@ElementCollection
-	public Collection<String> getTags() {
+	public String getTags() {
 		return this.tags;
 	}
 
-	public void setTags(final Collection<String> tags) {
+	public void setTags(final String tags) {
 		this.tags = tags;
 	}
 

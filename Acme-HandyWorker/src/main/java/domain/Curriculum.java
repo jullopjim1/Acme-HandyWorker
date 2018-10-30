@@ -5,9 +5,13 @@ import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -40,6 +44,8 @@ public class Curriculum extends DomainEntity {
 	private Collection<MiscellaneousRecord>	miscellaneousRecords;
 
 
+	@NotNull
+	@Valid
 	@OneToOne
 	public PersonalRecord getPersonalRecord() {
 		return this.personalRecord;
@@ -49,6 +55,9 @@ public class Curriculum extends DomainEntity {
 		this.personalRecord = personalRecord;
 	}
 
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<EducationRecord> getEducationRecord() {
 		return this.educationRecord;
 	}
@@ -57,6 +66,9 @@ public class Curriculum extends DomainEntity {
 		this.educationRecord = educationRecord;
 	}
 
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<ProfessionalRecord> getProfessionalRecord() {
 		return this.professionalRecord;
 	}
@@ -65,6 +77,9 @@ public class Curriculum extends DomainEntity {
 		this.professionalRecord = professionalRecord;
 	}
 
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<EndorserRecord> getEndorserRecord() {
 		return this.endorserRecord;
 	}
@@ -73,6 +88,9 @@ public class Curriculum extends DomainEntity {
 		this.endorserRecord = endorserRecord;
 	}
 
+	@NotNull
+	@Valid
+	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<MiscellaneousRecord> getMiscellaneousRecords() {
 		return this.miscellaneousRecords;
 	}
