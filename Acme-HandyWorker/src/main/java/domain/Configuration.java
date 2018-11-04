@@ -98,6 +98,8 @@ public class Configuration extends DomainEntity {
 		this.spamWords = spamWords;
 	}
 
+	@NotEmpty
+	@ElementCollection
 	public Collection<String> getNegativeWords() {
 		return this.negativeWords;
 	}
@@ -106,6 +108,8 @@ public class Configuration extends DomainEntity {
 		this.negativeWords = negativeWords;
 	}
 
+	@NotEmpty
+	@ElementCollection
 	public Collection<String> getPositiveWords() {
 		return this.positiveWords;
 	}

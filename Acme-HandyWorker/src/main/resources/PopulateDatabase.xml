@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2018 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
@@ -56,7 +50,200 @@
 			</list>
 		</property>
 	</bean>
-	
-	<!-- Other domain beans come here -->	
-	
+
+	<!-- PERSONAL RECORD -->
+
+	<bean id="personalRecord1" class="domain.PersonalRecord">
+		<property name="fullName" value="Full Name 1" />
+		<property name="photo" value="http://photo1.com" />
+		<property name="email" value="emailpersonalrecord1@gmail.com" />
+		<property name="phone" value="650190414" />
+		<property name="link" value="http://link1.com" />
+	</bean>
+
+	<bean id="personalRecord2" class="domain.PersonalRecord">
+		<property name="fullName" value="Full Name 2" />
+		<property name="photo" value="http://photo2.com" />
+		<property name="email" value="emailpersonalrecord2@gmail.com" />
+		<property name="phone" value="650190424" />
+		<property name="link" value="http://link2.com" />
+	</bean>
+
+	<bean id="personalRecord3" class="domain.PersonalRecord">
+		<property name="fullName" value="Full Name 3" />
+		<property name="photo" value="http://photo3.com" />
+		<property name="email" value="emailpersonalrecord3@gmail.com" />
+		<property name="phone" value="650190434" />
+		<property name="link" value="http://link3.com" />
+	</bean>
+
+	<bean id="personalRecord4" class="domain.PersonalRecord">
+		<property name="fullName" value="Full Name 4" />
+		<property name="photo" value="http://photo4.com" />
+		<property name="email" value="emailpersonalrecord4@gmail.com" />
+		<property name="phone" value="650190444" />
+		<property name="link" value="http://link4.com" />
+	</bean>
+
+	<!-- EDUCATION RECORD -->
+
+	<bean id="educationRecord1" class="domain.EducationRecord">
+		<property name="title" value="Title 1" />
+		<property name="startMoment" value="10/10/2011" />
+		<property name="endMoment" value="10/10/2015" />
+		<property name="institution" value="Institution 1" />
+		<property name="link" value="http://link1.com" />
+		<property name="comments" value="Comments 1" />
+	</bean>
+
+	<bean id="educationRecord2" class="domain.EducationRecord">
+		<property name="title" value="Title 2" />
+		<property name="startMoment" value="10/10/2012" />
+		<property name="institution" value="Institution 1" />
+	</bean>
+
+	<bean id="educationRecord3" class="domain.EducationRecord">
+		<property name="title" value="Title 3" />
+		<property name="startMoment" value="10/10/2013" />
+		<property name="endMoment" value="10/10/2016" />
+		<property name="institution" value="Institution 3" />
+		<property name="link" value="http://link3.com" />
+	</bean>
+
+	<bean id="educationRecord4" class="domain.EducationRecord">
+		<property name="title" value="Title 4" />
+		<property name="startMoment" value="10/10/2011" />
+		<property name="institution" value="Institution 4" />
+		<property name="comments" value="Comments 4" />
+	</bean>
+
+	<!-- PROFESSIONAL RECORD -->
+
+	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
+		<property name="name" value="Name 1" />
+		<property name="startMoment" value="10/10/2011" />
+		<property name="endMoment" value="10/10/2015" />
+		<property name="role" value="Role 1" />
+		<property name="link" value="http://link1.com" />
+		<property name="comments" value="Comments 1" />
+	</bean>
+
+	<bean id="professionalRecord2" class="domain.ProfessionalRecord">
+		<property name="name" value="Name 2" />
+		<property name="startMoment" value="10/10/2011" />
+		<property name="endMoment" value="10/10/2015" />
+		<property name="role" value="Role 2" />
+		<property name="link" value="http://link2.com" />
+		<property name="comments" value="Comments 2" />
+	</bean>
+
+	<bean id="professionalRecord3" class="domain.ProfessionalRecord">
+		<property name="name" value="Name 3" />
+		<property name="startMoment" value="10/10/2013" />
+		<property name="endMoment" value="10/10/2017" />
+		<property name="role" value="Role 3" />
+		<property name="comments" value="Comments 3" />
+	</bean>
+
+	<bean id="professionalRecord4" class="domain.ProfessionalRecord">
+		<property name="name" value="Name 4" />
+		<property name="startMoment" value="10/10/2012" />
+		<property name="role" value="Role 4" />
+		<property name="link" value="http://link4.com" />
+	</bean>
+
+	<!-- ENDORSER RECORD -->
+
+	<bean id="endorserRecord1" class="domain.EndorserRecord">
+		<property name="fullName" value="Full Name 1" />
+		<property name="email" value="endorserrecord1@gmail.com" />
+		<property name="phone" value="650190414" />
+		<property name="link" value="http://link1.com" />
+		<property name="comments" value="Comments 1" />
+	</bean>
+
+	<bean id="endorserRecord2" class="domain.EndorserRecord">
+		<property name="fullName" value="Full Name 2" />
+		<property name="email" value="endorserrecord2@gmail.com" />
+		<property name="phone" value="650190424" />
+		<property name="link" value="http://link2.com" />
+	</bean>
+
+	<bean id="endorserRecord3" class="domain.EndorserRecord">
+		<property name="fullName" value="Full Name 3" />
+		<property name="email" value="endorserrecord3@gmail.com" />
+		<property name="phone" value="650190434" />
+		<property name="link" value="http://link3.com" />
+		<property name="comments" value="Comments 3" />
+	</bean>
+
+	<bean id="endorserRecord4" class="domain.EndorserRecord">
+		<property name="fullName" value="Full Name 4" />
+		<property name="email" value="endorserrecord4@gmail.com" />
+		<property name="phone" value="650190444" />
+		<property name="link" value="http://link4.com" />
+	</bean>
+
+	<!-- MISCELLANEOUS RECORD -->
+
+	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
+		<property name="title" value="Title 1" />
+		<property name="link" value="http://link1.com" />
+		<property name="comments" value="Comments 1" />
+	</bean>
+
+	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
+		<property name="title" value="Title 2" />
+		<property name="link" value="http://link2.com" />
+	</bean>
+
+	<bean id="miscellaneousRecord3" class="domain.MiscellaneousRecord">
+		<property name="title" value="Title 3" />
+		<property name="comments" value="Comments 3" />
+	</bean>
+
+	<bean id="miscellaneousRecord4" class="domain.MiscellaneousRecord">
+		<property name="title" value="Title 4" />
+		<property name="link" value="http://link4.com" />
+		<property name="comments" value="Comments 4" />
+	</bean>
+
+	<!-- CURRICULUM -->
+
+	<bean id="curriculum1" class="domain.Curriculum">
+		<property name="ticker" value="041118-AA99AA" />
+		<property name="personalRecord" ref="personalRecord1" />
+		<property name="educationRecord" ref="educationRecord1" />
+		<property name="professionalRecord" ref="professionalRecord1" />
+		<property name="endorserRecord" ref="endorserRecord1" />
+		<property name="miscellaneousRecord" ref="miscellaneousRecord1" />
+	</bean>
+
+	<bean id="curriculum2" class="domain.Curriculum">
+		<property name="ticker" value="041112-AA99AA" />
+		<property name="personalRecord" ref="personalRecord2" />
+		<property name="educationRecord" ref="educationRecord2" />
+		<property name="professionalRecord" ref="professionalRecord2" />
+		<property name="endorserRecord" ref="endorserRecord2" />
+		<property name="miscellaneousRecord" ref="miscellaneousRecord2" />
+	</bean>
+
+	<bean id="curriculum3" class="domain.Curriculum">
+		<property name="ticker" value="041113-AA99AA" />
+		<property name="personalRecord" ref="personalRecord3" />
+		<property name="educationRecord" ref="educationRecord3" />
+		<property name="professionalRecord" ref="professionalRecord3" />
+		<property name="endorserRecord" ref="endorserRecord3" />
+		<property name="miscellaneousRecord" ref="miscellaneousRecord3" />
+	</bean>
+
+	<bean id="curriculum4" class="domain.Curriculum">
+		<property name="ticker" value="041114-AA99AA" />
+		<property name="personalRecord" ref="personalRecord4" />
+		<property name="educationRecord" ref="educationRecord4" />
+		<property name="professionalRecord" ref="professionalRecord4" />
+		<property name="endorserRecord" ref="endorserRecord4" />
+		<property name="miscellaneousRecord" ref="miscellaneousRecord4" />
+	</bean>
+
 </beans>

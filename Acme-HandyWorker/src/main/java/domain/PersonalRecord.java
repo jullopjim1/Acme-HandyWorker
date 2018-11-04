@@ -1,8 +1,10 @@
+
 package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -14,57 +16,59 @@ public class PersonalRecord extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String fullName;
-	private String photo;
-	private String email;
-	private String phone;
-	private String link;
+	private String	fullName;
+	private String	photo;
+	private String	email;
+	private String	phone;
+	private String	link;
+
 
 	@NotBlank
 	public String getFullName() {
-		return fullName;
+		return this.fullName;
 	}
 
-	public void setFullName(String fullName) {
+	public void setFullName(final String fullName) {
 		this.fullName = fullName;
 	}
 
 	@NotBlank
 	@URL
 	public String getPhoto() {
-		return photo;
+		return this.photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(final String photo) {
 		this.photo = photo;
 	}
 
 	@NotBlank
 	@Email
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
 	@NotBlank
+	@Pattern(regexp = "^(((\\+[1-9][0-9]{0,2}) \\(([1-9][0-9]{0,2})\\) (\\d\\d\\d\\d+))|((\\+[1-9][0-9]{0,2}) (\\d\\d\\d\\d+))|((\\d\\d\\d\\d+)))$")
 	public String getPhone() {
-		return phone;
+		return this.phone;
 	}
 
-	public void setPhone(String phone) {
+	public void setPhone(final String phone) {
 		this.phone = phone;
 	}
 
 	@NotBlank
 	@URL
 	public String getLink() {
-		return link;
+		return this.link;
 	}
 
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 

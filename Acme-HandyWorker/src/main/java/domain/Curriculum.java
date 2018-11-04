@@ -22,7 +22,7 @@ public class Curriculum extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	ticker;
+	private String ticker;
 
 
 	@NotBlank
@@ -43,7 +43,7 @@ public class Curriculum extends DomainEntity {
 	private Collection<EducationRecord>		educationRecord;
 	private Collection<ProfessionalRecord>	professionalRecord;
 	private Collection<EndorserRecord>		endorserRecord;
-	private Collection<MiscellaneousRecord>	miscellaneousRecords;
+	private Collection<MiscellaneousRecord>	miscellaneousRecord;
 
 
 	@NotNull
@@ -93,11 +93,11 @@ public class Curriculum extends DomainEntity {
 	@NotNull
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<MiscellaneousRecord> getMiscellaneousRecords() {
-		return this.miscellaneousRecords;
+	public Collection<MiscellaneousRecord> getMiscellaneousRecord() {
+		return this.miscellaneousRecord;
 	}
 
-	public void setMiscellaneousRecords(final Collection<MiscellaneousRecord> miscellaneousRecords) {
-		this.miscellaneousRecords = miscellaneousRecords;
+	public void setMiscellaneousRecord(final Collection<MiscellaneousRecord> miscellaneousRecords) {
+		this.miscellaneousRecord = miscellaneousRecords;
 	}
 }

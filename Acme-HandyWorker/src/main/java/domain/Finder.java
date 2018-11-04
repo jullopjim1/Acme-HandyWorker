@@ -23,14 +23,14 @@ public class Finder extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String		keyword;
-	private String		namecategory;
-	private Double		priceMin;
-	private Double		priceMax;
-	private Date		dateMin;
-	private Date		dateMax;
-	private Warranty	namewarranty;
-	private Date		lastUpdate;
+	private String	keyword;
+	private String	namecategory;
+	private Double	priceMin;
+	private Double	priceMax;
+	private Date	dateMin;
+	private Date	dateMax;
+	private String	namewarranty;
+	private Date	lastUpdate;
 
 
 	@NotBlank
@@ -86,11 +86,11 @@ public class Finder extends DomainEntity {
 		this.dateMax = dateMax;
 	}
 
-	public Warranty getNamewarranty() {
+	public String getNamewarranty() {
 		return this.namewarranty;
 	}
 
-	public void setNamewarranty(final Warranty namewarranty) {
+	public void setNamewarranty(final String namewarranty) {
 		this.namewarranty = namewarranty;
 	}
 
@@ -106,7 +106,7 @@ public class Finder extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	// TODO
-	private Collection<FixUpTask>	fixUpTask;
+	private Collection<FixUpTask> fixUpTask;
 
 
 	@NotNull

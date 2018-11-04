@@ -20,7 +20,7 @@ public class HandyWorker extends Endorser {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	make;
+	private String make;
 
 
 	@NotBlank
@@ -52,6 +52,8 @@ public class HandyWorker extends Endorser {
 		this.finder = finder;
 	}
 
+	@Valid
+	@OneToOne(optional = true)
 	public Curriculum getCurriculum() {
 		return this.curriculum;
 	}
