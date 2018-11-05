@@ -1,4 +1,3 @@
-
 package domain;
 
 import java.util.Collection;
@@ -19,8 +18,7 @@ public class Category extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	name;
-
+	private String name;
 
 	@NotBlank
 	public String getName() {
@@ -31,13 +29,11 @@ public class Category extends DomainEntity {
 		this.name = name;
 	}
 
-
 	// Relationships ---------------------------------------------------------
 	// TODO
-	private Collection<Category>	subcategories;
-	private Category				rootcategory;
-	private Collection<FixUpTask>	fixUpTasks;
-
+	private Collection<Category> subcategories;
+	private Category rootcategory;
+	private Collection<FixUpTask> fixUpTasks;
 
 	@NotNull
 	@Valid
@@ -49,6 +45,7 @@ public class Category extends DomainEntity {
 	public void setSubcategories(final Collection<Category> subcategories) {
 		this.subcategories = subcategories;
 	}
+
 	@Valid
 	@ManyToOne(optional = true)
 	public Category getRootcategory() {
@@ -58,6 +55,7 @@ public class Category extends DomainEntity {
 	public void setRootcategory(final Category rootcategory) {
 		this.rootcategory = rootcategory;
 	}
+
 	@NotNull
 	@Valid
 	@OneToMany(mappedBy = "category")

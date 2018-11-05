@@ -108,9 +108,9 @@ public class FixUpTask extends DomainEntity {
 	private Collection<Application>	applications;
 
 
-	@NotNull
+	//TODO  @NotNull
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true) //TODO poner false
 	public Warranty getWarranty() {
 		return this.warranty;
 	}

@@ -72,7 +72,7 @@ public class Application extends DomainEntity {
 	private FixUpTask fixUpTask;
 	private HandyWorker handyWorker;
 
-	@ManyToOne(optional = true) //TODO poner a false
+	@ManyToOne(optional = false)
 	public FixUpTask getFixUpTask() {
 		return this.fixUpTask;
 	}
@@ -83,7 +83,7 @@ public class Application extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false) 
 	public HandyWorker getHandyWorker() {
 		return this.handyWorker;
 	}
