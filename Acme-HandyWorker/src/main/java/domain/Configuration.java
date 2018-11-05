@@ -21,7 +21,8 @@ public class Configuration extends DomainEntity {
 	// ATRIBUTOS
 	private int					varTax;
 	private int					countryCode;
-	private Collection<String>	welcomeMessage;
+	private String				welcomeMessageES;
+	private String				welcomeMessageEN;
 	private String				banner;
 	private Collection<String>	spamWords;
 	private int					finderCacheTime;
@@ -52,13 +53,22 @@ public class Configuration extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
-	@NotEmpty
-	public Collection<String> getWelcomeMessage() {
-		return this.welcomeMessage;
+	@NotBlank
+	public String getWelcomeMessageES() {
+		return this.welcomeMessageES;
 	}
 
-	public void setWelcomeMessage(final Collection<String> welcomeMessage) {
-		this.welcomeMessage = welcomeMessage;
+	public void setWelcomeMessageES(final String welcomeMessage) {
+		this.welcomeMessageES = welcomeMessage;
+	}
+
+	@NotBlank
+	public String getWelcomeMessageEN() {
+		return this.welcomeMessageEN;
+	}
+
+	public void setWelcomeMessageEN(final String welcomeMessage) {
+		this.welcomeMessageEN = welcomeMessage;
 	}
 
 	@NotBlank
