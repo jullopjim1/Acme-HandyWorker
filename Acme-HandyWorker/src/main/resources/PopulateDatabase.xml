@@ -593,7 +593,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="customer3" class="domain.Customer">
 		<property name="complaints">
 			<list>
@@ -631,7 +631,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<bean id="customer4" class="domain.Customer">
 		<property name="complaints">
 			<list>
@@ -668,6 +668,108 @@
 			<list>
 			</list>
 		</property>
+	</bean>
+
+	<!-- CREDIT CARD -->
+
+	<bean id="creditcard1" class="domain.CreditCard">
+		<property name="holderName" value="holderName1" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4172711227177926" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2021" />
+		<property name="CVVCode" value="111" />
+	</bean>
+	
+	<bean id="creditcard2" class="domain.CreditCard">
+		<property name="holderName" value="holderName2" />
+		<property name="brandName" value="MASTER" />
+		<property name="number" value="5545176232272269" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2022" />
+		<property name="CVVCode" value="222" />
+	</bean>
+	
+	<bean id="creditcard3" class="domain.CreditCard">
+		<property name="holderName" value="holderName3" />
+		<property name="brandName" value="DINNERS" />
+		<property name="number" value="38084454680414" />
+		<property name="expirationMonth" value="2" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="333" />
+	</bean>
+	
+	<bean id="creditcard4" class="domain.CreditCard">
+		<property name="holderName" value="holderName4" />
+		<property name="brandName" value="AMEX" />
+		<property name="number" value="374258474911460" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="444" />
+	</bean>
+
+	<!-- APPLICATION -->
+
+	<bean id="application1" class="domain.Application">
+		<property name="moment" value="2017/07/08 12:00" />
+		<property name="status" value="PENDING" />
+		<property name="price" value="20.0" />
+		<property name="comments">
+			<list>
+			</list>
+		</property>
+		<property name="fixUpTask">
+			<null />
+		</property>
+		<property name="handyWorker" ref="handyWorker1" />
+	</bean>
+	
+	<bean id="application2" class="domain.Application">
+		<property name="moment" value="2018/09/08 13:22" />
+		<property name="status" value="ACCEPTED" />
+		<property name="price" value="10.0" />
+		<property name="comments">
+			<list>
+			<value>Good application.</value>
+			<value>Not Bad.</value>
+			</list>
+		</property>
+		<property name="fixUpTask">
+			<null />
+		</property>
+		<property name="handyWorker" ref="handyWorker2" />
+	</bean>
+	
+	<bean id="application3" class="domain.Application">
+		<property name="moment" value="2018/10/08 13:22" />
+		<property name="status" value="ACCEPTED" />
+		<property name="price" value="22.0" />
+		<property name="comments">
+			<list>
+			<value>It works.</value>
+			<value>Sure.</value>
+			</list>
+		</property>
+		<property name="fixUpTask">
+			<null />
+		</property>
+		<property name="handyWorker" ref="handyWorker3" />
+	</bean>
+	
+	<bean id="application4" class="domain.Application">
+		<property name="moment" value="2018/01/02 11:12" />
+		<property name="status" value="REJECTED" />
+		<property name="price" value="5.0" />
+		<property name="comments">
+			<list>
+			<value>Bad application.</value>
+			<value>Ok.</value>
+			</list>
+		</property>
+		<property name="fixUpTask">
+			<null />
+		</property>
+		<property name="handyWorker" ref="handyWorker4" />
 	</bean>
 
 </beans>

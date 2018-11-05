@@ -36,7 +36,7 @@ public class WelcomeController extends AbstractController {
 		SimpleDateFormat formatter;
 		String moment;
 
-		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		moment = formatter.format(new Date());
 
 		result = new ModelAndView("welcome/index");
