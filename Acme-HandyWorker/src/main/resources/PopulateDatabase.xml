@@ -147,6 +147,56 @@
 		</property>
 	</bean>
 
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="55feb130be438e686ad6a80d12dd8g56" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount15" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="55feb130be438e686ad6a80d12dd8g98" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<bean id="userAccount16" class="security.UserAccount">
+		<property name="username" value="sponsor3" />
+		<property name="password" value="55feb130be438e686ad6a80d12dd8g10" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount17" class="security.UserAccount">
+		<property name="username" value="sponsor4" />
+		<property name="password" value="55feb130be438e686ad6a80d12dd8g99" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
 	<!-- PERSONAL RECORD -->
 
 	<bean id="personalRecord1" class="domain.PersonalRecord">
@@ -677,6 +727,8 @@
 		<property name="curriculum" ref="curriculum1" />
 		<property name="tutorials">
 			<list>
+				<ref bean="tutorial1" />
+
 			</list>
 		</property>
 		<property name="applications">
@@ -697,6 +749,7 @@
 		<property name="userAccount" ref="userAccount4" />
 		<property name="profiles">
 			<list>
+				<ref bean="profile3" />
 			</list>
 		</property>
 		<property name="folders">
@@ -722,6 +775,7 @@
 		<property name="curriculum" ref="curriculum2" />
 		<property name="tutorials">
 			<list>
+				<ref bean="tutorial3" />
 			</list>
 		</property>
 		<property name="applications">
@@ -740,6 +794,7 @@
 		<property name="userAccount" ref="userAccount5" />
 		<property name="profiles">
 			<list>
+				<ref bean="profile4" />
 			</list>
 		</property>
 		<property name="folders">
@@ -765,6 +820,7 @@
 		<property name="curriculum" ref="curriculum3" />
 		<property name="tutorials">
 			<list>
+				<ref bean="tutorial4" />
 			</list>
 		</property>
 		<property name="applications">
@@ -954,5 +1010,301 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- SPONSOR -->
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+			</list>
+		</property>
+		<property name="name" value="name6" />
+		<property name="middleName" value="middleName5" />
+		<property name="surname" value="surname5" />
+		<property name="photo" value="http://www.photo5.com" />
+		<property name="email" value="emailSponsor1@gmail.com" />
+		<property name="phone" value="650190444" />
+		<property name="address" value="adress5" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount13" />
+		<property name="profiles">
+			<list>
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship2" />
+			</list>
+		</property>
+		<property name="name" value="name7" />
+		<property name="middleName" value="middleName6" />
+		<property name="surname" value="surname5" />
+		<property name="photo" value="http://www.photo6.com" />
+		<property name="email" value="emailSponsor2@gmail.com" />
+		<property name="phone" value="650190487" />
+		<property name="address" value="adress6" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount15" />
+		<property name="profiles">
+			<list>
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor3" class="domain.Sponsor">
+		<property name="sponsorships">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="name10" />
+		<property name="middleName" value="middleName10" />
+		<property name="surname" value="surname10" />
+		<property name="photo" value="http://www.photo7.com" />
+		<property name="email" value="emailSponsor3@gmail.com" />
+		<property name="phone" value="650190409" />
+		<property name="address" value="adress7" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount16" />
+		<property name="profiles">
+			<list>
+				<ref bean="profile2" />
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor4" class="domain.Sponsor">
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship3" />
+				<ref bean="sponsorship4" />
+			</list>
+		</property>
+		<property name="name" value="name11" />
+		<property name="middleName" value="middleName11" />
+		<property name="surname" value="surname11" />
+		<property name="photo" value="http://www.photo8.com" />
+		<property name="email" value="emailSponsor4@gmail.com" />
+		<property name="phone" value="650190403" />
+		<property name="address" value="adress8" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount17" />
+		<property name="profiles">
+			<list>
+				<ref bean="profile1" />
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<!-- SPONSORSHIPS -->
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="banner" value="http://banner1.com" />
+		<property name="link" value="http://sponsorship1.com" />
+		<property name="creditcard" ref="creditcard3" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial1" />
+
+			</list>
+		</property>
+		<property name="sponsor" ref="sponsor1"></property>
+	</bean>
+
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="banner" value="http://banner2.com" />
+		<property name="link" value="http://sponsorship2.com" />
+		<property name="creditcard" ref="creditcard2" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial3" />
+			</list>
+		</property>
+		<property name="sponsor" ref="sponsor2" />
+	</bean>
+
+	<bean id="sponsorship3" class="domain.Sponsorship">
+		<property name="banner" value="http://banner3.com" />
+		<property name="link" value="http://sponsorship3.com" />
+		<property name="creditcard" ref="creditcard1" />
+		<property name="tutorials">
+			<list>
+				<ref bean="tutorial4" />
+			</list>
+		</property>
+		<property name="sponsor" ref="sponsor4" />
+	</bean>
+
+	<bean id="sponsorship4" class="domain.Sponsorship">
+		<property name="banner" value="http://banner4.com" />
+		<property name="link" value="http://sponsorship4.com" />
+		<property name="creditcard" ref="creditcard1" />
+		<property name="tutorials">
+			<list>
+			</list>
+		</property>
+		<property name="sponsor" ref="sponsor4" />
+	</bean>
+
+	<!-- PROFILE -->
+
+	<bean id="profile1" class="domain.Profile">
+		<property name="nick" value="nick1" />
+		<property name="name" value="name1" />
+		<property name="link" value="http://profile1.com" />
+		<property name="actor" ref="sponsor4" />
+	</bean>
+
+	<bean id="profile2" class="domain.Profile">
+		<property name="nick" value="nick2" />
+		<property name="name" value="name2" />
+		<property name="link" value="http://profile2.com" />
+		<property name="actor" ref="sponsor3" />
+	</bean>
+
+	<bean id="profile3" class="domain.Profile">
+		<property name="nick" value="nick3" />
+		<property name="name" value="name3" />
+		<property name="link" value="http://profile3.com" />
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+
+	<bean id="profile4" class="domain.Profile">
+		<property name="nick" value="nick4" />
+		<property name="name" value="name4" />
+		<property name="link" value="http://profile4.com" />
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+
+	<!-- TUTORIAL -->
+	<bean id="tutorial1" class="domain.Tutorial">
+		<property name="title" value="title1" />
+		<property name="moment" value="2017/01/02 12:12" />
+		<property name="summary" value="summary1" />
+		<property name="pictures" value="" />
+		<property name="sponsorship" ref="sponsorship1" />
+		<property name="handyWorker" ref="handyWorker1" />
+		<property name="sections">
+			<list>
+
+				<ref bean="section2" />
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="tutorial3" class="domain.Tutorial">
+		<property name="title" value="title3" />
+		<property name="moment" value="2017/01/09 12:12" />
+		<property name="summary" value="summary3" />
+		<property name="pictures" value="" />
+		<property name="sponsorship" ref="sponsorship2" />
+		<property name="handyWorker" ref="handyWorker2" />
+		<property name="sections">
+			<list>
+				<ref bean="section1" />
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="tutorial4" class="domain.Tutorial">
+		<property name="title" value="title4" />
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="summary" value="summary4" />
+		<property name="pictures" value="" />
+		<property name="sponsorship" ref="sponsorship3" />
+		<property name="handyWorker" ref="handyWorker3" />
+		<property name="sections">
+			<list>
+				<ref bean="section3" />
+			</list>
+		</property>
+	</bean>
+	<!-- SECTION -->
+	<bean id="section1" class="domain.Section">
+		<property name="title" value="title1" />
+		<property name="text" value="Text1" />
+		<property name="pictures" value="" />
+		<property name="position" value="2" />
+	</bean>
+
+	<bean id="section2" class="domain.Section">
+		<property name="title" value="title2" />
+		<property name="text" value="Text2" />
+		<property name="pictures" value="" />
+		<property name="position" value="3" />
+	</bean>
+
+	<bean id="section3" class="domain.Section">
+		<property name="title" value="title3" />
+		<property name="text" value="Text3" />
+		<property name="pictures" value="" />
+		<property name="position" value="4" />
+	</bean>
+
+
+	<!-- NOTE -->
+	<bean id="note1" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+	</bean>
+
+	<bean id="note2" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="mandatory2" />
+		<property name="mandatoryCommentCustomer" value="" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+	</bean>
+
+	<bean id="note3" class="domain.Note">
+		<property name="moment" value="2018/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="" />
+		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
+		<property name="comments" value="" />
+	</bean>
+
+	<bean id="note4" class="domain.Note">
+		<property name="moment" value="2017/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="comment1" />
+	</bean>
+
+	<bean id="note5" class="domain.Note">
+		<property name="moment" value="2017/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="mandatory2" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
+		<property name="comments" value="comments2" />
+	</bean>
+
 
 </beans>

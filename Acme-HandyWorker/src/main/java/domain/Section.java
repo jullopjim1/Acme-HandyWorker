@@ -1,16 +1,12 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -18,10 +14,10 @@ public class Section extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String				title;
-	private String				text;
-	private Collection<String>	pictures;
-	private int					position;
+	private String	title;
+	private String	text;
+	private String	pictures;
+	private int		position;
 
 
 	@NotBlank
@@ -42,13 +38,12 @@ public class Section extends DomainEntity {
 		this.text = text;
 	}
 
-	@ElementCollection
-	@URL
-	public Collection<String> getPictures() {
+	@NotNull
+	public String getPictures() {
 		return this.pictures;
 	}
 
-	public void setPictures(final Collection<String> pictures) {
+	public void setPictures(final String pictures) {
 		this.pictures = pictures;
 	}
 
