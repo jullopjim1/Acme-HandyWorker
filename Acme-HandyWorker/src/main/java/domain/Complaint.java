@@ -102,7 +102,6 @@ public class Complaint extends DomainEntity {
 	public void setCustomer(final Customer customer) {
 		this.customer = customer;
 	}
-
 	@NotNull
 	@Valid
 	@OneToOne(optional = true)
