@@ -121,9 +121,6 @@ public class Actor extends DomainEntity {
 	private UserAccount			usseAccount;
 	private Collection<Profile>	profiles;
 	private Collection<Folder>	folders;
-	private Collection<Message>	sentMessages;
-	private Collection<Message>	receivedMessages;
-
 
 	@NotNull
 	@Valid
@@ -145,27 +142,6 @@ public class Actor extends DomainEntity {
 
 	public void setProfiles(final Collection<Profile> profiles) {
 		this.profiles = profiles;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "sender")
-	public Collection<Message> getSentMessages() {
-		return this.sentMessages;
-	}
-
-	public void setSentMessages(final Collection<Message> sentMessages) {
-		this.sentMessages = sentMessages;
-	}
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "recipient")
-	public Collection<Message> getReceivedMessages() {
-		return this.receivedMessages;
-	}
-
-	public void setReceivedMessages(final Collection<Message> receivedMessages) {
-		this.receivedMessages = receivedMessages;
 	}
 
 	@NotNull

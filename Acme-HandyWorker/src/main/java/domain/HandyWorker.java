@@ -37,11 +37,10 @@ public class HandyWorker extends Endorser {
 	// TODO
 	private Finder					finder;
 	private Curriculum				curriculum;
-	private Collection<Tutorial>	tutorial;
+	private Collection<Tutorial>	tutorials;
 	private Collection<Application>	applications;
 
 
-	@NotNull
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = true)
 	public Finder getFinder() {
@@ -64,12 +63,12 @@ public class HandyWorker extends Endorser {
 
 	@Valid
 	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Tutorial> getTutorial() {
-		return this.tutorial;
+	public Collection<Tutorial> getTutorials() {
+		return this.tutorials;
 	}
 
-	public void setTutorial(final Collection<Tutorial> tutorial) {
-		this.tutorial = tutorial;
+	public void setTutorials(final Collection<Tutorial> tutorials) {
+		this.tutorials = tutorials;
 	}
 	@NotNull
 	@Valid

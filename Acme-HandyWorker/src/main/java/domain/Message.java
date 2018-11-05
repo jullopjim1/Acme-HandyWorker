@@ -1,13 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -83,20 +81,20 @@ public class Message extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private Collection<Folder>	folders;
+	private Folder	folder;
 	private Actor				sender;
 	private Actor				recipient;
 
 
 	@NotNull
 	@Valid
-	@ManyToMany
-	public Collection<Folder> getFolders() {
-		return this.folders;
+	@ManyToOne(optional = false)
+	public Folder getFolder() {
+		return this.folder;
 	}
 
-	public void setFolders(final Collection<Folder> folders) {
-		this.folders = folders;
+	public void setFolder(final Folder folder) {
+		this.folder = folder;
 	}
 
 	@NotNull
