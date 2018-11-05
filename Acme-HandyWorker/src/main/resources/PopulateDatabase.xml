@@ -50,6 +50,54 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="handyworker1" />
+		<property name="password" value="3d0e201c52a6e13f27d22b6777711541" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="handyworker2" />
+		<property name="password" value="549dbd77d30ecab6ca4c047cd795333f" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="handyworker3" />
+		<property name="password" value="94205d30655bf438096a01906a5988f5" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="handyworker4" />
+		<property name="password" value="966b4770f172f663f166901afd649c0e" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HANDY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 	<!-- PERSONAL RECORD -->
 
@@ -244,6 +292,180 @@
 		<property name="professionalRecord" ref="professionalRecord4" />
 		<property name="endorserRecord" ref="endorserRecord4" />
 		<property name="miscellaneousRecord" ref="miscellaneousRecord4" />
+	</bean>
+
+	<!-- HANDYWORKER -->
+
+	<bean id="handyWorker1" class="domain.HandyWorker">
+		<property name="make" value="make 1" />
+		<property name="finder">
+			<null />
+		</property>
+		<property name="curriculum" ref="curriculum1" />
+		<property name="tutorials">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="name1" />
+		<property name="middleName" value="middleName1" />
+		<property name="surname" value="surname1" />
+		<property name="photo" value="http://www.photo1.com" />
+		<property name="email" value="email1@gmail.com" />
+		<property name="phone" value="+34 666666666" />
+		<property name="address" value="adress1" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="profiles">
+			<list>
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+		<property name="score" value="0.0" />
+		<property name="writeEndorsements">
+			<list>
+			</list>
+		</property>
+		<property name="receivedEndorsements">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="handyWorker2" class="domain.HandyWorker">
+		<property name="make" value="make 2" />
+		<property name="finder">
+			<null />
+		</property>
+		<property name="curriculum" ref="curriculum2" />
+		<property name="tutorials">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="name2" />
+		<property name="middleName" value="middleName2" />
+		<property name="surname" value="surname2" />
+		<property name="photo" value="http://www.photo2.com" />
+		<property name="email" value="email2@gmail.com" />
+		<property name="phone" value="+34 555555555" />
+		<property name="address" value="adress2" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="profiles">
+			<list>
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+		<property name="score" value="1.0" />
+		<property name="writeEndorsements">
+			<list>
+			</list>
+		</property>
+		<property name="receivedEndorsements">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="handyWorker3" class="domain.HandyWorker">
+		<property name="make" value="make 3" />
+		<property name="finder">
+			<null />
+		</property>
+		<property name="curriculum" ref="curriculum3" />
+		<property name="tutorials">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="name3" />
+		<property name="middleName" value="middleName3" />
+		<property name="surname" value="surname3" />
+		<property name="photo" value="http://www.photo3.com" />
+		<property name="email" value="email3@gmail.com" />
+		<property name="phone" value="+34 444444444" />
+		<property name="address" value="adress3" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="profiles">
+			<list>
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+		<property name="score" value="2.0" />
+		<property name="writeEndorsements">
+			<list>
+			</list>
+		</property>
+		<property name="receivedEndorsements">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="handyWorker4" class="domain.HandyWorker">
+		<property name="make" value="make 4" />
+		<property name="finder">
+			<null />
+		</property>
+		<property name="curriculum" ref="curriculum4" />
+		<property name="tutorials">
+			<list>
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+			</list>
+		</property>
+		<property name="name" value="name4" />
+		<property name="middleName" value="middleName4" />
+		<property name="surname" value="surname4" />
+		<property name="photo" value="http://www.photo4.com" />
+		<property name="email" value="email4@gmail.com" />
+		<property name="phone" value="+34 333333333" />
+		<property name="address" value="adress4" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="profiles">
+			<list>
+			</list>
+		</property>
+		<property name="folders">
+			<list>
+			</list>
+		</property>
+		<property name="score" value="6.0" />
+		<property name="writeEndorsements">
+			<list>
+			</list>
+		</property>
+		<property name="receivedEndorsements">
+			<list>
+			</list>
+		</property>
 	</bean>
 
 </beans>

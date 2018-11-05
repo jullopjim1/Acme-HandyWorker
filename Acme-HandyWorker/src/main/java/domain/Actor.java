@@ -118,19 +118,19 @@ public class Actor extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private UserAccount			usseAccount;
+	private UserAccount			userAccount;
 	private Collection<Profile>	profiles;
 	private Collection<Folder>	folders;
 
 	@NotNull
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
-	public UserAccount getUsseAccount() {
-		return this.usseAccount;
+	public UserAccount getUserAccount() {
+		return this.userAccount;
 	}
 
-	public void setUsseAccount(final UserAccount usseAccount) {
-		this.usseAccount = usseAccount;
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 
 	@NotNull
