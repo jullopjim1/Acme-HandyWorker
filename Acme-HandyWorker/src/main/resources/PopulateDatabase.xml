@@ -686,7 +686,7 @@
 			</list>
 		</property>
 		<property name="fixUpTask" ref="fixuptask2" />
-		<property name="handyWorker" ref="handyWorker2" />
+		<property name="handyWorker" ref="handyWorker1" />
 	</bean>
 
 	<bean id="application3" class="domain.Application">
@@ -763,6 +763,8 @@
 		</property>
 		<property name="receivedEndorsements">
 			<list>
+				<ref bean = "endorsement1"/>
+				<ref bean = "endorsement2"/>
 			</list>
 		</property>
 	</bean>
@@ -801,7 +803,7 @@
 			<list>
 			</list>
 		</property>
-		<property name="score" value="1.0" />
+		<property name="score" value="0.0" />
 		<property name="writeEndorsements">
 			<list>
 			</list>
@@ -846,13 +848,14 @@
 			<list>
 			</list>
 		</property>
-		<property name="score" value="2.0" />
+		<property name="score" value="0.33" />
 		<property name="writeEndorsements">
 			<list>
 			</list>
 		</property>
 		<property name="receivedEndorsements">
 			<list>
+			<ref bean = "endorsement3"/>
 			</list>
 		</property>
 	</bean>
@@ -890,13 +893,14 @@
 			<list>
 			</list>
 		</property>
-		<property name="score" value="6.0" />
+		<property name="score" value="-1.0" />
 		<property name="writeEndorsements">
 			<list>
 			</list>
 		</property>
 		<property name="receivedEndorsements">
 			<list>
+			<ref bean = "endorsement4"/>
 			</list>
 		</property>
 	</bean>
@@ -1305,6 +1309,110 @@
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
 		<property name="comments" value="comments2" />
 	</bean>
+	
+	<!-- ENDORSEMENT -->
+	
+	
+	<bean id="endorsement1" class="domain.Endorsement">
+		<property name="moment" value="2019/10/0 12:00" />
+		<property name="comments" value="Fantástico, el acabado de la reforma es simplemente bello." />
+		<property name="score" value="1.0" />
+		<property name="endorser" ref="customer1" />
+		<property name="endorsee" ref="handyworker1" />		
+	</bean>
+	
+	<bean id="endorsement2" class="domain.Endorsement">
+		<property name="moment" value="2019/11/28 12:00" />
+		<property name="comments" value="Despues de la primera reforma no me esperaba lo que ha ocurrido, es todo un desastre.Simplemente horrible." />
+		<property name="score" value="-1.0" />
+		<property name="endorser" ref="customer1" />
+		<property name="endorsee" ref="handyworker1" />		
+	</bean>
+	
+	<bean id="endorsement3" class="domain.Endorsement">
+		<property name="moment" value="2019/11/28 13:00" />
+		<property name="comments" value="No me puedo poner ninguna queja. La reforma ha quedado muy bonita, el acabado es fantastico." />
+		<property name="score" value="0.33" />
+		<property name="endorser" ref="customer3" />
+		<property name="endorsee" ref="handyworker3" />		
+	</bean>
+	
+	<bean id="endorsement4" class="domain.Endorsement">
+		<property name="moment" value="2020/1/28 13:00" />
+		<property name="comments" value="Horrible, la reforma ha quedado horrible. No puedo estar menos conforme." />
+		<property name="score" value="-1" />
+		<property name="endorser" ref="custome4" />
+		<property name="endorsee" ref="handyworker4" />		
+	</bean>
+	
+	
+	<!-- CONFIGURATION -->
+
+	<bean id="Configuration1" class="domain.Configuration">
+		<property name="varTax" value="21" />
+		<property name="countryCode" value="+34" />
+		<property name="welcomeMessage">
+			<list>
+				<value>Welcome to Acme Handy
+Worker! Price, quality, and trust in a single place</value>
+<value>¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio</value>
+			</list>
+		</property>
+
+		<property name="banner" ref="https://tinyurl.com/acme-handy-worker-logo" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you've been selected</value>
+				<value>Nigeria</value>
+				<value>sexo</value>
+				<value>un millón</value>
+				<value>ha sido seleccionado</value>
+			</list>
+		</property>	
+		<property name="finderCacheTime" ref="1" />
+		<property name="finderMaxResults" ref="10" />
+		<property name="negativeWords" >
+			<list>
+				<value>not</value>
+				<value>no</value>
+				<value>bad</value>
+				<value>malo</value>
+				<value>mal</value>
+				<value>horrible</value>
+				<value>horroroso</value>
+				<value>average</value>
+				<value>mediocre</value>
+				<value>disaster</value>
+				<value>desastroso</value>
+				<value>desastre</value>
+			</list>
+		</property>	
+		<property name="positiveWords" >
+			<list>
+				<value>good</value>
+				<value>fantastic</value>
+				<value>excellent</value>
+				<value>great</value>
+				<value>amazing</value>
+				<value>terrific</value>
+				<value>beautiful</value>
+				<value>precioso</value>
+				<value>bello</value>
+				<value>tremendo</value>
+				<value>maravilloso</value>
+				<value>fantástico</value>
+				<value>excelente</value>
+				<value>bueno</value>
+				<value>increible</value>
+				<value>genial</value>
+			</list>
+		</property>		
+	</bean>
+
 
 
 </beans>

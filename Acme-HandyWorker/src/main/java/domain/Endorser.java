@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Endorser extends Actor {
+public abstract class Endorser extends Actor {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
