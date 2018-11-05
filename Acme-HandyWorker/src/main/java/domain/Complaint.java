@@ -103,7 +103,6 @@ public class Complaint extends DomainEntity {
 		this.customer = customer;
 	}
 
-	@NotNull
 	@Valid
 	@OneToOne(optional = true)
 	public Report getReport() {
