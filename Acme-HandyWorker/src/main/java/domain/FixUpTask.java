@@ -6,7 +6,6 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -102,15 +101,14 @@ public class FixUpTask extends DomainEntity {
 	//TODO
 	private Warranty				warranty;
 	private Category				category;
-	private Collection<Phase>		phases;
 	private Customer				customer;
 	private Collection<Complaint>	complaints;
-	private Collection<Application>	applications;
 
 
 	//TODO  @NotNull
 	@Valid
-	@ManyToOne(optional = true) //TODO poner false
+	@ManyToOne(optional = true)
+	//TODO poner false
 	public Warranty getWarranty() {
 		return this.warranty;
 	}
@@ -128,17 +126,6 @@ public class FixUpTask extends DomainEntity {
 
 	public void setCategory(final Category category) {
 		this.category = category;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Phase> getPhases() {
-		return this.phases;
-	}
-
-	public void setPhases(final Collection<Phase> phases) {
-		this.phases = phases;
 	}
 
 	@NotNull
@@ -161,17 +148,6 @@ public class FixUpTask extends DomainEntity {
 
 	public void setComplaints(final Collection<Complaint> complaints) {
 		this.complaints = complaints;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "fixUpTask")
-	public Collection<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(final Collection<Application> applications) {
-		this.applications = applications;
 	}
 
 }

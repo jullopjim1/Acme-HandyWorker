@@ -81,9 +81,9 @@ public class Message extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private Box	box;
-	private Actor				sender;
-	private Actor				recipient;
+	private Box		box;
+	private Actor	sender;
+	private Actor	recipient;
 
 
 	@NotNull

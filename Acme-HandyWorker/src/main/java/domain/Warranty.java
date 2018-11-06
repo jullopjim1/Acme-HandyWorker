@@ -1,11 +1,8 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
@@ -18,10 +15,10 @@ public class Warranty extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
-	private String				title;
-	private String				terms;
-	private Collection<String>	laws;
-	private boolean				isFinal;
+	private String	title;
+	private String	terms;
+	private String	laws;
+	private boolean	isFinal;
 
 
 	@NotBlank
@@ -43,12 +40,11 @@ public class Warranty extends DomainEntity {
 	}
 
 	@NotEmpty
-	@ElementCollection
-	public Collection<String> getLaws() {
+	public String getLaws() {
 		return this.laws;
 	}
 
-	public void setLaws(final Collection<String> laws) {
+	public void setLaws(final String laws) {
 		this.laws = laws;
 	}
 	@NotNull

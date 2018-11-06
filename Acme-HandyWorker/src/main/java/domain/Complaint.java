@@ -1,13 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -19,6 +17,7 @@ import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,10 +26,10 @@ public class Complaint extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String				ticker;
-	private Date				moment;
-	private String				description;
-	private Collection<String>	attachments;
+	private String	ticker;
+	private Date	moment;
+	private String	description;
+	private String	attachments;
 
 
 	@NotBlank
@@ -64,13 +63,13 @@ public class Complaint extends DomainEntity {
 		this.description = description;
 	}
 
-	@ElementCollection
 	@NotEmpty
-	public Collection<String> getAttachments() {
+	@URL
+	public String getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(final String attachments) {
 		this.attachments = attachments;
 	}
 

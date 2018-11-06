@@ -1,16 +1,12 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -20,7 +16,7 @@ public class HandyWorker extends Endorser {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String make;
+	private String	make;
 
 
 	@NotBlank
@@ -35,10 +31,8 @@ public class HandyWorker extends Endorser {
 
 	// Relationships ---------------------------------------------------------
 	// TODO
-	private Finder					finder;
-	private Curriculum				curriculum;
-	private Collection<Tutorial>	tutorials;
-	private Collection<Application>	applications;
+	private Finder		finder;
+	private Curriculum	curriculum;
 
 
 	@Valid
@@ -59,26 +53,6 @@ public class HandyWorker extends Endorser {
 
 	public void setCurriculum(final Curriculum curriculum) {
 		this.curriculum = curriculum;
-	}
-
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Tutorial> getTutorials() {
-		return this.tutorials;
-	}
-
-	public void setTutorials(final Collection<Tutorial> tutorials) {
-		this.tutorials = tutorials;
-	}
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "handyWorker")
-	public Collection<Application> getApplications() {
-		return this.applications;
-	}
-
-	public void setApplications(final Collection<Application> applications) {
-		this.applications = applications;
 	}
 
 }

@@ -44,22 +44,10 @@ public class Box extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	// TODO
-	private Collection<Message>	messages;
 	private Collection<Box>	subboxes;
 	private Box				rootbox;
-	private Actor				actor;
+	private Actor			actor;
 
-
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "box")
-	public Collection<Message> getMessages() {
-		return this.messages;
-	}
-
-	public void setMessages(final Collection<Message> messages) {
-		this.messages = messages;
-	}
 
 	@NotNull
 	@Valid

@@ -1,16 +1,12 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -27,10 +24,10 @@ public class Report extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
-	private Date				moment;
-	private String				description;
-	private Collection<String>	attachments;
-	private boolean				isFinal;
+	private Date	moment;
+	private String	description;
+	private String	attachments;
+	private boolean	isFinal;
 
 
 	@NotNull
@@ -54,12 +51,12 @@ public class Report extends DomainEntity {
 		this.description = description;
 	}
 
-	@ElementCollection
-	public Collection<String> getAttachments() {
+	@URL
+	public String getAttachments() {
 		return this.attachments;
 	}
 
-	public void setAttachments(final Collection<String> attachments) {
+	public void setAttachments(final String attachments) {
 		this.attachments = attachments;
 	}
 
@@ -75,19 +72,9 @@ public class Report extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private Collection<Note>	notes;
-	private Complaint			complaint;
-	private Referee				referee;
+	private Complaint	complaint;
+	private Referee		referee;
 
-
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Note> getNote() {
-		return this.notes;
-	}
-
-	public void setNote(final Collection<Note> notes) {
-		this.notes = notes;
-	}
 
 	@NotNull
 	@Valid

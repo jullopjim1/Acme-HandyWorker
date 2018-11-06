@@ -120,7 +120,6 @@ public class Actor extends DomainEntity {
 	//TODO
 	private UserAccount			userAccount;
 	private Collection<Profile>	profiles;
-	private Collection<Box>	boxes;
 
 
 	@NotNull
@@ -145,14 +144,4 @@ public class Actor extends DomainEntity {
 		this.profiles = profiles;
 	}
 
-	@NotNull
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "actor")
-	public Collection<Box> getBoxs() {
-		return this.boxes;
-	}
-
-	public void setBoxs(final Collection<Box> boxes) {
-		this.boxes = boxes;
-	}
 }
