@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Folder extends DomainEntity {
+public class Box extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
@@ -45,14 +45,14 @@ public class Folder extends DomainEntity {
 	// Relationships ---------------------------------------------------------
 	// TODO
 	private Collection<Message>	messages;
-	private Collection<Folder>	subfolders;
-	private Folder				rootfolder;
+	private Collection<Box>	subboxes;
+	private Box				rootbox;
 	private Actor				actor;
 
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "folder")
+	@OneToMany(mappedBy = "box")
 	public Collection<Message> getMessages() {
 		return this.messages;
 	}
@@ -63,23 +63,23 @@ public class Folder extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "rootfolder")
-	public Collection<Folder> getSubfolders() {
-		return this.subfolders;
+	@OneToMany(mappedBy = "rootbox")
+	public Collection<Box> getSubboxes() {
+		return this.subboxes;
 	}
 
-	public void setSubfolders(final Collection<Folder> subfolders) {
-		this.subfolders = subfolders;
+	public void setSubboxes(final Collection<Box> subboxes) {
+		this.subboxes = subboxes;
 	}
 
 	@Valid
 	@ManyToOne(optional = true)
-	public Folder getRootfolder() {
-		return this.rootfolder;
+	public Box getRootbox() {
+		return this.rootbox;
 	}
 
-	public void setRootfolder(final Folder rootfolder) {
-		this.rootfolder = rootfolder;
+	public void setRootbox(final Box rootbox) {
+		this.rootbox = rootbox;
 	}
 	@NotNull
 	@Valid

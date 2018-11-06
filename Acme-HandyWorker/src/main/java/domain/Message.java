@@ -81,7 +81,7 @@ public class Message extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private Folder	folder;
+	private Box	box;
 	private Actor				sender;
 	private Actor				recipient;
 
@@ -89,12 +89,12 @@ public class Message extends DomainEntity {
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
-	public Folder getFolder() {
-		return this.folder;
+	public Box getBox() {
+		return this.box;
 	}
 
-	public void setFolder(final Folder folder) {
-		this.folder = folder;
+	public void setBox(final Box box) {
+		this.box = box;
 	}
 
 	@NotNull
