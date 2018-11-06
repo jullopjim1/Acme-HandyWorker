@@ -122,6 +122,7 @@ public class Actor extends DomainEntity {
 	private Collection<Profile>	profiles;
 	private Collection<Folder>	folders;
 
+
 	@NotNull
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
@@ -135,7 +136,7 @@ public class Actor extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "actor")
+	@OneToMany()
 	public Collection<Profile> getProfiles() {
 		return this.profiles;
 	}

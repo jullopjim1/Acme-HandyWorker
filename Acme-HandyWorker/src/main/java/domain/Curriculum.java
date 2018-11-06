@@ -22,7 +22,7 @@ public class Curriculum extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
+	private String	ticker;
 
 
 	@NotBlank
@@ -48,7 +48,7 @@ public class Curriculum extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	public PersonalRecord getPersonalRecord() {
 		return this.personalRecord;
 	}

@@ -94,6 +94,8 @@ public class Finder extends DomainEntity {
 		this.namewarranty = namewarranty;
 	}
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getLastUpdate() {
 		return this.lastUpdate;
@@ -106,7 +108,7 @@ public class Finder extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	// TODO
-	private Collection<FixUpTask> fixUpTask;
+	private Collection<FixUpTask>	fixUpTask;
 
 
 	@NotNull
