@@ -819,7 +819,7 @@
 
 	<bean id="handyWorker1" class="domain.HandyWorker">
 		<property name="make" value="make 1" />
-		<property name="finder" ref="finder1"/>
+		<property name="finder" ref="finder1" />
 		<property name="curriculum" ref="curriculum1" />
 		<property name="tutorials">
 			<list>
@@ -859,15 +859,15 @@
 		</property>
 		<property name="receivedEndorsements">
 			<list>
-				<ref bean = "endorsement1"/>
-				<ref bean = "endorsement2"/>
+				<ref bean="endorsement1" />
+				<ref bean="endorsement2" />
 			</list>
 		</property>
 	</bean>
 
 	<bean id="handyWorker2" class="domain.HandyWorker">
 		<property name="make" value="make 2" />
-		<property name="finder" ref="finder2"/>
+		<property name="finder" ref="finder2" />
 		<property name="curriculum" ref="curriculum2" />
 		<property name="tutorials">
 			<list>
@@ -910,7 +910,7 @@
 
 	<bean id="handyWorker3" class="domain.HandyWorker">
 		<property name="make" value="make 3" />
-		<property name="finder" ref="finder3"/>
+		<property name="finder" ref="finder3" />
 		<property name="curriculum" ref="curriculum3" />
 		<property name="tutorials">
 			<list>
@@ -947,14 +947,14 @@
 		</property>
 		<property name="receivedEndorsements">
 			<list>
-			<ref bean = "endorsement3"/>
+				<ref bean="endorsement3" />
 			</list>
 		</property>
 	</bean>
 
 	<bean id="handyWorker4" class="domain.HandyWorker">
 		<property name="make" value="make 4" />
-		<property name="finder" ref="finder4"/>
+		<property name="finder" ref="finder4" />
 		<property name="curriculum" ref="curriculum4" />
 		<property name="tutorials">
 			<list>
@@ -990,7 +990,7 @@
 		</property>
 		<property name="receivedEndorsements">
 			<list>
-			<ref bean = "endorsement4"/>
+				<ref bean="endorsement4" />
 			</list>
 		</property>
 	</bean>
@@ -1399,52 +1399,60 @@
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
 		<property name="comments" value="comments2" />
 	</bean>
-	
+
 	<!-- ENDORSEMENT -->
-	
-	
+
+
 	<bean id="endorsement1" class="domain.Endorsement">
-		<property name="moment" value="2019/10/0 12:00" />
-		<property name="comments" value="Fantástico, el acabado de la reforma es simplemente bello." />
+		<property name="moment" value="2017/10/10 12:00" />
+		<property name="comments"
+			value="Fantástico, el acabado de la reforma es simplemente bello." />
 		<property name="score" value="1.0" />
 		<property name="endorser" ref="customer1" />
-		<property name="endorsee" ref="handyWorker1" />		
+		<property name="endorsee" ref="handyWorker1" />
 	</bean>
-	
+
 	<bean id="endorsement2" class="domain.Endorsement">
-		<property name="moment" value="2019/11/28 12:00" />
-		<property name="comments" value="Despues de la primera reforma no me esperaba lo que ha ocurrido, es todo un desastre.Simplemente horrible." />
+		<property name="moment" value="2017/11/28 12:00" />
+		<property name="comments"
+			value="Despues de la primera reforma no me esperaba lo que ha ocurrido, es todo un desastre.Simplemente horrible." />
 		<property name="score" value="-1.0" />
 		<property name="endorser" ref="customer1" />
-		<property name="endorsee" ref="handyWorker1" />		
+		<property name="endorsee" ref="handyWorker1" />
 	</bean>
-	
+
 	<bean id="endorsement3" class="domain.Endorsement">
-		<property name="moment" value="2019/11/28 13:00" />
-		<property name="comments" value="No me puedo poner ninguna queja. La reforma ha quedado muy bonita, el acabado es fantastico." />
+		<property name="moment" value="2017/11/28 13:00" />
+		<property name="comments"
+			value="No me puedo poner ninguna queja. La reforma ha quedado muy bonita, el acabado es fantastico." />
 		<property name="score" value="0.33" />
 		<property name="endorser" ref="customer3" />
-		<property name="endorsee" ref="handyWorker3" />		
+		<property name="endorsee" ref="handyWorker3" />
 	</bean>
-	
+
 	<bean id="endorsement4" class="domain.Endorsement">
-		<property name="moment" value="2020/1/28 13:00" />
-		<property name="comments" value="Horrible, la reforma ha quedado horrible. No puedo estar menos conforme." />
+		<property name="moment" value="2010/1/28 13:00" />
+		<property name="comments"
+			value="Horrible, la reforma ha quedado horrible. No puedo estar menos conforme." />
 		<property name="score" value="-1" />
-		<property name="endorser" ref="custome4" />
-		<property name="endorsee" ref="handyWorker4" />		
+		<property name="endorser" ref="customer4" />
+		<property name="endorsee" ref="handyWorker4" />
 	</bean>
-	
-	
+
+
 	<!-- CONFIGURATION -->
-<!-- Welcome to Acme Handy Worker! Price, quality, and trust in a single place -->
-<!-- ¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio -->
+	<!-- Welcome to Acme Handy Worker! Price, quality, and trust in a single 
+		place -->
+	<!-- ¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el 
+		mismo sitio -->
 	<bean id="Configuration1" class="domain.Configuration">
 		<property name="varTax" value="21" />
 		<property name="countryCode" value="+34" />
-		<property name="banner" ref="https://tinyurl.com/acme-handy-worker-logo" />
-		<property name="welcomeMessageEN" value="Welcome to Acme Handy Worker! Price, quality, and trust in a single place"/>
-		<property name="welcomeMessageES" value="¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio"/>
+		<property name="banner" value="https://tinyurl.com/acme-handy-worker-logo" />
+		<property name="welcomeMessageEN"
+			value="Welcome to Acme Handy Worker! Price, quality, and trust in a single place" />
+		<property name="welcomeMessageES"
+			value="¡Bienvenidos a Acme Handy Worker! Precio, calidad y confianza en el mismo sitio" />
 		<property name="spamWords">
 			<list>
 				<value>sex</value>
@@ -1457,10 +1465,10 @@
 				<value>un millón</value>
 				<value>ha sido seleccionado</value>
 			</list>
-		</property>	
-		<property name="finderCacheTime" ref="1" />
-		<property name="finderMaxResults" ref="10" />
-		<property name="negativeWords" >
+		</property>
+		<property name="finderCacheTime" value="1" />
+		<property name="finderMaxResults" value="10" />
+		<property name="negativeWords">
 			<list>
 				<value>not</value>
 				<value>no</value>
@@ -1475,8 +1483,8 @@
 				<value>desastroso</value>
 				<value>desastre</value>
 			</list>
-		</property>	
-		<property name="positiveWords" >
+		</property>
+		<property name="positiveWords">
 			<list>
 				<value>good</value>
 				<value>fantastic</value>
@@ -1495,7 +1503,7 @@
 				<value>increible</value>
 				<value>genial</value>
 			</list>
-		</property>		
+		</property>
 	</bean>
 
 
@@ -1825,7 +1833,7 @@
 	</bean>
 
 	<!-- REPORT -->
-	
+
 	<bean id="report1" class="domain.Report">
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="description" value="description1" />
@@ -1883,37 +1891,37 @@
 		<property name="referee" ref="referee3" />
 	</bean>
 
-<bean id="finder1" class="domain.Finder">
-	<property name="keyword" value="Fontanería"/>
-	<property name="priceMin" value="50.0"/>
-	<property name="fixUpTask">
-	<list></list>
-	</property>
-</bean>
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyword" value="Fontanería" />
+		<property name="priceMin" value="50.0" />
+		<property name="fixUpTask">
+			<list></list>
+		</property>
+	</bean>
 
-<bean id="finder2" class="domain.Finder">
-	<property name="keyword" value="Electricista"/>
-	<property name="priceMin" value="70.0"/>
-	<property name="fixUpTask">
-		<list></list>
-	</property>
-</bean>
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyword" value="Electricista" />
+		<property name="priceMin" value="70.0" />
+		<property name="fixUpTask">
+			<list></list>
+		</property>
+	</bean>
 
-<bean id="finder3" class="domain.Finder">
-	<property name="keyword" value="Mueble"/>
-	<property name="priceMin" value="120.0"/>
-	<property name="fixUpTask">
-	<list></list>
-	</property>
-</bean>
+	<bean id="finder3" class="domain.Finder">
+		<property name="keyword" value="Mueble" />
+		<property name="priceMin" value="120.0" />
+		<property name="fixUpTask">
+			<list></list>
+		</property>
+	</bean>
 
-<bean id="finder4" class="domain.Finder">
-	<property name="keyword" value="Mampostería"/>
-	<property name="priceMin" value="100.0"/>
-	<property name="fixUpTask">
-		<list></list>
-	</property>
-</bean>
+	<bean id="finder4" class="domain.Finder">
+		<property name="keyword" value="Mampostería" />
+		<property name="priceMin" value="100.0" />
+		<property name="fixUpTask">
+			<list></list>
+		</property>
+	</bean>
 
 
 
