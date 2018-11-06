@@ -118,22 +118,19 @@ public class Actor extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private UserAccount			usseAccount;
+	private UserAccount			userAccount;
 	private Collection<Profile>	profiles;
 	private Collection<Folder>	folders;
-	private Collection<Message>	sentMessages;
-	private Collection<Message>	receivedMessages;
-
 
 	@NotNull
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = false)
-	public UserAccount getUsseAccount() {
-		return this.usseAccount;
+	public UserAccount getUserAccount() {
+		return this.userAccount;
 	}
 
-	public void setUsseAccount(final UserAccount usseAccount) {
-		this.usseAccount = usseAccount;
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 
 	@NotNull
@@ -145,27 +142,6 @@ public class Actor extends DomainEntity {
 
 	public void setProfiles(final Collection<Profile> profiles) {
 		this.profiles = profiles;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "sender")
-	public Collection<Message> getSentMessages() {
-		return this.sentMessages;
-	}
-
-	public void setSentMessages(final Collection<Message> sentMessages) {
-		this.sentMessages = sentMessages;
-	}
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "recipient")
-	public Collection<Message> getReceivedMessages() {
-		return this.receivedMessages;
-	}
-
-	public void setReceivedMessages(final Collection<Message> receivedMessages) {
-		this.receivedMessages = receivedMessages;
 	}
 
 	@NotNull

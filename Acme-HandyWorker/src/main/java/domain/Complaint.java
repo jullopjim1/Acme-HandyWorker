@@ -45,7 +45,7 @@ public class Complaint extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getMoment() {
 		return this.moment;
@@ -102,7 +102,6 @@ public class Complaint extends DomainEntity {
 	public void setCustomer(final Customer customer) {
 		this.customer = customer;
 	}
-
 	@NotNull
 	@Valid
 	@OneToOne(optional = true)

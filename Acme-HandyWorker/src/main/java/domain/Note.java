@@ -28,7 +28,7 @@ public class Note extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getMoment() {
 		return this.moment;

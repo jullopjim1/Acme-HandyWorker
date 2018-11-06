@@ -1,8 +1,6 @@
 
 package domain;
 
-import javax.persistence.Access;
-import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -12,8 +10,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
 @Embeddable
-@Access(AccessType.PROPERTY)
-public class CreditCard extends DomainEntity {
+public class CreditCard {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
@@ -34,7 +31,7 @@ public class CreditCard extends DomainEntity {
 		this.holderName = holderName;
 	}
 
-	@Pattern(regexp = "^(VISA|MASTERCARD|DINNERS|AMEX)$")
+	@Pattern(regexp = "^(VISA|MASTER|DINNERS|AMEX)$")
 	public String getBrandName() {
 		return this.brandName;
 	}

@@ -35,7 +35,7 @@ public class Report extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getMoment() {
 		return this.moment;
@@ -64,29 +64,29 @@ public class Report extends DomainEntity {
 	}
 
 	@NotNull
-	public boolean isFinal() {
+	public boolean getIsFinal() {
 		return this.isFinal;
 	}
 
-	public void setFinal(final boolean isFinal) {
+	public void setIsFinal(final boolean isFinal) {
 		this.isFinal = isFinal;
 	}
 
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private Collection<Note>	note;
+	private Collection<Note>	notes;
 	private Complaint			complaint;
 	private Referee				referee;
 
 
 	@OneToMany(cascade = CascadeType.ALL)
 	public Collection<Note> getNote() {
-		return this.note;
+		return this.notes;
 	}
 
-	public void setNote(final Collection<Note> note) {
-		this.note = note;
+	public void setNote(final Collection<Note> notes) {
+		this.notes = notes;
 	}
 
 	@NotNull

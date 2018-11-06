@@ -1,10 +1,11 @@
-
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -22,16 +23,14 @@ public class Application extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Date	moment;
-	private String	status;
-	private double	price;
-	private String	customerComments;
-	private String	handyWorkerComments;
-
+	private Date moment;
+	private String status;
+	private double price;
+	private Collection<String> comments;
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getMoment() {
 		return this.moment;
@@ -58,28 +57,20 @@ public class Application extends DomainEntity {
 		this.price = price;
 	}
 
-	public String getCustomerComments() {
-		return this.customerComments;
+	@NotNull
+	@ElementCollection
+	public Collection<String> getComments() {
+		return this.comments;
 	}
 
-	public void setCustomerComments(final String customerComments) {
-		this.customerComments = customerComments;
+	public void setComments(final Collection<String> comments) {
+		this.comments = comments;
 	}
-
-	public String getHandyWorkerComments() {
-		return this.handyWorkerComments;
-	}
-
-	public void setHandyWorkerComments(final String handyWorkerComments) {
-		this.handyWorkerComments = handyWorkerComments;
-	}
-
 
 	// Relationships ---------------------------------------------------------
 	// TODO
-	private FixUpTask	fixUpTask;
-	private HandyWorker	handyWorker;
-
+	private FixUpTask fixUpTask;
+	private HandyWorker handyWorker;
 
 	@ManyToOne(optional = false)
 	public FixUpTask getFixUpTask() {
@@ -89,9 +80,10 @@ public class Application extends DomainEntity {
 	public void setFixUpTask(final FixUpTask fixUpTask) {
 		this.fixUpTask = fixUpTask;
 	}
+
 	@NotNull
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = false) 
 	public HandyWorker getHandyWorker() {
 		return this.handyWorker;
 	}

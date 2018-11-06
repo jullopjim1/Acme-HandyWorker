@@ -49,7 +49,7 @@ public class FixUpTask extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	@Past
 	public Date getMoment() {
 		return this.moment;
@@ -88,7 +88,7 @@ public class FixUpTask extends DomainEntity {
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm")
 	public Date getDeadline() {
 		return this.deadline;
 	}
@@ -108,9 +108,9 @@ public class FixUpTask extends DomainEntity {
 	private Collection<Application>	applications;
 
 
-	@NotNull
+	//TODO  @NotNull
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true) //TODO poner false
 	public Warranty getWarranty() {
 		return this.warranty;
 	}
