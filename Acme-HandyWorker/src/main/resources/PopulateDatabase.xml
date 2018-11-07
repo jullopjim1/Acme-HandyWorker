@@ -488,19 +488,14 @@
 		<property name="miscellaneousRecord" ref="miscellaneousRecord4" />
 	</bean>
 
-	
-	
 
-	
-	
+
+
+
+
 
 	<!-- SPONSOR -->
 	<bean id="sponsor1" class="domain.Sponsor">
-		<property name="sponsorships">
-			<list>
-				<ref bean="sponsorship1" />
-			</list>
-		</property>
 		<property name="name" value="name6" />
 		<property name="middleName" value="middleName5" />
 		<property name="surname" value="surname5" />
@@ -522,11 +517,6 @@
 	</bean>
 
 	<bean id="sponsor2" class="domain.Sponsor">
-		<property name="sponsorships">
-			<list>
-				<ref bean="sponsorship2" />
-			</list>
-		</property>
 		<property name="name" value="name7" />
 		<property name="middleName" value="middleName6" />
 		<property name="surname" value="surname5" />
@@ -548,10 +538,6 @@
 	</bean>
 
 	<bean id="sponsor3" class="domain.Sponsor">
-		<property name="sponsorships">
-			<list>
-			</list>
-		</property>
 		<property name="name" value="name10" />
 		<property name="middleName" value="middleName10" />
 		<property name="surname" value="surname10" />
@@ -574,12 +560,6 @@
 	</bean>
 
 	<bean id="sponsor4" class="domain.Sponsor">
-		<property name="sponsorships">
-			<list>
-				<ref bean="sponsorship3" />
-				<ref bean="sponsorship4" />
-			</list>
-		</property>
 		<property name="name" value="name11" />
 		<property name="middleName" value="middleName11" />
 		<property name="surname" value="surname11" />
@@ -606,24 +586,13 @@
 		<property name="banner" value="http://banner1.com" />
 		<property name="link" value="http://sponsorship1.com" />
 		<property name="creditcard" ref="creditcard3" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial1" />
-
-			</list>
-		</property>
-		<property name="sponsor" ref="sponsor1"></property>
+		<property name="sponsor" ref="sponsor1"/>
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
 		<property name="banner" value="http://banner2.com" />
 		<property name="link" value="http://sponsorship2.com" />
 		<property name="creditcard" ref="creditcard2" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial3" />
-			</list>
-		</property>
 		<property name="sponsor" ref="sponsor2" />
 	</bean>
 
@@ -631,11 +600,6 @@
 		<property name="banner" value="http://banner3.com" />
 		<property name="link" value="http://sponsorship3.com" />
 		<property name="creditcard" ref="creditcard1" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial4" />
-			</list>
-		</property>
 		<property name="sponsor" ref="sponsor4" />
 	</bean>
 
@@ -643,10 +607,6 @@
 		<property name="banner" value="http://banner4.com" />
 		<property name="link" value="http://sponsorship4.com" />
 		<property name="creditcard" ref="creditcard1" />
-		<property name="tutorials">
-			<list>
-			</list>
-		</property>
 		<property name="sponsor" ref="sponsor4" />
 	</bean>
 
@@ -685,7 +645,7 @@
 		<property name="title" value="title1" />
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="summary" value="summary1" />
-		<property name="pictures" value="" />
+		<property name="pictures" value="http://pictures3.com" />
 		<property name="sponsorship" ref="sponsorship1" />
 		<property name="handyWorker" ref="handyWorker1" />
 		<property name="sections">
@@ -701,7 +661,7 @@
 		<property name="title" value="title3" />
 		<property name="moment" value="2017/01/09 12:12" />
 		<property name="summary" value="summary3" />
-		<property name="pictures" value="" />
+		<property name="pictures" value="http://pictures1.com" />
 		<property name="sponsorship" ref="sponsorship2" />
 		<property name="handyWorker" ref="handyWorker2" />
 		<property name="sections">
@@ -716,7 +676,7 @@
 		<property name="title" value="title4" />
 		<property name="moment" value="2015/01/02 12:12" />
 		<property name="summary" value="summary4" />
-		<property name="pictures" value="" />
+		<property name="pictures" value="http://pictures2.com" />
 		<property name="sponsorship" ref="sponsorship3" />
 		<property name="handyWorker" ref="handyWorker3" />
 		<property name="sections">
@@ -725,25 +685,26 @@
 			</list>
 		</property>
 	</bean>
+	
 	<!-- SECTION -->
 	<bean id="section1" class="domain.Section">
 		<property name="title" value="title1" />
 		<property name="text" value="Text1" />
-		<property name="pictures" value="" />
+		<property name="pictures" value="http://pictures2.com" />
 		<property name="position" value="2" />
 	</bean>
 
 	<bean id="section2" class="domain.Section">
 		<property name="title" value="title2" />
 		<property name="text" value="Text2" />
-		<property name="pictures" value="" />
+		<property name="pictures" value="http://pictures3.com" />
 		<property name="position" value="3" />
 	</bean>
 
 	<bean id="section3" class="domain.Section">
 		<property name="title" value="title3" />
 		<property name="text" value="Text3" />
-		<property name="pictures" value="" />
+		<property name="pictures" value="http://pictures1.com" />
 		<property name="position" value="4" />
 	</bean>
 
@@ -755,6 +716,7 @@
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
+		<property name="report" value="report3" />
 	</bean>
 
 	<bean id="note2" class="domain.Note">
@@ -763,31 +725,18 @@
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
+		<property name="report" value="report1" />
 	</bean>
 
 	<bean id="note3" class="domain.Note">
 		<property name="moment" value="2018/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="" />
+		<property name="mandatoryCommentReferee" value="mandatory3" />
+		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
-		<property name="comments" value="" />
+		<property name="comments" value="comments3" />
+		<property name="report" value="report2" />
 	</bean>
 
-	<bean id="note4" class="domain.Note">
-		<property name="moment" value="2017/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-		<property name="comments" value="comment1" />
-	</bean>
-
-	<bean id="note5" class="domain.Note">
-		<property name="moment" value="2017/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="mandatory2" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
-		<property name="comments" value="comments2" />
-	</bean>
 
 	<!-- ENDORSEMENT -->
 
@@ -1098,12 +1047,7 @@
 		<property name="ticker" value="ticker1" />
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="description" value="description1" />
-		<property name="attachments">
-			<list>
-				<value>attachments1</value>
-				<value>attachments2</value>
-			</list>
-		</property>
+		<property name="attachments" value="http://www.attachments1.com" />
 		<property name="fixUpTask" ref="fixuptask1" />
 		<property name="customer" ref="customer1" />
 		<property name="report" ref="report1" />
@@ -1114,12 +1058,7 @@
 		<property name="ticker" value="ticker3" />
 		<property name="moment" value="2014/01/02 12:12" />
 		<property name="description" value="description1" />
-		<property name="attachments">
-			<list>
-				<value>attachments1</value>
-				<value>attachments2</value>
-			</list>
-		</property>
+		<property name="attachments" value="http://www.attachments2.com" />
 		<property name="fixUpTask" ref="fixuptask2" />
 		<property name="customer" ref="customer2" />
 		<property name="report" ref="report2" />
@@ -1130,12 +1069,7 @@
 		<property name="ticker" value="ticker2" />
 		<property name="moment" value="2015/01/02 12:12" />
 		<property name="description" value="description1" />
-		<property name="attachments">
-			<list>
-				<value>attachments1</value>
-				<value>attachments2</value>
-			</list>
-		</property>
+		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="fixUpTask" ref="fixuptask3" />
 		<property name="customer" ref="customer3" />
 		<property name="report" ref="report3" />
@@ -1146,48 +1080,28 @@
 	<bean id="warranty1" class="domain.Warranty">
 		<property name="title" value="title1" />
 		<property name="terms" value="terms1" />
-		<property name="laws">
-			<list>
-				<value>laws1</value>
-				<value>laws2</value>
-			</list>
-		</property>
+		<property name="laws" value="law3" />
 		<property name="isFinal" value="true" />
 	</bean>
 
 	<bean id="warranty2" class="domain.Warranty">
 		<property name="title" value="title2" />
 		<property name="terms" value="terms2" />
-		<property name="laws">
-			<list>
-				<value>laws1</value>
-				<value>laws2</value>
-			</list>
-		</property>
+		<property name="laws" value="law4" />
 		<property name="isFinal" value="false" />
 	</bean>
 
 	<bean id="warranty3" class="domain.Warranty">
 		<property name="title" value="title3" />
 		<property name="terms" value="terms3" />
-		<property name="laws">
-			<list>
-				<value>laws1</value>
-				<value>laws2</value>
-			</list>
-		</property>
+		<property name="laws" value="law2" />
 		<property name="isFinal" value="true" />
 	</bean>
 
 	<bean id="warranty4" class="domain.Warranty">
 		<property name="title" value="title4" />
 		<property name="terms" value="terms4" />
-		<property name="laws">
-			<list>
-				<value>laws1</value>
-				<value>laws2</value>
-			</list>
-		</property>
+		<property name="laws" value="law1" />
 		<property name="isFinal" value="false" />
 	</bean>
 
@@ -1198,6 +1112,7 @@
 		<property name="description" value="description1" />
 		<property name="startMoment" value="2020/01/02 12:12" />
 		<property name="endMoment" value="2021/01/02 12:12" />
+		<property name="fixUpTask" value="fixuptask3" />
 	</bean>
 
 	<bean id="phase2" class="domain.Phase">
@@ -1205,6 +1120,7 @@
 		<property name="description" value="description1" />
 		<property name="startMoment" value="2018/01/02 12:12" />
 		<property name="endMoment" value="2019/01/02 12:12" />
+		<property name="fixUpTask" value="fixuptask4" />
 	</bean>
 
 	<bean id="phase3" class="domain.Phase">
@@ -1212,6 +1128,7 @@
 		<property name="description" value="description1" />
 		<property name="startMoment" value="2018/01/02 12:12" />
 		<property name="endMoment" value="2018/07/02 12:12" />
+		<property name="fixUpTask" value="fixuptask2" />
 	</bean>
 
 	<bean id="phase4" class="domain.Phase">
@@ -1219,6 +1136,7 @@
 		<property name="description" value="description1" />
 		<property name="startMoment" value="2016/01/02 12:12" />
 		<property name="endMoment" value="2017/01/02 12:12" />
+		<property name="fixUpTask" value="fixuptask1" />
 	</bean>
 
 	<!-- REPORT -->
@@ -1226,18 +1144,8 @@
 	<bean id="report1" class="domain.Report">
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="description" value="description1" />
-		<property name="attachments">
-			<list>
-				<value>attachments1</value>
-				<value>attachments2</value>
-			</list>
-		</property>
+		<property name="attachments" value="http://www.attachments1.com" />
 		<property name="isFinal" value="true" />
-		<property name="note">
-			<list>
-				<ref bean="note1" />
-			</list>
-		</property>
 		<property name="complaint" ref="complaint1" />
 		<property name="referee" ref="referee1" />
 	</bean>
@@ -1245,18 +1153,8 @@
 	<bean id="report2" class="domain.Report">
 		<property name="moment" value="2016/01/02 12:12" />
 		<property name="description" value="description1" />
-		<property name="attachments">
-			<list>
-				<value>attachments1</value>
-				<value>attachments2</value>
-			</list>
-		</property>
+		<property name="attachments" value="http://www.attachments4.com" />
 		<property name="isFinal" value="false" />
-		<property name="note">
-			<list>
-				<ref bean="note2" />
-			</list>
-		</property>
 		<property name="complaint" ref="complaint2" />
 		<property name="referee" ref="referee2" />
 	</bean>
@@ -1264,22 +1162,13 @@
 	<bean id="report3" class="domain.Report">
 		<property name="moment" value="2018/01/02 12:12" />
 		<property name="description" value="description1" />
-		<property name="attachments">
-			<list>
-				<value>attachments1</value>
-				<value>attachments2</value>
-			</list>
-		</property>
+		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="isFinal" value="true" />
-		<property name="note">
-			<list>
-				<ref bean="note3" />
-			</list>
-		</property>
 		<property name="complaint" ref="complaint3" />
 		<property name="referee" ref="referee3" />
 	</bean>
 
+	<!-- FINDER -->
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="Fontanería" />
 		<property name="priceMin" value="50.0" />
@@ -1287,6 +1176,7 @@
 			<list></list>
 		</property>
 	</bean>
+
 
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyword" value="Electricista" />
@@ -1312,7 +1202,7 @@
 		</property>
 	</bean>
 
-<!-- CREDIT CARD -->
+	<!-- CREDIT CARD -->
 
 	<bean id="creditcard1" class="domain.CreditCard">
 		<property name="holderName" value="holderName1" />
@@ -1349,7 +1239,7 @@
 		<property name="expirationYear" value="2023" />
 		<property name="CVVCode" value="444" />
 	</bean>
-	
+
 	<!-- CUSTOMER -->
 
 	<bean id="customer1" class="domain.Customer">
@@ -1407,7 +1297,7 @@
 		<property name="userAccount" ref="userAccount11" />
 		<property name="score" value="11.5" />
 	</bean>
-	
+
 	<!-- CATEGORY -->
 
 	<bean id="rootCategory" class="domain.Category">
@@ -1454,7 +1344,7 @@
 			<ref bean="rootCategory" />
 		</property>
 	</bean>
-	
+
 	<!-- HANDYWORKER -->
 
 	<bean id="handyWorker1" class="domain.HandyWorker">
@@ -1574,7 +1464,7 @@
 		<property name="category" ref="category3" />
 		<property name="customer" ref="customer4" />
 	</bean>
-	
+
 	<!-- APPLICATION -->
 
 	<bean id="application1" class="domain.Application">
