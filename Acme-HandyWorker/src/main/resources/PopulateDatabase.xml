@@ -488,622 +488,11 @@
 		<property name="miscellaneousRecord" ref="miscellaneousRecord4" />
 	</bean>
 
-	<!-- CUSTOMER -->
+	
+	
 
-	<bean id="customer1" class="domain.Customer">
-		<property name="complaints">
-			<list>
-				<ref bean="complaint1" />
-			</list>
-		</property>
-		<property name="fixUpTasks">
-			<list>
-				<ref bean="fixuptask1" />
-				<ref bean="fixuptask2" />
-			</list>
-		</property>
-		<property name="name" value="name1" />
-		<property name="middleName" value="middleName1" />
-		<property name="surname" value="surname1" />
-		<property name="photo" value="http://www.photo1.com" />
-		<property name="email" value="email1@gmail.com" />
-		<property name="phone" value="+34 123456789" />
-		<property name="address" value="adress1" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount8" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="123.0" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="customer2" class="domain.Customer">
-		<property name="complaints">
-			<list>
-				<ref bean="complaint2" />
-			</list>
-		</property>
-		<property name="fixUpTasks">
-			<list>
-			</list>
-		</property>
-		<property name="name" value="name2" />
-		<property name="middleName" value="middleName2" />
-		<property name="surname" value="surname2" />
-		<property name="photo" value="http://www.photo2.com" />
-		<property name="email" value="email2@gmail.com" />
-		<property name="phone" value="+34 456431234" />
-		<property name="address" value="adress2" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount9" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="154.0" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="customer3" class="domain.Customer">
-		<property name="complaints">
-			<list>
-				<ref bean="complaint3" />
-			</list>
-		</property>
-		<property name="fixUpTasks">
-			<list>
-				<ref bean="fixuptask3" />
-			</list>
-		</property>
-		<property name="name" value="name3" />
-		<property name="middleName" value="middleName3" />
-		<property name="surname" value="surname3" />
-		<property name="photo" value="http://www.photo3.com" />
-		<property name="email" value="email3@gmail.com" />
-		<property name="phone" value="+34 654345687" />
-		<property name="address" value="adress3" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount10" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="432.0" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="customer4" class="domain.Customer">
-		<property name="complaints">
-			<list>
-			</list>
-		</property>
-		<property name="fixUpTasks">
-			<list>
-				<ref bean="fixuptask4" />
-			</list>
-		</property>
-		<property name="name" value="name4" />
-		<property name="middleName" value="middleName4" />
-		<property name="surname" value="surname4" />
-		<property name="photo" value="http://www.photo4.com" />
-		<property name="email" value="email4@gmail.com" />
-		<property name="phone" value="+34 765345412" />
-		<property name="address" value="adress4" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount11" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="11.5" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-
-	<!-- FIX UP TASK -->
-
-	<bean id="fixuptask1" class="domain.FixUpTask">
-		<property name="ticker" value="180921-12ABC3" />
-		<property name="moment" value="2018/09/21 11:12" />
-		<property name="description" value="description1" />
-		<property name="adress" value="adress1" />
-		<property name="maxPrice" value="20.0" />
-		<property name="deadline" value="2019/09/28 12:00" />
-		<property name="warranty" ref="warranty1" />
-		<property name="category" ref="rootCategory" />
-		<property name="phases">
-			<list>
-				<ref bean="phase3" />
-			</list>
-		</property>
-		<property name="customer" ref="customer1" />
-		<property name="complaints">
-			<list>
-				<ref bean="complaint1" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application1" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="fixuptask2" class="domain.FixUpTask">
-		<property name="ticker" value="181022-25874J" />
-		<property name="moment" value="2018/10/22 12:13" />
-		<property name="description" value="description2" />
-		<property name="adress" value="adress2" />
-		<property name="maxPrice" value="30.0" />
-		<property name="deadline" value="2019/10/28 12:00" />
-		<property name="warranty" ref="warranty1" />
-		<property name="category" ref="category1" />
-		<property name="phases">
-			<list>
-				<ref bean="phase1" />
-				<ref bean="phase2" />
-			</list>
-		</property>
-		<property name="customer" ref="customer2" />
-		<property name="complaints">
-			<list>
-				<ref bean="complaint2" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application2" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="fixuptask3" class="domain.FixUpTask">
-		<property name="ticker" value="180901-25GH4S" />
-		<property name="moment" value="2018/09/01 09:15" />
-		<property name="description" value="description3" />
-		<property name="adress" value="adress3" />
-		<property name="maxPrice" value="40.0" />
-		<property name="deadline" value="2019/11/28 13:00" />
-		<property name="warranty" ref="warranty2" />
-		<property name="category" ref="category2" />
-		<property name="phases">
-			<list>
-				<ref bean="phase4" />
-			</list>
-		</property>
-		<property name="customer" ref="customer3" />
-		<property name="complaints">
-			<list>
-				<ref bean="complaint3" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="fixuptask4" class="domain.FixUpTask">
-		<property name="ticker" value="180805-254GHS" />
-		<property name="moment" value="2018/08/05 09:45" />
-		<property name="description" value="description4" />
-		<property name="adress" value="adress4" />
-		<property name="maxPrice" value="43.0" />
-		<property name="deadline" value="2019/12/11 14:00" />
-		<property name="warranty" ref="warranty3" />
-		<property name="category" ref="category3" />
-		<property name="phases">
-			<list>
-			</list>
-		</property>
-		<property name="customer" ref="customer4" />
-		<property name="complaints">
-			<list>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application4" />
-			</list>
-		</property>
-	</bean>
-
-	<!-- APPLICATION -->
-
-	<bean id="application1" class="domain.Application">
-		<property name="moment" value="2017/07/08 12:00" />
-		<property name="status" value="PENDING" />
-		<property name="price" value="20.0" />
-		<property name="comments">
-			<list>
-			</list>
-		</property>
-		<property name="fixUpTask" ref="fixuptask1" />
-		<property name="handyWorker" ref="handyWorker1" />
-	</bean>
-
-	<bean id="application2" class="domain.Application">
-		<property name="moment" value="2018/09/08 13:22" />
-		<property name="status" value="ACCEPTED" />
-		<property name="price" value="10.0" />
-		<property name="comments">
-			<list>
-				<value>Good application.</value>
-				<value>Not Bad.</value>
-			</list>
-		</property>
-		<property name="fixUpTask" ref="fixuptask2" />
-		<property name="handyWorker" ref="handyWorker1" />
-	</bean>
-
-	<bean id="application3" class="domain.Application">
-		<property name="moment" value="2018/10/08 13:22" />
-		<property name="status" value="ACCEPTED" />
-		<property name="price" value="22.0" />
-		<property name="comments">
-			<list>
-				<value>It works.</value>
-				<value>Sure.</value>
-			</list>
-		</property>
-		<property name="fixUpTask" ref="fixuptask3" />
-		<property name="handyWorker" ref="handyWorker3" />
-	</bean>
-
-	<bean id="application4" class="domain.Application">
-		<property name="moment" value="2018/01/02 11:12" />
-		<property name="status" value="REJECTED" />
-		<property name="price" value="5.0" />
-		<property name="comments">
-			<list>
-				<value>Bad application.</value>
-				<value>Ok.</value>
-			</list>
-		</property>
-		<property name="fixUpTask" ref="fixuptask4" />
-		<property name="handyWorker" ref="handyWorker4" />
-	</bean>
-
-	<!-- HANDYWORKER -->
-
-	<bean id="handyWorker1" class="domain.HandyWorker">
-		<property name="make" value="make 1" />
-		<property name="finder" ref="finder1" />
-		<property name="curriculum" ref="curriculum1" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial1" />
-
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application1" />
-				<ref bean="application2" />
-			</list>
-		</property>
-		<property name="name" value="name1" />
-		<property name="middleName" value="middleName1" />
-		<property name="surname" value="surname1" />
-		<property name="photo" value="http://www.photo1.com" />
-		<property name="email" value="email1@gmail.com" />
-		<property name="phone" value="+34 666666666" />
-		<property name="address" value="adress1" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount4" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile3" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="0.0" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-				<ref bean="endorsement1" />
-				<ref bean="endorsement2" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="handyWorker2" class="domain.HandyWorker">
-		<property name="make" value="make 2" />
-		<property name="finder" ref="finder2" />
-		<property name="curriculum" ref="curriculum2" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial3" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-			</list>
-		</property>
-		<property name="name" value="name2" />
-		<property name="middleName" value="middleName2" />
-		<property name="surname" value="surname2" />
-		<property name="photo" value="http://www.photo2.com" />
-		<property name="email" value="email2@gmail.com" />
-		<property name="phone" value="+34 555555555" />
-		<property name="address" value="adress2" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount5" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile4" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="0.0" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="handyWorker3" class="domain.HandyWorker">
-		<property name="make" value="make 3" />
-		<property name="finder" ref="finder3" />
-		<property name="curriculum" ref="curriculum3" />
-		<property name="tutorials">
-			<list>
-				<ref bean="tutorial4" />
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application3" />
-			</list>
-		</property>
-		<property name="name" value="name3" />
-		<property name="middleName" value="middleName3" />
-		<property name="surname" value="surname3" />
-		<property name="photo" value="http://www.photo3.com" />
-		<property name="email" value="email3@gmail.com" />
-		<property name="phone" value="+34 444444444" />
-		<property name="address" value="adress3" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount6" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="0.33" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-				<ref bean="endorsement3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="handyWorker4" class="domain.HandyWorker">
-		<property name="make" value="make 4" />
-		<property name="finder" ref="finder4" />
-		<property name="curriculum" ref="curriculum4" />
-		<property name="tutorials">
-			<list>
-			</list>
-		</property>
-		<property name="applications">
-			<list>
-				<ref bean="application4" />
-			</list>
-		</property>
-		<property name="name" value="name4" />
-		<property name="middleName" value="middleName4" />
-		<property name="surname" value="surname4" />
-		<property name="photo" value="http://www.photo4.com" />
-		<property name="email" value="email4@gmail.com" />
-		<property name="phone" value="+34 333333333" />
-		<property name="address" value="adress4" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount7" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="score" value="-1.0" />
-		<property name="writeEndorsements">
-			<list>
-			</list>
-		</property>
-		<property name="receivedEndorsements">
-			<list>
-				<ref bean="endorsement4" />
-			</list>
-		</property>
-	</bean>
-
-
-	<!-- CREDIT CARD -->
-
-	<bean id="creditcard1" class="domain.CreditCard">
-		<property name="holderName" value="holderName1" />
-		<property name="brandName" value="VISA" />
-		<property name="number" value="4172711227177926" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2021" />
-		<property name="CVVCode" value="111" />
-	</bean>
-
-	<bean id="creditcard2" class="domain.CreditCard">
-		<property name="holderName" value="holderName2" />
-		<property name="brandName" value="MASTER" />
-		<property name="number" value="5545176232272269" />
-		<property name="expirationMonth" value="1" />
-		<property name="expirationYear" value="2022" />
-		<property name="CVVCode" value="222" />
-	</bean>
-
-	<bean id="creditcard3" class="domain.CreditCard">
-		<property name="holderName" value="holderName3" />
-		<property name="brandName" value="DINNERS" />
-		<property name="number" value="38084454680414" />
-		<property name="expirationMonth" value="2" />
-		<property name="expirationYear" value="2023" />
-		<property name="CVVCode" value="333" />
-	</bean>
-
-	<bean id="creditcard4" class="domain.CreditCard">
-		<property name="holderName" value="holderName4" />
-		<property name="brandName" value="AMEX" />
-		<property name="number" value="374258474911460" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="2023" />
-		<property name="CVVCode" value="444" />
-	</bean>
-
-
-
-
-
-	<!-- CATEGORY -->
-
-	<bean id="rootCategory" class="domain.Category">
-		<property name="name" value="rootCategory" />
-		<property name="subcategories">
-			<list>
-			</list>
-		</property>
-		<property name="rootcategory">
-			<null />
-		</property>
-		<property name="fixUpTasks">
-			<list>
-				<ref bean="fixuptask1" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="category1" class="domain.Category">
-		<property name="name" value="category1" />
-		<property name="subcategories">
-			<list>
-			</list>
-		</property>
-		<property name="rootcategory">
-			<ref bean="rootCategory" />
-		</property>
-		<property name="fixUpTasks">
-			<list>
-				<ref bean="fixuptask2" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="category3" class="domain.Category">
-		<property name="name" value="category3" />
-		<property name="subcategories">
-			<list>
-			</list>
-		</property>
-		<property name="rootcategory">
-			<ref bean="rootCategory" />
-		</property>
-		<property name="fixUpTasks">
-			<list>
-				<ref bean="fixuptask3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="category2" class="domain.Category">
-		<property name="name" value="category2" />
-		<property name="subcategories">
-			<list>
-				<ref bean="category3" />
-			</list>
-		</property>
-		<property name="rootcategory">
-			<ref bean="rootCategory" />
-		</property>
-		<property name="fixUpTasks">
-			<list>
-				<ref bean="fixuptask4" />
-			</list>
-		</property>
-	</bean>
+	
+	
 
 	<!-- SPONSOR -->
 	<bean id="sponsor1" class="domain.Sponsor">
@@ -1923,6 +1312,304 @@
 		</property>
 	</bean>
 
+<!-- CREDIT CARD -->
 
+	<bean id="creditcard1" class="domain.CreditCard">
+		<property name="holderName" value="holderName1" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4172711227177926" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2021" />
+		<property name="CVVCode" value="111" />
+	</bean>
 
+	<bean id="creditcard2" class="domain.CreditCard">
+		<property name="holderName" value="holderName2" />
+		<property name="brandName" value="MASTER" />
+		<property name="number" value="5545176232272269" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2022" />
+		<property name="CVVCode" value="222" />
+	</bean>
+
+	<bean id="creditcard3" class="domain.CreditCard">
+		<property name="holderName" value="holderName3" />
+		<property name="brandName" value="DINNERS" />
+		<property name="number" value="38084454680414" />
+		<property name="expirationMonth" value="2" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="333" />
+	</bean>
+
+	<bean id="creditcard4" class="domain.CreditCard">
+		<property name="holderName" value="holderName4" />
+		<property name="brandName" value="AMEX" />
+		<property name="number" value="374258474911460" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="444" />
+	</bean>
+	
+	<!-- CUSTOMER -->
+
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="name1" />
+		<property name="middleName" value="middleName1" />
+		<property name="surname" value="surname1" />
+		<property name="photo" value="http://www.photo1.com" />
+		<property name="email" value="email1@gmail.com" />
+		<property name="phone" value="+34 123456789" />
+		<property name="address" value="adress1" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount8" />
+		<property name="score" value="123.0" />
+	</bean>
+
+	<bean id="customer2" class="domain.Customer">
+		<property name="name" value="name2" />
+		<property name="middleName" value="middleName2" />
+		<property name="surname" value="surname2" />
+		<property name="photo" value="http://www.photo2.com" />
+		<property name="email" value="email2@gmail.com" />
+		<property name="phone" value="+34 456431234" />
+		<property name="address" value="adress2" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount9" />
+		<property name="score" value="154.0" />
+	</bean>
+
+	<bean id="customer3" class="domain.Customer">
+		<property name="name" value="name3" />
+		<property name="middleName" value="middleName3" />
+		<property name="surname" value="surname3" />
+		<property name="photo" value="http://www.photo3.com" />
+		<property name="email" value="email3@gmail.com" />
+		<property name="phone" value="+34 654345687" />
+		<property name="address" value="adress3" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount10" />
+		<property name="score" value="432.0" />
+	</bean>
+
+	<bean id="customer4" class="domain.Customer">
+		<property name="name" value="name4" />
+		<property name="middleName" value="middleName4" />
+		<property name="surname" value="surname4" />
+		<property name="photo" value="http://www.photo4.com" />
+		<property name="email" value="email4@gmail.com" />
+		<property name="phone" value="+34 765345412" />
+		<property name="address" value="adress4" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount11" />
+		<property name="score" value="11.5" />
+	</bean>
+	
+	<!-- CATEGORY -->
+
+	<bean id="rootCategory" class="domain.Category">
+		<property name="name" value="rootCategory" />
+		<property name="subcategories">
+			<list>
+			</list>
+		</property>
+		<property name="rootcategory">
+			<null />
+		</property>
+	</bean>
+
+	<bean id="category1" class="domain.Category">
+		<property name="name" value="category1" />
+		<property name="subcategories">
+			<list>
+			</list>
+		</property>
+		<property name="rootcategory">
+			<ref bean="rootCategory" />
+		</property>
+	</bean>
+
+	<bean id="category3" class="domain.Category">
+		<property name="name" value="category3" />
+		<property name="subcategories">
+			<list>
+			</list>
+		</property>
+		<property name="rootcategory">
+			<ref bean="rootCategory" />
+		</property>
+	</bean>
+
+	<bean id="category2" class="domain.Category">
+		<property name="name" value="category2" />
+		<property name="subcategories">
+			<list>
+				<ref bean="category3" />
+			</list>
+		</property>
+		<property name="rootcategory">
+			<ref bean="rootCategory" />
+		</property>
+	</bean>
+	
+	<!-- HANDYWORKER -->
+
+	<bean id="handyWorker1" class="domain.HandyWorker">
+		<property name="make" value="make 1" />
+		<property name="finder" ref="finder1" />
+		<property name="curriculum" ref="curriculum1" />
+		<property name="name" value="name1" />
+		<property name="middleName" value="middleName1" />
+		<property name="surname" value="surname1" />
+		<property name="photo" value="http://www.photo1.com" />
+		<property name="email" value="email1@gmail.com" />
+		<property name="phone" value="+34 666666666" />
+		<property name="address" value="adress1" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="score" value="0.0" />
+	</bean>
+
+	<bean id="handyWorker2" class="domain.HandyWorker">
+		<property name="make" value="make 2" />
+		<property name="finder" ref="finder2" />
+		<property name="curriculum" ref="curriculum2" />
+		<property name="name" value="name2" />
+		<property name="middleName" value="middleName2" />
+		<property name="surname" value="surname2" />
+		<property name="photo" value="http://www.photo2.com" />
+		<property name="email" value="email2@gmail.com" />
+		<property name="phone" value="+34 555555555" />
+		<property name="address" value="adress2" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="score" value="0.0" />
+	</bean>
+
+	<bean id="handyWorker3" class="domain.HandyWorker">
+		<property name="make" value="make 3" />
+		<property name="finder" ref="finder3" />
+		<property name="curriculum" ref="curriculum3" />
+		<property name="name" value="name3" />
+		<property name="middleName" value="middleName3" />
+		<property name="surname" value="surname3" />
+		<property name="photo" value="http://www.photo3.com" />
+		<property name="email" value="email3@gmail.com" />
+		<property name="phone" value="+34 444444444" />
+		<property name="address" value="adress3" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="score" value="0.33" />
+	</bean>
+
+	<bean id="handyWorker4" class="domain.HandyWorker">
+		<property name="make" value="make 4" />
+		<property name="finder" ref="finder4" />
+		<property name="curriculum" ref="curriculum4" />
+		<property name="name" value="name4" />
+		<property name="middleName" value="middleName4" />
+		<property name="surname" value="surname4" />
+		<property name="photo" value="http://www.photo4.com" />
+		<property name="email" value="email4@gmail.com" />
+		<property name="phone" value="+34 333333333" />
+		<property name="address" value="adress4" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="score" value="-1.0" />
+	</bean>
+
+	<!-- FIX UP TASK -->
+
+	<bean id="fixuptask1" class="domain.FixUpTask">
+		<property name="ticker" value="180921-12ABC3" />
+		<property name="moment" value="2018/09/21 11:12" />
+		<property name="description" value="description1" />
+		<property name="adress" value="adress1" />
+		<property name="maxPrice" value="20.0" />
+		<property name="deadline" value="2019/09/28 12:00" />
+		<property name="warranty" ref="warranty1" />
+		<property name="category" ref="rootCategory" />
+		<property name="customer" ref="customer1" />
+	</bean>
+
+	<bean id="fixuptask2" class="domain.FixUpTask">
+		<property name="ticker" value="181022-25874J" />
+		<property name="moment" value="2018/10/22 12:13" />
+		<property name="description" value="description2" />
+		<property name="adress" value="adress2" />
+		<property name="maxPrice" value="30.0" />
+		<property name="deadline" value="2019/10/28 12:00" />
+		<property name="warranty" ref="warranty2" />
+		<property name="category" ref="category1" />
+		<property name="customer" ref="customer2" />
+	</bean>
+
+	<bean id="fixuptask3" class="domain.FixUpTask">
+		<property name="ticker" value="180901-25GH4S" />
+		<property name="moment" value="2018/09/01 09:15" />
+		<property name="description" value="description3" />
+		<property name="adress" value="adress3" />
+		<property name="maxPrice" value="40.0" />
+		<property name="deadline" value="2019/11/28 13:00" />
+		<property name="warranty" ref="warranty3" />
+		<property name="category" ref="category2" />
+		<property name="customer" ref="customer3" />
+	</bean>
+
+	<bean id="fixuptask4" class="domain.FixUpTask">
+		<property name="ticker" value="180805-254GHS" />
+		<property name="moment" value="2018/08/05 09:45" />
+		<property name="description" value="description4" />
+		<property name="adress" value="adress4" />
+		<property name="maxPrice" value="43.0" />
+		<property name="deadline" value="2019/12/11 14:00" />
+		<property name="warranty" ref="warranty4" />
+		<property name="category" ref="category3" />
+		<property name="customer" ref="customer4" />
+	</bean>
+	
+	<!-- APPLICATION -->
+
+	<bean id="application1" class="domain.Application">
+		<property name="moment" value="2017/07/08 12:00" />
+		<property name="status" value="PENDING" />
+		<property name="price" value="20.0" />
+		<property name="comments" value="comments1" />
+		<property name="fixUpTask" ref="fixuptask1" />
+		<property name="handyWorker" ref="handyWorker1" />
+	</bean>
+
+	<bean id="application2" class="domain.Application">
+		<property name="moment" value="2018/09/08 13:22" />
+		<property name="status" value="ACCEPTED" />
+		<property name="price" value="10.0" />
+		<property name="comments" value="comments2" />
+		<property name="fixUpTask" ref="fixuptask2" />
+		<property name="handyWorker" ref="handyWorker1" />
+	</bean>
+
+	<bean id="application3" class="domain.Application">
+		<property name="moment" value="2018/10/08 13:22" />
+		<property name="status" value="ACCEPTED" />
+		<property name="price" value="22.0" />
+		<property name="comments" value="comments3" />
+		<property name="fixUpTask" ref="fixuptask3" />
+		<property name="handyWorker" ref="handyWorker3" />
+	</bean>
+
+	<bean id="application4" class="domain.Application">
+		<property name="moment" value="2018/01/02 11:12" />
+		<property name="status" value="REJECTED" />
+		<property name="price" value="5.0" />
+		<property name="comments" value="comments4" />
+		<property name="fixUpTask" ref="fixuptask4" />
+		<property name="handyWorker" ref="handyWorker4" />
+	</bean>
 </beans>

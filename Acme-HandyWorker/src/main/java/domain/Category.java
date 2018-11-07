@@ -33,7 +33,6 @@ public class Category extends DomainEntity {
 	// TODO
 	private Collection<Category> subcategories;
 	private Category rootcategory;
-	private Collection<FixUpTask> fixUpTasks;
 
 	@NotNull
 	@Valid
@@ -54,16 +53,5 @@ public class Category extends DomainEntity {
 
 	public void setRootcategory(final Category rootcategory) {
 		this.rootcategory = rootcategory;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(mappedBy = "category")
-	public Collection<FixUpTask> getFixUpTasks() {
-		return this.fixUpTasks;
-	}
-
-	public void setFixUpTasks(final Collection<FixUpTask> fixUpTasks) {
-		this.fixUpTasks = fixUpTasks;
 	}
 }
