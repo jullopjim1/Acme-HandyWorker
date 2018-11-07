@@ -1,13 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -118,8 +115,7 @@ public class Actor extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	//TODO
-	private UserAccount			userAccount;
-	private Collection<Profile>	profiles;
+	private UserAccount userAccount;
 
 
 	@NotNull
@@ -131,17 +127,6 @@ public class Actor extends DomainEntity {
 
 	public void setUserAccount(final UserAccount userAccount) {
 		this.userAccount = userAccount;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany()
-	public Collection<Profile> getProfiles() {
-		return this.profiles;
-	}
-
-	public void setProfiles(final Collection<Profile> profiles) {
-		this.profiles = profiles;
 	}
 
 }

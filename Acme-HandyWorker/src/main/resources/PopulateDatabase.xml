@@ -197,53 +197,6 @@
 		</property>
 	</bean>
 
-	<bean id="userAccount19" class="security.UserAccount">
-		<property name="username" value="administrator1" />
-		<property name="password" value="55feb130be438e686ad6a80d12dd8g04" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount20" class="security.UserAccount">
-		<property name="username" value="administrator2" />
-		<property name="password" value="55feb130be438e686ad6a80d12dd8g08" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount21" class="security.UserAccount">
-		<property name="username" value="administrator3" />
-		<property name="password" value="55feb130be438e686ad6a80d12dd8g98" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount22" class="security.UserAccount">
-		<property name="username" value="administrator4" />
-		<property name="password" value="55feb130be438e686ad6a80d12dd8g96" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-			</list>
-		</property>
-	</bean>
 
 	<bean id="userAccount23" class="security.UserAccount">
 		<property name="username" value="referee1" />
@@ -292,6 +245,276 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- ADMINISTRATOR -->
+	<bean id="admin" class="domain.Administrator">
+		<property name="name" value="Admin" />
+		<property name="middleName" value="middleName19" />
+		<property name="surname" value="surname19" />
+		<property name="photo" value="http://www.photo12.com" />
+		<property name="email" value="emailadministrator1@gmail.com" />
+		<property name="phone" value="650190124" />
+		<property name="address" value="adress10" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+
+	<!-- CUSTOMER -->
+
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="name1" />
+		<property name="middleName" value="middleName1" />
+		<property name="surname" value="surname1" />
+		<property name="photo" value="http://www.photo1.com" />
+		<property name="email" value="email1@gmail.com" />
+		<property name="phone" value="+34 123456789" />
+		<property name="address" value="adress1" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount8" />
+		<property name="score" value="123.0" />
+	</bean>
+
+	<bean id="customer2" class="domain.Customer">
+		<property name="name" value="name2" />
+		<property name="middleName" value="middleName2" />
+		<property name="surname" value="surname2" />
+		<property name="photo" value="http://www.photo2.com" />
+		<property name="email" value="email2@gmail.com" />
+		<property name="phone" value="+34 456431234" />
+		<property name="address" value="adress2" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount9" />
+		<property name="score" value="154.0" />
+	</bean>
+
+	<bean id="customer3" class="domain.Customer">
+		<property name="name" value="name3" />
+		<property name="middleName" value="middleName3" />
+		<property name="surname" value="surname3" />
+		<property name="photo" value="http://www.photo3.com" />
+		<property name="email" value="email3@gmail.com" />
+		<property name="phone" value="+34 654345687" />
+		<property name="address" value="adress3" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount10" />
+		<property name="score" value="432.0" />
+	</bean>
+
+	<bean id="customer4" class="domain.Customer">
+		<property name="name" value="name4" />
+		<property name="middleName" value="middleName4" />
+		<property name="surname" value="surname4" />
+		<property name="photo" value="http://www.photo4.com" />
+		<property name="email" value="email4@gmail.com" />
+		<property name="phone" value="+34 765345412" />
+		<property name="address" value="adress4" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount11" />
+		<property name="score" value="11.5" />
+	</bean>
+
+	<!-- HANDYWORKER -->
+
+	<bean id="handyWorker1" class="domain.HandyWorker">
+		<property name="make" value="make 1" />
+		<property name="finder" ref="finder1" />
+		<property name="curriculum" ref="curriculum1" />
+		<property name="name" value="name1" />
+		<property name="middleName" value="middleName1" />
+		<property name="surname" value="surname1" />
+		<property name="photo" value="http://www.photo1.com" />
+		<property name="email" value="email1@gmail.com" />
+		<property name="phone" value="+34 666666666" />
+		<property name="address" value="adress1" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="score" value="0.0" />
+	</bean>
+
+	<bean id="handyWorker2" class="domain.HandyWorker">
+		<property name="make" value="make 2" />
+		<property name="finder" ref="finder2" />
+		<property name="curriculum" ref="curriculum2" />
+		<property name="name" value="name2" />
+		<property name="middleName" value="middleName2" />
+		<property name="surname" value="surname2" />
+		<property name="photo" value="http://www.photo2.com" />
+		<property name="email" value="email2@gmail.com" />
+		<property name="phone" value="+34 555555555" />
+		<property name="address" value="adress2" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="score" value="0.0" />
+	</bean>
+
+	<bean id="handyWorker3" class="domain.HandyWorker">
+		<property name="make" value="make 3" />
+		<property name="finder" ref="finder3" />
+		<property name="curriculum" ref="curriculum3" />
+		<property name="name" value="name3" />
+		<property name="middleName" value="middleName3" />
+		<property name="surname" value="surname3" />
+		<property name="photo" value="http://www.photo3.com" />
+		<property name="email" value="email3@gmail.com" />
+		<property name="phone" value="+34 444444444" />
+		<property name="address" value="adress3" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="score" value="0.33" />
+	</bean>
+
+	<bean id="handyWorker4" class="domain.HandyWorker">
+		<property name="make" value="make 4" />
+		<property name="finder" ref="finder4" />
+		<property name="curriculum" ref="curriculum4" />
+		<property name="name" value="name4" />
+		<property name="middleName" value="middleName4" />
+		<property name="surname" value="surname4" />
+		<property name="photo" value="http://www.photo4.com" />
+		<property name="email" value="email4@gmail.com" />
+		<property name="phone" value="+34 333333333" />
+		<property name="address" value="adress4" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="score" value="-1.0" />
+	</bean>
+
+	<!-- SPONSOR -->
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="name" value="name6" />
+		<property name="middleName" value="middleName5" />
+		<property name="surname" value="surname5" />
+		<property name="photo" value="http://www.photo5.com" />
+		<property name="email" value="emailSponsor1@gmail.com" />
+		<property name="phone" value="650190444" />
+		<property name="address" value="adress5" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount13" />
+	</bean>
+
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="name7" />
+		<property name="middleName" value="middleName6" />
+		<property name="surname" value="surname5" />
+		<property name="photo" value="http://www.photo6.com" />
+		<property name="email" value="emailSponsor2@gmail.com" />
+		<property name="phone" value="650190487" />
+		<property name="address" value="adress6" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount15" />
+	</bean>
+
+	<bean id="sponsor3" class="domain.Sponsor">
+		<property name="name" value="name10" />
+		<property name="middleName" value="middleName10" />
+		<property name="surname" value="surname10" />
+		<property name="photo" value="http://www.photo7.com" />
+		<property name="email" value="emailSponsor3@gmail.com" />
+		<property name="phone" value="650190409" />
+		<property name="address" value="adress7" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount16" />
+	</bean>
+
+	<bean id="sponsor4" class="domain.Sponsor">
+		<property name="name" value="name11" />
+		<property name="middleName" value="middleName11" />
+		<property name="surname" value="surname11" />
+		<property name="photo" value="http://www.photo8.com" />
+		<property name="email" value="emailSponsor4@gmail.com" />
+		<property name="phone" value="650190403" />
+		<property name="address" value="adress8" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount17" />
+	</bean>
+
+
+	<!-- REFEREE -->
+
+	<bean id="referee1" class="domain.Referee">
+		<property name="name" value="name34" />
+		<property name="middleName" value="middleName34" />
+		<property name="surname" value="surname34" />
+		<property name="photo" value="http://www.photo15.com" />
+		<property name="email" value="emailreferee1@gmail.com" />
+		<property name="phone" value="650190123" />
+		<property name="address" value="adress16" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount23" />
+		<property name="reports">
+			<list>
+				<ref bean="report1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="referee2" class="domain.Referee">
+		<property name="name" value="name87" />
+		<property name="middleName" value="middleName87" />
+		<property name="surname" value="surname87" />
+		<property name="photo" value="http://www.photo27.com" />
+		<property name="email" value="emailreferee2@gmail.com" />
+		<property name="phone" value="650190120" />
+		<property name="address" value="adress96" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount24" />
+		<property name="reports">
+			<list>
+				<ref bean="report2" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="referee3" class="domain.Referee">
+		<property name="name" value="name56" />
+		<property name="middleName" value="middleName56" />
+		<property name="surname" value="surname56" />
+		<property name="photo" value="http://www.photo89.com" />
+		<property name="email" value="emailreferee3@gmail.com" />
+		<property name="phone" value="650190123" />
+		<property name="address" value="adress100" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount25" />
+		<property name="reports">
+			<list>
+				<ref bean="report3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="referee4" class="domain.Referee">
+		<property name="name" value="name190" />
+		<property name="middleName" value="middleName190" />
+		<property name="surname" value="surname190" />
+		<property name="photo" value="http://www.photo120.com" />
+		<property name="email" value="emailreferee4@gmail.com" />
+		<property name="phone" value="650190107" />
+		<property name="address" value="adress10" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="true" />
+		<property name="userAccount" ref="userAccount26" />
+		<property name="reports">
+			<list>
+			</list>
+		</property>
+	</bean>
+
 
 	<!-- PERSONAL RECORD -->
 
@@ -488,105 +711,12 @@
 		<property name="miscellaneousRecord" ref="miscellaneousRecord4" />
 	</bean>
 
-
-
-
-
-
-
-	<!-- SPONSOR -->
-	<bean id="sponsor1" class="domain.Sponsor">
-		<property name="name" value="name6" />
-		<property name="middleName" value="middleName5" />
-		<property name="surname" value="surname5" />
-		<property name="photo" value="http://www.photo5.com" />
-		<property name="email" value="emailSponsor1@gmail.com" />
-		<property name="phone" value="650190444" />
-		<property name="address" value="adress5" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount13" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="sponsor2" class="domain.Sponsor">
-		<property name="name" value="name7" />
-		<property name="middleName" value="middleName6" />
-		<property name="surname" value="surname5" />
-		<property name="photo" value="http://www.photo6.com" />
-		<property name="email" value="emailSponsor2@gmail.com" />
-		<property name="phone" value="650190487" />
-		<property name="address" value="adress6" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount15" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="sponsor3" class="domain.Sponsor">
-		<property name="name" value="name10" />
-		<property name="middleName" value="middleName10" />
-		<property name="surname" value="surname10" />
-		<property name="photo" value="http://www.photo7.com" />
-		<property name="email" value="emailSponsor3@gmail.com" />
-		<property name="phone" value="650190409" />
-		<property name="address" value="adress7" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount16" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile2" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="sponsor4" class="domain.Sponsor">
-		<property name="name" value="name11" />
-		<property name="middleName" value="middleName11" />
-		<property name="surname" value="surname11" />
-		<property name="photo" value="http://www.photo8.com" />
-		<property name="email" value="emailSponsor4@gmail.com" />
-		<property name="phone" value="650190403" />
-		<property name="address" value="adress8" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount17" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile1" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
-
 	<!-- SPONSORSHIPS -->
 	<bean id="sponsorship1" class="domain.Sponsorship">
 		<property name="banner" value="http://banner1.com" />
 		<property name="link" value="http://sponsorship1.com" />
 		<property name="creditcard" ref="creditcard3" />
-		<property name="sponsor" ref="sponsor1"/>
+		<property name="sponsor" ref="sponsor1" />
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
@@ -685,7 +815,7 @@
 			</list>
 		</property>
 	</bean>
-	
+
 	<!-- SECTION -->
 	<bean id="section1" class="domain.Section">
 		<property name="title" value="title1" />
@@ -708,6 +838,35 @@
 		<property name="position" value="4" />
 	</bean>
 
+	<!-- REPORT -->
+
+	<bean id="report1" class="domain.Report">
+		<property name="moment" value="2017/01/02 12:12" />
+		<property name="description" value="description1" />
+		<property name="attachments" value="http://www.attachments1.com" />
+		<property name="isFinal" value="true" />
+		<property name="complaint" ref="complaint1" />
+		<property name="referee" ref="referee1" />
+	</bean>
+
+	<bean id="report2" class="domain.Report">
+		<property name="moment" value="2016/01/02 12:12" />
+		<property name="description" value="description1" />
+		<property name="attachments" value="http://www.attachments4.com" />
+		<property name="isFinal" value="false" />
+		<property name="complaint" ref="complaint2" />
+		<property name="referee" ref="referee2" />
+	</bean>
+
+	<bean id="report3" class="domain.Report">
+		<property name="moment" value="2018/01/02 12:12" />
+		<property name="description" value="description1" />
+		<property name="attachments" value="http://www.attachments3.com" />
+		<property name="isFinal" value="true" />
+		<property name="complaint" ref="complaint3" />
+		<property name="referee" ref="referee3" />
+	</bean>
+
 
 	<!-- NOTE -->
 	<bean id="note1" class="domain.Note">
@@ -716,7 +875,7 @@
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
-		<property name="report" value="report3" />
+		<property name="report" ref="report3" />
 	</bean>
 
 	<bean id="note2" class="domain.Note">
@@ -725,7 +884,7 @@
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
-		<property name="report" value="report1" />
+		<property name="report" ref="report1" />
 	</bean>
 
 	<bean id="note3" class="domain.Note">
@@ -734,9 +893,8 @@
 		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
 		<property name="comments" value="comments3" />
-		<property name="report" value="report2" />
+		<property name="report" ref="report2" />
 	</bean>
-
 
 	<!-- ENDORSEMENT -->
 
@@ -845,200 +1003,8 @@
 	</bean>
 
 
-	<!-- ADMINISTRATOR -->
-	<bean id="administrator1" class="domain.Administrator">
-		<property name="name" value="name19" />
-		<property name="middleName" value="middleName19" />
-		<property name="surname" value="surname19" />
-		<property name="photo" value="http://www.photo12.com" />
-		<property name="email" value="emailadministrator1@gmail.com" />
-		<property name="phone" value="650190124" />
-		<property name="address" value="adress10" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount19" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
 
-	<bean id="administrator2" class="domain.Administrator">
-		<property name="name" value="name20" />
-		<property name="middleName" value="middleName20" />
-		<property name="surname" value="surname20" />
-		<property name="photo" value="http://www.photo13.com" />
-		<property name="email" value="emailadministrator2@gmail.com" />
-		<property name="phone" value="650190178" />
-		<property name="address" value="adress11" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount20" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile2" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
 
-	<bean id="administrator3" class="domain.Administrator">
-		<property name="name" value="name22" />
-		<property name="middleName" value="middleName22" />
-		<property name="surname" value="surname22" />
-		<property name="photo" value="http://www.photo13.com" />
-		<property name="email" value="emailadministrator3@gmail.com" />
-		<property name="phone" value="650190121" />
-		<property name="address" value="adress14" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount21" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile3" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="administrator4" class="domain.Administrator">
-		<property name="name" value="name23" />
-		<property name="middleName" value="middleName23" />
-		<property name="surname" value="surname23" />
-		<property name="photo" value="http://www.photo15.com" />
-		<property name="email" value="emailadministrator4@gmail.com" />
-		<property name="phone" value="650190185" />
-		<property name="address" value="adress17" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount22" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile1" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-	</bean>
-
-	<!-- REFEREE -->
-
-	<bean id="referee1" class="domain.Referee">
-		<property name="name" value="name34" />
-		<property name="middleName" value="middleName34" />
-		<property name="surname" value="surname34" />
-		<property name="photo" value="http://www.photo15.com" />
-		<property name="email" value="emailreferee1@gmail.com" />
-		<property name="phone" value="650190123" />
-		<property name="address" value="adress16" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount23" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile2" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="reports">
-			<list>
-				<ref bean="report1" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="referee2" class="domain.Referee">
-		<property name="name" value="name87" />
-		<property name="middleName" value="middleName87" />
-		<property name="surname" value="surname87" />
-		<property name="photo" value="http://www.photo27.com" />
-		<property name="email" value="emailreferee2@gmail.com" />
-		<property name="phone" value="650190120" />
-		<property name="address" value="adress96" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount24" />
-		<property name="profiles">
-			<list>
-				<ref bean="profile4" />
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="reports">
-			<list>
-				<ref bean="report2" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="referee3" class="domain.Referee">
-		<property name="name" value="name56" />
-		<property name="middleName" value="middleName56" />
-		<property name="surname" value="surname56" />
-		<property name="photo" value="http://www.photo89.com" />
-		<property name="email" value="emailreferee3@gmail.com" />
-		<property name="phone" value="650190123" />
-		<property name="address" value="adress100" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount25" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="reports">
-			<list>
-				<ref bean="report3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="referee4" class="domain.Referee">
-		<property name="name" value="name190" />
-		<property name="middleName" value="middleName190" />
-		<property name="surname" value="surname190" />
-		<property name="photo" value="http://www.photo120.com" />
-		<property name="email" value="emailreferee4@gmail.com" />
-		<property name="phone" value="650190107" />
-		<property name="address" value="adress10" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount26" />
-		<property name="profiles">
-			<list>
-			</list>
-		</property>
-		<property name="boxes">
-			<list>
-			</list>
-		</property>
-		<property name="reports">
-			<list>
-			</list>
-		</property>
-	</bean>
 
 
 
@@ -1103,69 +1069,6 @@
 		<property name="terms" value="terms4" />
 		<property name="laws" value="law1" />
 		<property name="isFinal" value="false" />
-	</bean>
-
-	<!-- PHASE -->
-
-	<bean id="phase1" class="domain.Phase">
-		<property name="title" value="title1" />
-		<property name="description" value="description1" />
-		<property name="startMoment" value="2020/01/02 12:12" />
-		<property name="endMoment" value="2021/01/02 12:12" />
-		<property name="fixUpTask" value="fixuptask3" />
-	</bean>
-
-	<bean id="phase2" class="domain.Phase">
-		<property name="title" value="title1" />
-		<property name="description" value="description1" />
-		<property name="startMoment" value="2018/01/02 12:12" />
-		<property name="endMoment" value="2019/01/02 12:12" />
-		<property name="fixUpTask" value="fixuptask4" />
-	</bean>
-
-	<bean id="phase3" class="domain.Phase">
-		<property name="title" value="title1" />
-		<property name="description" value="description1" />
-		<property name="startMoment" value="2018/01/02 12:12" />
-		<property name="endMoment" value="2018/07/02 12:12" />
-		<property name="fixUpTask" value="fixuptask2" />
-	</bean>
-
-	<bean id="phase4" class="domain.Phase">
-		<property name="title" value="title1" />
-		<property name="description" value="description1" />
-		<property name="startMoment" value="2016/01/02 12:12" />
-		<property name="endMoment" value="2017/01/02 12:12" />
-		<property name="fixUpTask" value="fixuptask1" />
-	</bean>
-
-	<!-- REPORT -->
-
-	<bean id="report1" class="domain.Report">
-		<property name="moment" value="2017/01/02 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments1.com" />
-		<property name="isFinal" value="true" />
-		<property name="complaint" ref="complaint1" />
-		<property name="referee" ref="referee1" />
-	</bean>
-
-	<bean id="report2" class="domain.Report">
-		<property name="moment" value="2016/01/02 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments4.com" />
-		<property name="isFinal" value="false" />
-		<property name="complaint" ref="complaint2" />
-		<property name="referee" ref="referee2" />
-	</bean>
-
-	<bean id="report3" class="domain.Report">
-		<property name="moment" value="2018/01/02 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments3.com" />
-		<property name="isFinal" value="true" />
-		<property name="complaint" ref="complaint3" />
-		<property name="referee" ref="referee3" />
 	</bean>
 
 	<!-- FINDER -->
@@ -1240,63 +1143,7 @@
 		<property name="CVVCode" value="444" />
 	</bean>
 
-	<!-- CUSTOMER -->
 
-	<bean id="customer1" class="domain.Customer">
-		<property name="name" value="name1" />
-		<property name="middleName" value="middleName1" />
-		<property name="surname" value="surname1" />
-		<property name="photo" value="http://www.photo1.com" />
-		<property name="email" value="email1@gmail.com" />
-		<property name="phone" value="+34 123456789" />
-		<property name="address" value="adress1" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount8" />
-		<property name="score" value="123.0" />
-	</bean>
-
-	<bean id="customer2" class="domain.Customer">
-		<property name="name" value="name2" />
-		<property name="middleName" value="middleName2" />
-		<property name="surname" value="surname2" />
-		<property name="photo" value="http://www.photo2.com" />
-		<property name="email" value="email2@gmail.com" />
-		<property name="phone" value="+34 456431234" />
-		<property name="address" value="adress2" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount9" />
-		<property name="score" value="154.0" />
-	</bean>
-
-	<bean id="customer3" class="domain.Customer">
-		<property name="name" value="name3" />
-		<property name="middleName" value="middleName3" />
-		<property name="surname" value="surname3" />
-		<property name="photo" value="http://www.photo3.com" />
-		<property name="email" value="email3@gmail.com" />
-		<property name="phone" value="+34 654345687" />
-		<property name="address" value="adress3" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount10" />
-		<property name="score" value="432.0" />
-	</bean>
-
-	<bean id="customer4" class="domain.Customer">
-		<property name="name" value="name4" />
-		<property name="middleName" value="middleName4" />
-		<property name="surname" value="surname4" />
-		<property name="photo" value="http://www.photo4.com" />
-		<property name="email" value="email4@gmail.com" />
-		<property name="phone" value="+34 765345412" />
-		<property name="address" value="adress4" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount11" />
-		<property name="score" value="11.5" />
-	</bean>
 
 	<!-- CATEGORY -->
 
@@ -1345,75 +1192,6 @@
 		</property>
 	</bean>
 
-	<!-- HANDYWORKER -->
-
-	<bean id="handyWorker1" class="domain.HandyWorker">
-		<property name="make" value="make 1" />
-		<property name="finder" ref="finder1" />
-		<property name="curriculum" ref="curriculum1" />
-		<property name="name" value="name1" />
-		<property name="middleName" value="middleName1" />
-		<property name="surname" value="surname1" />
-		<property name="photo" value="http://www.photo1.com" />
-		<property name="email" value="email1@gmail.com" />
-		<property name="phone" value="+34 666666666" />
-		<property name="address" value="adress1" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount4" />
-		<property name="score" value="0.0" />
-	</bean>
-
-	<bean id="handyWorker2" class="domain.HandyWorker">
-		<property name="make" value="make 2" />
-		<property name="finder" ref="finder2" />
-		<property name="curriculum" ref="curriculum2" />
-		<property name="name" value="name2" />
-		<property name="middleName" value="middleName2" />
-		<property name="surname" value="surname2" />
-		<property name="photo" value="http://www.photo2.com" />
-		<property name="email" value="email2@gmail.com" />
-		<property name="phone" value="+34 555555555" />
-		<property name="address" value="adress2" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount5" />
-		<property name="score" value="0.0" />
-	</bean>
-
-	<bean id="handyWorker3" class="domain.HandyWorker">
-		<property name="make" value="make 3" />
-		<property name="finder" ref="finder3" />
-		<property name="curriculum" ref="curriculum3" />
-		<property name="name" value="name3" />
-		<property name="middleName" value="middleName3" />
-		<property name="surname" value="surname3" />
-		<property name="photo" value="http://www.photo3.com" />
-		<property name="email" value="email3@gmail.com" />
-		<property name="phone" value="+34 444444444" />
-		<property name="address" value="adress3" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="false" />
-		<property name="userAccount" ref="userAccount6" />
-		<property name="score" value="0.33" />
-	</bean>
-
-	<bean id="handyWorker4" class="domain.HandyWorker">
-		<property name="make" value="make 4" />
-		<property name="finder" ref="finder4" />
-		<property name="curriculum" ref="curriculum4" />
-		<property name="name" value="name4" />
-		<property name="middleName" value="middleName4" />
-		<property name="surname" value="surname4" />
-		<property name="photo" value="http://www.photo4.com" />
-		<property name="email" value="email4@gmail.com" />
-		<property name="phone" value="+34 333333333" />
-		<property name="address" value="adress4" />
-		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
-		<property name="userAccount" ref="userAccount7" />
-		<property name="score" value="-1.0" />
-	</bean>
 
 	<!-- FIX UP TASK -->
 
@@ -1462,8 +1240,43 @@
 		<property name="deadline" value="2019/12/11 14:00" />
 		<property name="warranty" ref="warranty4" />
 		<property name="category" ref="category3" />
-		<property name="customer" ref="customer4" />
+		<property name="customer" ref="customer3" />
 	</bean>
+
+	<!-- PHASE -->
+
+	<bean id="phase1" class="domain.Phase">
+		<property name="title" value="title1" />
+		<property name="description" value="description1" />
+		<property name="startMoment" value="2020/01/02 12:12" />
+		<property name="endMoment" value="2021/01/02 12:12" />
+		<property name="fixUpTask" ref="fixuptask3" />
+	</bean>
+
+	<bean id="phase2" class="domain.Phase">
+		<property name="title" value="title1" />
+		<property name="description" value="description1" />
+		<property name="startMoment" value="2018/01/02 12:12" />
+		<property name="endMoment" value="2019/01/02 12:12" />
+		<property name="fixUpTask" ref="fixuptask4" />
+	</bean>
+
+	<bean id="phase3" class="domain.Phase">
+		<property name="title" value="title1" />
+		<property name="description" value="description1" />
+		<property name="startMoment" value="2018/01/02 12:12" />
+		<property name="endMoment" value="2018/07/02 12:12" />
+		<property name="fixUpTask" ref="fixuptask2" />
+	</bean>
+
+	<bean id="phase4" class="domain.Phase">
+		<property name="title" value="title1" />
+		<property name="description" value="description1" />
+		<property name="startMoment" value="2016/01/02 12:12" />
+		<property name="endMoment" value="2017/01/02 12:12" />
+		<property name="fixUpTask" ref="fixuptask1" />
+	</bean>
+
 
 	<!-- APPLICATION -->
 
