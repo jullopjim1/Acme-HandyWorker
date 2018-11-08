@@ -87,5 +87,4 @@ public class ProfessionalRecord extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 }

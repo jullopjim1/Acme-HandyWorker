@@ -16,7 +16,7 @@ public class HandyWorker extends Endorser {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	make;
+	private String make;
 
 
 	@NotBlank
@@ -30,7 +30,6 @@ public class HandyWorker extends Endorser {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 	private Finder		finder;
 	private Curriculum	curriculum;
 

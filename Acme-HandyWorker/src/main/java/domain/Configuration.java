@@ -129,5 +129,4 @@ public class Configuration extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 }

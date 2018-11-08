@@ -13,6 +13,5 @@ public class Customer extends Endorser {
 	// ATRIBUTOS
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 
 }

@@ -73,7 +73,6 @@ public class Tutorial extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 	private Collection<Section>	sections;
 	private Sponsorship			sponsorship;
 	private HandyWorker			handyWorker;

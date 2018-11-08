@@ -73,5 +73,4 @@ public class PersonalRecord extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 }

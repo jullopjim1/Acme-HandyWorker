@@ -68,7 +68,6 @@ public class Application extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 	private FixUpTask	fixUpTask;
 	private HandyWorker	handyWorker;
 

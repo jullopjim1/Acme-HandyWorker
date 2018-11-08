@@ -96,10 +96,10 @@ public class FixUpTask extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	//TODO
-	private Warranty				warranty;
-	private Category				category;
-	private Customer				customer;
+	private Warranty	warranty;
+	private Category	category;
+	private Customer	customer;
+
 
 	@NotNull
 	@Valid

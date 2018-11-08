@@ -57,5 +57,4 @@ public class Warranty extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	//TODO
 }

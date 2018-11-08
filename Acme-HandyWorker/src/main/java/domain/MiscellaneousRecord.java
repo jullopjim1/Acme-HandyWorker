@@ -46,5 +46,4 @@ public class MiscellaneousRecord extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 }

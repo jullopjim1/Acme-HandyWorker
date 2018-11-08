@@ -54,9 +54,8 @@ public class Sponsorship extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 
-	private Sponsor	sponsor;
+	private Sponsor sponsor;
 
 
 	@NotNull

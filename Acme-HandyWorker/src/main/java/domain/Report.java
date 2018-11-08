@@ -71,7 +71,6 @@ public class Report extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	//TODO
 	private Complaint	complaint;
 	private Referee		referee;
 

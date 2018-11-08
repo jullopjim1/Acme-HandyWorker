@@ -81,5 +81,4 @@ public class CreditCard {
 	}
 
 	// Relationships ---------------------------------------------------------
-	//TODO
 }

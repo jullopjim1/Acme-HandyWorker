@@ -75,7 +75,6 @@ public class Complaint extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 	private FixUpTask	fixUpTask;
 	private Customer	customer;
 	private Report		report;

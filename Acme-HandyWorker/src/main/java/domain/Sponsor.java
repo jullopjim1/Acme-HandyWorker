@@ -13,6 +13,5 @@ public class Sponsor extends Actor {
 	// ATRIBUTOS
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 
 }

@@ -107,8 +107,7 @@ public class Finder extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
-	private Collection<FixUpTask>	fixUpTasks;
+	private Collection<FixUpTask> fixUpTasks;
 
 
 	@NotNull

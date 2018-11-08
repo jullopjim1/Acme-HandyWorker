@@ -18,8 +18,7 @@ public class Referee extends Actor {
 	// ATRIBUTOS
 
 	// Relationships ---------------------------------------------------------
-	// TODO
-	private Collection<Report>	reports;
+	private Collection<Report> reports;
 
 
 	@NotNull

@@ -71,5 +71,4 @@ public class EndorserRecord extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 }

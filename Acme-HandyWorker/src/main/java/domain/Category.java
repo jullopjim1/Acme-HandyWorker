@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -20,6 +21,7 @@ public class Category extends DomainEntity {
 	// ATRIBUTOS
 	private String name;
 
+
 	@NotBlank
 	public String getName() {
 		return this.name;
@@ -29,10 +31,11 @@ public class Category extends DomainEntity {
 		this.name = name;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	// TODO
-	private Collection<Category> subcategories;
-	private Category rootcategory;
+	private Collection<Category>	subcategories;
+	private Category				rootcategory;
+
 
 	@NotNull
 	@Valid

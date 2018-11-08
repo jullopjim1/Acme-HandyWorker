@@ -22,7 +22,7 @@ public class Curriculum extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	ticker;
+	private String ticker;
 
 
 	@NotBlank
@@ -38,7 +38,6 @@ public class Curriculum extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 	private PersonalRecord					personalRecord;
 	private Collection<EducationRecord>		educationRecord;
 	private Collection<ProfessionalRecord>	professionalRecord;

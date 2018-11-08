@@ -114,7 +114,6 @@ public class Actor extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	//TODO
 	private UserAccount userAccount;
 
 

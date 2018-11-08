@@ -51,8 +51,7 @@ public class Profile extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	//TODO
-	private Actor	actor;
+	private Actor actor;
 
 
 	@NotNull

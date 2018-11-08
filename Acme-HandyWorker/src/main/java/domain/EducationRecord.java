@@ -87,5 +87,4 @@ public class EducationRecord extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 }

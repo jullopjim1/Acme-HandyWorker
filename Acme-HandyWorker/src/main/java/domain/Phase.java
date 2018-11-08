@@ -69,8 +69,7 @@ public class Phase extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
-	private FixUpTask	fixUpTask;
+	private FixUpTask fixUpTask;
 
 
 	@NotNull

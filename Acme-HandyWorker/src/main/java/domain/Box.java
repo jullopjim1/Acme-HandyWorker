@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -18,8 +19,9 @@ public class Box extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String name;
-	private boolean isSystem;
+	private String	name;
+	private boolean	isSystem;
+
 
 	@NotBlank
 	public String getName() {
@@ -32,18 +34,19 @@ public class Box extends DomainEntity {
 
 	@NotNull
 	public boolean getIsSystem() {
-		return isSystem;
+		return this.isSystem;
 	}
 
-	public void setIsSystem(boolean isSystem) {
+	public void setIsSystem(final boolean isSystem) {
 		this.isSystem = isSystem;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	// TODO
-	private Collection<Box> subboxes;
-	private Box rootbox;
-	private Actor actor;
+	private Collection<Box>	subboxes;
+	private Box				rootbox;
+	private Actor			actor;
+
 
 	@NotNull
 	@Valid

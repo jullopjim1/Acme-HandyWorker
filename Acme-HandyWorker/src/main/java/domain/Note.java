@@ -74,8 +74,7 @@ public class Note extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	// TODO
-	private Report	report;
+	private Report report;
 
 
 	@NotNull

@@ -59,5 +59,4 @@ public class Section extends DomainEntity {
 	}
 
 	// Relationships ---------------------------------------------------------
-	// TODO
 }
