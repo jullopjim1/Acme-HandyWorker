@@ -913,8 +913,8 @@
 		<property name="comments"
 			value="Despues de la primera reforma no me esperaba lo que ha ocurrido, es todo un desastre.Simplemente horrible." />
 		<property name="score" value="-1.0" />
-		<property name="endorser" ref="customer1" />
-		<property name="endorsee" ref="handyWorker1" />
+		<property name="endorser" ref="customer2" />
+		<property name="endorsee" ref="handyWorker2" />
 	</bean>
 
 	<bean id="endorsement3" class="domain.Endorsement">
@@ -1075,7 +1075,7 @@
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="Fontanería" />
 		<property name="priceMin" value="50.0" />
-		<property name="fixUpTask">
+		<property name="fixUpTasks">
 			<list></list>
 		</property>
 	</bean>
@@ -1084,7 +1084,7 @@
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyword" value="Electricista" />
 		<property name="priceMin" value="70.0" />
-		<property name="fixUpTask">
+		<property name="fixUpTasks">
 			<list></list>
 		</property>
 	</bean>
@@ -1092,7 +1092,7 @@
 	<bean id="finder3" class="domain.Finder">
 		<property name="keyword" value="Mueble" />
 		<property name="priceMin" value="120.0" />
-		<property name="fixUpTask">
+		<property name="fixUpTasks">
 			<list></list>
 		</property>
 	</bean>
@@ -1100,7 +1100,7 @@
 	<bean id="finder4" class="domain.Finder">
 		<property name="keyword" value="Mampostería" />
 		<property name="priceMin" value="100.0" />
-		<property name="fixUpTask">
+		<property name="fixUpTasks">
 			<list></list>
 		</property>
 	</bean>
@@ -1150,8 +1150,7 @@
 	<bean id="rootCategory" class="domain.Category">
 		<property name="name" value="rootCategory" />
 		<property name="subcategories">
-			<list>
-			</list>
+			<list></list>
 		</property>
 		<property name="rootcategory">
 			<null />
@@ -1314,5 +1313,89 @@
 		<property name="comments" value="comments4" />
 		<property name="fixUpTask" ref="fixuptask4" />
 		<property name="handyWorker" ref="handyWorker4" />
+	</bean>
+
+	<!-- BOX -->
+
+	<bean id="rootBox" class="domain.Box">
+		<property name="name" value="rootBox" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+				<ref bean="box1" />
+				<ref bean="box2" />
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+
+	<bean id="box1" class="domain.Box">
+		<property name="name" value="box1" />
+		<property name="isSystem" value="false" />
+		<property name="subboxes">
+			<list>
+				<ref bean="box2" />
+			</list>
+		</property>
+		<property name="rootbox" ref="rootBox" />
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+	<bean id="box2" class="domain.Box">
+		<property name="name" value="box2" />
+		<property name="isSystem" value="false" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox" ref="rootBox" />
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+	<bean id="message1" class="domain.Message">
+		<property name="subject" value="subject1" />
+		<property name="body" value="body1" />
+		<property name="moment" value="2018/01/02 11:12" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags1" />
+		<property name="box" ref="box1" />
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="customer1" />
+	</bean>
+	
+	<bean id="message2" class="domain.Message">
+		<property name="subject" value="subject2" />
+		<property name="body" value="body2" />
+		<property name="moment" value="2018/02/04 12:12" />
+		<property name="priority" value="NEUTRAL" />
+		<property name="tags" value="tags2" />
+		<property name="box" ref="box2" />
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="customer1" />
+	</bean>
+	
+	<bean id="message3" class="domain.Message">
+		<property name="subject" value="subject3" />
+		<property name="body" value="body3" />
+		<property name="moment" value="2018/09/09 09:13" />
+		<property name="priority" value="LOW" />
+		<property name="tags" value="tags3" />
+		<property name="box" ref="box2" />
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="customer1" />
+	</bean>
+	
+	<bean id="message4" class="domain.Message">
+		<property name="subject" value="subject4" />
+		<property name="body" value="body4" />
+		<property name="moment" value="2018/04/02 13:33" />
+		<property name="priority" value="HIGH" />
+		<property name="tags" value="tags4" />
+		<property name="box" ref="box1" />
+		<property name="sender" ref="customer2" />
+		<property name="recipient" ref="customer1" />
 	</bean>
 </beans>

@@ -108,17 +108,17 @@ public class Finder extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 	// TODO
-	private Collection<FixUpTask>	fixUpTask;
+	private Collection<FixUpTask>	fixUpTasks;
 
 
 	@NotNull
 	@Valid
 	@ManyToMany
-	public Collection<FixUpTask> getFixUpTask() {
-		return this.fixUpTask;
+	public Collection<FixUpTask> getFixUpTasks() {
+		return this.fixUpTasks;
 	}
 
-	public void setFixUpTask(final Collection<FixUpTask> fixUpTask) {
-		this.fixUpTask = fixUpTask;
+	public void setFixUpTasks(final Collection<FixUpTask> fixUpTasks) {
+		this.fixUpTasks = fixUpTasks;
 	}
 }

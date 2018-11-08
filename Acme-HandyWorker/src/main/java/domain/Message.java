@@ -61,7 +61,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "^((HIGH)|(MEDIUM)|(LOW))$", message = "The priority only can be 'LOW', 'MEDIUM' or 'HIGH'.")
+	@Pattern(regexp = "^((HIGH)|(NEUTRAL)|(LOW))$", message = "The priority only can be 'LOW', 'NEUTRAL' or 'HIGH'.")
 	public String getPriority() {
 		return this.priority;
 	}
