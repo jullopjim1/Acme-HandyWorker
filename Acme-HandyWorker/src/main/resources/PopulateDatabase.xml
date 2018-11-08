@@ -1150,7 +1150,9 @@
 	<bean id="rootCategory" class="domain.Category">
 		<property name="name" value="rootCategory" />
 		<property name="subcategories">
-			<list></list>
+			<list>
+			<ref bean="category1" />
+			</list>
 		</property>
 		<property name="rootcategory">
 			<null />
@@ -1161,6 +1163,7 @@
 		<property name="name" value="category1" />
 		<property name="subcategories">
 			<list>
+			<ref bean="category2" />
 			</list>
 		</property>
 		<property name="rootcategory">
@@ -1337,7 +1340,6 @@
 		<property name="isSystem" value="false" />
 		<property name="subboxes">
 			<list>
-				<ref bean="box2" />
 			</list>
 		</property>
 		<property name="rootbox" ref="rootBox" />

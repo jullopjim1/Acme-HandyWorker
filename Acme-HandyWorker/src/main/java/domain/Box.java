@@ -47,7 +47,7 @@ public class Box extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "rootbox")
+	@OneToMany
 	public Collection<Box> getSubboxes() {
 		return this.subboxes;
 	}

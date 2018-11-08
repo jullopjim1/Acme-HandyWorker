@@ -36,7 +36,7 @@ public class Category extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "rootcategory")
+	@OneToMany
 	public Collection<Category> getSubcategories() {
 		return this.subcategories;
 	}
