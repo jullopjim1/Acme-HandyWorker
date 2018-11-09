@@ -847,6 +847,14 @@
 		<property name="isFinal" value="true" />
 		<property name="complaint" ref="complaint1" />
 		<property name="referee" ref="referee1" />
+		<property name="note">
+			<list>
+				<ref bean="note1" />
+				<ref bean="note2" />
+				<ref bean="note4" />
+				<ref bean="note5" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="report2" class="domain.Report">
@@ -856,6 +864,11 @@
 		<property name="isFinal" value="false" />
 		<property name="complaint" ref="complaint2" />
 		<property name="referee" ref="referee2" />
+		<property name="note">
+			<list>
+				<ref bean="note6" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="report3" class="domain.Report">
@@ -865,6 +878,12 @@
 		<property name="isFinal" value="true" />
 		<property name="complaint" ref="complaint3" />
 		<property name="referee" ref="referee3" />
+		<property name="note">
+			<list>
+				<ref bean="note3" />
+				<ref bean="note7" />
+			</list>
+		</property>
 	</bean>
 
 
@@ -875,8 +894,9 @@
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
-		<property name="report" ref="report3" />
+
 	</bean>
+
 
 	<bean id="note2" class="domain.Note">
 		<property name="moment" value="2015/01/02 12:12" />
@@ -884,7 +904,7 @@
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
-		<property name="report" ref="report1" />
+
 	</bean>
 
 	<bean id="note3" class="domain.Note">
@@ -893,7 +913,43 @@
 		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
 		<property name="comments" value="comments3" />
-		<property name="report" ref="report2" />
+
+	</bean>
+
+	<bean id="note4" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
+	</bean>
+
+	<bean id="note5" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
+	</bean>
+
+	<bean id="note6" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
+	</bean>
+
+	<bean id="note7" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
 	</bean>
 
 	<!-- ENDORSEMENT -->
@@ -1151,7 +1207,7 @@
 		<property name="name" value="rootCategory" />
 		<property name="subcategories">
 			<list>
-			<ref bean="category1" />
+				<ref bean="category1" />
 			</list>
 		</property>
 		<property name="rootcategory">
@@ -1163,7 +1219,7 @@
 		<property name="name" value="category1" />
 		<property name="subcategories">
 			<list>
-			<ref bean="category2" />
+				<ref bean="category2" />
 			</list>
 		</property>
 		<property name="rootcategory">
@@ -1345,7 +1401,7 @@
 		<property name="rootbox" ref="rootBox" />
 		<property name="actor" ref="customer1" />
 	</bean>
-	
+
 	<bean id="box2" class="domain.Box">
 		<property name="name" value="box2" />
 		<property name="isSystem" value="false" />
@@ -1356,7 +1412,7 @@
 		<property name="rootbox" ref="rootBox" />
 		<property name="actor" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message1" class="domain.Message">
 		<property name="subject" value="subject1" />
 		<property name="body" value="body1" />
@@ -1367,7 +1423,7 @@
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message2" class="domain.Message">
 		<property name="subject" value="subject2" />
 		<property name="body" value="body2" />
@@ -1378,7 +1434,7 @@
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message3" class="domain.Message">
 		<property name="subject" value="subject3" />
 		<property name="body" value="body3" />
@@ -1389,7 +1445,7 @@
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message4" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="body4" />

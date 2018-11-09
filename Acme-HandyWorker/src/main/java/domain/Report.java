@@ -1,12 +1,15 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -71,8 +74,9 @@ public class Report extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	private Complaint	complaint;
-	private Referee		referee;
+	private Complaint			complaint;
+	private Referee				referee;
+	private Collection<Note>	note;
 
 
 	@NotNull
@@ -95,5 +99,16 @@ public class Report extends DomainEntity {
 
 	public void setReferee(final Referee referee) {
 		this.referee = referee;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@Valid
+	@NotNull
+	public Collection<Note> getNote() {
+		return this.note;
+	}
+
+	public void setNote(final Collection<Note> note) {
+		this.note = note;
 	}
 }
