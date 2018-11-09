@@ -1300,14 +1300,11 @@
 		<property name="warranty" ref="warranty2" />
 		<property name="category" ref="category1" />
 		<property name="customer" ref="customer2" />
-		<<<<<<< HEAD
 		<property name="applications">
 			<list>
 				<ref bean="application2" />
 			</list>
 		</property>
-		=======
-		>>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
 		<property name="complaints">
 			<list>
 				<ref bean="complaint2" />
@@ -1325,14 +1322,11 @@
 		<property name="warranty" ref="warranty3" />
 		<property name="category" ref="category2" />
 		<property name="customer" ref="customer3" />
-		<<<<<<< HEAD
 		<property name="applications">
 			<list>
 				<ref bean="application3" />
 			</list>
 		</property>
-		=======
-		>>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
 		<property name="complaints">
 			<list>
 				<ref bean="complaint3" />
@@ -1350,22 +1344,14 @@
 		<property name="warranty" ref="warranty4" />
 		<property name="category" ref="category3" />
 		<property name="customer" ref="customer3" />
-		<<<<<<< HEAD
 		<property name="applications">
 			<list>
 				<ref bean="application4" />
 			</list>
 		</property>
 		<property name="complaints">
-			<list>
-
-				=======
-				<property name="complaints">
-					<list>
-						>>>>>>> branch 'master' of
-						https://github.com/jullopjim1/Acme-HandyWorker.git
-					</list>
-				</property>
+			<list></list>
+		</property>
 	</bean>
 
 	<!-- PHASE -->
