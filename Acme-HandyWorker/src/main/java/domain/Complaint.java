@@ -75,21 +75,10 @@ public class Complaint extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	private FixUpTask	fixUpTask;
 	private Customer	customer;
 	private Report		report;
 
 
-	@NotNull
-	@Valid
-	@ManyToOne(optional = false)
-	public FixUpTask getFixUpTask() {
-		return this.fixUpTask;
-	}
-
-	public void setFixUpTask(final FixUpTask fixUpTask) {
-		this.fixUpTask = fixUpTask;
-	}
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)

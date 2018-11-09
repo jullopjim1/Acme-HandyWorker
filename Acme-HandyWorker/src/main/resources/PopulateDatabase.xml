@@ -1070,7 +1070,6 @@
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments1.com" />
-		<property name="fixUpTask" ref="fixuptask1" />
 		<property name="customer" ref="customer1" />
 		<property name="report" ref="report1" />
 
@@ -1081,7 +1080,6 @@
 		<property name="moment" value="2014/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments2.com" />
-		<property name="fixUpTask" ref="fixuptask2" />
 		<property name="customer" ref="customer2" />
 		<property name="report" ref="report2" />
 
@@ -1092,7 +1090,6 @@
 		<property name="moment" value="2015/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments3.com" />
-		<property name="fixUpTask" ref="fixuptask3" />
 		<property name="customer" ref="customer3" />
 		<property name="report" ref="report3" />
 	</bean>
@@ -1252,7 +1249,6 @@
 
 
 	<!-- FIX UP TASK -->
-
 	<bean id="fixuptask1" class="domain.FixUpTask">
 		<property name="ticker" value="180921-12ABC3" />
 		<property name="moment" value="2018/09/21 11:12" />
@@ -1263,6 +1259,11 @@
 		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="rootCategory" />
 		<property name="customer" ref="customer1" />
+		<property name="complaints">
+			<list>
+				<ref bean="complaint1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="fixuptask2" class="domain.FixUpTask">
@@ -1275,6 +1276,11 @@
 		<property name="warranty" ref="warranty2" />
 		<property name="category" ref="category1" />
 		<property name="customer" ref="customer2" />
+		<property name="complaints">
+			<list>
+				<ref bean="complaint2" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="fixuptask3" class="domain.FixUpTask">
@@ -1287,6 +1293,11 @@
 		<property name="warranty" ref="warranty3" />
 		<property name="category" ref="category2" />
 		<property name="customer" ref="customer3" />
+		<property name="complaints">
+			<list>
+				<ref bean="complaint3" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="fixuptask4" class="domain.FixUpTask">
@@ -1299,6 +1310,10 @@
 		<property name="warranty" ref="warranty4" />
 		<property name="category" ref="category3" />
 		<property name="customer" ref="customer3" />
+		<property name="complaints">
+			<list>
+			</list>
+		</property>
 	</bean>
 
 	<!-- PHASE -->
