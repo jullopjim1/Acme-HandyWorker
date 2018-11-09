@@ -151,7 +151,7 @@ public class FixUpTask extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "fixUpTask")
+	@OneToMany
 	public Collection<Complaint> getComplaints() {
 		return this.complaints;
 	}

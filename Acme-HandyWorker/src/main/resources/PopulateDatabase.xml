@@ -866,6 +866,14 @@
 		<property name="isFinal" value="true" />
 		<property name="complaint" ref="complaint1" />
 		<property name="referee" ref="referee1" />
+		<property name="note">
+			<list>
+				<ref bean="note1" />
+				<ref bean="note2" />
+				<ref bean="note4" />
+				<ref bean="note5" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="report2" class="domain.Report">
@@ -875,6 +883,11 @@
 		<property name="isFinal" value="false" />
 		<property name="complaint" ref="complaint2" />
 		<property name="referee" ref="referee2" />
+		<property name="note">
+			<list>
+				<ref bean="note6" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="report3" class="domain.Report">
@@ -884,6 +897,12 @@
 		<property name="isFinal" value="true" />
 		<property name="complaint" ref="complaint3" />
 		<property name="referee" ref="referee3" />
+		<property name="note">
+			<list>
+				<ref bean="note3" />
+				<ref bean="note7" />
+			</list>
+		</property>
 	</bean>
 
 
@@ -894,8 +913,9 @@
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
-		<property name="report" ref="report3" />
+
 	</bean>
+
 
 	<bean id="note2" class="domain.Note">
 		<property name="moment" value="2015/01/02 12:12" />
@@ -903,7 +923,7 @@
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
 		<property name="comments" value="" />
-		<property name="report" ref="report1" />
+
 	</bean>
 
 	<bean id="note3" class="domain.Note">
@@ -912,7 +932,43 @@
 		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
 		<property name="comments" value="comments3" />
-		<property name="report" ref="report2" />
+
+	</bean>
+
+	<bean id="note4" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
+	</bean>
+
+	<bean id="note5" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
+	</bean>
+
+	<bean id="note6" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
+	</bean>
+
+	<bean id="note7" class="domain.Note">
+		<property name="moment" value="2015/01/02 12:12" />
+		<property name="mandatoryCommentReferee" value="" />
+		<property name="mandatoryCommentCustomer" value="mandatory1" />
+		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="comments" value="" />
+
 	</bean>
 
 	<!-- ENDORSEMENT -->
@@ -1033,7 +1089,6 @@
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments1.com" />
-		<property name="fixUpTask" ref="fixuptask1" />
 		<property name="customer" ref="customer1" />
 		<property name="report" ref="report1" />
 
@@ -1044,7 +1099,6 @@
 		<property name="moment" value="2014/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments2.com" />
-		<property name="fixUpTask" ref="fixuptask2" />
 		<property name="customer" ref="customer2" />
 		<property name="report" ref="report2" />
 
@@ -1055,7 +1109,6 @@
 		<property name="moment" value="2015/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments3.com" />
-		<property name="fixUpTask" ref="fixuptask3" />
 		<property name="customer" ref="customer3" />
 		<property name="report" ref="report3" />
 	</bean>
@@ -1215,7 +1268,6 @@
 
 
 	<!-- FIX UP TASK -->
-
 	<bean id="fixuptask1" class="domain.FixUpTask">
 		<property name="ticker" value="180921-12ABC3" />
 		<property name="moment" value="2018/09/21 11:12" />
@@ -1248,11 +1300,14 @@
 		<property name="warranty" ref="warranty2" />
 		<property name="category" ref="category1" />
 		<property name="customer" ref="customer2" />
+		<<<<<<< HEAD
 		<property name="applications">
 			<list>
 				<ref bean="application2" />
 			</list>
 		</property>
+		=======
+		>>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
 		<property name="complaints">
 			<list>
 				<ref bean="complaint2" />
@@ -1270,11 +1325,14 @@
 		<property name="warranty" ref="warranty3" />
 		<property name="category" ref="category2" />
 		<property name="customer" ref="customer3" />
+		<<<<<<< HEAD
 		<property name="applications">
 			<list>
 				<ref bean="application3" />
 			</list>
 		</property>
+		=======
+		>>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
 		<property name="complaints">
 			<list>
 				<ref bean="complaint3" />
@@ -1292,6 +1350,7 @@
 		<property name="warranty" ref="warranty4" />
 		<property name="category" ref="category3" />
 		<property name="customer" ref="customer3" />
+		<<<<<<< HEAD
 		<property name="applications">
 			<list>
 				<ref bean="application4" />
@@ -1300,8 +1359,13 @@
 		<property name="complaints">
 			<list>
 
-			</list>
-		</property>
+				=======
+				<property name="complaints">
+					<list>
+						>>>>>>> branch 'master' of
+						https://github.com/jullopjim1/Acme-HandyWorker.git
+					</list>
+				</property>
 	</bean>
 
 	<!-- PHASE -->
