@@ -274,6 +274,11 @@
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount8" />
 		<property name="score" value="123.0" />
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixuptask1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="customer2" class="domain.Customer">
@@ -288,6 +293,11 @@
 		<property name="isBanned" value="true" />
 		<property name="userAccount" ref="userAccount9" />
 		<property name="score" value="154.0" />
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixuptask2" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="customer3" class="domain.Customer">
@@ -302,6 +312,12 @@
 		<property name="isBanned" value="true" />
 		<property name="userAccount" ref="userAccount10" />
 		<property name="score" value="432.0" />
+		<property name="fixUpTasks">
+			<list>
+				<ref bean="fixuptask3" />
+				<ref bean="fixuptask4" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="customer4" class="domain.Customer">
@@ -316,6 +332,9 @@
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount11" />
 		<property name="score" value="11.5" />
+		<property name="fixUpTasks">
+			<list></list>
+		</property>
 	</bean>
 
 	<!-- HANDYWORKER -->
@@ -1151,7 +1170,7 @@
 		<property name="name" value="rootCategory" />
 		<property name="subcategories">
 			<list>
-			<ref bean="category1" />
+				<ref bean="category1" />
 			</list>
 		</property>
 		<property name="rootcategory">
@@ -1163,7 +1182,7 @@
 		<property name="name" value="category1" />
 		<property name="subcategories">
 			<list>
-			<ref bean="category2" />
+				<ref bean="category2" />
 			</list>
 		</property>
 		<property name="rootcategory">
@@ -1207,6 +1226,16 @@
 		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="rootCategory" />
 		<property name="customer" ref="customer1" />
+		<property name="applications">
+			<list>
+				<ref bean="application1" />
+			</list>
+		</property>
+		<property name="complaints">
+			<list>
+				<ref bean="complaint1" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="fixuptask2" class="domain.FixUpTask">
@@ -1219,6 +1248,16 @@
 		<property name="warranty" ref="warranty2" />
 		<property name="category" ref="category1" />
 		<property name="customer" ref="customer2" />
+		<property name="applications">
+			<list>
+				<ref bean="application2" />
+			</list>
+		</property>
+		<property name="complaints">
+			<list>
+				<ref bean="complaint2" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="fixuptask3" class="domain.FixUpTask">
@@ -1231,6 +1270,16 @@
 		<property name="warranty" ref="warranty3" />
 		<property name="category" ref="category2" />
 		<property name="customer" ref="customer3" />
+		<property name="applications">
+			<list>
+				<ref bean="application3" />
+			</list>
+		</property>
+		<property name="complaints">
+			<list>
+				<ref bean="complaint3" />
+			</list>
+		</property>
 	</bean>
 
 	<bean id="fixuptask4" class="domain.FixUpTask">
@@ -1243,6 +1292,16 @@
 		<property name="warranty" ref="warranty4" />
 		<property name="category" ref="category3" />
 		<property name="customer" ref="customer3" />
+		<property name="applications">
+			<list>
+				<ref bean="application4" />
+			</list>
+		</property>
+		<property name="complaints">
+			<list>
+
+			</list>
+		</property>
 	</bean>
 
 	<!-- PHASE -->
@@ -1345,7 +1404,7 @@
 		<property name="rootbox" ref="rootBox" />
 		<property name="actor" ref="customer1" />
 	</bean>
-	
+
 	<bean id="box2" class="domain.Box">
 		<property name="name" value="box2" />
 		<property name="isSystem" value="false" />
@@ -1356,7 +1415,7 @@
 		<property name="rootbox" ref="rootBox" />
 		<property name="actor" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message1" class="domain.Message">
 		<property name="subject" value="subject1" />
 		<property name="body" value="body1" />
@@ -1367,7 +1426,7 @@
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message2" class="domain.Message">
 		<property name="subject" value="subject2" />
 		<property name="body" value="body2" />
@@ -1378,7 +1437,7 @@
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message3" class="domain.Message">
 		<property name="subject" value="subject3" />
 		<property name="body" value="body3" />
@@ -1389,7 +1448,7 @@
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
 	</bean>
-	
+
 	<bean id="message4" class="domain.Message">
 		<property name="subject" value="subject4" />
 		<property name="body" value="body4" />
