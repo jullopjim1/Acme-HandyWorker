@@ -989,7 +989,7 @@
 			value="Despues de la primera reforma no me esperaba lo que ha ocurrido, es todo un desastre.Simplemente horrible." />
 		<property name="score" value="-1.0" />
 		<property name="endorser" ref="customer2" />
-		<property name="endorsee" ref="handyWorker2" />
+		<property name="endorsee" ref="handyWorker1" />
 	</bean>
 
 	<bean id="endorsement3" class="domain.Endorsement">
@@ -1111,6 +1111,22 @@
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 		<property name="report" ref="report3" />
+	</bean>
+	
+	<bean id="complaint4" class="domain.Complaint">
+		<property name="ticker" value="ticker4" />
+		<property name="moment" value="2015/01/10 12:12" />
+		<property name="description" value="description1" />
+		<property name="attachments" value="http://www.attachments3.com" />
+		<property name="customer" ref="customer3" />
+	</bean>
+	
+	<bean id="complaint5" class="domain.Complaint">
+		<property name="ticker" value="ticker5" />
+		<property name="moment" value="2015/01/15 12:12" />
+		<property name="description" value="description1" />
+		<property name="attachments" value="http://www.attachments3.com" />
+		<property name="customer" ref="customer3" />
 	</bean>
 
 	<!-- WARRANTY -->
@@ -1330,6 +1346,8 @@
 		<property name="complaints">
 			<list>
 				<ref bean="complaint3" />
+				<ref bean="complaint4" />
+				<ref bean="complaint5" />
 			</list>
 		</property>
 	</bean>
