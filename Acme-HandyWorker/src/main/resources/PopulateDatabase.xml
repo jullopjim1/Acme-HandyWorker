@@ -354,6 +354,11 @@
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount4" />
 		<property name="score" value="0.0" />
+		<property name="applications">
+			<list>
+				<ref bean="application1" /> 
+			</list>
+		</property>
 	</bean>
 
 	<bean id="handyWorker2" class="domain.HandyWorker">
@@ -371,6 +376,11 @@
 		<property name="isBanned" value="true" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="score" value="0.0" />
+		<property name="applications">
+			<list>
+				<ref bean="application2" /> 
+			</list>
+		</property>
 	</bean>
 
 	<bean id="handyWorker3" class="domain.HandyWorker">
@@ -388,6 +398,12 @@
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount6" />
 		<property name="score" value="0.33" />
+		<property name="applications">
+			<list>
+				<ref bean="application3" /> 
+				<ref bean="application4" /> 
+			</list>
+		</property>
 	</bean>
 
 	<bean id="handyWorker4" class="domain.HandyWorker">
@@ -405,6 +421,11 @@
 		<property name="isBanned" value="true" />
 		<property name="userAccount" ref="userAccount7" />
 		<property name="score" value="-1.0" />
+		<property name="applications">
+			<list>
+				 
+			</list>
+		</property>
 	</bean>
 
 	<!-- SPONSOR -->
@@ -1112,7 +1133,7 @@
 		<property name="customer" ref="customer3" />
 		<property name="report" ref="report3" />
 	</bean>
-	
+
 	<bean id="complaint4" class="domain.Complaint">
 		<property name="ticker" value="ticker4" />
 		<property name="moment" value="2015/01/10 12:12" />
@@ -1120,7 +1141,7 @@
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 	</bean>
-	
+
 	<bean id="complaint5" class="domain.Complaint">
 		<property name="ticker" value="ticker5" />
 		<property name="moment" value="2015/01/15 12:12" />
