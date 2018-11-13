@@ -1445,7 +1445,7 @@
 		<property name="price" value="10.0" />
 		<property name="comments" value="comments2" />
 		<property name="fixUpTask" ref="fixuptask2" />
-		<property name="handyWorker" ref="handyWorker1" />
+		<property name="handyWorker" ref="handyWorker2" />
 	</bean>
 
 	<bean id="application3" class="domain.Application">
@@ -1463,7 +1463,7 @@
 		<property name="price" value="5.0" />
 		<property name="comments" value="comments4" />
 		<property name="fixUpTask" ref="fixuptask4" />
-		<property name="handyWorker" ref="handyWorker4" />
+		<property name="handyWorker" ref="handyWorker3" />
 	</bean>
 
 	<!-- BOX -->
