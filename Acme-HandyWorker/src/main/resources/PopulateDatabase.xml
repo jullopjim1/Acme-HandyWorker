@@ -356,7 +356,10 @@
 		<property name="score" value="0.0" />
 		<property name="applications">
 			<list>
-				<ref bean="application1" /> 
+				<ref bean="application1" />
+				<ref bean="application5" />
+				<ref bean="application6" />
+				<ref bean="application7" />
 			</list>
 		</property>
 	</bean>
@@ -378,7 +381,7 @@
 		<property name="score" value="0.0" />
 		<property name="applications">
 			<list>
-				<ref bean="application2" /> 
+				<ref bean="application2" />
 			</list>
 		</property>
 	</bean>
@@ -400,8 +403,8 @@
 		<property name="score" value="0.33" />
 		<property name="applications">
 			<list>
-				<ref bean="application3" /> 
-				<ref bean="application4" /> 
+				<ref bean="application3" />
+				<ref bean="application4" />
 			</list>
 		</property>
 	</bean>
@@ -423,7 +426,7 @@
 		<property name="score" value="-1.0" />
 		<property name="applications">
 			<list>
-				 
+
 			</list>
 		</property>
 	</bean>
@@ -1340,6 +1343,7 @@
 		<property name="applications">
 			<list>
 				<ref bean="application2" />
+				<ref bean="application5" />
 			</list>
 		</property>
 		<property name="complaints">
@@ -1362,6 +1366,7 @@
 		<property name="applications">
 			<list>
 				<ref bean="application3" />
+				<ref bean="application6" />
 			</list>
 		</property>
 		<property name="complaints">
@@ -1386,6 +1391,7 @@
 		<property name="applications">
 			<list>
 				<ref bean="application4" />
+				<ref bean="application7" />
 			</list>
 		</property>
 		<property name="complaints">
@@ -1464,6 +1470,33 @@
 		<property name="comments" value="comments4" />
 		<property name="fixUpTask" ref="fixuptask4" />
 		<property name="handyWorker" ref="handyWorker3" />
+	</bean>
+
+	<bean id="application5" class="domain.Application">
+		<property name="moment" value="2018/01/02 11:12" />
+		<property name="status" value="ACCEPTED" />
+		<property name="price" value="5.0" />
+		<property name="comments" value="comments5" />
+		<property name="fixUpTask" ref="fixuptask2" />
+		<property name="handyWorker" ref="handyWorker1" />
+	</bean>
+
+	<bean id="application6" class="domain.Application">
+		<property name="moment" value="2018/01/02 11:12" />
+		<property name="status" value="ACCEPTED" />
+		<property name="price" value="5.0" />
+		<property name="comments" value="comments6" />
+		<property name="fixUpTask" ref="fixuptask3" />
+		<property name="handyWorker" ref="handyWorker1" />
+	</bean>
+
+	<bean id="application7" class="domain.Application">
+		<property name="moment" value="2018/01/02 11:12" />
+		<property name="status" value="ACCEPTED" />
+		<property name="price" value="5.0" />
+		<property name="comments" value="comments7" />
+		<property name="fixUpTask" ref="fixuptask4" />
+		<property name="handyWorker" ref="handyWorker1" />
 	</bean>
 
 	<!-- BOX -->
