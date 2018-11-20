@@ -23,7 +23,6 @@ public class Note extends DomainEntity {
 	private String	mandatoryCommentReferee;
 	private String	mandatoryCommentCustomer;
 	private String	mandatoryCommentHandyWorker;
-	private String	comments;
 
 
 	@NotNull
@@ -60,14 +59,6 @@ public class Note extends DomainEntity {
 
 	public void setMandatoryCommentHandyWorker(final String mandatoryCommentHandyWorker) {
 		this.mandatoryCommentHandyWorker = mandatoryCommentHandyWorker;
-	}
-
-	public String getComments() {
-		return this.comments;
-	}
-
-	public void setComments(final String comments) {
-		this.comments = comments;
 	}
 
 	// Relationships ---------------------------------------------------------

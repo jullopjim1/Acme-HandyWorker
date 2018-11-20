@@ -22,10 +22,11 @@ public class Application extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Date	moment;
-	private String	status;
-	private double	price;
-	private String	comments;
+	private Date		moment;
+	private String		status;
+	private double		price;
+	private String		comments;
+	private CreditCard	creditCard;
 
 
 	@NotNull
@@ -90,5 +91,13 @@ public class Application extends DomainEntity {
 
 	public void setHandyWorker(final HandyWorker handyWorker) {
 		this.handyWorker = handyWorker;
+	}
+
+	public CreditCard getCreditCard() {
+		return this.creditCard;
+	}
+
+	public void setCreditCard(final CreditCard creditCard) {
+		this.creditCard = creditCard;
 	}
 }
