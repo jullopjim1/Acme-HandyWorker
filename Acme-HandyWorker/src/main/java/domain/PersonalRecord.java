@@ -4,6 +4,9 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Email;
@@ -72,5 +75,21 @@ public class PersonalRecord extends DomainEntity {
 		this.link = link;
 	}
 
+
 	// Relationships ---------------------------------------------------------
+
+	private Curriculum curriculum;
+
+
+	@NotNull
+	@Valid
+	@OneToOne(optional = false)
+	public Curriculum getCurriculum() {
+		return this.curriculum;
+	}
+
+	public void setCurriculum(final Curriculum curriculum) {
+		this.curriculum = curriculum;
+	}
+
 }

@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,10 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import domain.Curriculum;
-import domain.EducationRecord;
-import domain.EndorserRecord;
-import domain.MiscellaneousRecord;
-import domain.ProfessionalRecord;
 import repositories.CurriculumRepository;
 
 @Service
@@ -41,18 +36,6 @@ public class CurriculumService {
 
 		//TODO: Ticker
 		curriculum.setTicker("");
-
-		final ArrayList<EducationRecord> educationRecords = new ArrayList<>();
-		curriculum.setEducationRecord(educationRecords);
-
-		final ArrayList<ProfessionalRecord> professionalRecords = new ArrayList<>();
-		curriculum.setProfessionalRecord(professionalRecords);
-
-		final ArrayList<EndorserRecord> endorserRecords = new ArrayList<>();
-		curriculum.setEndorserRecord(endorserRecords);
-
-		final ArrayList<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>();
-		curriculum.setMiscellaneousRecord(miscellaneousRecords);
 
 		return curriculum;
 

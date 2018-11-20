@@ -1,14 +1,10 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -38,65 +34,19 @@ public class Curriculum extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	private PersonalRecord					personalRecord;
-	private Collection<EducationRecord>		educationRecord;
-	private Collection<ProfessionalRecord>	professionalRecord;
-	private Collection<EndorserRecord>		endorserRecord;
-	private Collection<MiscellaneousRecord>	miscellaneousRecord;
+
+	private HandyWorker handyWorker;
 
 
 	@NotNull
 	@Valid
-	@OneToOne(cascade = CascadeType.ALL)
-	public PersonalRecord getPersonalRecord() {
-		return this.personalRecord;
+	@OneToOne(optional = false)
+	public HandyWorker getHandyWorker() {
+		return this.handyWorker;
 	}
 
-	public void setPersonalRecord(final PersonalRecord personalRecord) {
-		this.personalRecord = personalRecord;
+	public void setHandyWorker(final HandyWorker handyWorker) {
+		this.handyWorker = handyWorker;
 	}
 
-	@NotNull
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<EducationRecord> getEducationRecord() {
-		return this.educationRecord;
-	}
-
-	public void setEducationRecord(final Collection<EducationRecord> educationRecord) {
-		this.educationRecord = educationRecord;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<ProfessionalRecord> getProfessionalRecord() {
-		return this.professionalRecord;
-	}
-
-	public void setProfessionalRecord(final Collection<ProfessionalRecord> professionalRecord) {
-		this.professionalRecord = professionalRecord;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<EndorserRecord> getEndorserRecord() {
-		return this.endorserRecord;
-	}
-
-	public void setEndorserRecord(final Collection<EndorserRecord> endorserRecord) {
-		this.endorserRecord = endorserRecord;
-	}
-
-	@NotNull
-	@Valid
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<MiscellaneousRecord> getMiscellaneousRecord() {
-		return this.miscellaneousRecord;
-	}
-
-	public void setMiscellaneousRecord(final Collection<MiscellaneousRecord> miscellaneousRecords) {
-		this.miscellaneousRecord = miscellaneousRecords;
-	}
 }

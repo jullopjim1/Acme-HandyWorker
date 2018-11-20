@@ -20,7 +20,7 @@ public class HandyWorker extends Endorser {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	make;
+	private String make;
 
 
 	@NotBlank
@@ -35,7 +35,6 @@ public class HandyWorker extends Endorser {
 
 	// Relationships ---------------------------------------------------------
 	private Finder					finder;
-	private Curriculum				curriculum;
 	private Collection<Application>	applications;
 
 
@@ -47,16 +46,6 @@ public class HandyWorker extends Endorser {
 
 	public void setFinder(final Finder finder) {
 		this.finder = finder;
-	}
-
-	@Valid
-	@OneToOne(optional = true)
-	public Curriculum getCurriculum() {
-		return this.curriculum;
-	}
-
-	public void setCurriculum(final Curriculum curriculum) {
-		this.curriculum = curriculum;
 	}
 
 	@NotNull
