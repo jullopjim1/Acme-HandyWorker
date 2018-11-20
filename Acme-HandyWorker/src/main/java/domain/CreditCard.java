@@ -1,25 +1,31 @@
 
 package domain;
 
-import javax.persistence.Embeddable;
-import javax.validation.constraints.NotNull;
+import java.util.Collection;
+
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.Range;
 
-@Embeddable
-public class CreditCard {
+@Entity
+@Access(AccessType.PROPERTY)
+public class CreditCard extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	//ATRIBUTOS
 	private String	holderName;
 	private String	brandName;
 	private String	number;
-	private Integer	expirationMonth;
-	private Integer	expirationYear;
-	private Integer	CVVCode;
+	private int		expirationMonth;
+	private int		expirationYear;
+	private int		CVVCode;
 
 
 	@NotBlank
@@ -50,35 +56,58 @@ public class CreditCard {
 		this.number = number;
 	}
 
-	@NotNull
 	@Range(min = 1, max = 12)
-	public Integer getExpirationMonth() {
+	public int getExpirationMonth() {
 		return this.expirationMonth;
 	}
 
-	public void setExpirationMonth(final Integer expirationMonth) {
+	public void setExpirationMonth(final int expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
 
-	@NotNull
 	@Range(min = 2018, max = 3000)
-	public Integer getExpirationYear() {
+	public int getExpirationYear() {
 		return this.expirationYear;
 	}
 
-	public void setExpirationYear(final Integer expirationYear) {
+	public void setExpirationYear(final int expirationYear) {
 		this.expirationYear = expirationYear;
 	}
 
-	@NotNull
 	@Range(min = 100, max = 999)
-	public Integer getCVVCode() {
+	public int getCVVCode() {
 		return this.CVVCode;
 	}
 
-	public void setCVVCode(final Integer cVVCode) {
+	public void setCVVCode(final int cVVCode) {
 		this.CVVCode = cVVCode;
 	}
 
+
 	// Relationships ---------------------------------------------------------
+
+	private Collection<Application>	applications;
+	private Collection<Sponsorship>	sponsorships;
+
+
+	@Valid
+	@OneToMany
+	public Collection<Application> getApplications() {
+		return this.applications;
+	}
+
+	public void setApplications(final Collection<Application> applications) {
+		this.applications = applications;
+	}
+
+	@Valid
+	@OneToMany
+	public Collection<Sponsorship> getSponsorships() {
+		return this.sponsorships;
+	}
+
+	public void setSponsorships(final Collection<Sponsorship> sponsorships) {
+		this.sponsorships = sponsorships;
+	}
+
 }

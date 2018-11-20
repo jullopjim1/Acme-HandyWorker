@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import domain.Curriculum;
 import repositories.CurriculumRepository;
+import repositories.HandyWorkerRepository;
 
 @Service
 @Transactional
@@ -18,7 +19,10 @@ public class CurriculumService {
 	//Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private CurriculumRepository curriculumRepository;
+	private CurriculumRepository	curriculumRepository;
+
+	@Autowired
+	private HandyWorkerRepository	handyWorkerRepository;
 
 	//Services---------------------------------------------------------------------------
 
@@ -31,11 +35,12 @@ public class CurriculumService {
 
 	//Simple CRUD------------------------------------------------------------------------
 
-	public Curriculum create() {
+	public Curriculum create(final int handyWorkerId) {
 		final Curriculum curriculum = new Curriculum();
 
 		//TODO: Ticker
 		curriculum.setTicker("");
+		curriculum.setHandyWorker(this.handyWorkerRepository.findHandyWorkerById(handyWorkerId));
 
 		return curriculum;
 
@@ -58,5 +63,9 @@ public class CurriculumService {
 	}
 
 	//Other Methods---------------------------------------------------------------------------
+
+	public Curriculum findCurriculumById(final int curriculumId) {
+		return this.curriculumRepository.findCurriculumById(curriculumId);
+	}
 
 }

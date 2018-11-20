@@ -8,9 +8,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import domain.Curriculum;
+import domain.HandyWorker;
 import domain.PersonalRecord;
 import repositories.PersonalRecordRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -24,7 +25,7 @@ public class PersonalRecordService {
 	//Services-------------------------------------------------------------------------------
 
 	@Autowired
-	private LoginService				loginService;
+	private CurriculumService			curriculumService;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -35,11 +36,16 @@ public class PersonalRecordService {
 
 	//Simply CRUD----------------------------------------------------------------------------
 
-	public PersonalRecord create() {
+	public PersonalRecord create(final int curriculumId) {
 		final PersonalRecord personalRecord = new PersonalRecord();
+		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
+		final HandyWorker handyWorker = curriculum.getHandyWorker();
 
-		//TODO: Terminar
-		personalRecord.setFullName("");
+		personalRecord.setFullName(handyWorker.getName() + " " + handyWorker.getSurname());
+		personalRecord.setCurriculum(curriculum);
+		personalRecord.setEmail(handyWorker.getEmail());
+		personalRecord.setPhone(handyWorker.getPhone());
+		personalRecord.setPhoto(handyWorker.getPhoto());
 
 		return personalRecord;
 	}
@@ -52,8 +58,8 @@ public class PersonalRecordService {
 		return this.personalRecordRepository.findOne(id);
 	}
 
-	public <S extends PersonalRecord> List<S> save(final Iterable<S> entities) {
-		return this.personalRecordRepository.save(entities);
+	public PersonalRecord save(final PersonalRecord personalRecord) {
+		return this.personalRecordRepository.save(personalRecord);
 	}
 
 	public void delete(final PersonalRecord entity) {

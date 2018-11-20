@@ -17,9 +17,8 @@ public class Sponsorship extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String		banner;
-	private String		link;
-	private CreditCard	creditcard;
+	private String	banner;
+	private String	link;
 
 
 	@NotBlank
@@ -40,16 +39,6 @@ public class Sponsorship extends DomainEntity {
 
 	public void setLink(final String link) {
 		this.link = link;
-	}
-
-	@Valid
-	@NotNull
-	public CreditCard getCreditcard() {
-		return this.creditcard;
-	}
-
-	public void setCreditcard(final CreditCard creditcard) {
-		this.creditcard = creditcard;
 	}
 
 

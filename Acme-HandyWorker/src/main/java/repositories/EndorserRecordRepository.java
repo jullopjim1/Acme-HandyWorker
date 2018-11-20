@@ -4,9 +4,9 @@ package repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import domain.EducationRecord;
+import domain.EndorserRecord;
 
 @Repository
-public interface EndorserRecordRepository extends JpaRepository<EducationRecord, Integer> {
+public interface EndorserRecordRepository extends JpaRepository<EndorserRecord, Integer> {
 
 }

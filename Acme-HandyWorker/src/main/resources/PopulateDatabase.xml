@@ -245,43 +245,7 @@
 		</property>
 	</bean>
 
-	<!-- CREDIT CARD -->
 
-	<bean id="creditcard1" class="domain.CreditCard">
-		<property name="holderName" value="holderName1" />
-		<property name="brandName" value="VISA" />
-		<property name="number" value="4172711227177926" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2021" />
-		<property name="CVVCode" value="110" />
-	</bean>
-
-	<bean id="creditcard2" class="domain.CreditCard">
-		<property name="holderName" value="holderName2" />
-		<property name="brandName" value="MASTER" />
-		<property name="number" value="5545176232272269" />
-		<property name="expirationMonth" value="1" />
-		<property name="expirationYear" value="2022" />
-		<property name="CVVCode" value="220" />
-	</bean>
-
-	<bean id="creditcard3" class="domain.CreditCard">
-		<property name="holderName" value="holderName3" />
-		<property name="brandName" value="DINNERS" />
-		<property name="number" value="38084454680414" />
-		<property name="expirationMonth" value="2" />
-		<property name="expirationYear" value="2023" />
-		<property name="CVVCode" value="303" />
-	</bean>
-
-	<bean id="creditcard4" class="domain.CreditCard">
-		<property name="holderName" value="holderName4" />
-		<property name="brandName" value="AMEX" />
-		<property name="number" value="374258474911460" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="2023" />
-		<property name="CVVCode" value="440" />
-	</bean>
 
 
 	<!-- ADMINISTRATOR -->
@@ -796,28 +760,24 @@
 	<bean id="sponsorship1" class="domain.Sponsorship">
 		<property name="banner" value="http://banner1.com" />
 		<property name="link" value="http://sponsorship1.com" />
-		<property name="creditcard" ref="creditcard3" />
 		<property name="sponsor" ref="sponsor1" />
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
 		<property name="banner" value="http://banner2.com" />
 		<property name="link" value="http://sponsorship2.com" />
-		<property name="creditcard" ref="creditcard2" />
 		<property name="sponsor" ref="sponsor2" />
 	</bean>
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
 		<property name="banner" value="http://banner3.com" />
 		<property name="link" value="http://sponsorship3.com" />
-		<property name="creditcard" ref="creditcard1" />
 		<property name="sponsor" ref="sponsor4" />
 	</bean>
 
 	<bean id="sponsorship4" class="domain.Sponsorship">
 		<property name="banner" value="http://banner4.com" />
 		<property name="link" value="http://sponsorship4.com" />
-		<property name="creditcard" ref="creditcard1" />
 		<property name="sponsor" ref="sponsor4" />
 	</bean>
 
@@ -1439,7 +1399,6 @@
 		<property name="comments" value="comments2" />
 		<property name="fixUpTask" ref="fixuptask2" />
 		<property name="handyWorker" ref="handyWorker2" />
-		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="application3" class="domain.Application">
@@ -1449,7 +1408,6 @@
 		<property name="comments" value="comments3" />
 		<property name="fixUpTask" ref="fixuptask3" />
 		<property name="handyWorker" ref="handyWorker3" />
-		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="application4" class="domain.Application">
@@ -1468,7 +1426,6 @@
 		<property name="comments" value="comments5" />
 		<property name="fixUpTask" ref="fixuptask2" />
 		<property name="handyWorker" ref="handyWorker1" />
-		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="application6" class="domain.Application">
@@ -1478,7 +1435,6 @@
 		<property name="comments" value="comments6" />
 		<property name="fixUpTask" ref="fixuptask3" />
 		<property name="handyWorker" ref="handyWorker1" />
-		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="application7" class="domain.Application">
@@ -1488,7 +1444,6 @@
 		<property name="comments" value="comments7" />
 		<property name="fixUpTask" ref="fixuptask4" />
 		<property name="handyWorker" ref="handyWorker1" />
-		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<!-- BOX -->
@@ -1572,5 +1527,64 @@
 		<property name="box" ref="box1" />
 		<property name="sender" ref="customer2" />
 		<property name="recipient" ref="customer1" />
+	</bean>
+
+	<!-- CREDIT CARD -->
+
+	<bean id="creditcard1" class="domain.CreditCard">
+		<property name="holderName" value="holderName1" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4172711227177926" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2021" />
+		<property name="CVVCode" value="110" />
+		<property name="applications">
+			<list>
+				<ref bean="application2" />
+				<ref bean="application3" />
+				<ref bean="application5" />
+				<ref bean="application6" />
+				<ref bean="application7" />
+			</list>
+		</property>
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+				<ref bean="sponsorship2" />
+				<ref bean="sponsorship4" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="creditcard2" class="domain.CreditCard">
+		<property name="holderName" value="holderName2" />
+		<property name="brandName" value="MASTER" />
+		<property name="number" value="5545176232272269" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2022" />
+		<property name="CVVCode" value="220" />
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship3" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="creditcard3" class="domain.CreditCard">
+		<property name="holderName" value="holderName3" />
+		<property name="brandName" value="DINNERS" />
+		<property name="number" value="38084454680414" />
+		<property name="expirationMonth" value="2" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="303" />
+	</bean>
+
+	<bean id="creditcard4" class="domain.CreditCard">
+		<property name="holderName" value="holderName4" />
+		<property name="brandName" value="AMEX" />
+		<property name="number" value="374258474911460" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="440" />
 	</bean>
 </beans>
