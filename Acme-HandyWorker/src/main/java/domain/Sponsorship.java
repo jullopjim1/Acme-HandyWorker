@@ -44,7 +44,8 @@ public class Sponsorship extends DomainEntity {
 
 	// Relationships ---------------------------------------------------------
 
-	private Sponsor sponsor;
+	private Sponsor		sponsor;
+	private CreditCard	creditCard;
 
 
 	@NotNull
@@ -57,4 +58,15 @@ public class Sponsorship extends DomainEntity {
 	public void setSponsor(final Sponsor sponsor) {
 		this.sponsor = sponsor;
 	}
+
+	@Valid
+	@ManyToOne(optional = true)
+	public CreditCard getCreditCard() {
+		return this.creditCard;
+	}
+
+	public void setCreditCard(final CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
+
 }
