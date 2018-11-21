@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.transaction.Transactional;
 
@@ -38,8 +40,7 @@ public class CurriculumService {
 	public Curriculum create(final int handyWorkerId) {
 		final Curriculum curriculum = new Curriculum();
 
-		//TODO: Ticker
-		curriculum.setTicker("");
+		curriculum.setTicker(this.generateTicker());
 		curriculum.setHandyWorker(this.handyWorkerRepository.findHandyWorkerById(handyWorkerId));
 
 		return curriculum;
@@ -66,6 +67,33 @@ public class CurriculumService {
 
 	public Curriculum findCurriculumById(final int curriculumId) {
 		return this.curriculumRepository.findCurriculumById(curriculumId);
+	}
+
+	@SuppressWarnings("deprecation")
+	public String generateTicker() {
+		final Date date = new Date();
+		final Integer s1 = date.getDate();
+		String day = s1.toString();
+		if (day.length() == 1)
+			day = "0" + day;
+		final Integer s2 = date.getMonth() + 1;
+		String month = s2.toString();
+		if (month.length() == 1)
+			month = "0" + month;
+		final Integer s3 = date.getYear();
+		final String year = s3.toString().substring(1);
+
+		return year + month + day + "-" + CurriculumService.generateStringAux();
+	}
+
+	private static String generateStringAux() {
+		final int length = 4;
+		final String characters = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890";
+		final Random rng = new Random();
+		final char[] text = new char[length];
+		for (int i = 0; i < 6; i++)
+			text[i] = characters.charAt(rng.nextInt(characters.length()));
+		return new String(text);
 	}
 
 }
