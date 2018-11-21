@@ -41,7 +41,7 @@ public class SponsorService {
 		a.setAuthority("SPONSOR");
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
-
+		sponsor.setUserAccount(userAccount);
 		sponsor.setIsBanned(false);
 		sponsor.setIsSuspicious(false);
 
