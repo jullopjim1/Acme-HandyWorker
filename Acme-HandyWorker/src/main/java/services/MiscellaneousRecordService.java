@@ -37,7 +37,7 @@ public class MiscellaneousRecordService {
 
 	public MiscellaneousRecord create(final int curriculumId) {
 		final MiscellaneousRecord miscellaneousRecord = new MiscellaneousRecord();
-		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
+		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 
 		miscellaneousRecord.setCurriculum(curriculum);
 

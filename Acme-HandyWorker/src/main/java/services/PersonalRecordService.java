@@ -38,7 +38,7 @@ public class PersonalRecordService {
 
 	public PersonalRecord create(final int curriculumId) {
 		final PersonalRecord personalRecord = new PersonalRecord();
-		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
+		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 		final HandyWorker handyWorker = curriculum.getHandyWorker();
 
 		personalRecord.setFullName(handyWorker.getName() + " " + handyWorker.getSurname());

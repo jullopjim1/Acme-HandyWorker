@@ -37,7 +37,7 @@ public class EducationRecordService {
 
 	public EducationRecord create(final int curriculumId) {
 		final EducationRecord educationRecord = new EducationRecord();
-		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
+		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 
 		educationRecord.setCurriculum(curriculum);
 

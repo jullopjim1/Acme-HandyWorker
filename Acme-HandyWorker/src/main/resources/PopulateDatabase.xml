@@ -595,10 +595,6 @@
 
 	<!-- CURRICULUM -->
 
-	<bean id="curriculum1" class="domain.Curriculum">
-		<property name="ticker" value="041118-AA99AA" />
-		<property name="handyWorker" ref="handyWorker1" />
-	</bean>
 
 	<bean id="curriculum2" class="domain.Curriculum">
 		<property name="ticker" value="041112-AA99AA" />

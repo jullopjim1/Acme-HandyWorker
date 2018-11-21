@@ -41,7 +41,7 @@ public class CurriculumService {
 		final Curriculum curriculum = new Curriculum();
 
 		curriculum.setTicker(this.generateTicker());
-		curriculum.setHandyWorker(this.handyWorkerRepository.findHandyWorkerById(handyWorkerId));
+		curriculum.setHandyWorker(this.handyWorkerRepository.findOne(handyWorkerId));
 
 		return curriculum;
 
@@ -51,7 +51,7 @@ public class CurriculumService {
 		return this.curriculumRepository.findAll();
 	}
 
-	public Curriculum findOne(final Integer curriculumId) {
+	public Curriculum findOne(final int curriculumId) {
 		return this.curriculumRepository.findOne(curriculumId);
 	}
 	public Curriculum save(final Curriculum curriculum) {
@@ -64,10 +64,6 @@ public class CurriculumService {
 	}
 
 	//Other Methods---------------------------------------------------------------------------
-
-	public Curriculum findCurriculumById(final int curriculumId) {
-		return this.curriculumRepository.findCurriculumById(curriculumId);
-	}
 
 	@SuppressWarnings("deprecation")
 	public String generateTicker() {
@@ -87,13 +83,17 @@ public class CurriculumService {
 	}
 
 	private static String generateStringAux() {
-		final int length = 4;
+		final int length = 6;
 		final String characters = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890";
 		final Random rng = new Random();
 		final char[] text = new char[length];
 		for (int i = 0; i < 6; i++)
 			text[i] = characters.charAt(rng.nextInt(characters.length()));
 		return new String(text);
+	}
+
+	public Curriculum findCurriculumHandyWorkerById(final int handyWorkerId) {
+		return this.curriculumRepository.findCurriculumHandyWorkerById(handyWorkerId);
 	}
 
 }
