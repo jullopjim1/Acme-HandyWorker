@@ -16,8 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Access(AccessType.PROPERTY)
 public class Curriculum extends DomainEntity {
 
-	// Identification ---------------------------------------------------------
-	// ATRIBUTOS
+	//Atributtes------------------------------------------------------------------------------
 	private String ticker;
 
 

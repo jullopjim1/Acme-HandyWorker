@@ -15,14 +15,8 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 
 	//Queries C
 
-	@Query("select avg(c.fixUpTasks.size)from Customer c")
-	Double aritmeticaCustomerMed();
-	@Query("select min(c.fixUpTasks.size)from Customer c")
-	Double aritmeticaCustomerMin();
-	@Query("select max(c.fixUpTasks.size)from Customer c")
-	Double aritmeticaCustomerMax();
-	@Query("select stddev(c.fixUpTasks.size)from Customer c")
-	Double aritmeticaCustomerDes();
+	@Query("select avg(c.fixUpTasks.size),min(c.fixUpTasks.size),max(c.fixUpTasks.size),stddev(c.fixUpTasks.size) from Customer c")
+	Object[] queryC1();
 
 	@Query("select avg(f.applications.size)from FixUpTask f")
 	Double aritmeticaFixUpTaskMed();
