@@ -887,8 +887,7 @@
 			<list>
 				<ref bean="note1" />
 				<ref bean="note2" />
-				<ref bean="note4" />
-				<ref bean="note5" />
+				
 			</list>
 		</property>
 	</bean>
@@ -902,7 +901,7 @@
 		<property name="referee" ref="referee2" />
 		<property name="note">
 			<list>
-				<ref bean="note6" />
+				
 			</list>
 		</property>
 	</bean>
@@ -917,7 +916,7 @@
 		<property name="note">
 			<list>
 				<ref bean="note3" />
-				<ref bean="note7" />
+				
 			</list>
 		</property>
 	</bean>
@@ -929,6 +928,7 @@
 		<property name="mandatoryCommentReferee" value="" />
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="report" ref="report1"/>
 	</bean>
 
 
@@ -937,6 +937,7 @@
 		<property name="mandatoryCommentReferee" value="mandatory2" />
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="report" ref="report2"/>
 	</bean>
 
 	<bean id="note3" class="domain.Note">
@@ -944,35 +945,10 @@
 		<property name="mandatoryCommentReferee" value="mandatory3" />
 		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
+		<property name="report" ref="report3"/>
 	</bean>
 
-	<bean id="note4" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
-
-	<bean id="note5" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
-
-	<bean id="note6" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
-
-	<bean id="note7" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
+	
 
 	<!-- ENDORSEMENT -->
 
