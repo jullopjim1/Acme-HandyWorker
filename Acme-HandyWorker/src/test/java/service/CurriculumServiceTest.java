@@ -1,6 +1,9 @@
 
 package service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -70,5 +73,30 @@ public class CurriculumServiceTest extends AbstractTest {
 
 		this.unauthenticate();
 
+	}
+
+	@Test
+	public void testFindAll() {
+		System.out.println("========== testFindAll() ==========");
+
+		this.authenticate("handyWorker2");
+		final int handyWorkerId = this.getEntityId("handyWorker2");
+
+		try {
+			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
+			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
+			Assert.notNull(curriculum);
+			Assert.isTrue(curriculums.contains(curriculum));
+
+			for (final Curriculum curriculum1 : curriculums)
+				System.out.println(curriculum1.getTicker());
+
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+
+		this.unauthenticate();
 	}
 }

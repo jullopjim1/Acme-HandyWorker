@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Administrator;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Administrator;
 
 @Service
 @Transactional
@@ -23,13 +23,13 @@ public class AdministratorService {
 	//Repository-----------------------------------------------
 
 	@Autowired
-	private AdministratorRepository	administratorRepository;
+	private AdministratorRepository administratorRepository;
 
 
 	//Services-------------------------------------------------
 	//Constructor----------------------------------------------
 
-	private AdministratorService() {
+	public AdministratorService() {
 
 		super();
 	}
