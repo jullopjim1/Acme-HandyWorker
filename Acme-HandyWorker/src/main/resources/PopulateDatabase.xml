@@ -613,15 +613,6 @@
 
 	<!-- PERSONAL RECORD -->
 
-	<bean id="personalRecord1" class="domain.PersonalRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="fullName" value="Full Name 1" />
-		<property name="photo" value="http://photo1.com" />
-		<property name="email" value="emailpersonalrecord1@gmail.com" />
-		<property name="phone" value="650190414" />
-		<property name="link" value="http://link1.com" />
-	</bean>
-
 	<bean id="personalRecord2" class="domain.PersonalRecord">
 		<property name="curriculum" ref="curriculum2" />
 		<property name="fullName" value="Full Name 2" />
@@ -651,15 +642,6 @@
 
 	<!-- EDUCATION RECORD -->
 
-	<bean id="educationRecord1" class="domain.EducationRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="title" value="Title 1" />
-		<property name="startMoment" value="10/10/2011" />
-		<property name="endMoment" value="10/10/2015" />
-		<property name="institution" value="Institution 1" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="educationRecord2" class="domain.EducationRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -687,15 +669,6 @@
 
 	<!-- PROFESSIONAL RECORD -->
 
-	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="name" value="Name 1" />
-		<property name="startMoment" value="10/10/2011" />
-		<property name="endMoment" value="10/10/2015" />
-		<property name="role" value="Role 1" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="professionalRecord2" class="domain.ProfessionalRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -726,14 +699,6 @@
 
 	<!-- ENDORSER RECORD -->
 
-	<bean id="endorserRecord1" class="domain.EndorserRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="fullName" value="Full Name 1" />
-		<property name="email" value="endorserrecord1@gmail.com" />
-		<property name="phone" value="650190414" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="endorserRecord2" class="domain.EndorserRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -762,12 +727,6 @@
 
 	<!-- MISCELLANEOUS RECORD -->
 
-	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="title" value="Title 1" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
 		<property name="curriculum" ref="curriculum2" />
