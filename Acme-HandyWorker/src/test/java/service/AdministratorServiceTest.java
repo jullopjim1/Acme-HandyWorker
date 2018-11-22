@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import security.Authority;
 import security.UserAccount;
 import services.AdministratorService;
 import utilities.AbstractTest;
@@ -33,7 +32,7 @@ public class AdministratorServiceTest extends AbstractTest {
 	//Test-------------------------------------------------------------
 
 	@Test
-	public void testSaveAdministrator() {
+	public void testAdministrator() {
 		System.out.println("------Test Administrador------");
 		final Administrator administrator, saved;
 		final Collection<Administrator> administrators;
@@ -43,14 +42,11 @@ public class AdministratorServiceTest extends AbstractTest {
 		final UserAccount userAccount = new UserAccount();
 		userAccount.setUsername("administratorz1");
 		userAccount.setPassword("administratorz2");
-		final Authority a = new Authority();
-		a.setAuthority(Authority.ADMIN);
-		userAccount.addAuthority(a);
 
 		administrator.setName("Augusto");
 		administrator.setMiddleName("Pepinero");
 		administrator.setSurname("Angostino");
-		administrator.setPhoto("FotoPolla");
+		administrator.setPhoto("http://www.photo122.com");
 		administrator.setEmail("administrador@gmail.com");
 		administrator.setPhone("657824410");
 		administrator.setAddress("Calle chico pene");

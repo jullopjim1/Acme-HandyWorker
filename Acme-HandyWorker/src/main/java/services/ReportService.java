@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -41,6 +42,7 @@ public class ReportService {
 
 		final Collection<Note> notes = new ArrayList<>();
 
+		report.setMoment(new Date(System.currentTimeMillis() - 1000));
 		report.setIsFinal(false);
 		report.setNote(notes);
 
@@ -57,6 +59,7 @@ public class ReportService {
 
 	public Report save(final Report report) {
 		Assert.notNull(report);
+		report.setMoment(new Date(System.currentTimeMillis() - 1000));
 		final Report saved = this.reportRepository.save(report);
 		return saved;
 	}

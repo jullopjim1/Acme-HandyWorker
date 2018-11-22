@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Complaint;
 import repositories.ComplaintRepository;
+import domain.Complaint;
 
 @Service
 @Transactional
@@ -19,9 +19,10 @@ public class ComplaintService {
 
 	//Repository-----------------------------------------------
 	@Autowired
-	private ComplaintRepository complaintRepository;
-	//Services-------------------------------------------------
+	private ComplaintRepository	complaintRepository;
 
+
+	//Services-------------------------------------------------
 
 	//Constructor----------------------------------------------
 	public ComplaintService() {
