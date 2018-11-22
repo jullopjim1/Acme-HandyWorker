@@ -51,7 +51,7 @@ public class CurriculumService {
 		return this.curriculumRepository.findAll();
 	}
 
-	public Curriculum findOne(final int curriculumId) {
+	public Curriculum findOne(final Integer curriculumId) {
 		return this.curriculumRepository.findOne(curriculumId);
 	}
 	public Curriculum save(final Curriculum curriculum) {
@@ -84,7 +84,7 @@ public class CurriculumService {
 
 	private static String generateStringAux() {
 		final int length = 6;
-		final String characters = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890";
+		final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		final Random rng = new Random();
 		final char[] text = new char[length];
 		for (int i = 0; i < 6; i++)

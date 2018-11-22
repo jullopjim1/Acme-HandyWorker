@@ -3,6 +3,7 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -14,7 +15,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import domain.Curriculum;
+import domain.EducationRecord;
 import services.CurriculumService;
+import services.EducationRecordService;
 import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,11 +25,14 @@ import utilities.AbstractTest;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class CurriculumServiceTest extends AbstractTest {
+public class EducationRecordServiceTest extends AbstractTest {
 
 	// Service under test
 	@Autowired
-	private CurriculumService curriculumService;
+	private EducationRecordService	educationRecordService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	//Tests
@@ -41,6 +47,14 @@ public class CurriculumServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
 			Assert.notNull(curriculum.getHandyWorker());
 			Assert.notNull(curriculum.getTicker());
+			final Curriculum saved = this.curriculumService.save(curriculum);
+
+			final EducationRecord educationRecord = this.educationRecordService.create(saved.getId());
+			educationRecord.setTitle("hola");
+			educationRecord.setInstitution("Hola");
+			educationRecord.setStartMoment(new Date());
+
+			Assert.notNull(educationRecord);
 
 			System.out.println("¡Exito!");
 
@@ -63,7 +77,10 @@ public class CurriculumServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			Assert.isTrue(curriculum.getHandyWorker().getId() == handyWorkerId);
+			final EducationRecord educationRecord = this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(educationRecord);
+
+			Assert.isTrue(educationRecord.getCurriculum().getId() == curriculum.getId());
 
 			System.out.println("¡Exito!");
 
@@ -83,13 +100,16 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker2");
 
 		try {
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
-			Assert.isTrue(curriculums.contains(curriculum));
 
-			for (final Curriculum curriculum1 : curriculums)
-				System.out.println(curriculum1.getTicker());
+			final Collection<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findAll());
+			final EducationRecord educationRecord = this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(educationRecord);
+			Assert.isTrue(educationRecords.contains(educationRecord));
+
+			for (final EducationRecord educationRecord1 : educationRecords)
+				System.out.println(educationRecord1.getTitle());
 
 			System.out.println("¡Exito!");
 
@@ -108,14 +128,21 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker1");
 
 		try {
-
 			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
-			Assert.notNull(curriculum);
-
+			Assert.notNull(curriculum.getHandyWorker());
+			Assert.notNull(curriculum.getTicker());
 			final Curriculum saved = this.curriculumService.save(curriculum);
 
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
-			Assert.isTrue(curriculums.contains(saved));
+			final EducationRecord educationRecord = this.educationRecordService.create(saved.getId());
+			educationRecord.setTitle("hola");
+			educationRecord.setInstitution("Hola");
+			educationRecord.setStartMoment(new Date());
+			Assert.notNull(educationRecord);
+
+			final EducationRecord savedE = this.educationRecordService.save(educationRecord);
+
+			final Collection<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findAll());
+			Assert.isTrue(educationRecords.contains(savedE));
 
 			System.out.println("¡Exito!");
 
@@ -135,14 +162,16 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker2");
 
 		try {
-
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			this.curriculumService.delete(curriculum);
+			final EducationRecord educationRecord = this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(educationRecord);
 
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
-			Assert.isTrue(!curriculums.contains(curriculum));
+			this.educationRecordService.delete(educationRecord);
+
+			final Collection<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findAll());
+			Assert.isTrue(!educationRecords.contains(educationRecord));
 
 			System.out.println("¡Exito!");
 

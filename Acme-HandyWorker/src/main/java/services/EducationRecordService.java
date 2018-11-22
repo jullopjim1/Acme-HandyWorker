@@ -60,4 +60,8 @@ public class EducationRecordService {
 		this.educationRecordRepository.delete(entity);
 	}
 
+	public EducationRecord findEducationRecordByCurriculumId(final int curriculumId) {
+		return this.educationRecordRepository.findEducationRecordByCurriculumId(curriculumId);
+	}
+
 }

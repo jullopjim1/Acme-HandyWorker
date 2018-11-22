@@ -60,4 +60,8 @@ public class EndorserRecordService {
 		this.endorserRecordRepository.delete(entity);
 	}
 
+	public EndorserRecord findEndorserRecordByCurriculumId(final int curriculumId) {
+		return this.endorserRecordRepository.findEndorserRecordByCurriculumId(curriculumId);
+	}
+
 }

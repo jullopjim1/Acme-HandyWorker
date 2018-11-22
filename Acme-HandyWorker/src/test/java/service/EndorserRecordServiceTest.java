@@ -14,7 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import domain.Curriculum;
+import domain.EndorserRecord;
 import services.CurriculumService;
+import services.EndorserRecordService;
 import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,11 +24,14 @@ import utilities.AbstractTest;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class CurriculumServiceTest extends AbstractTest {
+public class EndorserRecordServiceTest extends AbstractTest {
 
 	// Service under test
 	@Autowired
-	private CurriculumService curriculumService;
+	private EndorserRecordService	endorserRecordService;
+
+	@Autowired
+	private CurriculumService		curriculumService;
 
 
 	//Tests
@@ -41,6 +46,14 @@ public class CurriculumServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
 			Assert.notNull(curriculum.getHandyWorker());
 			Assert.notNull(curriculum.getTicker());
+
+			final EndorserRecord endorserRecord = this.endorserRecordService.create(curriculum.getId());
+			endorserRecord.setEmail("aaaa@aaaa.com");
+			endorserRecord.setFullName("Hola");
+			endorserRecord.setLink("http://ssssss.com");
+			endorserRecord.setPhone("666666666");
+
+			Assert.notNull(endorserRecord);
 
 			System.out.println("¡Exito!");
 
@@ -63,7 +76,10 @@ public class CurriculumServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			Assert.isTrue(curriculum.getHandyWorker().getId() == handyWorkerId);
+			final EndorserRecord endorserRecord = this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(endorserRecord);
+
+			Assert.isTrue(endorserRecord.getCurriculum().getId() == curriculum.getId());
 
 			System.out.println("¡Exito!");
 
@@ -83,13 +99,16 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker2");
 
 		try {
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
-			Assert.isTrue(curriculums.contains(curriculum));
 
-			for (final Curriculum curriculum1 : curriculums)
-				System.out.println(curriculum1.getTicker());
+			final Collection<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findAll());
+			final EndorserRecord endorserRecord = this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(endorserRecord);
+			Assert.isTrue(endorserRecords.contains(endorserRecord));
+
+			for (final EndorserRecord endorserRecord1 : endorserRecords)
+				System.out.println(endorserRecord1.getFullName());
 
 			System.out.println("¡Exito!");
 
@@ -108,14 +127,22 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker1");
 
 		try {
-
 			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
-			Assert.notNull(curriculum);
-
+			Assert.notNull(curriculum.getHandyWorker());
+			Assert.notNull(curriculum.getTicker());
 			final Curriculum saved = this.curriculumService.save(curriculum);
 
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
-			Assert.isTrue(curriculums.contains(saved));
+			final EndorserRecord endorserRecord = this.endorserRecordService.create(saved.getId());
+			endorserRecord.setEmail("aaaa@aaaa.com");
+			endorserRecord.setFullName("Hola");
+			endorserRecord.setLink("http://ssssss.com");
+			endorserRecord.setPhone("666666666");
+			Assert.notNull(endorserRecord);
+
+			final EndorserRecord savedE = this.endorserRecordService.save(endorserRecord);
+
+			final Collection<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findAll());
+			Assert.isTrue(endorserRecords.contains(savedE));
 
 			System.out.println("¡Exito!");
 
@@ -135,14 +162,16 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker2");
 
 		try {
-
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			this.curriculumService.delete(curriculum);
+			final EndorserRecord endorserRecord = this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(endorserRecord);
 
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
-			Assert.isTrue(!curriculums.contains(curriculum));
+			this.endorserRecordService.delete(endorserRecord);
+
+			final Collection<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findAll());
+			Assert.isTrue(!endorserRecords.contains(endorserRecord));
 
 			System.out.println("¡Exito!");
 

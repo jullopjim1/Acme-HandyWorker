@@ -60,4 +60,8 @@ public class MiscellaneousRecordService {
 		this.miscellaneousRecordRepository.delete(entity);
 	}
 
+	public MiscellaneousRecord findMiscellaneousRecordByCurriculumId(final int curriculumId) {
+		return this.miscellaneousRecordRepository.findMiscellaneousRecordByCurriculumId(curriculumId);
+	}
+
 }

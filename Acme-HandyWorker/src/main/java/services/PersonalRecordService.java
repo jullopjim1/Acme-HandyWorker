@@ -66,4 +66,8 @@ public class PersonalRecordService {
 		this.personalRecordRepository.delete(entity);
 	}
 
+	public PersonalRecord findPersonalRecordByCurriculumId(final int curriculumId) {
+		return this.personalRecordRepository.findPersonalRecordByCurriculumId(curriculumId);
+	}
+
 }

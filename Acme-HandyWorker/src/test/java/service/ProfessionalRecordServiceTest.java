@@ -3,6 +3,7 @@ package service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.transaction.Transactional;
 
@@ -14,7 +15,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import domain.Curriculum;
+import domain.ProfessionalRecord;
 import services.CurriculumService;
+import services.ProfessionalRecordService;
 import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,11 +25,14 @@ import utilities.AbstractTest;
 	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
 })
 @Transactional
-public class CurriculumServiceTest extends AbstractTest {
+public class ProfessionalRecordServiceTest extends AbstractTest {
 
 	// Service under test
 	@Autowired
-	private CurriculumService curriculumService;
+	private ProfessionalRecordService	professionalRecordService;
+
+	@Autowired
+	private CurriculumService			curriculumService;
 
 
 	//Tests
@@ -41,6 +47,13 @@ public class CurriculumServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
 			Assert.notNull(curriculum.getHandyWorker());
 			Assert.notNull(curriculum.getTicker());
+
+			final ProfessionalRecord professionalRecord = this.professionalRecordService.create(curriculum.getId());
+			professionalRecord.setRole("hola");
+			professionalRecord.setName("hola");
+			professionalRecord.setStartMoment(new Date());
+
+			Assert.notNull(professionalRecord);
 
 			System.out.println("¡Exito!");
 
@@ -63,7 +76,10 @@ public class CurriculumServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			Assert.isTrue(curriculum.getHandyWorker().getId() == handyWorkerId);
+			final ProfessionalRecord professionalRecord = this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(professionalRecord);
+
+			Assert.isTrue(professionalRecord.getCurriculum().getId() == curriculum.getId());
 
 			System.out.println("¡Exito!");
 
@@ -83,13 +99,16 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker2");
 
 		try {
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
-			Assert.isTrue(curriculums.contains(curriculum));
 
-			for (final Curriculum curriculum1 : curriculums)
-				System.out.println(curriculum1.getTicker());
+			final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findAll());
+			final ProfessionalRecord professionalRecord = this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(professionalRecord);
+			Assert.isTrue(professionalRecords.contains(professionalRecord));
+
+			for (final ProfessionalRecord professionalRecord1 : professionalRecords)
+				System.out.println(professionalRecord1.getName());
 
 			System.out.println("¡Exito!");
 
@@ -108,14 +127,21 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker1");
 
 		try {
-
 			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
-			Assert.notNull(curriculum);
-
+			Assert.notNull(curriculum.getHandyWorker());
+			Assert.notNull(curriculum.getTicker());
 			final Curriculum saved = this.curriculumService.save(curriculum);
 
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
-			Assert.isTrue(curriculums.contains(saved));
+			final ProfessionalRecord professionalRecord = this.professionalRecordService.create(saved.getId());
+			professionalRecord.setRole("hola");
+			professionalRecord.setName("hola");
+			professionalRecord.setStartMoment(new Date());
+			Assert.notNull(professionalRecord);
+
+			final ProfessionalRecord savedP = this.professionalRecordService.save(professionalRecord);
+
+			final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findAll());
+			Assert.isTrue(professionalRecords.contains(savedP));
 
 			System.out.println("¡Exito!");
 
@@ -135,14 +161,16 @@ public class CurriculumServiceTest extends AbstractTest {
 		final int handyWorkerId = this.getEntityId("handyWorker2");
 
 		try {
-
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			this.curriculumService.delete(curriculum);
+			final ProfessionalRecord professionalRecord = this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId());
+			Assert.notNull(professionalRecord);
 
-			final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
-			Assert.isTrue(!curriculums.contains(curriculum));
+			this.professionalRecordService.delete(professionalRecord);
+
+			final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findAll());
+			Assert.isTrue(!professionalRecords.contains(professionalRecord));
 
 			System.out.println("¡Exito!");
 
