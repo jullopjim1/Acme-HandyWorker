@@ -40,7 +40,7 @@ public class TutorialServiceTest extends AbstractTest {
 	//Test
 	@Test
 	public void testTutorial() {
-		System.out.println("------Test Tutorial------");
+		System.out.println("------Test Tutoril------");
 
 		this.authenticate("handyWorker1");
 
