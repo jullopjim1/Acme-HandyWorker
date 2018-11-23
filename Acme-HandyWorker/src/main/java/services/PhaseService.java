@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Phase;
 import repositories.PhaseRepository;
+import domain.Phase;
 
 @Service
 @Transactional
@@ -19,12 +19,14 @@ public class PhaseService {
 	//Repository-----------------------------------------------
 
 	@Autowired
-	private PhaseRepository phaseRepository;
+	private PhaseRepository	phaseRepository;
+
 
 	//Services-------------------------------------------------
+	//@Autowired
+	//private FixUpTaskService	fixUpTaskService;
 
-
-	//Constructor---------------------------------------------- 
+	//Constructor----------------------------------------------
 
 	public PhaseService() {
 		super();
@@ -32,9 +34,10 @@ public class PhaseService {
 
 	//Simple CRUD----------------------------------------------
 
-	public Phase create() {
+	public Phase create(final int fixUpTaskId) {
 		final Phase phase = new Phase();
-
+		//final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		//phase.setFixUpTask(fixUpTask);
 		return phase;
 	}
 

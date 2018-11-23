@@ -35,10 +35,11 @@ public class ComplaintServiceTest extends AbstractTest {
 		System.out.println("------Test Complaint------");
 		final Complaint complaint, saved;
 		final Collection<Complaint> complaints;
+		final int customerId = this.getEntityId("customer1");
 
-		complaint = this.complaintService.create();
+		complaint = this.complaintService.create(customerId);
 
-		complaint.setAttachments("Hola putaso");
+		complaint.setAttachments("http://www.attachments1.com");
 		complaint.setDescription("Te como la verga");
 
 		saved = this.complaintService.save(complaint);

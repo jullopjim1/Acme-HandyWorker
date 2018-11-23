@@ -14,10 +14,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.Administrator;
 import security.UserAccount;
 import services.AdministratorService;
 import utilities.AbstractTest;
+import domain.Administrator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -28,7 +28,7 @@ public class AdministratorServiceTest extends AbstractTest {
 
 	//Service----------------------------------------------------------
 	@Autowired
-	private AdministratorService administratorService;
+	private AdministratorService	administratorService;
 
 
 	//Test-------------------------------------------------------------
@@ -91,9 +91,6 @@ public class AdministratorServiceTest extends AbstractTest {
 			Assert.notNull(admin);
 			Assert.isTrue(administrators.contains(admin));
 
-			for (final Administrator admin1 : administrators)
-				System.out.println(admin1.getUserAccount().getUsername());
-
 			System.out.println("¡Exito!");
 
 		} catch (final Exception e) {
@@ -137,28 +134,28 @@ public class AdministratorServiceTest extends AbstractTest {
 	 * @Test
 	 * public void testDelete() {
 	 * System.out.println("========== testDelete() ==========");
-	 *
+	 * 
 	 * this.authenticate("handyWorker2");
 	 * final int handyWorkerId = this.getEntityId("handyWorker2");
-	 *
+	 * 
 	 * try {
-	 *
+	 * 
 	 * final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 	 * Assert.notNull(curriculum);
-	 *
+	 * 
 	 * this.curriculumService.delete(curriculum);
-	 *
+	 * 
 	 * final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
 	 * Assert.isTrue(!curriculums.contains(curriculum));
-	 *
+	 * 
 	 * System.out.println("¡Exito!");
-	 *
+	 * 
 	 * } catch (final Exception e) {
 	 * System.out.println("¡Fallo," + e.getMessage() + "!");
 	 * }
-	 *
+	 * 
 	 * this.unauthenticate();
-	 *
+	 * 
 	 * }
 	 */
 }

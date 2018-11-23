@@ -43,12 +43,10 @@ public class ReportServiceTest extends AbstractTest {
 		System.out.println("------Test Report------");
 		final Report report, saved;
 		final Collection<Report> reports;
+		final int complaintId = this.getEntityId("complaint4");
+		final int refereeId = this.getEntityId("referee1");
 
-		report = this.reportService.create();
-		System.out.println("Id de complaint: " + (this.getEntityId("complaint2")));
-		this.complaintService.findOne(this.getEntityId("complaint2"));
-		this.refereeService.findOne(this.getEntityId("referee2"));
-
+		report = this.reportService.create(complaintId, refereeId);
 		report.setDescription("JIJIJIJI");
 		report.setAttachments("http://www.attachments1.com");
 
