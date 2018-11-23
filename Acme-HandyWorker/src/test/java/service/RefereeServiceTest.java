@@ -12,6 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.Authority;
+import security.UserAccount;
 import services.RefereeService;
 import utilities.AbstractTest;
 import domain.Referee;
@@ -36,10 +38,26 @@ public class RefereeServiceTest extends AbstractTest {
 		final Referee referee, saved;
 		final Collection<Referee> referees;
 
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setUsername("refereez1");
+		userAccount.setPassword("refereez2");
+		final Authority a = new Authority();
+		a.setAuthority(Authority.REFEREE);
+		userAccount.addAuthority(a);
+
 		referee = this.refereeService.create();
 
-		saved = this.refereeService.save(referee);
+		referee.setName("Augusto");
+		referee.setMiddleName("Pepinero");
+		referee.setSurname("Angostino");
+		referee.setPhoto("http://www.photo122.com");
+		referee.setEmail("administrador@gmail.com");
+		referee.setPhone("657824410");
+		referee.setAddress("Calle chico pene");
+		referee.setUserAccount(userAccount);
 
+		saved = this.refereeService.save(referee);
+		Assert.notNull(saved);
 		referees = this.refereeService.findAll();
 
 		Assert.isTrue(referees.contains(saved));

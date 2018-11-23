@@ -45,14 +45,15 @@ public class ReportServiceTest extends AbstractTest {
 		final Collection<Report> reports;
 
 		report = this.reportService.create();
-
-		this.complaintService.findOne(this.getEntityId("complaint1"));
-		this.refereeService.findOne(this.getEntityId("referee1"));
+		System.out.println("Id de complaint: " + (this.getEntityId("complaint2")));
+		this.complaintService.findOne(this.getEntityId("complaint2"));
+		this.refereeService.findOne(this.getEntityId("referee2"));
 
 		report.setDescription("JIJIJIJI");
-		report.setAttachments("Soy una puta");
+		report.setAttachments("http://www.attachments1.com");
 
 		saved = this.reportService.save(report);
+		Assert.notNull(saved);
 
 		reports = this.reportService.findAll();
 

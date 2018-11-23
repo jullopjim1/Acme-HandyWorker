@@ -29,6 +29,9 @@ public class PhaseServiceTest extends AbstractTest {
 	private PhaseService	phaseService;
 
 
+	//@Autowired
+	//private FixUpTaskService	fixUpTaskService;
+
 	//Test-------------------------------------------------------------
 
 	@SuppressWarnings("deprecation")
@@ -46,9 +49,8 @@ public class PhaseServiceTest extends AbstractTest {
 		phase.setEndMoment(new Date("2018/01/02 12:12"));
 
 		saved = this.phaseService.save(phase);
-
+		Assert.notNull(saved);
 		phases = this.phaseService.findAll();
-
 		Assert.isTrue(phases.contains(saved));
 	}
 }

@@ -43,7 +43,7 @@ public class WarrantyServiceTest extends AbstractTest {
 		warranty.setLaws("Chupala perro");
 
 		saved = this.warrantyService.save(warranty);
-
+		Assert.notNull(saved);
 		warranties = this.warrantyService.findAll();
 
 		Assert.isTrue(warranties.contains(saved));
