@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Profile;
 import repositories.ActorRepository;
 import repositories.ProfileRepository;
-import domain.Profile;
 
 @Service
 @Transactional
@@ -20,6 +20,7 @@ public class ProfileService {
 	// Managed repository ----------------------------------------------------------------
 	@Autowired
 	private ProfileRepository	ProfileRepository;
+	@Autowired
 	private ActorRepository		actorRepository;
 
 

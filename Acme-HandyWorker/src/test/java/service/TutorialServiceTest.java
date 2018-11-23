@@ -13,12 +13,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import domain.Section;
+import domain.Tutorial;
 import services.SectionService;
 import services.SponsorshipService;
 import services.TutorialService;
 import utilities.AbstractTest;
-import domain.Section;
-import domain.Tutorial;
 
 ;
 
@@ -29,7 +29,7 @@ import domain.Tutorial;
 @Transactional
 public class TutorialServiceTest extends AbstractTest {
 
-	//Service ------------------------------ 
+	//Service ------------------------------
 	@Autowired
 	private TutorialService		tutorialService;
 	@Autowired
@@ -75,22 +75,28 @@ public class TutorialServiceTest extends AbstractTest {
 		this.authenticate("handyWorker2");
 		final int handyWorkerId = this.getEntityId("handyWorker2");
 		final int sponsorshipId = this.getEntityId("sponsorship1");
-		tutorial = this.tutorialService.create(handyWorkerId);
-		tutorial.setPictures("http://photo1.com");
-		tutorial.setSummary("aaa");
-		tutorial.setTitle("aa");
-		tutorial.setSponsorship(this.sponsorshipService.findOne(sponsorshipId));
-		saved = this.tutorialService.save(tutorial);
 
-		final int sectionId = this.getEntityId("section1");
-		final Section g = this.sectionService.findOne(sectionId);
-		this.sectionService.save(g);
-		tutorial.getSections().add(g);
+		try {
+			tutorial = this.tutorialService.create(handyWorkerId);
+			tutorial.setPictures("http://photo1.com");
+			tutorial.setSummary("aaa");
+			tutorial.setTitle("aa");
+			tutorial.setSponsorship(this.sponsorshipService.findOne(sponsorshipId));
+			saved = this.tutorialService.save(tutorial);
 
-		saved1 = this.tutorialService.save(saved);
-		tutorials = this.tutorialService.findAll();
-		tutorials.add(saved1);
-		Assert.isTrue(tutorials.contains(saved1));
+			final int sectionId = this.getEntityId("section1");
+			final Section g = this.sectionService.findOne(sectionId);
+			this.sectionService.save(g);
+			tutorial.getSections().add(g);
+
+			saved1 = this.tutorialService.save(saved);
+			tutorials = this.tutorialService.findAll();
+			tutorials.add(saved1);
+			Assert.isTrue(tutorials.contains(saved1));
+
+		} catch (final Exception e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 	@Test
@@ -125,6 +131,8 @@ public class TutorialServiceTest extends AbstractTest {
 
 		try {
 			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+
+			this.tutorialService.delete(tutorial);
 
 			final Collection<Tutorial> tutorials = new ArrayList<>(this.tutorialService.findAll());
 			Assert.isTrue(!tutorials.contains(tutorial));

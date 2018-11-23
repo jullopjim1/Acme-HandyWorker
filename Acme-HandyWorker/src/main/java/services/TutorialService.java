@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.HandyWorkerRepository;
-import repositories.TutorialRepository;
 import domain.Section;
 import domain.Tutorial;
+import repositories.HandyWorkerRepository;
+import repositories.TutorialRepository;
 
 @Service
 public class TutorialService {
@@ -20,6 +20,8 @@ public class TutorialService {
 	// Managed repository ----------------------------------------------------------------
 	@Autowired
 	private TutorialRepository		tutorialRepository;
+
+	@Autowired
 	private HandyWorkerRepository	handyWorkerRepository;
 
 

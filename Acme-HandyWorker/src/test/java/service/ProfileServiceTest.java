@@ -12,9 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import domain.Profile;
 import services.ProfileService;
 import utilities.AbstractTest;
-import domain.Profile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -23,23 +23,23 @@ import domain.Profile;
 @Transactional
 public class ProfileServiceTest extends AbstractTest {
 
-	//Service ------------------------------ 
+	//Service ------------------------------
 	@Autowired
-	private ProfileService	profileService;
+	private ProfileService profileService;
 
 
 	//Test
 	@Test
 	public void testCreate() {
 
-		final int reportId = this.getEntityId("report1");
+		final int actorId = this.getEntityId("admin");
 		try {
-			final Profile profile = this.profileService.create(reportId);
+			final Profile profile = this.profileService.create(actorId);
 			profile.setLink("http://profile7.com");
 			profile.setName("Antonio");
 			profile.setNick("piwflow");
 
-			Assert.notNull(profile.getActor());
+			Assert.notNull(profile);
 
 			System.out.println("¡Exito!");
 
