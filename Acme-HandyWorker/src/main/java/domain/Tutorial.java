@@ -91,7 +91,7 @@ public class Tutorial extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Sponsorship getSponsorship() {
 		return this.sponsorship;
 	}

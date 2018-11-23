@@ -18,8 +18,9 @@ import services.SponsorshipService;
 import services.TutorialService;
 import utilities.AbstractTest;
 import domain.Section;
-import domain.Sponsorship;
 import domain.Tutorial;
+
+;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -28,50 +29,112 @@ import domain.Tutorial;
 @Transactional
 public class TutorialServiceTest extends AbstractTest {
 
-	//Services------------------------------------------------------------
+	//Service ------------------------------ 
 	@Autowired
 	private TutorialService		tutorialService;
-
 	@Autowired
 	private SponsorshipService	sponsorshipService;
-
 	@Autowired
 	private SectionService		sectionService;
 
 
 	//Test
 	@Test
-	public void testTutorial() {
-		System.out.println("------Test Tutorial------");
-		final Tutorial tutorial, saved;
-		final Collection<Tutorial> tutorials;
+	public void testCreate() {
+		this.authenticate("handyWorker2");
+		final int handyWorkerId = this.getEntityId("handyWorker2");
+		final int sponsorshipId = this.getEntityId("sponsorship1");
+		try {
+			final Tutorial tutorial = this.tutorialService.create(handyWorkerId);
+			tutorial.setPictures("http://photo1.com");
+			tutorial.setSponsorship(this.sponsorshipService.findOne(sponsorshipId));
+			tutorial.setSummary("aaa");
+			tutorial.setTitle("aa");
+			this.tutorialService.save(tutorial);
+			final int sectionId = this.getEntityId("section1");
+			final Section g = this.sectionService.findOne(sectionId);
+			this.sectionService.save(g);
+			tutorial.getSections().add(g);
 
-		this.authenticate("handyWorker1");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
-		tutorial = this.tutorialService.create(handyWorkerId);
-		final Collection<Section> s = new ArrayList<>();
-		final Section uno = new Section();
-		uno.setPictures("http://www.pictures1.com");
-		uno.setPosition(1);
-		uno.setText("aaaa");
-		uno.setTitle("section1");
+			Assert.notNull(tutorial);
 
-		final Section dos = this.sectionService.save(uno);
-		s.add(dos);
-		tutorial.setSections(s);
-		tutorial.setPictures("http://www.pictures1.com");
-		final int sponsorshipId = this.getEntityId("sponsorship2");
-		final Sponsorship sp = this.sponsorshipService.findOne(sponsorshipId);
-		tutorial.setSponsorship(sp);
-		Assert.notNull(tutorial.getSponsorship());
-		tutorial.setSummary("summary");
-		tutorial.setTitle("tutorial1");
+			System.out.println("¡Exito!");
 
-		Assert.notNull(tutorial);
-		saved = this.tutorialService.save(tutorial);
-
-		tutorials = this.tutorialService.findAll();
-		Assert.isTrue(tutorials.contains(saved));
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 
 	}
+
+	@Test
+	public void testSave() {
+		final Tutorial tutorial, saved, saved1;
+
+		final Collection<Tutorial> tutorials;
+
+		this.authenticate("handyWorker2");
+		final int handyWorkerId = this.getEntityId("handyWorker2");
+		final int sponsorshipId = this.getEntityId("sponsorship1");
+		tutorial = this.tutorialService.create(handyWorkerId);
+		tutorial.setPictures("http://photo1.com");
+		tutorial.setSummary("aaa");
+		tutorial.setTitle("aa");
+		tutorial.setSponsorship(this.sponsorshipService.findOne(sponsorshipId));
+		saved = this.tutorialService.save(tutorial);
+
+		final int sectionId = this.getEntityId("section1");
+		final Section g = this.sectionService.findOne(sectionId);
+		this.sectionService.save(g);
+		tutorial.getSections().add(g);
+
+		saved1 = this.tutorialService.save(saved);
+		tutorials = this.tutorialService.findAll();
+		tutorials.add(saved1);
+		Assert.isTrue(tutorials.contains(saved1));
+
+	}
+	@Test
+	public void testFindOne() {
+
+		final int tutorialId = this.getEntityId("tutorial1");
+
+		try {
+			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+			Assert.notNull(tutorial);
+
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+
+	}
+	@Test
+	public void testFindAll() {
+		final int tutorial1 = this.getEntityId("tutorial1");
+		final Tutorial tutorial = this.tutorialService.findOne(tutorial1);
+		final Collection<Tutorial> tutorials = this.tutorialService.findAll();
+		Assert.isTrue(tutorials.contains(tutorial));
+
+	}
+	@Test
+	public void testDelete() {
+		System.out.println("========== testDelete() ==========");
+
+		final int tutorialId = this.getEntityId("tutorial1");
+
+		try {
+			final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+
+			final Collection<Tutorial> tutorials = new ArrayList<>(this.tutorialService.findAll());
+			Assert.isTrue(!tutorials.contains(tutorial));
+
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+
+	}
+
 }
