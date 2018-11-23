@@ -62,6 +62,7 @@ public class SponsorshipService {
 
 		return result;
 	}
+
 	public void delete(final Sponsorship sponsorship) {
 
 		Assert.notNull(sponsorship);
