@@ -42,7 +42,7 @@ public class ComplaintServiceTest extends AbstractTest {
 		complaint.setDescription("Te como la verga");
 
 		saved = this.complaintService.save(complaint);
-
+		Assert.notNull(saved);
 		complaints = this.complaintService.findAll();
 
 		Assert.isTrue(complaints.contains(saved));
