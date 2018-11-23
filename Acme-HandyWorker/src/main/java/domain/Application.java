@@ -70,6 +70,7 @@ public class Application extends DomainEntity {
 	// Relationships ---------------------------------------------------------
 	private FixUpTask	fixUpTask;
 	private HandyWorker	handyWorker;
+	private CreditCard	creditCard;
 
 
 	@ManyToOne(optional = false)
@@ -90,6 +91,16 @@ public class Application extends DomainEntity {
 
 	public void setHandyWorker(final HandyWorker handyWorker) {
 		this.handyWorker = handyWorker;
+	}
+
+	@Valid
+	@ManyToOne(optional = true)
+	public CreditCard getCreditCard() {
+		return this.creditCard;
+	}
+
+	public void setCreditCard(final CreditCard creditCard) {
+		this.creditCard = creditCard;
 	}
 
 }

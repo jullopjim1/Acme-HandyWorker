@@ -37,7 +37,7 @@ public class EducationRecordService {
 
 	public EducationRecord create(final int curriculumId) {
 		final EducationRecord educationRecord = new EducationRecord();
-		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
+		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 
 		educationRecord.setCurriculum(curriculum);
 
@@ -58,6 +58,10 @@ public class EducationRecordService {
 
 	public void delete(final EducationRecord entity) {
 		this.educationRecordRepository.delete(entity);
+	}
+
+	public EducationRecord findEducationRecordByCurriculumId(final int curriculumId) {
+		return this.educationRecordRepository.findEducationRecordByCurriculumId(curriculumId);
 	}
 
 }

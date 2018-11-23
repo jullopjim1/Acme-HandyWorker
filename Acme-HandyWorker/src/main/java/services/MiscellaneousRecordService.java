@@ -37,7 +37,7 @@ public class MiscellaneousRecordService {
 
 	public MiscellaneousRecord create(final int curriculumId) {
 		final MiscellaneousRecord miscellaneousRecord = new MiscellaneousRecord();
-		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
+		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 
 		miscellaneousRecord.setCurriculum(curriculum);
 
@@ -58,6 +58,10 @@ public class MiscellaneousRecordService {
 
 	public void delete(final MiscellaneousRecord entity) {
 		this.miscellaneousRecordRepository.delete(entity);
+	}
+
+	public MiscellaneousRecord findMiscellaneousRecordByCurriculumId(final int curriculumId) {
+		return this.miscellaneousRecordRepository.findMiscellaneousRecordByCurriculumId(curriculumId);
 	}
 
 }

@@ -37,8 +37,7 @@ public class ProfessionalRecordService {
 
 	public ProfessionalRecord create(final int curriculumId) {
 		final ProfessionalRecord professionalRecord = new ProfessionalRecord();
-		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
-
+		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 		professionalRecord.setCurriculum(curriculum);
 
 		return professionalRecord;
@@ -58,6 +57,10 @@ public class ProfessionalRecordService {
 
 	public void delete(final ProfessionalRecord entity) {
 		this.professionalRecordRepository.delete(entity);
+	}
+
+	public ProfessionalRecord findProfessionalRecordByCurriculumId(final int curriculumId) {
+		return this.professionalRecordRepository.findProfessionalRecordByCurriculumId(curriculumId);
 	}
 
 }

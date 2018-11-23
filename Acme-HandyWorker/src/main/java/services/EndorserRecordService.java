@@ -37,7 +37,7 @@ public class EndorserRecordService {
 
 	public EndorserRecord create(final int curriculumId) {
 		final EndorserRecord endorserRecord = new EndorserRecord();
-		final Curriculum curriculum = this.curriculumService.findCurriculumById(curriculumId);
+		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
 
 		endorserRecord.setCurriculum(curriculum);
 
@@ -58,6 +58,10 @@ public class EndorserRecordService {
 
 	public void delete(final EndorserRecord entity) {
 		this.endorserRecordRepository.delete(entity);
+	}
+
+	public EndorserRecord findEndorserRecordByCurriculumId(final int curriculumId) {
+		return this.endorserRecordRepository.findEndorserRecordByCurriculumId(curriculumId);
 	}
 
 }

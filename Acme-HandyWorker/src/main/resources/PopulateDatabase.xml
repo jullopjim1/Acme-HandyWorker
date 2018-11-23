@@ -245,7 +245,43 @@
 		</property>
 	</bean>
 
+	<!-- CREDIT CARD -->
 
+	<bean id="creditcard1" class="domain.CreditCard">
+		<property name="holderName" value="holderName1" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4172711227177926" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="2021" />
+		<property name="CVVCode" value="110" />
+	</bean>
+
+	<bean id="creditcard2" class="domain.CreditCard">
+		<property name="holderName" value="holderName2" />
+		<property name="brandName" value="MASTER" />
+		<property name="number" value="5545176232272269" />
+		<property name="expirationMonth" value="1" />
+		<property name="expirationYear" value="2022" />
+		<property name="CVVCode" value="220" />
+	</bean>
+
+	<bean id="creditcard3" class="domain.CreditCard">
+		<property name="holderName" value="holderName3" />
+		<property name="brandName" value="DINNERS" />
+		<property name="number" value="38084454680414" />
+		<property name="expirationMonth" value="2" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="303" />
+	</bean>
+
+	<bean id="creditcard4" class="domain.CreditCard">
+		<property name="holderName" value="holderName4" />
+		<property name="brandName" value="AMEX" />
+		<property name="number" value="374258474911460" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="2023" />
+		<property name="CVVCode" value="440" />
+	</bean>
 
 
 	<!-- ADMINISTRATOR -->
@@ -559,10 +595,6 @@
 
 	<!-- CURRICULUM -->
 
-	<bean id="curriculum1" class="domain.Curriculum">
-		<property name="ticker" value="041118-AA99AA" />
-		<property name="handyWorker" ref="handyWorker1" />
-	</bean>
 
 	<bean id="curriculum2" class="domain.Curriculum">
 		<property name="ticker" value="041112-AA99AA" />
@@ -580,15 +612,6 @@
 	</bean>
 
 	<!-- PERSONAL RECORD -->
-
-	<bean id="personalRecord1" class="domain.PersonalRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="fullName" value="Full Name 1" />
-		<property name="photo" value="http://photo1.com" />
-		<property name="email" value="emailpersonalrecord1@gmail.com" />
-		<property name="phone" value="650190414" />
-		<property name="link" value="http://link1.com" />
-	</bean>
 
 	<bean id="personalRecord2" class="domain.PersonalRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -619,15 +642,6 @@
 
 	<!-- EDUCATION RECORD -->
 
-	<bean id="educationRecord1" class="domain.EducationRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="title" value="Title 1" />
-		<property name="startMoment" value="10/10/2011" />
-		<property name="endMoment" value="10/10/2015" />
-		<property name="institution" value="Institution 1" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="educationRecord2" class="domain.EducationRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -655,15 +669,6 @@
 
 	<!-- PROFESSIONAL RECORD -->
 
-	<bean id="professionalRecord1" class="domain.ProfessionalRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="name" value="Name 1" />
-		<property name="startMoment" value="10/10/2011" />
-		<property name="endMoment" value="10/10/2015" />
-		<property name="role" value="Role 1" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="professionalRecord2" class="domain.ProfessionalRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -694,14 +699,6 @@
 
 	<!-- ENDORSER RECORD -->
 
-	<bean id="endorserRecord1" class="domain.EndorserRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="fullName" value="Full Name 1" />
-		<property name="email" value="endorserrecord1@gmail.com" />
-		<property name="phone" value="650190414" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="endorserRecord2" class="domain.EndorserRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -730,12 +727,6 @@
 
 	<!-- MISCELLANEOUS RECORD -->
 
-	<bean id="miscellaneousRecord1" class="domain.MiscellaneousRecord">
-		<property name="curriculum" ref="curriculum1" />
-		<property name="title" value="Title 1" />
-		<property name="link" value="http://link1.com" />
-		<property name="comments" value="Comments 1" />
-	</bean>
 
 	<bean id="miscellaneousRecord2" class="domain.MiscellaneousRecord">
 		<property name="curriculum" ref="curriculum2" />
@@ -761,24 +752,28 @@
 		<property name="banner" value="http://banner1.com" />
 		<property name="link" value="http://sponsorship1.com" />
 		<property name="sponsor" ref="sponsor1" />
+		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
 		<property name="banner" value="http://banner2.com" />
 		<property name="link" value="http://sponsorship2.com" />
 		<property name="sponsor" ref="sponsor2" />
+		<property name="creditCard" ref="creditcard2" />
 	</bean>
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
 		<property name="banner" value="http://banner3.com" />
 		<property name="link" value="http://sponsorship3.com" />
 		<property name="sponsor" ref="sponsor4" />
+		<property name="creditCard" ref="creditcard3" />
 	</bean>
 
 	<bean id="sponsorship4" class="domain.Sponsorship">
 		<property name="banner" value="http://banner4.com" />
 		<property name="link" value="http://sponsorship4.com" />
 		<property name="sponsor" ref="sponsor4" />
+		<property name="creditCard" ref="creditcard3" />
 	</bean>
 
 	<!-- PROFILE -->
@@ -892,8 +887,7 @@
 			<list>
 				<ref bean="note1" />
 				<ref bean="note2" />
-				<ref bean="note4" />
-				<ref bean="note5" />
+				
 			</list>
 		</property>
 	</bean>
@@ -907,7 +901,7 @@
 		<property name="referee" ref="referee2" />
 		<property name="note">
 			<list>
-				<ref bean="note6" />
+				
 			</list>
 		</property>
 	</bean>
@@ -922,7 +916,7 @@
 		<property name="note">
 			<list>
 				<ref bean="note3" />
-				<ref bean="note7" />
+				
 			</list>
 		</property>
 	</bean>
@@ -934,6 +928,7 @@
 		<property name="mandatoryCommentReferee" value="" />
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="report" ref="report1"/>
 	</bean>
 
 
@@ -942,6 +937,7 @@
 		<property name="mandatoryCommentReferee" value="mandatory2" />
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="report" ref="report2"/>
 	</bean>
 
 	<bean id="note3" class="domain.Note">
@@ -949,35 +945,10 @@
 		<property name="mandatoryCommentReferee" value="mandatory3" />
 		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
+		<property name="report" ref="report3"/>
 	</bean>
 
-	<bean id="note4" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
-
-	<bean id="note5" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
-
-	<bean id="note6" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
-
-	<bean id="note7" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="" />
-		<property name="mandatoryCommentCustomer" value="mandatory1" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-	</bean>
+	
 
 	<!-- ENDORSEMENT -->
 
@@ -1399,6 +1370,7 @@
 		<property name="comments" value="comments2" />
 		<property name="fixUpTask" ref="fixuptask2" />
 		<property name="handyWorker" ref="handyWorker2" />
+		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="application3" class="domain.Application">
@@ -1408,6 +1380,7 @@
 		<property name="comments" value="comments3" />
 		<property name="fixUpTask" ref="fixuptask3" />
 		<property name="handyWorker" ref="handyWorker3" />
+		<property name="creditCard" ref="creditcard2" />
 	</bean>
 
 	<bean id="application4" class="domain.Application">
@@ -1426,6 +1399,7 @@
 		<property name="comments" value="comments5" />
 		<property name="fixUpTask" ref="fixuptask2" />
 		<property name="handyWorker" ref="handyWorker1" />
+		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="application6" class="domain.Application">
@@ -1435,6 +1409,7 @@
 		<property name="comments" value="comments6" />
 		<property name="fixUpTask" ref="fixuptask3" />
 		<property name="handyWorker" ref="handyWorker1" />
+		<property name="creditCard" ref="creditcard2" />
 	</bean>
 
 	<bean id="application7" class="domain.Application">
@@ -1444,6 +1419,7 @@
 		<property name="comments" value="comments7" />
 		<property name="fixUpTask" ref="fixuptask4" />
 		<property name="handyWorker" ref="handyWorker1" />
+		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<!-- BOX -->
@@ -1529,62 +1505,5 @@
 		<property name="recipient" ref="customer1" />
 	</bean>
 
-	<!-- CREDIT CARD -->
 
-	<bean id="creditcard1" class="domain.CreditCard">
-		<property name="holderName" value="holderName1" />
-		<property name="brandName" value="VISA" />
-		<property name="number" value="4172711227177926" />
-		<property name="expirationMonth" value="9" />
-		<property name="expirationYear" value="2021" />
-		<property name="CVVCode" value="110" />
-		<property name="applications">
-			<list>
-				<ref bean="application2" />
-				<ref bean="application3" />
-				<ref bean="application5" />
-				<ref bean="application6" />
-				<ref bean="application7" />
-			</list>
-		</property>
-		<property name="sponsorships">
-			<list>
-				<ref bean="sponsorship1" />
-				<ref bean="sponsorship2" />
-				<ref bean="sponsorship4" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="creditcard2" class="domain.CreditCard">
-		<property name="holderName" value="holderName2" />
-		<property name="brandName" value="MASTER" />
-		<property name="number" value="5545176232272269" />
-		<property name="expirationMonth" value="1" />
-		<property name="expirationYear" value="2022" />
-		<property name="CVVCode" value="220" />
-		<property name="sponsorships">
-			<list>
-				<ref bean="sponsorship3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="creditcard3" class="domain.CreditCard">
-		<property name="holderName" value="holderName3" />
-		<property name="brandName" value="DINNERS" />
-		<property name="number" value="38084454680414" />
-		<property name="expirationMonth" value="2" />
-		<property name="expirationYear" value="2023" />
-		<property name="CVVCode" value="303" />
-	</bean>
-
-	<bean id="creditcard4" class="domain.CreditCard">
-		<property name="holderName" value="holderName4" />
-		<property name="brandName" value="AMEX" />
-		<property name="number" value="374258474911460" />
-		<property name="expirationMonth" value="12" />
-		<property name="expirationYear" value="2023" />
-		<property name="CVVCode" value="440" />
-	</bean>
 </beans>
