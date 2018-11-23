@@ -21,7 +21,6 @@ public class TutorialService {
 	@Autowired
 	private TutorialRepository		tutorialRepository;
 	private HandyWorkerRepository	handyWorkerRepository;
-	private SponsorshipService		sponsorshipService;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -37,7 +36,6 @@ public class TutorialService {
 		final Collection<Section> p = new ArrayList<>();
 		tutorial.setSections(p);
 		tutorial.setMoment(new Date(System.currentTimeMillis() - 1000));
-
 		return tutorial;
 	}
 
