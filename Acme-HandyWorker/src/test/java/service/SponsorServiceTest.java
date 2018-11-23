@@ -32,22 +32,27 @@ public class SponsorServiceTest extends AbstractTest {
 
 	@Test
 	public void testSponsor() {
-		System.out.println("------Test Warranty------");
+		System.out.println("------Test Sponsor------");
 		final Sponsor sponsor, saved;
 		final Collection<Sponsor> sponsors;
+		try {
+			sponsor = this.sponsorService.create();
+			sponsor.setAddress("111");
+			sponsor.setEmail("emailSponsor1@gmail.com");
+			sponsor.setMiddleName("middle1");
+			sponsor.setName("sponsor1");
+			sponsor.setPhone("650190444");
+			sponsor.setSurname("ww");
+			sponsor.setPhoto("http://www.photo5.com");
+			saved = this.sponsorService.save(sponsor);
+			Assert.notNull(saved);
+			sponsors = this.sponsorService.findAll();
 
-		sponsor = this.sponsorService.create();
-		sponsor.setAddress("111");
-		sponsor.setEmail("emailSponsor1@gmail.com");
-		sponsor.setMiddleName("middle1");
-		sponsor.setName("sponsor1");
-		sponsor.setPhone("650190444");
-		sponsor.setSurname("ww");
-		sponsor.setPhoto("http://www.photo5.com");
-		saved = this.sponsorService.save(sponsor);
-		Assert.notNull(saved);
-		sponsors = this.sponsorService.findAll();
+			Assert.isTrue(sponsors.contains(saved));
+			System.out.println("¡Exito!");
 
-		Assert.isTrue(sponsors.contains(saved));
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 	}
 }

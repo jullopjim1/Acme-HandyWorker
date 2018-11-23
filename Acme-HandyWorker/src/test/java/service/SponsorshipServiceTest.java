@@ -39,29 +39,35 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 	@Test
 	public void testSponsorship() {
-		System.out.println("------Test Warranty------");
+		System.out.println("------Test Sponsorship------");
 		final Sponsorship sponsorship, saved;
 		final Collection<Sponsorship> sponsorships;
 		this.authenticate("sponsor1");
 		final int sponsorId = this.getEntityId("sponsor1");
 		final Sponsor x = this.sponsorService.findOne(sponsorId);
-		sponsorship = this.sponsorshipService.create(sponsorId);
-		sponsorship.setBanner("http://banner9.com");
-		sponsorship.setLink("http://sponsorship7.com");
-		//final CreditCard cc = new CreditCard();
-		//cc.setBrandName("VISA");
-		//cc.setCVVCode(555);
-		//cc.setExpirationMonth(10);
-		//cc.setExpirationYear(2020);
-		//cc.setHolderName("anotonio");
-		//cc.setNumber("12394012957125");
-		//this.creditCardService.save(cc);
-		//sponsorship.setCreditCard(cc);
+		try {
+			sponsorship = this.sponsorshipService.create(sponsorId);
+			sponsorship.setBanner("http://banner9.com");
+			sponsorship.setLink("http://sponsorship7.com");
+			//final CreditCard cc = new CreditCard();
+			//cc.setBrandName("VISA");
+			//cc.setCVVCode(555);
+			//cc.setExpirationMonth(10);
+			//cc.setExpirationYear(2020);
+			//cc.setHolderName("anotonio");
+			//cc.setNumber("12394012957125");
+			//this.creditCardService.save(cc);
+			//sponsorship.setCreditCard(cc);
 
-		saved = this.sponsorshipService.save(sponsorship);
-		Assert.notNull(saved);
-		sponsorships = this.sponsorshipService.findAll();
-		Assert.isTrue(sponsorship.getSponsor().equals(x));
-		Assert.isTrue(sponsorships.contains(saved));
+			saved = this.sponsorshipService.save(sponsorship);
+			Assert.notNull(saved);
+			sponsorships = this.sponsorshipService.findAll();
+			Assert.isTrue(sponsorship.getSponsor().equals(x));
+			Assert.isTrue(sponsorships.contains(saved));
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 	}
 }
