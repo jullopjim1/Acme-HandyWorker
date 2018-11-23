@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Administrator;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Administrator;
 
 @Service
 @Transactional
@@ -23,7 +23,7 @@ public class AdministratorService {
 	//Repository-----------------------------------------------
 
 	@Autowired
-	private AdministratorRepository	administratorRepository;
+	private AdministratorRepository administratorRepository;
 
 
 	//Services-------------------------------------------------
@@ -45,6 +45,7 @@ public class AdministratorService {
 		a.setAuthority("ADMIN");
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
+		administrator.setUserAccount(userAccount);
 
 		administrator.setIsBanned(false);
 		administrator.setIsSuspicious(false);

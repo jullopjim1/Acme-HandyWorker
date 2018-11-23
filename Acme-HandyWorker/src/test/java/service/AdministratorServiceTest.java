@@ -9,14 +9,15 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import domain.Administrator;
 import security.UserAccount;
 import services.AdministratorService;
 import utilities.AbstractTest;
-import domain.Administrator;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -27,7 +28,7 @@ public class AdministratorServiceTest extends AbstractTest {
 
 	//Service----------------------------------------------------------
 	@Autowired
-	private AdministratorService	administratorService;
+	private AdministratorService administratorService;
 
 
 	//Test-------------------------------------------------------------
@@ -40,7 +41,8 @@ public class AdministratorServiceTest extends AbstractTest {
 			final Administrator admin = this.administratorService.create();
 			final UserAccount userAccount = admin.getUserAccount();
 			userAccount.setUsername("administratorz1");
-			userAccount.setPassword("administratorz2");
+			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			userAccount.setPassword(encoder.encodePassword("admin", null));
 			admin.setName("Augusto");
 			admin.setName("Augusto");
 			admin.setMiddleName("Pepinero");
@@ -64,11 +66,10 @@ public class AdministratorServiceTest extends AbstractTest {
 	public void testFindOne() {
 		System.out.println("========== testFindOne() ==========");
 		this.authenticate("Admin");
-		//final int administratorId = this.getEntityId("Admin");
-		final int administratorId = 850;
+		final int administratorId = this.getEntityId("admin");
 
 		try {
-			final Administrator admin = this.administratorService.findOne(850);
+			final Administrator admin = this.administratorService.findOne(administratorId);
 			Assert.notNull(admin);
 			System.out.println("¡Exito!");
 
@@ -82,7 +83,7 @@ public class AdministratorServiceTest extends AbstractTest {
 		System.out.println("========== testFindAll() ==========");
 
 		this.authenticate("Admin");
-		final int administratorId = 850;
+		final int administratorId = this.getEntityId("admin");
 
 		try {
 			final Collection<Administrator> administrators = new ArrayList<>(this.administratorService.findAll());
@@ -91,7 +92,7 @@ public class AdministratorServiceTest extends AbstractTest {
 			Assert.isTrue(administrators.contains(admin));
 
 			for (final Administrator admin1 : administrators)
-				System.out.println(admin1.getUserAccount());
+				System.out.println(admin1.getUserAccount().getUsername());
 
 			System.out.println("¡Exito!");
 
@@ -107,11 +108,13 @@ public class AdministratorServiceTest extends AbstractTest {
 
 		try {
 			final Administrator admin = this.administratorService.create();
-			System.out.println(admin);
+
 			final UserAccount userAccount = admin.getUserAccount();
-			System.out.println(userAccount);
-			userAccount.setUsername("administratorz2");
-			userAccount.setPassword("administratorz3");
+			userAccount.setUsername("administratorz1");
+			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			userAccount.setPassword(encoder.encodePassword("admin", null));
+			admin.setUserAccount(userAccount);
+
 			admin.setName("Chicharito");
 			admin.setMiddleName("Pepinero");
 			admin.setSurname("Angostino");
@@ -119,12 +122,8 @@ public class AdministratorServiceTest extends AbstractTest {
 			admin.setEmail("administrador2@gmail.com");
 			admin.setPhone("657824540");
 			admin.setAddress("Calle pene");
-			admin.setUserAccount(userAccount);
-			System.out.println(admin);
-			Assert.notNull(admin);
 
 			final Administrator saved = this.administratorService.save(admin);
-			Assert.notNull(saved);
 			final Collection<Administrator> admins = new ArrayList<>(this.administratorService.findAll());
 			Assert.isTrue(admins.contains(saved));
 
@@ -138,28 +137,28 @@ public class AdministratorServiceTest extends AbstractTest {
 	 * @Test
 	 * public void testDelete() {
 	 * System.out.println("========== testDelete() ==========");
-	 * 
+	 *
 	 * this.authenticate("handyWorker2");
 	 * final int handyWorkerId = this.getEntityId("handyWorker2");
-	 * 
+	 *
 	 * try {
-	 * 
+	 *
 	 * final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 	 * Assert.notNull(curriculum);
-	 * 
+	 *
 	 * this.curriculumService.delete(curriculum);
-	 * 
+	 *
 	 * final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
 	 * Assert.isTrue(!curriculums.contains(curriculum));
-	 * 
+	 *
 	 * System.out.println("¡Exito!");
-	 * 
+	 *
 	 * } catch (final Exception e) {
 	 * System.out.println("¡Fallo," + e.getMessage() + "!");
 	 * }
-	 * 
+	 *
 	 * this.unauthenticate();
-	 * 
+	 *
 	 * }
 	 */
 }
