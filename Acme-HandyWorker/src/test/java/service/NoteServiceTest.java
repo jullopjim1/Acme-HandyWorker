@@ -77,25 +77,37 @@ public class NoteServiceTest extends AbstractTest {
 
 		final Collection<Note> notes;
 		final int reportId = this.getEntityId("report1");
-		note = this.noteService.create(reportId);
-		note.setMandatoryCommentCustomer("aaaa");
-		note.setMandatoryCommentHandyWorker("pppp");
-		note.setMandatoryCommentReferee("eeee");
+		try {
+			note = this.noteService.create(reportId);
+			note.setMandatoryCommentCustomer("aaaa");
+			note.setMandatoryCommentHandyWorker("pppp");
+			note.setMandatoryCommentReferee("eeee");
 
-		saved = this.noteService.save(note);
+			saved = this.noteService.save(note);
 
-		notes = this.reportService.findOne(reportId).getNote();
-		notes.add(saved);
-		Assert.isTrue(notes.contains(saved));
+			notes = this.reportService.findOne(reportId).getNote();
+			notes.add(saved);
+			Assert.isTrue(notes.contains(saved));
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 
 	}
 
 	@Test
 	public void testFindAll() {
 		final int noteId = this.getEntityId("note1");
-		final Note note = this.noteService.findOne(noteId);
-		final Collection<Note> notes = this.noteService.findAll();
-		Assert.isTrue(notes.contains(note));
+		try {
+			final Note note = this.noteService.findOne(noteId);
+			final Collection<Note> notes = this.noteService.findAll();
+			Assert.isTrue(notes.contains(note));
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 
 	}
 }

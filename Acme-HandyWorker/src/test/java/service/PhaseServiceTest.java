@@ -40,8 +40,8 @@ public class PhaseServiceTest extends AbstractTest {
 		System.out.println("------Test Phase------");
 		final Phase phase, saved;
 		final Collection<Phase> phases;
-
-		phase = this.phaseService.create();
+		final int fixUpTaskId = this.getEntityId("fixuptask1");
+		phase = this.phaseService.create(fixUpTaskId);
 
 		phase.setTitle("Hola");
 		phase.setDescription("hijos de putaaaaaaaaaaa este test es la polla");

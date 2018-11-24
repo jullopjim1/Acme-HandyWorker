@@ -21,8 +21,13 @@ public class ComplaintService {
 	@Autowired
 	private ComplaintRepository	complaintRepository;
 
-
 	//Services-------------------------------------------------
+	@Autowired
+	private CurriculumService	curriculumService;
+
+
+	//@Autowired
+	//private CustomerService		customerService;
 
 	//Constructor----------------------------------------------
 	public ComplaintService() {
@@ -30,10 +35,12 @@ public class ComplaintService {
 	}
 	//Simple CRUD----------------------------------------------
 
-	public Complaint create() {
+	public Complaint create(final int customerId) {
 		final Complaint complaint = new Complaint();
+		//final Customer customer = this.customerService.findOne(customerId);
 
-		complaint.setTicker("");
+		//complaint.setCustomer(customer);
+		complaint.setTicker(this.curriculumService.generateTicker());
 		complaint.setMoment(new Date(System.currentTimeMillis() - 1000));
 		return complaint;
 	}

@@ -55,18 +55,22 @@ public class SectionServiceTest extends AbstractTest {
 		Section saved;
 
 		final Collection<Section> sections;
+		try {
+			section = this.sectionService.create();
+			section.setPictures("http://www.photo152.com");
+			section.setPosition(1);
+			section.setText("aaaae");
+			section.setTitle("eeea");
 
-		section = this.sectionService.create();
-		section.setPictures("http://www.photo152.com");
-		section.setPosition(1);
-		section.setText("aaaae");
-		section.setTitle("eeea");
+			saved = this.sectionService.save(section);
 
-		saved = this.sectionService.save(section);
-
-		sections = this.sectionService.findAll();
-		sections.add(saved);
-		Assert.isTrue(sections.contains(saved));
+			sections = this.sectionService.findAll();
+			sections.add(saved);
+			Assert.isTrue(sections.contains(saved));
+			System.out.println("¡Exito!");
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 
 	}
 	@Test
@@ -89,8 +93,13 @@ public class SectionServiceTest extends AbstractTest {
 	public void testFindAll() {
 		final int section1 = this.getEntityId("section1");
 		final Section section = this.sectionService.findOne(section1);
-		final Collection<Section> sections = this.sectionService.findAll();
-		Assert.isTrue(sections.contains(section));
+		try {
+			final Collection<Section> sections = this.sectionService.findAll();
+			Assert.isTrue(sections.contains(section));
+			System.out.println("¡Exito!");
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 
 	}
 	@Test
@@ -101,7 +110,7 @@ public class SectionServiceTest extends AbstractTest {
 
 		try {
 			final Section section = this.sectionService.findOne(sectionId);
-
+			this.sectionService.delete(section);
 			final Collection<Section> sections = new ArrayList<>(this.sectionService.findAll());
 			Assert.isTrue(!sections.contains(section));
 

@@ -12,9 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.Profile;
 import services.ProfileService;
 import utilities.AbstractTest;
+import domain.Profile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -25,7 +25,7 @@ public class ProfileServiceTest extends AbstractTest {
 
 	//Service ------------------------------
 	@Autowired
-	private ProfileService profileService;
+	private ProfileService	profileService;
 
 
 	//Test
@@ -71,25 +71,37 @@ public class ProfileServiceTest extends AbstractTest {
 
 		final Collection<Profile> profiles;
 		final int refereeId = this.getEntityId("referee1");
-		profile = this.profileService.create(refereeId);
-		profile.setLink("http://profile10.com");
-		profile.setName("Antonia");
-		profile.setNick("piwflow2");
+		try {
+			profile = this.profileService.create(refereeId);
+			profile.setLink("http://profile10.com");
+			profile.setName("Antonia");
+			profile.setNick("piwflow2");
 
-		saved = this.profileService.save(profile);
+			saved = this.profileService.save(profile);
 
-		profiles = this.profileService.findAll();
-		profiles.add(saved);
-		Assert.isTrue(profiles.contains(saved));
+			profiles = this.profileService.findAll();
+			profiles.add(saved);
+			Assert.isTrue(profiles.contains(saved));
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 
 	}
 
 	@Test
 	public void testFindAll() {
 		final int profileId = this.getEntityId("profile1");
-		final Profile profile = this.profileService.findOne(profileId);
-		final Collection<Profile> profiles = this.profileService.findAll();
-		Assert.isTrue(profiles.contains(profile));
+		try {
+			final Profile profile = this.profileService.findOne(profileId);
+			final Collection<Profile> profiles = this.profileService.findAll();
+			Assert.isTrue(profiles.contains(profile));
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 
 	}
 }
