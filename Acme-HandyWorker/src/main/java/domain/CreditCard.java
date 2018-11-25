@@ -1,9 +1,13 @@
-
 package domain;
+
+import java.util.Collection;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
@@ -15,14 +19,13 @@ import org.hibernate.validator.constraints.Range;
 public class CreditCard extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
-	//ATRIBUTOS
-	private String	holderName;
-	private String	brandName;
-	private String	number;
-	private int		expirationMonth;
-	private int		expirationYear;
-	private int		CVVCode;
-
+	// ATRIBUTOS
+	private String holderName;
+	private String brandName;
+	private String number;
+	private int expirationMonth;
+	private int expirationYear;
+	private int CVVCode;
 
 	@NotBlank
 	public String getHolderName() {

@@ -8,11 +8,11 @@ import javax.transaction.Transactional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import security.Authority;
 import security.UserAccount;
 import services.RefereeService;
 import utilities.AbstractTest;
@@ -30,6 +30,7 @@ public class RefereeServiceTest extends AbstractTest {
 	private RefereeService	refereeService;
 
 
+	//comentario inutil de mierda
 	//Test-------------------------------------------------------------
 
 	@Test
@@ -38,15 +39,11 @@ public class RefereeServiceTest extends AbstractTest {
 		final Referee referee, saved;
 		final Collection<Referee> referees;
 
-		final UserAccount userAccount = new UserAccount();
-		userAccount.setUsername("refereez1");
-		userAccount.setPassword("refereez2");
-		final Authority a = new Authority();
-		a.setAuthority(Authority.REFEREE);
-		userAccount.addAuthority(a);
-
 		referee = this.refereeService.create();
-
+		final UserAccount userAccount = referee.getUserAccount();
+		userAccount.setUsername("refereez1");
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		userAccount.setPassword(encoder.encodePassword("referee1", null));
 		referee.setName("Augusto");
 		referee.setMiddleName("Pepinero");
 		referee.setSurname("Angostino");
@@ -59,7 +56,6 @@ public class RefereeServiceTest extends AbstractTest {
 		saved = this.refereeService.save(referee);
 		Assert.notNull(saved);
 		referees = this.refereeService.findAll();
-
 		Assert.isTrue(referees.contains(saved));
 	}
 }

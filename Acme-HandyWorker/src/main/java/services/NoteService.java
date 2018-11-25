@@ -19,6 +19,8 @@ public class NoteService {
 	// Managed repository ------------------------------ (Relacion con su propio repositorio)
 	@Autowired
 	private NoteRepository	noteRepository;
+	@Autowired
+	private ReportService	reportService;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -28,10 +30,11 @@ public class NoteService {
 	}
 
 	// Simple CRUD methods ------------------------------ (Operaciones básicas, pueden tener restricciones según los requisitos)
-	public Note create() {
+	public Note create(final int ReportId) {
 		Note note;
 
 		note = new Note();
+		note.setReport(this.reportService.findOne(ReportId));
 		note.setMoment(new Date(System.currentTimeMillis() - 1000));
 		return note;
 	}
@@ -64,4 +67,7 @@ public class NoteService {
 		return result;
 	}
 
+	public Note findNoteReportById(final int reportId) {
+		return this.noteRepository.findNoteReportById(reportId);
+	}
 }

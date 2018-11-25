@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ReportRepository;
+import domain.Complaint;
 import domain.Note;
+import domain.Referee;
 import domain.Report;
 
 @Service
@@ -34,21 +36,24 @@ public class ReportService {
 	//Constructor----------------------------------------------
 	public ReportService() {
 		super();
+
 	}
 	//Simple CRUD----------------------------------------------
 
-	public Report create() {
+	public Report create(final int complaintId, final int refereeId) {
 		final Report report = new Report();
-
 		final Collection<Note> notes = new ArrayList<>();
+		final Complaint complaint = this.complaintService.findOne(complaintId);
+		final Referee referee = this.refereeService.findOne(refereeId);
 
+		report.setComplaint(complaint);
+		report.setReferee(referee);
 		report.setMoment(new Date(System.currentTimeMillis() - 1000));
 		report.setIsFinal(false);
 		report.setNote(notes);
 
 		return report;
 	}
-
 	public List<Report> findAll() {
 		return this.reportRepository.findAll();
 	}
