@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.MessageRepository;
-import domain.Actor;
 import domain.Box;
 import domain.Message;
 
@@ -48,8 +47,8 @@ public class MessageService {
 		final String tags = "";
 
 		final Box box = this.boxService.create();
-		final Actor sender = this.actorService.create();
-		final Actor recipient = this.actorService.create();
+		//final Actor sender = this.actorService.create();
+		//final Actor recipient = this.actorService.create();
 
 		return message;
 
