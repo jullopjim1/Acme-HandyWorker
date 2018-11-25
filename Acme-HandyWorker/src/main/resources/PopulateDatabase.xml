@@ -1142,6 +1142,7 @@
 	<bean id="finder1" class="domain.Finder">
 		<property name="keyword" value="Fontanería" />
 		<property name="priceMin" value="50.0" />
+		<property name="lastUpdate" value="2018/01/02 11:12" />
 		<property name="fixUpTasks">
 			<list></list>
 		</property>
@@ -1151,6 +1152,7 @@
 	<bean id="finder2" class="domain.Finder">
 		<property name="keyword" value="Electricista" />
 		<property name="priceMin" value="70.0" />
+		<property name="lastUpdate" value="2018/01/02 11:12" />
 		<property name="fixUpTasks">
 			<list></list>
 		</property>
@@ -1159,6 +1161,7 @@
 	<bean id="finder3" class="domain.Finder">
 		<property name="keyword" value="Mueble" />
 		<property name="priceMin" value="120.0" />
+		<property name="lastUpdate" value="2018/01/02 11:12" />
 		<property name="fixUpTasks">
 			<list></list>
 		</property>
@@ -1167,6 +1170,7 @@
 	<bean id="finder4" class="domain.Finder">
 		<property name="keyword" value="Mampostería" />
 		<property name="priceMin" value="100.0" />
+		<property name="lastUpdate" value="2018/01/02 11:12" />
 		<property name="fixUpTasks">
 			<list></list>
 		</property>

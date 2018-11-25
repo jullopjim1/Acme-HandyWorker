@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,7 @@ public class FinderService {
 	private FinderRepository		finderRepository;
 
 	//Services---------------------------------------------------------------------------
+	@Autowired
 	private ConfigurationService	configurationService;
 
 
@@ -40,10 +42,21 @@ public class FinderService {
 	public Finder create() {
 		final Finder finder = new Finder();
 
+		final Date lastUpdate = new Date();
+		final Collection<FixUpTask> fixUpTasks = new ArrayList<>();
+
+		finder.setKeyword("");
+		finder.setNamecategory("");
+		finder.setNamewarranty("");
+		finder.setPriceMax(0.0);
+		finder.setPriceMin(0.0);
+		//finder.setDateMin();
+		//finder.setDateMax();
+		finder.setLastUpdate(lastUpdate);
+		finder.setFixUpTasks(fixUpTasks);
+
 		return finder;
-
 	}
-
 	public List<Finder> findAll() {
 		return this.finderRepository.findAll();
 	}
@@ -63,13 +76,26 @@ public class FinderService {
 	//Other Methods---------------------------------------------------------------------------
 
 	public Finder updateFinder(final Finder finder) {
+
 		Finder result = finder;
-		final Configuration configuration = this.configurationService.findAll().iterator().next();
+
+		Collection<Configuration> configurations = null;
+		try {
+
+			configurations = this.configurationService.findAll();
+
+		} catch (final Exception e) {
+			System.out.println(e);
+		}
+		Configuration configuration = null;
+
+		for (final Configuration configuration2 : configurations)
+			configuration = configuration2;
 
 		final Date currentDate = new Date();
-		final Date updateFinder = new Date(currentDate.getTime() - configuration.getFinderCacheTime());
+		final Date updateFinder = new Date(currentDate.getTime() - configuration.getFinderCacheTime() * 1000 * 60 * 60);
 
-		if (finder.getLastUpdate().after(updateFinder)) {
+		if (!finder.getLastUpdate().after(updateFinder)) {
 			finder.setFixUpTasks(this.searchFixUpTask(finder, configuration.getFinderMaxResults()));
 			result = this.save(finder);
 		}
@@ -93,4 +119,9 @@ public class FinderService {
 
 		return result;
 	}
+
+	public Finder findFinderByHandyWorkerId(final int handyWorkerId) {
+		return this.finderRepository.findByHandyWorker(handyWorkerId);
+	}
+
 }
