@@ -9,10 +9,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Curriculum;
+import domain.HandyWorker;
 import repositories.CurriculumRepository;
 import repositories.HandyWorkerRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -55,12 +58,15 @@ public class CurriculumService {
 		return this.curriculumRepository.findOne(curriculumId);
 	}
 	public Curriculum save(final Curriculum curriculum) {
+		Assert.notNull(curriculum);
+		this.checkPrincipal(curriculum);
 		final Curriculum saved = this.curriculumRepository.save(curriculum);
 		return saved;
 	}
 
-	public void delete(final Curriculum entity) {
-		this.curriculumRepository.delete(entity);
+	public void delete(final Curriculum curriculum) {
+		this.checkPrincipal(curriculum);
+		this.curriculumRepository.delete(curriculum);
 	}
 
 	//Other Methods---------------------------------------------------------------------------
@@ -94,6 +100,12 @@ public class CurriculumService {
 
 	public Curriculum findCurriculumHandyWorkerById(final int handyWorkerId) {
 		return this.curriculumRepository.findCurriculumHandyWorkerById(handyWorkerId);
+	}
+
+	public Boolean checkPrincipal(final Curriculum curriculum) {
+		final HandyWorker handyWorker = curriculum.getHandyWorker();
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
 	}
 
 }

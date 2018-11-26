@@ -7,10 +7,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Curriculum;
 import domain.EducationRecord;
+import domain.HandyWorker;
 import repositories.EducationRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -53,15 +56,27 @@ public class EducationRecordService {
 	}
 
 	public EducationRecord save(final EducationRecord educationRecord) {
-		return this.educationRecordRepository.save(educationRecord);
+		Assert.notNull(educationRecord);
+		this.checkPrincipal(educationRecord);
+		final EducationRecord saved = this.educationRecordRepository.save(educationRecord);
+		return saved;
 	}
 
-	public void delete(final EducationRecord entity) {
-		this.educationRecordRepository.delete(entity);
+	public void delete(final EducationRecord educationRecord) {
+		this.checkPrincipal(educationRecord);
+		this.educationRecordRepository.delete(educationRecord);
 	}
+
+	//Other Methods------------------------------------------------------------------
 
 	public EducationRecord findEducationRecordByCurriculumId(final int curriculumId) {
 		return this.educationRecordRepository.findEducationRecordByCurriculumId(curriculumId);
+	}
+
+	public Boolean checkPrincipal(final EducationRecord educationRecord) {
+		final HandyWorker handyWorker = educationRecord.getCurriculum().getHandyWorker();
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
 	}
 
 }

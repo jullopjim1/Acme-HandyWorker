@@ -7,10 +7,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Curriculum;
+import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 import repositories.MiscellaneousRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -53,15 +56,27 @@ public class MiscellaneousRecordService {
 	}
 
 	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
-		return this.miscellaneousRecordRepository.save(miscellaneousRecord);
+		Assert.notNull(miscellaneousRecord);
+		this.checkPrincipal(miscellaneousRecord);
+		final MiscellaneousRecord saved = this.miscellaneousRecordRepository.save(miscellaneousRecord);
+		return saved;
 	}
 
-	public void delete(final MiscellaneousRecord entity) {
-		this.miscellaneousRecordRepository.delete(entity);
+	public void delete(final MiscellaneousRecord miscellaneousRecord) {
+		this.checkPrincipal(miscellaneousRecord);
+		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
+
+	//Other Methods------------------------------------------------------------------
 
 	public MiscellaneousRecord findMiscellaneousRecordByCurriculumId(final int curriculumId) {
 		return this.miscellaneousRecordRepository.findMiscellaneousRecordByCurriculumId(curriculumId);
+	}
+
+	public Boolean checkPrincipal(final MiscellaneousRecord miscellaneousRecord) {
+		final HandyWorker handyWorker = miscellaneousRecord.getCurriculum().getHandyWorker();
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
 	}
 
 }

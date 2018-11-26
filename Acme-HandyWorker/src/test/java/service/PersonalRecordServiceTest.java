@@ -47,7 +47,7 @@ public class PersonalRecordServiceTest extends AbstractTest {
 			Assert.notNull(curriculum);
 
 			final PersonalRecord personalRecord = this.personalRecordService.create(curriculum.getId());
-			personalRecord.setLink("http://jajajajajja.com");
+			personalRecord.setLink("http://prueba.com");
 			Assert.notNull(personalRecord);
 
 			System.out.println("¡Exito!");

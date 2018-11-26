@@ -7,10 +7,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Curriculum;
+import domain.HandyWorker;
 import domain.ProfessionalRecord;
 import repositories.ProfessionalRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -52,15 +55,27 @@ public class ProfessionalRecordService {
 	}
 
 	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
-		return this.professionalRecordRepository.save(professionalRecord);
+		Assert.notNull(professionalRecord);
+		this.checkPrincipal(professionalRecord);
+		final ProfessionalRecord saved = this.professionalRecordRepository.save(professionalRecord);
+		return saved;
 	}
 
-	public void delete(final ProfessionalRecord entity) {
-		this.professionalRecordRepository.delete(entity);
+	public void delete(final ProfessionalRecord professionalRecord) {
+		this.checkPrincipal(professionalRecord);
+		this.professionalRecordRepository.delete(professionalRecord);
 	}
+
+	//Other Methods------------------------------------------------------------------
 
 	public ProfessionalRecord findProfessionalRecordByCurriculumId(final int curriculumId) {
 		return this.professionalRecordRepository.findProfessionalRecordByCurriculumId(curriculumId);
+	}
+
+	public Boolean checkPrincipal(final ProfessionalRecord professionalRecord) {
+		final HandyWorker handyWorker = professionalRecord.getCurriculum().getHandyWorker();
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
 	}
 
 }
