@@ -13,9 +13,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import services.SectionService;
-import utilities.AbstractTest;
 import domain.Section;
+import domain.Tutorial;
+import services.SectionService;
+import services.TutorialService;
+import utilities.AbstractTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -24,21 +26,31 @@ import domain.Section;
 @Transactional
 public class SectionServiceTest extends AbstractTest {
 
-	//Service ------------------------------ 
+	//Service ------------------------------
 	@Autowired
 	private SectionService	sectionService;
+
+	@Autowired
+	private TutorialService	tutorialService;
 
 
 	//Test
 	@Test
 	public void testCreate() {
 
+		this.authenticate("handyWorker3");
+		final int handyWorkerId = this.getEntityId("handyWorker3");
+
+		final ArrayList<Tutorial> tutorials = new ArrayList<>(this.tutorialService.findTutorialsByHandyWorkerId(handyWorkerId));
+		Assert.notNull(tutorials);
+
 		try {
-			final Section section = this.sectionService.create();
+			final Section section = this.sectionService.create(tutorials.get(0).getId());
 			section.setPictures("http://www.photo142.com");
 			section.setPosition(1);
 			section.setText("aaaa");
 			section.setTitle("eee");
+
 			Assert.notNull(section);
 
 			System.out.println("¡Exito!");
@@ -51,21 +63,26 @@ public class SectionServiceTest extends AbstractTest {
 
 	@Test
 	public void testSave() {
-		final Section section;
 		Section saved;
 
-		final Collection<Section> sections;
+		this.authenticate("handyWorker3");
+		final int handyWorkerId = this.getEntityId("handyWorker3");
+
+		final ArrayList<Tutorial> tutorials = new ArrayList<>(this.tutorialService.findTutorialsByHandyWorkerId(handyWorkerId));
+		Assert.notNull(tutorials);
+
 		try {
-			section = this.sectionService.create();
-			section.setPictures("http://www.photo152.com");
+			final Section section = this.sectionService.create(tutorials.get(0).getId());
+			section.setPictures("http://www.photo142.com");
 			section.setPosition(1);
-			section.setText("aaaae");
-			section.setTitle("eeea");
+			section.setText("aaaa");
+			section.setTitle("eee");
+
+			Assert.notNull(section);
 
 			saved = this.sectionService.save(section);
 
-			sections = this.sectionService.findAll();
-			sections.add(saved);
+			final Collection<Section> sections = this.sectionService.findAll();
 			Assert.isTrue(sections.contains(saved));
 			System.out.println("¡Exito!");
 		} catch (final Exception e) {
@@ -106,19 +123,32 @@ public class SectionServiceTest extends AbstractTest {
 	public void testDelete() {
 		System.out.println("========== testDelete() ==========");
 
-		final int sectionId = this.getEntityId("section1");
+		this.authenticate("handyWorker3");
+
+		final int handyWorkerId = this.getEntityId("handyWorker3");
 
 		try {
-			final Section section = this.sectionService.findOne(sectionId);
+			final ArrayList<Tutorial> tutorials = new ArrayList<>(this.tutorialService.findTutorialsByHandyWorkerId(handyWorkerId));
+			Assert.notNull(tutorials);
+
+			final ArrayList<Section> sections = new ArrayList<>(this.sectionService.findSectionByTutorialId(tutorials.get(0).getId()));
+			Assert.notNull(sections);
+
+			final Section section = sections.get(0);
+			final int sectionId = section.getId();
+
 			this.sectionService.delete(section);
-			final Collection<Section> sections = new ArrayList<>(this.sectionService.findAll());
-			Assert.isTrue(!sections.contains(section));
+
+			final Collection<Section> sectionsAll = this.sectionService.findAll();
+			Assert.isTrue(!sectionsAll.contains(section));
 
 			System.out.println("¡Exito!");
 
 		} catch (final Exception e) {
 			System.out.println("¡Fallo," + e.getMessage() + "!");
 		}
+
+		this.unauthenticate();
 
 	}
 

@@ -13,9 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.Section;
 import domain.Tutorial;
-import services.SectionService;
 import services.SponsorshipService;
 import services.TutorialService;
 import utilities.AbstractTest;
@@ -34,8 +32,6 @@ public class TutorialServiceTest extends AbstractTest {
 	private TutorialService		tutorialService;
 	@Autowired
 	private SponsorshipService	sponsorshipService;
-	@Autowired
-	private SectionService		sectionService;
 
 
 	//Test
@@ -50,11 +46,6 @@ public class TutorialServiceTest extends AbstractTest {
 			tutorial.setSponsorship(this.sponsorshipService.findOne(sponsorshipId));
 			tutorial.setSummary("aaa");
 			tutorial.setTitle("aa");
-			this.tutorialService.save(tutorial);
-			final int sectionId = this.getEntityId("section1");
-			final Section g = this.sectionService.findOne(sectionId);
-			this.sectionService.save(g);
-			tutorial.getSections().add(g);
 
 			Assert.notNull(tutorial);
 
@@ -68,7 +59,7 @@ public class TutorialServiceTest extends AbstractTest {
 
 	@Test
 	public void testSave() {
-		final Tutorial tutorial, saved, saved1;
+		final Tutorial tutorial, saved;
 
 		final Collection<Tutorial> tutorials;
 
@@ -84,15 +75,8 @@ public class TutorialServiceTest extends AbstractTest {
 			tutorial.setSponsorship(this.sponsorshipService.findOne(sponsorshipId));
 			saved = this.tutorialService.save(tutorial);
 
-			final int sectionId = this.getEntityId("section1");
-			final Section g = this.sectionService.findOne(sectionId);
-			this.sectionService.save(g);
-			tutorial.getSections().add(g);
-
-			saved1 = this.tutorialService.save(saved);
 			tutorials = this.tutorialService.findAll();
-			tutorials.add(saved1);
-			Assert.isTrue(tutorials.contains(saved1));
+			Assert.isTrue(tutorials.contains(saved));
 
 		} catch (final Exception e) {
 			System.out.println(e.getMessage());

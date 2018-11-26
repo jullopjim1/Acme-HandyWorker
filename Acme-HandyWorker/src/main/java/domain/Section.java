@@ -4,6 +4,8 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -58,5 +60,21 @@ public class Section extends DomainEntity {
 		this.position = position;
 	}
 
+
 	// Relationships ---------------------------------------------------------
+
+	private Tutorial tutorial;
+
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Tutorial getTutorial() {
+		return this.tutorial;
+	}
+
+	public void setTutorial(final Tutorial tutorial) {
+		this.tutorial = tutorial;
+	}
+
 }

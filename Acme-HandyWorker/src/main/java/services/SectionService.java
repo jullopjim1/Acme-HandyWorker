@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.SectionRepository;
 import domain.Section;
+import repositories.SectionRepository;
 
 @Service
 @Transactional
@@ -20,6 +20,11 @@ public class SectionService {
 	@Autowired
 	private SectionRepository	sectionpository;
 
+	//Service-------------------------------------------------------------------------
+
+	@Autowired
+	private TutorialService		tutorialService;
+
 
 	//Constructor----------------------------------------------------------------------------
 
@@ -28,8 +33,9 @@ public class SectionService {
 	}
 
 	// Simple CRUD methods -------------------------------------------------------------------
-	public Section create() {
+	public Section create(final int tutorialId) {
 		final Section section = new Section();
+		section.setTutorial(this.tutorialService.findOne(tutorialId));
 
 		return section;
 	}
@@ -62,6 +68,11 @@ public class SectionService {
 
 		Assert.notNull(section);
 		this.sectionpository.delete(section);
+	}
+
+	//Other Methods------------------------------------------------------------------
+	public Collection<Section> findSectionByTutorialId(final int tutorialId) {
+		return this.sectionpository.findSectionByTutorialId(tutorialId);
 	}
 
 }
