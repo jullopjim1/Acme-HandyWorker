@@ -36,16 +36,19 @@ public class ComplaintServiceTest extends AbstractTest {
 		final Complaint complaint, saved;
 		final Collection<Complaint> complaints;
 		final int customerId = this.getEntityId("customer1");
-
 		complaint = this.complaintService.create(customerId);
+		try {
+			complaint.setAttachments("http://www.attachments1.com");
+			complaint.setDescription("Te como la verga");
 
-		complaint.setAttachments("http://www.attachments1.com");
-		complaint.setDescription("Te como la verga");
+			saved = this.complaintService.save(complaint);
+			Assert.notNull(saved);
+			complaints = this.complaintService.findAll();
 
-		saved = this.complaintService.save(complaint);
-		Assert.notNull(saved);
-		complaints = this.complaintService.findAll();
-
-		Assert.isTrue(complaints.contains(saved));
+			Assert.isTrue(complaints.contains(saved));
+			System.out.println("Éxito");
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 	}
 }

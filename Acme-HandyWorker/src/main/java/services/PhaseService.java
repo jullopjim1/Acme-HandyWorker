@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.PhaseRepository;
+import domain.FixUpTask;
 import domain.Phase;
 
 @Service
@@ -19,11 +21,12 @@ public class PhaseService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private PhaseRepository phaseRepository;
+	private PhaseRepository		phaseRepository;
 
 	// Services-------------------------------------------------
-	// @Autowired
-	// private FixUpTaskService fixUpTaskService;
+	@Autowired
+	private FixUpTaskService	fixUpTaskService;
+
 
 	// Constructor----------------------------------------------
 
@@ -35,9 +38,8 @@ public class PhaseService {
 
 	public Phase create(final int fixUpTaskId) {
 		final Phase phase = new Phase();
-		// final FixUpTask fixUpTask =
-		// this.fixUpTaskService.findOne(fixUpTaskId);
-		// phase.setFixUpTask(fixUpTask);
+		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		phase.setFixUpTask(fixUpTask);
 		return phase;
 	}
 
@@ -61,9 +63,8 @@ public class PhaseService {
 
 	// Other Methods--------------------------------------------
 
-	Collection<Phase> findPhasesByFixUpTaskId(int fixUpTaskId) {
-		Collection<Phase> phases = phaseRepository
-				.findPhasesByFixUpTaskId(fixUpTaskId);
+	Collection<Phase> findPhasesByFixUpTaskId(final int fixUpTaskId) {
+		final Collection<Phase> phases = this.phaseRepository.findPhasesByFixUpTaskId(fixUpTaskId);
 		return phases;
 	}
 }
