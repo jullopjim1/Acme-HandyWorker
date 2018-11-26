@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ApplicationRepository;
 import repositories.FixUpTaskRepository;
-import repositories.PhaseRepository;
+import security.LoginService;
+import domain.Actor;
 import domain.Application;
 import domain.Complaint;
 import domain.FixUpTask;
@@ -24,26 +24,34 @@ import domain.Phase;
 @Transactional
 public class FixUpTaskService {
 
-	//Repository-----------------------------------------------
+	// Repository-----------------------------------------------
 	@Autowired
-	private FixUpTaskRepository	fixUpTaskRepository;
-	//Services-------------------------------------------------
-	@Autowired
-	private PhaseRepository	phaseService;
-	
-	@Autowired
-	private ApplicationRepository	applicationService;
+	private FixUpTaskRepository fixUpTaskRepository;
 
-	//Constructor----------------------------------------------
+	// Services-------------------------------------------------
+	@Autowired
+	private PhaseService phaseService;
+
+	@Autowired
+	private ApplicationService applicationService;
+
+	@Autowired
+	private ActorService actorService;
+
+	@Autowired
+	private CustomerService customerService;
+
+	// Constructor----------------------------------------------
 	public FixUpTaskService() {
 		super();
 	}
-	//Simple CRUD----------------------------------------------
+
+	// Simple CRUD----------------------------------------------
 
 	public FixUpTask create() {
 		final FixUpTask fixUpTask = new FixUpTask();
 		fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
-		fixUpTask.setTicker(this.generateTicker()); 
+		fixUpTask.setTicker(this.generateTicker());
 		final Collection<Complaint> complaints = new ArrayList<Complaint>();
 		final Collection<Application> applications = new ArrayList<Application>();
 		fixUpTask.setComplaints(complaints);
@@ -61,25 +69,63 @@ public class FixUpTaskService {
 
 	public FixUpTask save(final FixUpTask fixUpTask) {
 		Assert.notNull(fixUpTask);
+
+		// COJO ACTOR ACTUAL
+		Actor actorActual = actorService.findActorByUsername(LoginService
+				.getPrincipal().getUsername());
+		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
+
+		// SI ES NUEVA FIXUPTASK
+		if (fixUpTask.getId() == 0) {
+			fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
+			Assert.isTrue(actorActual.getUserAccount().getAuthorities()
+					.toString().contains("CUSTOMER"),
+					"SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
+			fixUpTask.setCustomer(customerService.findOne(actorActual.getId()));
+		}
+
+		// GUARDO FIXUPTASK
 		final FixUpTask saved = this.fixUpTaskRepository.save(fixUpTask);
 		return saved;
 	}
 
 	public void delete(final FixUpTask fixUpTask) {
-		Collection<Phase> phases = phaseService.findPhasesByFixUpTaskId(fixUpTask.getId());
-		for(Phase p:phases){
+		Assert.notNull(fixUpTask);
+
+		// COJO ACTOR ACTUAL
+		Actor actorActual = actorService.findActorByUsername(LoginService
+				.getPrincipal().getUsername());
+		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
+
+		// COMPRUEBO RESTRICCIONES DE USUARIOS
+		if (!(actorActual.getId() == fixUpTask.getCustomer().getId())) {
+			if (!actorActual.getUserAccount().getAuthorities().toString()
+					.contains("ADMIN")) {
+				Assert.notNull(null,
+						"SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
+			}
+		}
+
+		// BORRO SUS PHASES
+		Collection<Phase> phases = phaseService
+				.findPhasesByFixUpTaskId(fixUpTask.getId());
+		for (Phase p : phases) {
 			phaseService.delete(p);
 		}
+
+		// BORRO SUS APPLICATIONS
 		Collection<Application> applications = fixUpTask.getApplications();
-		for(Application a : applications){
+		for (Application a : applications) {
 			applicationService.delete(a);
 		}
-		
+
+		// BORRO LA FIXUPTASK
 		this.fixUpTaskRepository.delete(fixUpTask);
 
 	}
-	//Other Methods--------------------------------------------
-	
+
+	// Other Methods--------------------------------------------
+
 	@SuppressWarnings("deprecation")
 	public String generateTicker() {
 		final Date date = new Date();
@@ -96,7 +142,7 @@ public class FixUpTaskService {
 
 		return year + month + day + "-" + FixUpTaskService.generateStringAux();
 	}
-	
+
 	private static String generateStringAux() {
 		final int length = 6;
 		final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -106,9 +152,10 @@ public class FixUpTaskService {
 			text[i] = characters.charAt(rng.nextInt(characters.length()));
 		return new String(text);
 	}
-	
-	public Collection<FixUpTask> findTasksByCategoryId(int categoryId){
-		Collection<FixUpTask> fixUpTasks = fixUpTaskRepository.findTasksByCategoryId(categoryId);
+
+	public Collection<FixUpTask> findTasksByCategoryId(int categoryId) {
+		Collection<FixUpTask> fixUpTasks = fixUpTaskRepository
+				.findTasksByCategoryId(categoryId);
 		return fixUpTasks;
 	}
 

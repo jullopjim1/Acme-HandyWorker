@@ -12,7 +12,9 @@ import org.springframework.util.Assert;
 
 import repositories.HandyWorkerRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Application;
 import domain.HandyWorker;
 
@@ -20,24 +22,26 @@ import domain.HandyWorker;
 @Transactional
 public class HandyWorkerService {
 
-	//Repository-----------------------------------------------
+	// Repository-----------------------------------------------
 
 	@Autowired
-	private HandyWorkerRepository	handyWorkerRepository;
+	private HandyWorkerRepository handyWorkerRepository;
 
+	// Services-------------------------------------------------
+	@Autowired
+	private ActorService actorService;
 
-	//Services-------------------------------------------------
-	//Constructor----------------------------------------------
+	// Constructor----------------------------------------------
 
 	public HandyWorkerService() {
 
 		super();
 	}
 
-	//Simple CRUD----------------------------------------------
+	// Simple CRUD----------------------------------------------
 
 	public HandyWorker create() {
-		final HandyWorker handyWorker =  new HandyWorker();
+		final HandyWorker handyWorker = new HandyWorker();
 		final UserAccount userAccount = new UserAccount();
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final Authority a = new Authority();
@@ -49,10 +53,10 @@ public class HandyWorkerService {
 		handyWorker.setApplications(applications);
 		handyWorker.setIsBanned(false);
 		handyWorker.setIsSuspicious(false);
-		
+
 		return handyWorker;
 	}
-	
+
 	public List<HandyWorker> findAll() {
 		return this.handyWorkerRepository.findAll();
 	}
@@ -62,17 +66,53 @@ public class HandyWorkerService {
 	}
 
 	public HandyWorker save(final HandyWorker handyWorker) {
-		Assert.notNull(handyWorker);
-		if(handyWorker.getMake() == null){
-			handyWorker.setMake(handyWorker.getSurname()+ " " + handyWorker.getMiddleName() + " " + handyWorker.getName());
+		Assert.notNull(handyWorker, "HANDYWORKER A GUARDAR NO PUEDE SER NULL");
+
+		// SI NO ES USUARIO NUEVO
+		if (handyWorker.getId() != 0) {
+			// COJO ACTOR ACTUAL
+			Actor actorActual = actorService.findActorByUsername(LoginService
+					.getPrincipal().getUsername());
+			Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
+
+			// COMPRUEBO RESTRICCIONES DE USUARIOS
+			if (!(actorActual.getId() == handyWorker.getId())) {
+				Assert.notNull(null,
+						"UN HANDYWORKER SOLO PUEDE EDITAR SUS PROPIOS DATOS PERSONALES");
+			}
 		}
+
+		// MAKE POR DEFECTO
+		if (handyWorker.getMake() == null) {
+			handyWorker
+					.setMake(handyWorker.getSurname() + " "
+							+ handyWorker.getMiddleName() + " "
+							+ handyWorker.getName());
+		}
+
+		// GUARDO HANDYWORKER
 		final HandyWorker saved = this.handyWorkerRepository.save(handyWorker);
 		return saved;
 	}
-	public void delete(final HandyWorker entity) {
-		this.handyWorkerRepository.delete(entity);
+
+	public void delete(final HandyWorker handyWorker) {
+		Assert.notNull(handyWorker, "HANDYWORKER A BORRAR NO PUEDE SER NULL");
+
+		// COJO ACTOR ACTUAL
+		Actor actorActual = actorService.findActorByUsername(LoginService
+				.getPrincipal().getUsername());
+		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
+
+		// COMPRUEBO RESTRICCIONES DE USUARIOS
+		if (!actorActual.getUserAccount().getAuthorities().toString()
+				.contains("ADMIN")) {
+			Assert.notNull(null, "SOLO ADMIN PUEDE BORRAR HANDYWORKER");
+		}
+
+		// BORRO HANDYWORKER
+		this.handyWorkerRepository.delete(handyWorker);
 	}
 
-	//Other Methods--------------------------------------------
+	// Other Methods--------------------------------------------
 
 }
