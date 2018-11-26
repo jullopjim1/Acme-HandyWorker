@@ -81,15 +81,31 @@ public class BoxService {
 		systemBox.add("out box");
 		systemBox.add("spam box");
 
+		Box oldRootBox;
+
+		final Box newRootBox = box.getRootbox();
+
 		Assert.isTrue(!box.getIsSystem(), "No se puede modificar una carpeta del sistema");
 		if (box.getId() == 0)
-			Assert.isTrue(!systemBox.contains(box.getName()), "No se puede crear varias carpetas con nombres reservados");
+			Assert.isTrue(!systemBox.contains(box.getName()), "No se puede crear carpetas con nombres reservados");
+		else {
+			oldRootBox = this.findOne(box.getId()).getRootbox();
+			if (!newRootBox.equals(oldRootBox)) {
+				oldRootBox.getSubboxes().remove(box);
+				this.boxRepository.save(oldRootBox);
+			}
+		}
 
 		final Box saved = this.boxRepository.save(box);
 
+		if (box.getId() == 0)
+			if (newRootBox != null) {
+				newRootBox.getSubboxes().add(saved);
+				this.boxRepository.save(newRootBox);
+			}
+
 		return saved;
 	}
-
 	public void delete(final Box entity) {
 		// TODO DELETE BOX ¿Si se borra un actor se borra sus carpetas?
 		Assert.isTrue(!entity.getIsSystem(), "No se puede eliminar una carpeta del sistema");

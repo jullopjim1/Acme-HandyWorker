@@ -102,8 +102,11 @@ public class BoxServiceTest extends AbstractTest {
 
 			final Box box = this.boxService.create();
 			Assert.notNull(box);
+			final int boxId = this.getEntityId("box1");
+			final Box box1 = this.boxService.findOne(boxId);
 
 			box.setName("new Box");
+			box.setRootbox(box1);
 
 			final Box saved = this.boxService.save(box);
 
