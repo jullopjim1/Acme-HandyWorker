@@ -1,17 +1,13 @@
 
 package services;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.ActorRepository;
-import security.UserAccount;
 import domain.Actor;
 
 @Service
-@Transactional
 public class ActorService {
 
 	// Managed repository ----------------------------------------------------------------
@@ -23,7 +19,9 @@ public class ActorService {
 		return this.actorRepository.findOne(ActorId);
 	}
 
-	public Actor findByUserAccount(final UserAccount userAccount) {
-		return this.actorRepository.findByUserAccount(userAccount.getId());
+	
+	Actor findActorByUsername(String username){
+		Actor actor = actorRepository.findActorByUsername(username);
+		return actor;
 	}
 }
