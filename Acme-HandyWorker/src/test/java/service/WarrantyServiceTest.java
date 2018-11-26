@@ -35,17 +35,22 @@ public class WarrantyServiceTest extends AbstractTest {
 		System.out.println("------Test Warranty------");
 		final Warranty warranty, saved;
 		final Collection<Warranty> warranties;
+		try {
 
-		warranty = this.warrantyService.create();
+			warranty = this.warrantyService.create();
 
-		warranty.setTitle("Garantia de tu puta madre");
-		warranty.setTerms("Esto no vale para una mierda jaja salu2");
-		warranty.setLaws("Chupala perro");
+			warranty.setTitle("Garantia de tu puta madre");
+			warranty.setTerms("Esto no vale para una mierda jaja salu2");
+			warranty.setLaws("Chupala perro");
 
-		saved = this.warrantyService.save(warranty);
-		Assert.notNull(saved);
-		warranties = this.warrantyService.findAll();
+			saved = this.warrantyService.save(warranty);
+			Assert.notNull(saved);
+			warranties = this.warrantyService.findAll();
 
-		Assert.isTrue(warranties.contains(saved));
+			Assert.isTrue(warranties.contains(saved));
+			System.out.println("Éxito");
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 	}
 }

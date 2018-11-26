@@ -30,7 +30,6 @@ public class RefereeServiceTest extends AbstractTest {
 	private RefereeService	refereeService;
 
 
-	//comentario inutil de mierda
 	//Test-------------------------------------------------------------
 
 	@Test
@@ -38,24 +37,29 @@ public class RefereeServiceTest extends AbstractTest {
 		System.out.println("------Test Referee------");
 		final Referee referee, saved;
 		final Collection<Referee> referees;
+		try {
 
-		referee = this.refereeService.create();
-		final UserAccount userAccount = referee.getUserAccount();
-		userAccount.setUsername("refereez1");
-		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		userAccount.setPassword(encoder.encodePassword("referee1", null));
-		referee.setName("Augusto");
-		referee.setMiddleName("Pepinero");
-		referee.setSurname("Angostino");
-		referee.setPhoto("http://www.photo122.com");
-		referee.setEmail("administrador@gmail.com");
-		referee.setPhone("657824410");
-		referee.setAddress("Calle chico pene");
-		referee.setUserAccount(userAccount);
+			referee = this.refereeService.create();
+			final UserAccount userAccount = referee.getUserAccount();
+			userAccount.setUsername("refereez1");
+			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			userAccount.setPassword(encoder.encodePassword("referee1", null));
+			referee.setName("Augusto");
+			referee.setMiddleName("Pepinero");
+			referee.setSurname("Angostino");
+			referee.setPhoto("http://www.photo122.com");
+			referee.setEmail("administrador@gmail.com");
+			referee.setPhone("657824410");
+			referee.setAddress("Calle chico pene");
+			referee.setUserAccount(userAccount);
 
-		saved = this.refereeService.save(referee);
-		Assert.notNull(saved);
-		referees = this.refereeService.findAll();
-		Assert.isTrue(referees.contains(saved));
+			saved = this.refereeService.save(referee);
+			Assert.notNull(saved);
+			referees = this.refereeService.findAll();
+			Assert.isTrue(referees.contains(saved));
+			System.out.println("Éxito");
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
 	}
 }
