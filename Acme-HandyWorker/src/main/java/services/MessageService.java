@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class MessageService {
 	//Services---------------------------------------------------------------------------
 	@Autowired
 	private BoxService			boxService;
+
 	@Autowired
 	private ActorService		actorService;
 
@@ -70,6 +72,11 @@ public class MessageService {
 		this.messageRepository.delete(entity);
 	}
 
+	public void deleteByBox(final Box box) {
+		if (this.messageRepository.findByBoxId(box.getId()) != null || !this.messageRepository.findByBoxId(box.getId()).isEmpty())
+			this.messageRepository.delete(this.messageRepository.findByBoxId(box.getId()));
+
+	}
 	//Other Methods---------------------------------------------------------------------------
 
 }
