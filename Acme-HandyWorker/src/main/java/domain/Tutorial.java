@@ -1,15 +1,12 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -73,21 +70,9 @@ public class Tutorial extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	private Collection<Section>	sections;
-	private Sponsorship			sponsorship;
-	private HandyWorker			handyWorker;
+	private Sponsorship	sponsorship;
+	private HandyWorker	handyWorker;
 
-
-	@Valid
-	@NotNull
-	@OneToMany(cascade = CascadeType.ALL)
-	public Collection<Section> getSections() {
-		return this.sections;
-	}
-
-	public void setSections(final Collection<Section> sections) {
-		this.sections = sections;
-	}
 
 	@Valid
 	@NotNull

@@ -7,10 +7,13 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import domain.Curriculum;
 import domain.EndorserRecord;
+import domain.HandyWorker;
 import repositories.EndorserRecordRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -53,15 +56,27 @@ public class EndorserRecordService {
 	}
 
 	public EndorserRecord save(final EndorserRecord endorserRecord) {
-		return this.endorserRecordRepository.save(endorserRecord);
+		Assert.notNull(endorserRecord);
+		this.checkPrincipal(endorserRecord);
+		final EndorserRecord saved = this.endorserRecordRepository.save(endorserRecord);
+		return saved;
 	}
 
-	public void delete(final EndorserRecord entity) {
-		this.endorserRecordRepository.delete(entity);
+	public void delete(final EndorserRecord endorserRecord) {
+		this.checkPrincipal(endorserRecord);
+		this.endorserRecordRepository.delete(endorserRecord);
 	}
+
+	//Other Methods------------------------------------------------------------------
 
 	public EndorserRecord findEndorserRecordByCurriculumId(final int curriculumId) {
 		return this.endorserRecordRepository.findEndorserRecordByCurriculumId(curriculumId);
+	}
+
+	public Boolean checkPrincipal(final EndorserRecord endorserRecord) {
+		final HandyWorker handyWorker = endorserRecord.getCurriculum().getHandyWorker();
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
 	}
 
 }

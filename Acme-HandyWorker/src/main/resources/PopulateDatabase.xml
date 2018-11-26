@@ -460,9 +460,9 @@
 		<property name="score" value="-1.0" />
 		<property name="applications">
 			<list>
-
 			</list>
 		</property>
+
 	</bean>
 
 	<!-- SPONSOR -->
@@ -814,13 +814,6 @@
 		<property name="pictures" value="http://pictures3.com" />
 		<property name="sponsorship" ref="sponsorship1" />
 		<property name="handyWorker" ref="handyWorker1" />
-		<property name="sections">
-			<list>
-
-				<ref bean="section2" />
-
-			</list>
-		</property>
 	</bean>
 
 	<bean id="tutorial3" class="domain.Tutorial">
@@ -830,11 +823,6 @@
 		<property name="pictures" value="http://pictures1.com" />
 		<property name="sponsorship" ref="sponsorship2" />
 		<property name="handyWorker" ref="handyWorker2" />
-		<property name="sections">
-			<list>
-				<ref bean="section1" />
-			</list>
-		</property>
 	</bean>
 
 
@@ -845,11 +833,6 @@
 		<property name="pictures" value="http://pictures2.com" />
 		<property name="sponsorship" ref="sponsorship3" />
 		<property name="handyWorker" ref="handyWorker3" />
-		<property name="sections">
-			<list>
-				<ref bean="section3" />
-			</list>
-		</property>
 	</bean>
 
 	<!-- SECTION -->
@@ -858,6 +841,7 @@
 		<property name="text" value="Text1" />
 		<property name="pictures" value="http://pictures2.com" />
 		<property name="position" value="2" />
+		<property name="tutorial" ref="tutorial4" />
 	</bean>
 
 	<bean id="section2" class="domain.Section">
@@ -865,6 +849,7 @@
 		<property name="text" value="Text2" />
 		<property name="pictures" value="http://pictures3.com" />
 		<property name="position" value="3" />
+		<property name="tutorial" ref="tutorial4" />
 	</bean>
 
 	<bean id="section3" class="domain.Section">
@@ -872,6 +857,7 @@
 		<property name="text" value="Text3" />
 		<property name="pictures" value="http://pictures1.com" />
 		<property name="position" value="4" />
+		<property name="tutorial" ref="tutorial4" />
 	</bean>
 
 	<!-- REPORT -->
