@@ -24,4 +24,8 @@ public class ActorService {
 		Actor actor = actorRepository.findActorByUsername(username);
 		return actor;
 	}
+	
+	public Actor findByUserAccount(final UserAccount userAccount) {
+		return this.actorRepository.findByUserAccount(userAccount.getId());
+	}
 }
