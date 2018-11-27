@@ -2,12 +2,15 @@
 package services;
 
 import java.util.Collection;
+
 import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.UserAccount;
 import domain.Actor;
 
 @Service
@@ -23,12 +26,11 @@ public class ActorService {
 		return this.actorRepository.findOne(ActorId);
 	}
 
-	
-	Actor findActorByUsername(String username){
-		Actor actor = actorRepository.findActorByUsername(username);
+	Actor findActorByUsername(final String username) {
+		final Actor actor = this.actorRepository.findActorByUsername(username);
 		return actor;
 	}
-	
+
 	public Actor findByUserAccount(final UserAccount userAccount) {
 		return this.actorRepository.findByUserAccount(userAccount.getId());
 	}
