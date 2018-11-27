@@ -12,9 +12,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import services.CreditCardService;
 import services.SponsorService;
 import services.SponsorshipService;
 import utilities.AbstractTest;
+import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
 
@@ -31,43 +33,118 @@ public class SponsorshipServiceTest extends AbstractTest {
 	@Autowired
 	private SponsorService		sponsorService;
 
+	@Autowired
+	private CreditCardService	creditCardService;
 
-	//@Autowired
-	//private CreditCardService	creditCardService;
-
-	//Test-------------------------------------------------------------
 
 	@Test
-	public void testSponsorship() {
-		System.out.println("------Test Sponsorship------");
-		final Sponsorship sponsorship, saved;
-		final Collection<Sponsorship> sponsorships;
+	public void testCreate() {
+		System.out.println("========== testCreate() ==========");
+		final Sponsorship sponsorship;
 		this.authenticate("sponsor1");
 		final int sponsorId = this.getEntityId("sponsor1");
-		final Sponsor x = this.sponsorService.findOne(sponsorId);
+		final int creditCardId = this.getEntityId("creditcard1");
+
 		try {
 			sponsorship = this.sponsorshipService.create(sponsorId);
 			sponsorship.setBanner("http://banner9.com");
 			sponsorship.setLink("http://sponsorship7.com");
-			//final CreditCard cc = new CreditCard();
-			//cc.setBrandName("VISA");
-			//cc.setCVVCode(555);
-			//cc.setExpirationMonth(10);
-			//cc.setExpirationYear(2020);
-			//cc.setHolderName("anotonio");
-			//cc.setNumber("12394012957125");
-			//this.creditCardService.save(cc);
-			//sponsorship.setCreditCard(cc);
+			final CreditCard cc = this.creditCardService.findOne(creditCardId);
+			final Sponsor x = this.sponsorService.findOne(sponsorId);
+			sponsorship.setCreditCard(cc);
+			sponsorship.setSponsor(x);
 
-			saved = this.sponsorshipService.save(sponsorship);
-			Assert.notNull(saved);
-			sponsorships = this.sponsorshipService.findAll();
-			Assert.isTrue(sponsorship.getSponsor().equals(x));
-			Assert.isTrue(sponsorships.contains(saved));
 			System.out.println("¡Exito!");
 
 		} catch (final Exception e) {
 			System.out.println("¡Fallo," + e.getMessage() + "!");
 		}
+
 	}
+
+	@Test
+	public void testFindOne() {
+		System.out.println("========== testFindOne() ==========");
+		final int sponsorshipId = this.getEntityId("sponsorship1");
+
+		try {
+			final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			Assert.notNull(sponsorship);
+
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+
+	}
+	@Test
+	public void testSave() {
+		System.out.println("========== testSave() ==========");
+		final Sponsorship sponsorship, saved;
+
+		final Collection<Sponsorship> sponsorships;
+
+		this.authenticate("sponsor1");
+		final int sponsorId = this.getEntityId("sponsor1");
+		final int creditCardId = this.getEntityId("creditcard1");
+
+		try {
+			sponsorship = this.sponsorshipService.create(sponsorId);
+			sponsorship.setBanner("http://banner9.com");
+			sponsorship.setLink("http://sponsorship7.com");
+			final CreditCard cc = this.creditCardService.findOne(creditCardId);
+			final Sponsor x = this.sponsorService.findOne(sponsorId);
+			sponsorship.setCreditCard(cc);
+			sponsorship.setSponsor(x);
+
+			saved = this.sponsorshipService.save(sponsorship);
+
+			sponsorships = this.sponsorshipService.findAll();
+			Assert.isTrue(sponsorships.contains(saved));
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+
+	@Test
+	public void testFindAll() {
+		System.out.println("========== testFindAll() ==========");
+		final int sponsorshipId = this.getEntityId("sponsorship1");
+		try {
+			final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAll();
+			Assert.isTrue(sponsorships.contains(sponsorship));
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+
+	}
+	/*
+	 * @Test
+	 * public void testDelete() {
+	 * System.out.println("========== testDelete() ==========");
+	 * 
+	 * final int sponsorshipId = this.getEntityId("sponsorship1");
+	 * 
+	 * try {
+	 * final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+	 * this.sponsorshipService.delete(sponsorship);
+	 * final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAll();
+	 * Assert.notNull(sponsorships);
+	 * Assert.isTrue(!sponsorships.contains(sponsorship));
+	 * 
+	 * System.out.println("¡Exito!");
+	 * 
+	 * } catch (final Exception e) {
+	 * System.out.println("¡Fallo," + e.getMessage() + "!");
+	 * }
+	 * 
+	 * }
+	 */
 }

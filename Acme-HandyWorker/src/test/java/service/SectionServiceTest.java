@@ -13,11 +13,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import domain.Section;
-import domain.Tutorial;
 import services.SectionService;
 import services.TutorialService;
 import utilities.AbstractTest;
+import domain.Section;
+import domain.Tutorial;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {
@@ -135,7 +135,6 @@ public class SectionServiceTest extends AbstractTest {
 			Assert.notNull(sections);
 
 			final Section section = sections.get(0);
-			final int sectionId = section.getId();
 
 			this.sectionService.delete(section);
 
