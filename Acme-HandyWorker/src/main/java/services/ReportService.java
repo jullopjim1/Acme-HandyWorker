@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -22,23 +21,26 @@ import domain.Report;
 @Transactional
 public class ReportService {
 
-	//Repository-----------------------------------------------
+	// Repository-----------------------------------------------
 	@Autowired
-	private ReportRepository	reportRepository;
-	//Services-------------------------------------------------
+	private ReportRepository reportRepository;
+	// Services-------------------------------------------------
 	@Autowired
-	private ComplaintService	complaintService;
+	private ComplaintService complaintService;
 
 	@Autowired
-	private RefereeService		refereeService;
+	private RefereeService refereeService;
 
+	@Autowired
+	private NoteService noteService;
 
-	//Constructor----------------------------------------------
+	// Constructor----------------------------------------------
 	public ReportService() {
 		super();
 
 	}
-	//Simple CRUD----------------------------------------------
+
+	// Simple CRUD----------------------------------------------
 
 	public Report create(final int complaintId, final int refereeId) {
 		final Report report = new Report();
@@ -54,6 +56,7 @@ public class ReportService {
 
 		return report;
 	}
+
 	public List<Report> findAll() {
 		return this.reportRepository.findAll();
 	}
@@ -69,10 +72,16 @@ public class ReportService {
 		return saved;
 	}
 
-	public void delete(final Report entity) {
-		this.reportRepository.delete(entity);
-
+	public void delete(final Report report) {
+		// TODO METODO PARA BORRAR LAS NOTE (A TESTEAR)
+		// if (!report.getNote().isEmpty()) {
+		// for (Note n : report.getNote()) {
+		// noteService.delete(n);
+		// }
+		// }
+		
+		this.reportRepository.delete(report);
 	}
-	//Other Methods--------------------------------------------
+	// Other Methods--------------------------------------------
 
 }

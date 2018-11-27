@@ -19,6 +19,7 @@ public class NoteService {
 	// Managed repository ------------------------------ (Relacion con su propio repositorio)
 	@Autowired
 	private NoteRepository	noteRepository;
+	
 	@Autowired
 	private ReportService	reportService;
 
@@ -69,5 +70,9 @@ public class NoteService {
 
 	public Note findNoteReportById(final int reportId) {
 		return this.noteRepository.findNoteReportById(reportId);
+	}
+	
+	public void delete(final Note note) {
+		this.noteRepository.delete(note);
 	}
 }
