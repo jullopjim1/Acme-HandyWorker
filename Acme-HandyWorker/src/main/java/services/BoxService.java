@@ -140,6 +140,14 @@ public class BoxService {
 	}
 	//Other Methods---------------------------------------------------------------------------
 
+	public Box findBoxByActorIdAndName(final int actorId, final String nameBox) {
+		return this.boxRepository.findBoxByActorAndName(actorId, nameBox);
+	}
+
+	public Collection<Box> findSystemBoxesByActorId(final int actorId) {
+		return this.boxRepository.findSystemBoxByActorId(actorId);
+	}
+
 	/*
 	 * Crea y guarda las system box pasando por parametro el actor
 	 */

@@ -1,10 +1,13 @@
 
 package services;
 
+import java.util.Collection;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
 import security.UserAccount;
@@ -25,5 +28,12 @@ public class ActorService {
 
 	public Actor findByUserAccount(final UserAccount userAccount) {
 		return this.actorRepository.findByUserAccount(userAccount.getId());
+	}
+
+	public Collection<Actor> findAll() {
+		final Collection<Actor> actors = this.actorRepository.findAll();
+		Assert.notNull(actors);
+
+		return actors;
 	}
 }
