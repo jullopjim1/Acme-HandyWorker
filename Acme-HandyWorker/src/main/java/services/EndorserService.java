@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import repositories.EndorserRepository;
+import security.UserAccount;
 import domain.Endorser;
 
 @Service
@@ -20,8 +21,14 @@ public class EndorserService {
 	@Autowired
 	private EndorserRepository	endorserRepository;
 
-
 	//Services---------------------------------------------------------------------------
+	@Autowired
+	private EndorsementService	endorsementService;
+	@Autowired
+	private CustomerService		customerService;
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
 
 	//Constructor------------------------------------------------------------------------
 
@@ -46,15 +53,25 @@ public class EndorserService {
 	public Endorser findOne(final Integer endorserId) {
 		return this.endorserRepository.findOne(endorserId);
 	}
-	public Endorser save(final Endorser endorser) {
-		final Endorser saved = this.endorserRepository.save(endorser);
-		return saved;
-	}
-
-	public void delete(final Endorser entity) {
-		this.endorserRepository.delete(entity);
-	}
 
 	//Other Methods---------------------------------------------------------------------------
+	public Endorser findEndorserByUseraccount(final UserAccount userAccount) {
+		final Endorser endorser = this.endorserRepository.findEndorserByUseraccount(userAccount);
+
+		return endorser;
+
+	}
+
+	public Endorser updateEndorser(final Endorser endorser) {
+
+		final double totalScore = this.endorsementService.calculateScoreByEndorser(endorser.getId());
+
+		endorser.setScore(totalScore);
+
+		final Endorser saved = this.endorserRepository.save(endorser);
+
+		return saved;
+
+	}
 
 }
