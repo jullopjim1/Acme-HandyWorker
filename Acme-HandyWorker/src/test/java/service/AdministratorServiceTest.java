@@ -76,6 +76,7 @@ public class AdministratorServiceTest extends AbstractTest {
 		} catch (final Exception e) {
 			System.out.println("¡Fallo," + e.getMessage() + "!");
 		}
+		this.unauthenticate();
 	}
 
 	@Test
@@ -96,6 +97,7 @@ public class AdministratorServiceTest extends AbstractTest {
 		} catch (final Exception e) {
 			System.out.println("¡Fallo," + e.getMessage() + "!");
 		}
+		this.unauthenticate();
 
 	}
 

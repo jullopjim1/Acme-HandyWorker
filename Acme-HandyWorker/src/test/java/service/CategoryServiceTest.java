@@ -27,17 +27,32 @@ public class CategoryServiceTest extends AbstractTest {
 
 	@Test
 	public void test() {
+		//LOGIN COMO ADMIN
+		authenticate("admin");
+		
+		//CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
 		category.setName("categoryT1");
 		category.setRootcategory(categoryService
 				.findCategoryByName("rootCategory"));
+		
+		//GUARDO CATEGORY
 		Category saved = categoryService.save(category);
+		
+		//CHECK FINDALL
 		Assert.isTrue(categoryService.findAll().contains(saved));
+		
+		//CHECK FINDONE
 		Assert.isTrue(categoryService.findOne(saved.getId()) == saved);
+		
+		//EDITO VALOR Y GUARDO CATEGORY EDITADA
 		saved.setName("categoryT1Edit");
 		Category saved2 = categoryService.save(saved);
 		Assert.isTrue(categoryService.findOne(saved2.getId()).getName() == "categoryT1Edit");
+		
+		//BORRO CATEGORY
 		categoryService.delete(saved);
 		Assert.isTrue(!categoryService.findAll().contains(saved));
+		unauthenticate();
 	}
 }

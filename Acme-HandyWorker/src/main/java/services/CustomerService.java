@@ -12,7 +12,9 @@ import org.springframework.util.Assert;
 
 import repositories.CustomerRepository;
 import security.Authority;
+import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Customer;
 import domain.FixUpTask;
 
@@ -20,24 +22,26 @@ import domain.FixUpTask;
 @Transactional
 public class CustomerService {
 
-	//Repository-----------------------------------------------
+	// Repository-----------------------------------------------
 
 	@Autowired
-	private CustomerRepository	customerRepository;
+	private CustomerRepository customerRepository;
 
+	// Services-------------------------------------------------
+	@Autowired
+	private ActorService actorService;
 
-	//Services-------------------------------------------------
-	//Constructor----------------------------------------------
+	// Constructor----------------------------------------------
 
 	public CustomerService() {
 
 		super();
 	}
 
-	//Simple CRUD----------------------------------------------
+	// Simple CRUD----------------------------------------------
 
 	public Customer create() {
-		final Customer customer =  new Customer();
+		final Customer customer = new Customer();
 		final UserAccount userAccount = new UserAccount();
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 
@@ -51,7 +55,7 @@ public class CustomerService {
 		customer.setIsSuspicious(false);
 		return customer;
 	}
-	
+
 	public List<Customer> findAll() {
 		return this.customerRepository.findAll();
 	}
@@ -62,13 +66,44 @@ public class CustomerService {
 
 	public Customer save(final Customer customer) {
 		Assert.notNull(customer);
+
+		//SI NO ES USUARIO NUEVO
+		if (customer.getId() != 0) {
+			// COJO ACTOR ACTUAL
+			Actor actorActual = actorService.findActorByUsername(LoginService
+					.getPrincipal().getUsername());
+			Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
+
+			// COMPRUEBO RESTRICCIONES DE USUARIOS
+			if (!(actorActual.getId() == customer.getId())) {
+				Assert.notNull(null,
+						"UN CUSTOMER SOLO PUEDE EDITAR SUS PROPIOS DATOS PERSONALES");
+			}
+		}
+		
+		//GUARDO CUSTOMER
 		final Customer saved = this.customerRepository.save(customer);
 		return saved;
 	}
-	public void delete(final Customer entity) {
-		this.customerRepository.delete(entity);
+
+	public void delete(final Customer customer) {
+		Assert.notNull(customer, "CUSTOMER A BORRAR NO PUEDE SER NULL");
+
+		// COJO ACTOR ACTUAL
+		Actor actorActual = actorService.findActorByUsername(LoginService
+				.getPrincipal().getUsername());
+		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
+
+		// COMPRUEBO RESTRICCIONES DE USUARIOS
+		if (!actorActual.getUserAccount().getAuthorities().toString()
+				.contains("ADMIN")) {
+			Assert.notNull(null, "SOLO ADMIN PUEDE BORRAR CUSTOMER");
+		}
+
+		// BORRO EL CUSTOMER
+		this.customerRepository.delete(customer);
 	}
 
-	//Other Methods--------------------------------------------
+	// Other Methods--------------------------------------------
 
 }

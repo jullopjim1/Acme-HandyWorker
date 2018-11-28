@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.util.Assert;
 
 import repositories.ComplaintRepository;
 import domain.Complaint;
+import domain.Customer;
 
 @Service
 @Transactional
@@ -25,9 +27,9 @@ public class ComplaintService {
 	@Autowired
 	private CurriculumService	curriculumService;
 
+	@Autowired
+	private CustomerService		customerService;
 
-	//@Autowired
-	//private CustomerService		customerService;
 
 	//Constructor----------------------------------------------
 	public ComplaintService() {
@@ -37,9 +39,9 @@ public class ComplaintService {
 
 	public Complaint create(final int customerId) {
 		final Complaint complaint = new Complaint();
-		//final Customer customer = this.customerService.findOne(customerId);
+		final Customer customer = this.customerService.findOne(customerId);
 
-		//complaint.setCustomer(customer);
+		complaint.setCustomer(customer);
 		complaint.setTicker(this.curriculumService.generateTicker());
 		complaint.setMoment(new Date(System.currentTimeMillis() - 1000));
 		return complaint;
@@ -63,5 +65,10 @@ public class ComplaintService {
 
 	}
 	//Other Methods--------------------------------------------
+
+	Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
+		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
+		return complaints;
+	}
 
 }

@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import services.CreditCardService;
 import utilities.AbstractTest;
 import domain.CreditCard;
-import domain.FixUpTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/datasource.xml",
@@ -28,6 +27,10 @@ public class CreditCardServiceTest extends AbstractTest {
 
 	@Test
 	public void test() {
+		//LOGIN COMO CUSTOMER
+		authenticate("customer1");
+		
+		//CREO Y SETEO VALORES DE CREDITCARD
 		final CreditCard creditCard = creditCardService.create();
 		creditCard.setNumber("4485807618846392");
 		creditCard.setBrandName("VISA");
@@ -35,28 +38,24 @@ public class CreditCardServiceTest extends AbstractTest {
 		creditCard.setExpirationMonth(12);
 		creditCard.setExpirationYear(2019);
 		creditCard.setHolderName("ADAM CIENFUEGOS IZQUIERDO");
-		final int applicationId = this.getEntityId("application3");
-		creditCard.set
 		
-		final int categoryId = this.getEntityId("category1");
-		final int customerId = this.getEntityId("customer1");
-		final int warrantyId = this.getEntityId("warranty1");
-		fixUpTask.setCategory(categoryService.findOne(categoryId));
-		fixUpTask.setCustomer(customerService.findOne(customerId));
-		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
-		FixUpTask saved = fixUpTaskService.save(fixUpTask);
-		Assert.isTrue(fixUpTaskService.findAll().contains(saved));
-		Assert.isTrue(fixUpTaskService.findOne(saved.getId()) == saved);
-		saved.setAdress("adressEdited");
-		FixUpTask saved2 = fixUpTaskService.save(saved);
-		Assert.isTrue(fixUpTaskService.findOne(saved2.getId()).getAdress() == "adressEdited");
-		fixUpTaskService.delete(saved);
-		Assert.isTrue(!fixUpTaskService.findAll().contains(saved));
-		final int phaseId = this.getEntityId("phase1");
-		final int fixUpTaskId = this.getEntityId("fixuptask3");
-		fixUpTaskService.delete(fixUpTaskService.findOne(fixUpTaskId));
-		Assert.isNull(phaseService.findOne(phaseId));
+		//GUARDO CREDITCARD
+		CreditCard saved = creditCardService.save(creditCard);
 		
-		Assert.isNull(applicationService.findOne(applicationId));
+		//CHECK FINDALL
+		Assert.isTrue(creditCardService.findAll().contains(saved));
+		
+		//CHECK FINDONE
+		Assert.isTrue(creditCardService.findOne(saved.getId()) == saved);
+		
+		//EDITO VALOR Y GUARDO CREDITCARD EDITADA
+		saved.setCVVCode(333);
+		CreditCard saved2 = creditCardService.save(saved);
+		Assert.isTrue(creditCardService.findOne(saved2.getId()).getCVVCode() == 333);
+		
+		//BORRO CREDITCARD
+		creditCardService.delete(saved);
+		Assert.isTrue(!creditCardService.findAll().contains(saved));
+		unauthenticate();
 	}
 }

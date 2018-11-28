@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.SponsorshipRepository;
+import security.LoginService;
+import domain.Sponsor;
 import domain.Sponsorship;
 
 @Service
@@ -56,6 +58,7 @@ public class SponsorshipService {
 
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
+		this.checkPrincipal(sponsorship);
 		Sponsorship result;
 
 		result = this.sponsorshipRepository.save(sponsorship);
@@ -64,10 +67,15 @@ public class SponsorshipService {
 	}
 
 	public void delete(final Sponsorship sponsorship) {
-
+		this.checkPrincipal(sponsorship);
 		Assert.notNull(sponsorship);
 		this.sponsorshipRepository.delete(sponsorship);
 	}
 
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())
+	public Boolean checkPrincipal(final Sponsorship sponsorship) {
+		final Sponsor sponsor = sponsorship.getSponsor();
+		Assert.isTrue(sponsor.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
+	}
 }
