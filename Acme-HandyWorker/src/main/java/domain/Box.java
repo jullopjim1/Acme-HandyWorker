@@ -21,6 +21,7 @@ public class Box extends DomainEntity {
 	// ATRIBUTOS
 	private String	name;
 	private boolean	isSystem;
+	private Boolean	isTrash;
 
 
 	@NotBlank
@@ -32,13 +33,20 @@ public class Box extends DomainEntity {
 		this.name = name;
 	}
 
-	@NotNull
 	public boolean getIsSystem() {
 		return this.isSystem;
 	}
 
 	public void setIsSystem(final boolean isSystem) {
 		this.isSystem = isSystem;
+	}
+
+	public Boolean getIsTrash() {
+		return this.isTrash;
+	}
+
+	public void setIsTrash(final Boolean isTrash) {
+		this.isTrash = isTrash;
 	}
 
 

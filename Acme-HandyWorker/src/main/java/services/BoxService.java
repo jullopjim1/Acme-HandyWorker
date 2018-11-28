@@ -115,13 +115,31 @@ public class BoxService {
 			rootBox.getSubboxes().remove(entity);
 			this.boxRepository.save(rootBox);
 		}
+		if (entity.getIsTrash() == true) {
+			this.messageService.deleteByBox(entity);
+			final Collection<Box> subBoxes = entity.getSubboxes();
+			this.delete(subBoxes);
 
-		this.messageService.deleteByBox(entity);
+			this.boxRepository.delete(entity);
+		} else {
+			entity.setIsTrash(true);
+			final Collection<Box> boxs = this.moveTrashBox(entity.getSubboxes());
+			boxs.add(entity);
+			this.boxRepository.save(boxs);
 
-		final Collection<Box> subBoxes = entity.getSubboxes();
-		this.delete(subBoxes);
+		}
+	}
 
-		this.boxRepository.delete(entity);
+	private Collection<Box> moveTrashBox(final Collection<Box> subBoxes) {
+		final Collection<Box> boxs = new ArrayList<>();
+		if (subBoxes.size() > 0)
+			for (final Box box : subBoxes) {
+				box.setIsTrash(true);
+				boxs.add(box);
+				boxs.addAll(this.moveTrashBox(box.getSubboxes()));
+			}
+
+		return boxs;
 	}
 
 	private void delete(final Collection<Box> subBoxes) {
