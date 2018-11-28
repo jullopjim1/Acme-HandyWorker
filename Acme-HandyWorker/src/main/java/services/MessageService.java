@@ -109,8 +109,6 @@ public class MessageService {
 		final Box box = entity.getBox();
 		final Actor actor = this.checkPrincipal(entity);
 
-		final Actor actor = this.checkPrincipal(entity);
-
 		if (box.getName().equals("trash box"))
 			this.messageRepository.delete(entity);
 		else {
@@ -128,10 +126,17 @@ public class MessageService {
 	}
 	//Other Methods---------------------------------------------------------------------------
 
+	public Message moveMessage(final Message message, final Box newBox) {
+		this.checkPrincipal(message);
+		message.setBox(newBox);
+		final Message saved = this.messageRepository.save(message);
+		return saved;
+
+	}
+
 	/*
 	 * Requisito Funcional 12.4
 	 */
-
 	public void broadcastMessage(final Message message) {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
