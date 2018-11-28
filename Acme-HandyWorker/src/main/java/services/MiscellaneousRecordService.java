@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -69,7 +70,7 @@ public class MiscellaneousRecordService {
 
 	//Other Methods------------------------------------------------------------------
 
-	public MiscellaneousRecord findMiscellaneousRecordByCurriculumId(final int curriculumId) {
+	public Collection<MiscellaneousRecord> findMiscellaneousRecordByCurriculumId(final int curriculumId) {
 		return this.miscellaneousRecordRepository.findMiscellaneousRecordByCurriculumId(curriculumId);
 	}
 

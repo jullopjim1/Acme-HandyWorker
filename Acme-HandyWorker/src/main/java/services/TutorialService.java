@@ -80,7 +80,7 @@ public class TutorialService {
 	}
 	public Boolean checkPrincipal(final Tutorial tutorial) {
 		final HandyWorker handyWorker = tutorial.getHandyWorker();
-		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()), "este tutorial no corresponde con el handyworker que lo creo");
 		return true;
 	}
 }

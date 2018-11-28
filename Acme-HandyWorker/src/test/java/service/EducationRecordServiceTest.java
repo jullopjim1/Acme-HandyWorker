@@ -77,7 +77,8 @@ public class EducationRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final EducationRecord educationRecord = this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId());
+			final ArrayList<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId()));
+			final EducationRecord educationRecord = educationRecords.get(0);
 			Assert.notNull(educationRecord);
 
 			Assert.isTrue(educationRecord.getCurriculum().getId() == curriculum.getId());
@@ -103,10 +104,11 @@ public class EducationRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final Collection<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findAll());
-			final EducationRecord educationRecord = this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId());
+			final Collection<EducationRecord> educationRecordsAll = new ArrayList<>(this.educationRecordService.findAll());
+			final ArrayList<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId()));
+			final EducationRecord educationRecord = educationRecords.get(0);
 			Assert.notNull(educationRecord);
-			Assert.isTrue(educationRecords.contains(educationRecord));
+			Assert.isTrue(educationRecordsAll.contains(educationRecord));
 
 			for (final EducationRecord educationRecord1 : educationRecords)
 				System.out.println(educationRecord1.getTitle());
@@ -165,13 +167,14 @@ public class EducationRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final EducationRecord educationRecord = this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId());
+			final ArrayList<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId()));
+			final EducationRecord educationRecord = educationRecords.get(0);
 			Assert.notNull(educationRecord);
 
 			this.educationRecordService.delete(educationRecord);
 
-			final Collection<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findAll());
-			Assert.isTrue(!educationRecords.contains(educationRecord));
+			final Collection<EducationRecord> educationRecordsAll = new ArrayList<>(this.educationRecordService.findAll());
+			Assert.isTrue(!educationRecordsAll.contains(educationRecord));
 
 			System.out.println("¡Exito!");
 

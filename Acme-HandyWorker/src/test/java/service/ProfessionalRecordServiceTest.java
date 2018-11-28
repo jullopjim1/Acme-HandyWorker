@@ -76,7 +76,8 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final ProfessionalRecord professionalRecord = this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId());
+			final ArrayList<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId()));
+			final ProfessionalRecord professionalRecord = professionalRecords.get(0);
 			Assert.notNull(professionalRecord);
 
 			Assert.isTrue(professionalRecord.getCurriculum().getId() == curriculum.getId());
@@ -102,12 +103,13 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findAll());
-			final ProfessionalRecord professionalRecord = this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId());
+			final Collection<ProfessionalRecord> professionalRecordsAll = new ArrayList<>(this.professionalRecordService.findAll());
+			final ArrayList<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId()));
+			final ProfessionalRecord professionalRecord = professionalRecords.get(0);
 			Assert.notNull(professionalRecord);
-			Assert.isTrue(professionalRecords.contains(professionalRecord));
+			Assert.isTrue(professionalRecordsAll.contains(professionalRecord));
 
-			for (final ProfessionalRecord professionalRecord1 : professionalRecords)
+			for (final ProfessionalRecord professionalRecord1 : professionalRecordsAll)
 				System.out.println(professionalRecord1.getName());
 
 			System.out.println("¡Exito!");
@@ -164,13 +166,14 @@ public class ProfessionalRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final ProfessionalRecord professionalRecord = this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId());
+			final ArrayList<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId()));
+			final ProfessionalRecord professionalRecord = professionalRecords.get(0);
 			Assert.notNull(professionalRecord);
 
 			this.professionalRecordService.delete(professionalRecord);
 
-			final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findAll());
-			Assert.isTrue(!professionalRecords.contains(professionalRecord));
+			final Collection<ProfessionalRecord> professionalRecordsAll = new ArrayList<>(this.professionalRecordService.findAll());
+			Assert.isTrue(!professionalRecordsAll.contains(professionalRecord));
 
 			System.out.println("¡Exito!");
 

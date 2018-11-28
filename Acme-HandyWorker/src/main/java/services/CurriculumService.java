@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -12,9 +14,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Curriculum;
+import domain.EducationRecord;
+import domain.EndorserRecord;
 import domain.HandyWorker;
+import domain.MiscellaneousRecord;
+import domain.PersonalRecord;
+import domain.ProfessionalRecord;
 import repositories.CurriculumRepository;
-import repositories.HandyWorkerRepository;
 import security.LoginService;
 
 @Service
@@ -24,12 +30,27 @@ public class CurriculumService {
 	//Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private CurriculumRepository	curriculumRepository;
-
-	@Autowired
-	private HandyWorkerRepository	handyWorkerRepository;
+	private CurriculumRepository		curriculumRepository;
 
 	//Services---------------------------------------------------------------------------
+
+	@Autowired
+	private HandyWorkerService			handyWorkerService;
+
+	@Autowired
+	private PersonalRecordService		personalRecordService;
+
+	@Autowired
+	private ProfessionalRecordService	professionalRecordService;
+
+	@Autowired
+	private EducationRecordService		educationRecordService;
+
+	@Autowired
+	private EndorserRecordService		endorserRecordService;
+
+	@Autowired
+	private MiscellaneousRecordService	miscellaneousRecordService;
 
 
 	//Constructor------------------------------------------------------------------------
@@ -44,7 +65,7 @@ public class CurriculumService {
 		final Curriculum curriculum = new Curriculum();
 
 		curriculum.setTicker(this.generateTicker());
-		curriculum.setHandyWorker(this.handyWorkerRepository.findOne(handyWorkerId));
+		curriculum.setHandyWorker(this.handyWorkerService.findOne(handyWorkerId));
 
 		return curriculum;
 
@@ -66,7 +87,32 @@ public class CurriculumService {
 
 	public void delete(final Curriculum curriculum) {
 		this.checkPrincipal(curriculum);
+
+		final PersonalRecord personalRecord = this.personalRecordService.findPersonalRecordByCurriculumId(curriculum.getId());
+		final Collection<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findEducationRecordByCurriculumId(curriculum.getId()));
+		final Collection<ProfessionalRecord> professionalRecords = new ArrayList<>(this.professionalRecordService.findProfessionalRecordByCurriculumId(curriculum.getId()));
+		final Collection<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId()));
+		final Collection<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>(this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId()));
+
+		this.personalRecordService.delete(personalRecord);
+
+		if (educationRecords.size() != 0 || professionalRecords.size() != 0 || endorserRecords.size() != 0 || miscellaneousRecords.size() != 0) {
+			for (final EducationRecord educationRecord : educationRecords)
+				this.educationRecordService.delete(educationRecord);
+
+			for (final MiscellaneousRecord miscellaneousRecord : miscellaneousRecords)
+				this.miscellaneousRecordService.delete(miscellaneousRecord);
+
+			for (final ProfessionalRecord professionalRecord : professionalRecords)
+				this.professionalRecordService.delete(professionalRecord);
+
+			for (final EndorserRecord endorserRecord : endorserRecords)
+				this.endorserRecordService.delete(endorserRecord);
+
+		}
+
 		this.curriculumRepository.delete(curriculum);
+
 	}
 
 	//Other Methods---------------------------------------------------------------------------

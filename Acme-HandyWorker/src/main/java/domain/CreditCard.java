@@ -15,12 +15,13 @@ public class CreditCard extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String holderName;
-	private String brandName;
-	private String number;
-	private int expirationMonth;
-	private int expirationYear;
-	private int CVVCode;
+	private String	holderName;
+	private String	brandName;
+	private String	number;
+	private int		expirationMonth;
+	private int		expirationYear;
+	private int		CVVCode;
+
 
 	@NotBlank
 	public String getHolderName() {

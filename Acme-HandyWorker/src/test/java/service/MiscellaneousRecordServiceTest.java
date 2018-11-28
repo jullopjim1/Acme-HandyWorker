@@ -74,7 +74,8 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId());
+			final ArrayList<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>(this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId()));
+			final MiscellaneousRecord miscellaneousRecord = miscellaneousRecords.get(0);
 			Assert.notNull(miscellaneousRecord);
 
 			Assert.isTrue(miscellaneousRecord.getCurriculum().getId() == curriculum.getId());
@@ -100,12 +101,13 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final Collection<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>(this.miscellaneousRecordService.findAll());
-			final MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId());
+			final Collection<MiscellaneousRecord> miscellaneousRecordsAll = new ArrayList<>(this.miscellaneousRecordService.findAll());
+			final ArrayList<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>(this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId()));
+			final MiscellaneousRecord miscellaneousRecord = miscellaneousRecords.get(0);
 			Assert.notNull(miscellaneousRecord);
-			Assert.isTrue(miscellaneousRecords.contains(miscellaneousRecord));
+			Assert.isTrue(miscellaneousRecordsAll.contains(miscellaneousRecord));
 
-			for (final MiscellaneousRecord miscellaneousRecord1 : miscellaneousRecords)
+			for (final MiscellaneousRecord miscellaneousRecord1 : miscellaneousRecordsAll)
 				System.out.println(miscellaneousRecord1.getTitle());
 
 			System.out.println("¡Exito!");
@@ -161,13 +163,14 @@ public class MiscellaneousRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final MiscellaneousRecord miscellaneousRecord = this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId());
+			final ArrayList<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>(this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId()));
+			final MiscellaneousRecord miscellaneousRecord = miscellaneousRecords.get(0);
 			Assert.notNull(miscellaneousRecord);
 
 			this.miscellaneousRecordService.delete(miscellaneousRecord);
 
-			final Collection<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>(this.miscellaneousRecordService.findAll());
-			Assert.isTrue(!miscellaneousRecords.contains(miscellaneousRecord));
+			final Collection<MiscellaneousRecord> miscellaneousRecordsAll = new ArrayList<>(this.miscellaneousRecordService.findAll());
+			Assert.isTrue(!miscellaneousRecordsAll.contains(miscellaneousRecord));
 
 			System.out.println("¡Exito!");
 

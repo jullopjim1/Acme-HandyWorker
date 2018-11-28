@@ -125,26 +125,24 @@ public class SponsorshipServiceTest extends AbstractTest {
 		}
 
 	}
-	/*
-	 * @Test
-	 * public void testDelete() {
-	 * System.out.println("========== testDelete() ==========");
-	 * 
-	 * final int sponsorshipId = this.getEntityId("sponsorship1");
-	 * 
-	 * try {
-	 * final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
-	 * this.sponsorshipService.delete(sponsorship);
-	 * final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAll();
-	 * Assert.notNull(sponsorships);
-	 * Assert.isTrue(!sponsorships.contains(sponsorship));
-	 * 
-	 * System.out.println("¡Exito!");
-	 * 
-	 * } catch (final Exception e) {
-	 * System.out.println("¡Fallo," + e.getMessage() + "!");
-	 * }
-	 * 
-	 * }
-	 */
+	@Test
+	public void testDelete() {
+		System.out.println("========== testDelete() ==========");
+
+		final int sponsorshipId = this.getEntityId("sponsorship1");
+
+		try {
+			final Sponsorship sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			this.sponsorshipService.delete(sponsorship);
+			final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAll();
+			Assert.notNull(sponsorships);
+			Assert.isTrue(!sponsorships.contains(sponsorship));
+
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+
+	}
 }

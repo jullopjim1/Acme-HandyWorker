@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -69,7 +70,7 @@ public class EndorserRecordService {
 
 	//Other Methods------------------------------------------------------------------
 
-	public EndorserRecord findEndorserRecordByCurriculumId(final int curriculumId) {
+	public Collection<EndorserRecord> findEndorserRecordByCurriculumId(final int curriculumId) {
 		return this.endorserRecordRepository.findEndorserRecordByCurriculumId(curriculumId);
 	}
 
