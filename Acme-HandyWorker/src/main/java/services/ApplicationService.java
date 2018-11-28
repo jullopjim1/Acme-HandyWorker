@@ -79,6 +79,12 @@ public class ApplicationService {
 					"PARA CREAR APPLICATION -> HANDY, PARA MODIFICAR APPLICATION -> CUSTOMER");
 		}
 
+		// TARJETA DE CREDITO NECESARIA SI STATUS = ACCPETED
+		if (application.getStatus() == "ACCEPTED") {
+			Assert.isTrue(application.getCreditCard() != null,
+					"SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
+		}
+
 		// SOLO CAMBIAR FECHA SI ES NUEVO
 		if (application.getId() == 0) {
 			application.setMoment(new Date(System.currentTimeMillis() - 1000));

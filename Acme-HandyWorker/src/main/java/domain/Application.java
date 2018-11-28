@@ -12,6 +12,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,6 +42,7 @@ public class Application extends DomainEntity {
 	}
 
 	@NotBlank
+	@Pattern(regexp = "^(PENDING|ACCEPTED|REJECTED)$")
 	public String getStatus() {
 		return this.status;
 	}

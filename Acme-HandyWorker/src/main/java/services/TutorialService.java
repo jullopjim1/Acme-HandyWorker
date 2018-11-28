@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Tutorial;
 import repositories.HandyWorkerRepository;
 import repositories.TutorialRepository;
+import security.LoginService;
+import domain.HandyWorker;
+import domain.Tutorial;
 
 @Service
 @Transactional
@@ -57,7 +59,9 @@ public class TutorialService {
 	}
 
 	public Tutorial save(final Tutorial tutorial) {
+		this.checkPrincipal(tutorial);
 		Assert.notNull(tutorial);
+
 		Tutorial result;
 
 		result = this.tutorialRepository.save(tutorial);
@@ -65,7 +69,7 @@ public class TutorialService {
 		return result;
 	}
 	public void delete(final Tutorial tutorial) {
-
+		this.checkPrincipal(tutorial);
 		Assert.notNull(tutorial);
 		this.tutorialRepository.delete(tutorial);
 	}
@@ -74,5 +78,9 @@ public class TutorialService {
 	public Collection<Tutorial> findTutorialsByHandyWorkerId(final int handyWorkerId) {
 		return this.tutorialRepository.findTutorialsByHandyWorkerId(handyWorkerId);
 	}
-
+	public Boolean checkPrincipal(final Tutorial tutorial) {
+		final HandyWorker handyWorker = tutorial.getHandyWorker();
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
+	}
 }
