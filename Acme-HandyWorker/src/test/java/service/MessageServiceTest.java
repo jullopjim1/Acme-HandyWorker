@@ -37,7 +37,7 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testCreate() {
 		System.out.println("========== testCreate() ==========");
-
+		this.authenticate("customer1");
 		try {
 			final Message message = this.messageService.create();
 
@@ -56,7 +56,7 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testFindOne() {
 		System.out.println("========== testFindOne() ==========");
-
+		this.authenticate("customer1");
 		final int messageId = this.getEntityId("message1");
 
 		try {
@@ -100,6 +100,8 @@ public class MessageServiceTest extends AbstractTest {
 
 			final Actor customer2 = this.actorService.findOne(this.getEntityId("customer2"));
 			message.setRecipient(customer2);
+			message.setBody("body1");
+			message.setSubject("subject1");
 
 			final Message saved = this.messageService.save(message);
 
@@ -121,7 +123,7 @@ public class MessageServiceTest extends AbstractTest {
 	@Test
 	public void testDelete() {
 		System.out.println("========== testDelete() ==========");
-
+		this.authenticate("customer1");
 		final int messageId = this.getEntityId("message1");
 
 		try {
@@ -132,13 +134,13 @@ public class MessageServiceTest extends AbstractTest {
 			this.messageService.delete(message);
 
 			final Message messageDelete = this.messageService.findOne(messageId);
-
+			//SchemaPrinter.print(messageDelete);
 			if (messageDelete == null) {
 				final Collection<Message> messages = this.messageService.findAll();
 
-				Assert.isTrue(!messages.contains(message));
+				Assert.isTrue(!messages.contains(message), "No debe contener a message");
 			} else
-				Assert.isTrue(message.getBox().equals("trash box"));
+				Assert.isTrue(message.getBox().getName().equals("trash box"), "El mensaje debe estar en trash box");
 
 			System.out.println("¡Exito!");
 

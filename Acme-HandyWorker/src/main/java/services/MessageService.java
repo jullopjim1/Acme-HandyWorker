@@ -113,6 +113,7 @@ public class MessageService {
 			this.messageRepository.delete(entity);
 		else {
 			final Box trash = this.boxService.findBoxByActorIdAndName(actor.getId(), "trash box");
+			Assert.notNull(trash, "Todo actor debe tener un trash box");
 			entity.setBox(trash);
 			this.messageRepository.save(entity);
 		}
