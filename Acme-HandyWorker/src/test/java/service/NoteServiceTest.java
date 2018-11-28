@@ -35,6 +35,7 @@ public class NoteServiceTest extends AbstractTest {
 	//Test
 	@Test
 	public void testCreate() {
+		System.out.println("========== testCreate() ==========");
 
 		final int reportId = this.getEntityId("report1");
 		try {
@@ -55,7 +56,7 @@ public class NoteServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindOne() {
-
+		System.out.println("========== testFindOne() ==========");
 		final int reportId = this.getEntityId("report1");
 
 		try {
@@ -73,6 +74,7 @@ public class NoteServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSave() {
+		System.out.println("========== testSave() ==========");
 		Note note, saved;
 
 		final Collection<Note> notes;
@@ -98,6 +100,7 @@ public class NoteServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindAll() {
+		System.out.println("========== testFindAll() ==========");
 		final int noteId = this.getEntityId("note1");
 		try {
 			final Note note = this.noteService.findOne(noteId);

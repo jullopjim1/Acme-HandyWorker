@@ -31,7 +31,7 @@ public class ProfileServiceTest extends AbstractTest {
 	//Test
 	@Test
 	public void testCreate() {
-
+		System.out.println("========== testCreate() ==========");
 		final int actorId = this.getEntityId("admin");
 		try {
 			final Profile profile = this.profileService.create(actorId);
@@ -51,7 +51,7 @@ public class ProfileServiceTest extends AbstractTest {
 
 	@Test
 	public void testFindOne() {
-
+		System.out.println("========== testFindOne() ==========");
 		final int profileId = this.getEntityId("profile1");
 
 		try {
@@ -67,8 +67,9 @@ public class ProfileServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testSave() {
+		System.out.println("========== testSave() ==========");
 		Profile profile, saved;
-
+		this.authenticate("referee1");
 		final Collection<Profile> profiles;
 		final int refereeId = this.getEntityId("referee1");
 		try {
@@ -76,22 +77,21 @@ public class ProfileServiceTest extends AbstractTest {
 			profile.setLink("http://profile10.com");
 			profile.setName("Antonia");
 			profile.setNick("piwflow2");
-
 			saved = this.profileService.save(profile);
 
 			profiles = this.profileService.findAll();
-			profiles.add(saved);
 			Assert.isTrue(profiles.contains(saved));
 			System.out.println("¡Exito!");
 
 		} catch (final Exception e) {
 			System.out.println("¡Fallo," + e.getMessage() + "!");
 		}
-
+		this.unauthenticate();
 	}
 
 	@Test
 	public void testFindAll() {
+		System.out.println("========== testFindAll() ==========");
 		final int profileId = this.getEntityId("profile1");
 		try {
 			final Profile profile = this.profileService.findOne(profileId);
@@ -104,4 +104,26 @@ public class ProfileServiceTest extends AbstractTest {
 		}
 
 	}
+
+	@Test
+	public void testDelete() {
+		System.out.println("========== testDelete() ==========");
+		this.authenticate("referee1");
+		final int profileId = this.getEntityId("profile1");
+
+		try {
+			final Profile profile = this.profileService.findOne(profileId);
+			this.profileService.delete(profile);
+			final Collection<Profile> profiles = this.profileService.findAll();
+			Assert.notNull(profiles);
+			Assert.isTrue(!profiles.contains(profile));
+
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+		this.unauthenticate();
+	}
+
 }

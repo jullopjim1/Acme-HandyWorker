@@ -12,6 +12,7 @@ import repositories.SponsorshipRepository;
 import security.LoginService;
 import domain.Sponsor;
 import domain.Sponsorship;
+import domain.Tutorial;
 
 @Service
 @Transactional
@@ -23,6 +24,9 @@ public class SponsorshipService {
 
 	@Autowired
 	private SponsorService			sponsorService;
+
+	@Autowired
+	private TutorialService			tutorialService;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -67,9 +71,13 @@ public class SponsorshipService {
 	}
 
 	public void delete(final Sponsorship sponsorship) {
+		final Collection<Tutorial> tutorials = this.tutorialService.findAll();
+		for (final Tutorial t : tutorials)
+			Assert.isTrue(t.getSponsorship() != sponsorship, "este sponsorship está asignado");
 		this.checkPrincipal(sponsorship);
 		Assert.notNull(sponsorship);
 		this.sponsorshipRepository.delete(sponsorship);
+
 	}
 
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())

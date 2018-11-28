@@ -37,7 +37,7 @@ public class SectionServiceTest extends AbstractTest {
 	//Test
 	@Test
 	public void testCreate() {
-
+		System.out.println("========== testCreate() ==========");
 		this.authenticate("handyWorker3");
 		final int handyWorkerId = this.getEntityId("handyWorker3");
 
@@ -63,6 +63,7 @@ public class SectionServiceTest extends AbstractTest {
 
 	@Test
 	public void testSave() {
+		System.out.println("========== testSave() ==========");
 		Section saved;
 
 		this.authenticate("handyWorker3");
@@ -92,7 +93,7 @@ public class SectionServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testFindOne() {
-
+		System.out.println("========== testFindOne() ==========");
 		final int sectionId = this.getEntityId("section1");
 
 		try {
@@ -108,6 +109,7 @@ public class SectionServiceTest extends AbstractTest {
 	}
 	@Test
 	public void testFindAll() {
+		System.out.println("========== testFindAll() ==========");
 		final int section1 = this.getEntityId("section1");
 		final Section section = this.sectionService.findOne(section1);
 		try {
