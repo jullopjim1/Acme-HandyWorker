@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -69,7 +70,7 @@ public class EducationRecordService {
 
 	//Other Methods------------------------------------------------------------------
 
-	public EducationRecord findEducationRecordByCurriculumId(final int curriculumId) {
+	public Collection<EducationRecord> findEducationRecordByCurriculumId(final int curriculumId) {
 		return this.educationRecordRepository.findEducationRecordByCurriculumId(curriculumId);
 	}
 

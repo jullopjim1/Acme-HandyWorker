@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -68,7 +69,7 @@ public class ProfessionalRecordService {
 
 	//Other Methods------------------------------------------------------------------
 
-	public ProfessionalRecord findProfessionalRecordByCurriculumId(final int curriculumId) {
+	public Collection<ProfessionalRecord> findProfessionalRecordByCurriculumId(final int curriculumId) {
 		return this.professionalRecordRepository.findProfessionalRecordByCurriculumId(curriculumId);
 	}
 

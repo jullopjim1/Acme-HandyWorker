@@ -76,7 +76,8 @@ public class EndorserRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final EndorserRecord endorserRecord = this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId());
+			final ArrayList<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId()));
+			final EndorserRecord endorserRecord = endorserRecords.get(0);
 			Assert.notNull(endorserRecord);
 
 			Assert.isTrue(endorserRecord.getCurriculum().getId() == curriculum.getId());
@@ -102,12 +103,13 @@ public class EndorserRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final Collection<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findAll());
-			final EndorserRecord endorserRecord = this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId());
+			final Collection<EndorserRecord> endorserRecordsAll = new ArrayList<>(this.endorserRecordService.findAll());
+			final ArrayList<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId()));
+			final EndorserRecord endorserRecord = endorserRecords.get(0);
 			Assert.notNull(endorserRecord);
-			Assert.isTrue(endorserRecords.contains(endorserRecord));
+			Assert.isTrue(endorserRecordsAll.contains(endorserRecord));
 
-			for (final EndorserRecord endorserRecord1 : endorserRecords)
+			for (final EndorserRecord endorserRecord1 : endorserRecordsAll)
 				System.out.println(endorserRecord1.getFullName());
 
 			System.out.println("¡Exito!");
@@ -165,13 +167,14 @@ public class EndorserRecordServiceTest extends AbstractTest {
 			final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 			Assert.notNull(curriculum);
 
-			final EndorserRecord endorserRecord = this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId());
+			final ArrayList<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findEndorserRecordByCurriculumId(curriculum.getId()));
+			final EndorserRecord endorserRecord = endorserRecords.get(0);
 			Assert.notNull(endorserRecord);
 
 			this.endorserRecordService.delete(endorserRecord);
 
-			final Collection<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findAll());
-			Assert.isTrue(!endorserRecords.contains(endorserRecord));
+			final Collection<EndorserRecord> endorserRecordsAll = new ArrayList<>(this.endorserRecordService.findAll());
+			Assert.isTrue(!endorserRecordsAll.contains(endorserRecord));
 
 			System.out.println("¡Exito!");
 
