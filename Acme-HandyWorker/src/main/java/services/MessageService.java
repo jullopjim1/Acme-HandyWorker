@@ -79,13 +79,7 @@ public class MessageService {
 	}
 
 	public Message findOne(final Integer messageId) {
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
-
-		final Message message = this.messageRepository.findOne(messageId);
-		this.checkPrincipal(message);
-
-		return message;
+		return this.messageRepository.findOne(messageId);
 	}
 
 	public Message save(final Message message) {
@@ -113,9 +107,11 @@ public class MessageService {
 
 	public void delete(final Message entity) {
 		final Box box = entity.getBox();
-		final Actor actor = this.checkPrincipal(entity);
+		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
 
-		if (box.getName().equals("trash box") || box.getIsTrash() == true)
+		if (box.getName().equals("trash box"))
 			this.messageRepository.delete(entity);
 		else {
 			final Box trash = this.boxService.findBoxByActorIdAndName(actor.getId(), "trash box");
@@ -157,14 +153,6 @@ public class MessageService {
 
 		this.messageRepository.save(messages);
 
-	}
-
-	private Actor checkPrincipal(final Message message) {
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount, "Debe estar logeado para modificar o borrar un mensaje");
-		final Actor actor = this.actorService.findByUserAccount(userAccount);
-		Assert.isTrue(message.getSender().equals(actor) || message.getRecipient().equals(actor), "Un actor solo puede ver sus mensajes");
-		return actor;
 	}
 
 }
