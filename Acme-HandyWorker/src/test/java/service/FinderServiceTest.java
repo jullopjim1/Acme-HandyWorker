@@ -38,19 +38,14 @@ public class FinderServiceTest extends AbstractTest {
 		this.authenticate("handyWorker1");
 		final int handyWorkerId = this.getEntityId("handyWorker1");
 
-		try {
-			Finder finder = this.finderService.findFinderByHandyWorkerId(handyWorkerId);
-			Assert.notNull(finder.getFixUpTasks());
-			System.out.println(finder.getFixUpTasks());
+		Finder finder = this.finderService.findFinderByHandyWorkerId(handyWorkerId);
+		Assert.notNull(finder.getFixUpTasks());
 
-			finder = this.finderService.updateFinder(finder);
+		finder = this.finderService.updateFinder(finder);
 
-			Assert.notEmpty(finder.getFixUpTasks());
+		Assert.notEmpty(finder.getFixUpTasks());
 
-			System.out.println("¡Exito!");
-		} catch (final Exception e) {
-			System.out.println("¡Fallo," + e.getMessage() + "!");
-		}
+		System.out.println("¡Exito!");
 
 		this.unauthenticate();
 

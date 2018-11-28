@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,7 +32,6 @@ public class Finder extends DomainEntity {
 	private Date	lastUpdate;
 
 
-	@NotBlank
 	public String getKeyword() {
 		return this.keyword;
 	}
@@ -107,7 +105,7 @@ public class Finder extends DomainEntity {
 
 
 	// Relationships ---------------------------------------------------------
-	private Collection<FixUpTask> fixUpTasks;
+	private Collection<FixUpTask>	fixUpTasks;
 
 
 	@NotNull
