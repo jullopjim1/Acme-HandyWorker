@@ -23,6 +23,8 @@ public class Box extends DomainEntity {
 	private boolean	isSystem;
 
 
+	//private Boolean	isTrash;
+
 	@NotBlank
 	public String getName() {
 		return this.name;

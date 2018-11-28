@@ -107,9 +107,9 @@ public class MessageService {
 
 	public void delete(final Message entity) {
 		final Box box = entity.getBox();
-		final UserAccount userAccount = LoginService.getPrincipal();
-		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
-		final Actor actor = this.actorService.findByUserAccount(userAccount);
+		final Actor actor = this.checkPrincipal(entity);
+
+		final Actor actor = this.checkPrincipal(entity);
 
 		if (box.getName().equals("trash box"))
 			this.messageRepository.delete(entity);
@@ -139,7 +139,7 @@ public class MessageService {
 		final Authority authority = new Authority();
 		authority.setAuthority("ADMIN");
 
-		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusión");
+		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusiï¿½n");
 
 		final Collection<Actor> allActor = this.actorService.findAll();
 
@@ -154,5 +154,11 @@ public class MessageService {
 		this.messageRepository.save(messages);
 
 	}
-
+	private Actor checkPrincipal(final Message message) {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount, "Debe estar logeado para modificar o borrar un mensaje");
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+		Assert.isTrue(message.getSender().equals(actor) || message.getRecipient().equals(actor), "Un actor solo puede ver sus mensajes");
+		return actor;
+	}
 }

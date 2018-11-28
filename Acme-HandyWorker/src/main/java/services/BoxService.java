@@ -107,7 +107,7 @@ public class BoxService {
 		return saved;
 	}
 	public void delete(final Box entity) {
-		// TODO DELETE BOX ¿Si se borra un actor se borra sus carpetas?
+		// TODO DELETE BOX ï¿½Si se borra un actor se borra sus carpetas?
 		Assert.isTrue(!entity.getIsSystem(), "No se puede eliminar una carpeta del sistema");
 
 		final Box rootBox = entity.getRootbox();
@@ -161,13 +161,13 @@ public class BoxService {
 	}
 
 	/*
-	 * Método para crear las system box
+	 * Mï¿½todo para crear las system box
 	 */
 	private Collection<Box> createSystemBox(final Actor actor) {
 		final Collection<Box> result = new ArrayList<>();
 
 		final Collection<Box> subboxes = new ArrayList<>();
-		//TODO ¿Que es rootBox?
+		//TODO ï¿½Que es rootBox?
 		final Box rootbox = null;
 
 		// Iniciar trash box
@@ -202,7 +202,7 @@ public class BoxService {
 		spamBox.setRootbox(rootbox);
 		spamBox.setActor(actor);
 
-		//Se añade todas las boxes a la collection
+		//Se aï¿½ade todas las boxes a la collection
 		result.add(spamBox);
 		result.add(outBox);
 		result.add(inBox);
