@@ -1,6 +1,7 @@
 
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -101,7 +102,7 @@ public class FixUpTask extends DomainEntity {
 	private Warranty				warranty;
 	private Category				category;
 	private Customer				customer;
-	private Collection<Application>	applications;
+	private Collection<Application>	applications	= new ArrayList<Application>();
 	private Collection<Complaint>	complaints;
 
 

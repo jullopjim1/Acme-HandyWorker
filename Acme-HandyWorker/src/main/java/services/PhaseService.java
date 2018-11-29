@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.PhaseRepository;
 import domain.FixUpTask;
+import domain.HandyWorker;
 import domain.Phase;
+import repositories.PhaseRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -26,6 +28,9 @@ public class PhaseService {
 	// Services-------------------------------------------------
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 
 	// Constructor----------------------------------------------
@@ -53,18 +58,25 @@ public class PhaseService {
 
 	public Phase save(final Phase phase) {
 		Assert.notNull(phase);
+		//this.checkPrincipal(phase);
 		final Phase saved = this.phaseRepository.save(phase);
 		return saved;
 	}
 
-	public void delete(final Phase entity) {
-		this.phaseRepository.delete(entity);
+	public void delete(final Phase phase) {
+		//this.checkPrincipal(phase);
+		this.phaseRepository.delete(phase);
 	}
 
 	// Other Methods--------------------------------------------
 
-	Collection<Phase> findPhasesByFixUpTaskId(final int fixUpTaskId) {
-		final Collection<Phase> phases = this.phaseRepository.findPhasesByFixUpTaskId(fixUpTaskId);
-		return phases;
+	public Collection<Phase> findPhasesByFixUpTaskIdActive(final int fixUpTaskId) {
+		return this.phaseRepository.findPhasesByFixUpTaskIdActive(fixUpTaskId);
+	}
+
+	public Boolean checkPrincipal(final Phase phase) {
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByPhaseId(phase.getId());
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		return true;
 	}
 }
