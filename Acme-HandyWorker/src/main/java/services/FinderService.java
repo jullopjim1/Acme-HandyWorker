@@ -12,9 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import repositories.FinderRepository;
-import utilities.internal.SchemaPrinter;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
+import domain.Actor;
 import domain.Configuration;
 import domain.Finder;
 import domain.FixUpTask;
@@ -31,6 +35,8 @@ public class FinderService {
 	//Services---------------------------------------------------------------------------
 	@Autowired
 	private ConfigurationService	configurationService;
+	@Autowired
+	private ActorService			actorService;
 
 
 	//Constructor------------------------------------------------------------------------
@@ -42,6 +48,13 @@ public class FinderService {
 	//Simple CRUD------------------------------------------------------------------------
 
 	public Finder create() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+
+		final Authority handyAuthority = new Authority();
+		handyAuthority.setAuthority("HANDY");
+		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los handyWorker tiene finder");
+
 		final Finder finder = new Finder();
 
 		final Date lastUpdate = new Date();
@@ -58,7 +71,7 @@ public class FinderService {
 
 		final Date current = new Date();
 		finder.setDateMin(current);
-		finder.setDateMax(new Date(current.getTime() + 315360000000L));
+		finder.setDateMax(new Date(current.getTime() + 315360000000L * 2));
 
 		return finder;
 	}
@@ -67,24 +80,30 @@ public class FinderService {
 	}
 
 	public Finder findOne(final Integer finderId) {
-		return this.finderRepository.findOne(finderId);
+		final Finder finder = this.finderRepository.findOne(finderId);
+		this.check(finder);
+
+		return finder;
 	}
 	public Finder save(final Finder finder) {
-
-		final Finder saved = this.finderRepository.save(finder);
+		this.check(finder);
+		final Finder saved = this.finderRepository.save(this.updateFinder(finder));
 
 		return saved;
 	}
 
-	public void delete(final Finder entity) {
-		this.finderRepository.delete(entity);
-	}
+	/**
+	 * No se puede borrar un finder
+	 */
+	//	public void delete(final Finder entity) {
+	//		
+	//	}
 
 	//Other Methods---------------------------------------------------------------------------
 
 	public Finder updateFinder(final Finder finder) {
-
-		Finder result = this.checkPrincipal(finder);
+		this.check(finder);
+		final Finder result = this.checkPrincipal(finder);
 
 		final Configuration configuration = this.configurationService.findAll().iterator().next();
 
@@ -95,13 +114,11 @@ public class FinderService {
 		if (!finder.getLastUpdate().after(updateFinder)) {
 			result.setFixUpTasks(this.searchFixUpTask(finder, configuration.getFinderMaxResults()));
 			result.setLastUpdate(lastUpdate);
-			SchemaPrinter.print(result);
-			result = this.finderRepository.save(result);
+			//result = this.finderRepository.save(result);
 		}
 
 		return result;
 	}
-
 	private Finder checkPrincipal(final Finder f) {
 		Finder result;
 
@@ -126,7 +143,7 @@ public class FinderService {
 			f.setDateMin(currentDate);
 
 		if (f.getDateMax() == null)
-			f.setDateMax(new Date(currentDate.getTime() + 315360000000L));// 315360000000L son 10 años en milisegundos
+			f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));// 315360000000L son 10 años en milisegundos
 
 		result = f;
 
@@ -134,20 +151,29 @@ public class FinderService {
 	}
 
 	public Collection<FixUpTask> searchFixUpTask(final Finder f, final int maxResult) {
-		final Collection<FixUpTask> result;
+		List<FixUpTask> result;
 
-		//final Page<FixUpTask> p = this.finderRepository.searchFixUpTasksf.getPriceMax(), new PageRequest(0, 2));
-
-		final Page<FixUpTask> p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMin(), f.getPriceMin(), f.getPriceMax(), f.getNamecategory(), f.getNamewarranty(), new PageRequest(0, maxResult));
-
-		System.out.println(p);
+		final Page<FixUpTask> p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), f.getNamecategory(), f.getNamewarranty(), new PageRequest(0, maxResult));
 		result = new ArrayList<>(p.getContent());
-		System.out.println(result);
 
 		return result;
 	}
 	public Finder findFinderByHandyWorkerId(final int handyWorkerId) {
 		return this.finderRepository.findByHandyWorker(handyWorkerId);
+	}
+
+	private void check(final Finder f) {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final Actor actor = this.actorService.findByUserAccount(userAccount);
+
+		final Authority handyAuthority = new Authority();
+		handyAuthority.setAuthority("HANDY");
+
+		final Finder finder = this.findFinderByHandyWorkerId(actor.getId());
+
+		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los handyWorker tiene finder");
+		Assert.isTrue(f.equals(finder), "Un finder solo puede ser modificado por su dueño");
+
 	}
 
 }
