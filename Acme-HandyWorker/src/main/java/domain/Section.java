@@ -51,7 +51,6 @@ public class Section extends DomainEntity {
 		this.pictures = pictures;
 	}
 
-	@NotNull
 	public int getPosition() {
 		return this.position;
 	}

@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -12,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.FixUpTaskRepository;
-import security.LoginService;
 import domain.Actor;
 import domain.Application;
 import domain.Complaint;
 import domain.FixUpTask;
 import domain.Phase;
+import repositories.FixUpTaskRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -26,20 +27,21 @@ public class FixUpTaskService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private FixUpTaskRepository fixUpTaskRepository;
+	private FixUpTaskRepository	fixUpTaskRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private PhaseService phaseService;
+	private PhaseService		phaseService;
 
 	@Autowired
-	private ApplicationService applicationService;
+	private ApplicationService	applicationService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
+
 
 	// Constructor----------------------------------------------
 	public FixUpTaskService() {
@@ -71,17 +73,14 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService
-				.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// SI ES NUEVA FIXUPTASK
 		if (fixUpTask.getId() == 0) {
 			fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
-			Assert.isTrue(actorActual.getUserAccount().getAuthorities()
-					.toString().contains("CUSTOMER"),
-					"SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
-			fixUpTask.setCustomer(customerService.findOne(actorActual.getId()));
+			Assert.isTrue(actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER"), "SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
+			fixUpTask.setCustomer(this.customerService.findOne(actorActual.getId()));
 		}
 
 		// GUARDO FIXUPTASK
@@ -93,31 +92,23 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService
-				.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!(actorActual.getId() == fixUpTask.getCustomer().getId())) {
-			if (!actorActual.getUserAccount().getAuthorities().toString()
-					.contains("ADMIN")) {
-				Assert.notNull(null,
-						"SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
-			}
-		}
+		if (!(actorActual.getId() == fixUpTask.getCustomer().getId()))
+			if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
+				Assert.notNull(null, "SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
 
 		// BORRO SUS PHASES
-		Collection<Phase> phases = phaseService
-				.findPhasesByFixUpTaskId(fixUpTask.getId());
-		for (Phase p : phases) {
-			phaseService.delete(p);
-		}
+		final Collection<Phase> phases = this.phaseService.findPhasesByFixUpTaskIdActive(fixUpTask.getId());
+		for (final Phase p : phases)
+			this.phaseService.delete(p);
 
 		// BORRO SUS APPLICATIONS
-		Collection<Application> applications = fixUpTask.getApplications();
-		for (Application a : applications) {
-			applicationService.delete(a);
-		}
+		final Collection<Application> applications = fixUpTask.getApplications();
+		for (final Application a : applications)
+			this.applicationService.delete(a);
 
 		// BORRO LA FIXUPTASK
 		this.fixUpTaskRepository.delete(fixUpTask);
@@ -153,10 +144,13 @@ public class FixUpTaskService {
 		return new String(text);
 	}
 
-	public Collection<FixUpTask> findTasksByCategoryId(int categoryId) {
-		Collection<FixUpTask> fixUpTasks = fixUpTaskRepository
-				.findTasksByCategoryId(categoryId);
+	public Collection<FixUpTask> findTasksByCategoryId(final int categoryId) {
+		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskRepository.findTasksByCategoryId(categoryId);
 		return fixUpTasks;
+	}
+
+	public Collection<FixUpTask> findTasksActiveByApplicationAcceptedAndHandyWorkerId(final int handyWorkerId) {
+		return this.fixUpTaskRepository.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId);
 	}
 
 }
