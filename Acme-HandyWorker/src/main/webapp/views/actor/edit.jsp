@@ -1,5 +1,5 @@
 <%--
- * editPersonalData.jsp
+ * edit.jsp
  *
  * Copyright (C) 2018 Universidad de Sevilla
  * 
