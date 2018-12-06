@@ -14,6 +14,8 @@ import repositories.ApplicationRepository;
 import security.LoginService;
 import domain.Actor;
 import domain.Application;
+import domain.FixUpTask;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -27,6 +29,12 @@ public class ApplicationService {
 	@Autowired
 	private ActorService actorService;
 
+	@Autowired
+	private HandyWorkerService handyWorkerService;
+
+	@Autowired
+	private FixUpTaskService fixUpTaskService;
+
 	// Constructor----------------------------------------------
 	public ApplicationService() {
 		super();
@@ -34,9 +42,15 @@ public class ApplicationService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Application create() {
+	public Application create(int fixUpTaskId) {
+		FixUpTask fixUpTask = fixUpTaskService.findOne(fixUpTaskId);
+		HandyWorker handyWorker = handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final Application application = new Application();
 		application.setMoment(new Date(System.currentTimeMillis() - 1000));
+		application.setStatus("PENDING");
+		application.setFixUpTask(fixUpTask);
+		application.setHandyWorker(handyWorker);
+
 		return application;
 	}
 
@@ -49,40 +63,30 @@ public class ApplicationService {
 	}
 
 	public Application save(final Application application) {
-		Assert.notNull(application,
-				"APPLICATION A CREAR/EDITAR NO PUEDE SER NULL");
+		Assert.notNull(application, "APPLICATION A CREAR/EDITAR NO PUEDE SER NULL");
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService
-				.getPrincipal().getUsername());
+		Actor actorActual = actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (actorActual.getUserAccount().getAuthorities().toString()
-				.contains("CUSTOMER")) {
+		if (actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER")) {
 			boolean restriccion = (application.getId() != 0)
-					&& (application.getFixUpTask().getCustomer().getId() == (actorActual
-							.getId()));
-			boolean restriccion2 = (application.getFixUpTask().getCustomer()
-					.getId() == actorActual.getId());
+					&& (application.getFixUpTask().getCustomer().getId() == (actorActual.getId()));
+			boolean restriccion2 = (application.getFixUpTask().getCustomer().getId() == actorActual.getId());
 			Assert.isTrue(restriccion, "CUSTOMER NO PUEDE CREAR APPLICATION");
-			Assert.isTrue(restriccion2,
-					"CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
-		} else if (actorActual.getUserAccount().getAuthorities().toString()
-				.contains("HANDY")) {
+			Assert.isTrue(restriccion2, "CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
+		} else if (actorActual.getUserAccount().getAuthorities().toString().contains("HANDY")) {
 			boolean restriccion = (application.getId() == 0)
-					&& (application.getHandyWorker().getId() == (actorActual
-							.getId()));
+					&& (application.getHandyWorker().getId() == (actorActual.getId()));
 			Assert.isTrue(restriccion, "HANDY NO PUEDE MODIFICAR APPLICATION");
 		} else {
-			Assert.notNull(null,
-					"PARA CREAR APPLICATION -> HANDY, PARA MODIFICAR APPLICATION -> CUSTOMER");
+			Assert.notNull(null, "PARA CREAR APPLICATION -> HANDY, PARA MODIFICAR APPLICATION -> CUSTOMER");
 		}
 
 		// TARJETA DE CREDITO NECESARIA SI STATUS = ACCPETED
 		if (application.getStatus() == "ACCEPTED") {
-			Assert.isTrue(application.getCreditCard() != null,
-					"SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
+			Assert.isTrue(application.getCreditCard() != null, "SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
 		}
 
 		// SOLO CAMBIAR FECHA SI ES NUEVO
@@ -98,13 +102,11 @@ public class ApplicationService {
 		Assert.notNull(application, "APPLICATION A BORRAR NO PUEDE SER NULL");
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService
-				.getPrincipal().getUsername());
+		Actor actorActual = actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString()
-				.contains("ADMIN")) {
+		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN")) {
 			Assert.notNull(null, "SOLO ADMIN PUEDE BORRAR APPLICATION");
 		}
 
@@ -116,8 +118,12 @@ public class ApplicationService {
 	// Other Methods--------------------------------------------
 
 	Collection<Application> findApplicationsByCreditCardId(int creditCardId) {
-		Collection<Application> applications = applicationRepository
-				.findApplicationsByCreditCardId(creditCardId);
+		Collection<Application> applications = applicationRepository.findApplicationsByCreditCardId(creditCardId);
 		return applications;
 	}
+
+	public Collection<Application> findApplicationsByFixUpTeaskId(int fixUpTaskId) {
+		return applicationRepository.findApplicationsByFixUpTeaskId(fixUpTaskId);
+	}
+
 }

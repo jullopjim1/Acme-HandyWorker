@@ -1,7 +1,6 @@
 
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +14,6 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Application;
-import domain.Complaint;
 import domain.FixUpTask;
 import domain.Phase;
 import repositories.FixUpTaskRepository;
@@ -27,21 +25,20 @@ public class FixUpTaskService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private FixUpTaskRepository	fixUpTaskRepository;
+	private FixUpTaskRepository fixUpTaskRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private PhaseService		phaseService;
+	private PhaseService phaseService;
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService applicationService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private CustomerService		customerService;
-
+	private CustomerService customerService;
 
 	// Constructor----------------------------------------------
 	public FixUpTaskService() {
@@ -54,10 +51,6 @@ public class FixUpTaskService {
 		final FixUpTask fixUpTask = new FixUpTask();
 		fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
 		fixUpTask.setTicker(this.generateTicker());
-		final Collection<Complaint> complaints = new ArrayList<Complaint>();
-		final Collection<Application> applications = new ArrayList<Application>();
-		fixUpTask.setComplaints(complaints);
-		fixUpTask.setApplications(applications);
 		return fixUpTask;
 	}
 
@@ -79,7 +72,8 @@ public class FixUpTaskService {
 		// SI ES NUEVA FIXUPTASK
 		if (fixUpTask.getId() == 0) {
 			fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
-			Assert.isTrue(actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER"), "SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
+			Assert.isTrue(actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER"),
+					"SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
 			fixUpTask.setCustomer(this.customerService.findOne(actorActual.getId()));
 		}
 
@@ -106,7 +100,8 @@ public class FixUpTaskService {
 			this.phaseService.delete(p);
 
 		// BORRO SUS APPLICATIONS
-		final Collection<Application> applications = fixUpTask.getApplications();
+		final Collection<Application> applications = applicationService
+				.findApplicationsByFixUpTeaskId(fixUpTask.getId());
 		for (final Application a : applications)
 			this.applicationService.delete(a);
 
@@ -151,6 +146,10 @@ public class FixUpTaskService {
 
 	public Collection<FixUpTask> findTasksActiveByApplicationAcceptedAndHandyWorkerId(final int handyWorkerId) {
 		return this.fixUpTaskRepository.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId);
+	}
+
+	public Collection<FixUpTask> findFixUpTaskByCustomerId(int customerId) {
+		return fixUpTaskRepository.findFixUpTaskByCustomerId(customerId);
 	}
 
 }

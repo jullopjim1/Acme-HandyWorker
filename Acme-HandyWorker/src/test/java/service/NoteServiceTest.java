@@ -19,20 +19,15 @@ import utilities.AbstractTest;
 import domain.Note;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
-})
+@ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
 @Transactional
 public class NoteServiceTest extends AbstractTest {
 
-	//Service ------------------------------ 
+	// Service ------------------------------
 	@Autowired
-	private NoteService		noteService;
-	@Autowired
-	private ReportService	reportService;
+	private NoteService noteService;
 
-
-	//Test
+	// Test
 	@Test
 	public void testCreate() {
 		System.out.println("========== testCreate() ==========");
@@ -72,12 +67,12 @@ public class NoteServiceTest extends AbstractTest {
 		}
 
 	}
+
 	@Test
 	public void testSave() {
 		System.out.println("========== testSave() ==========");
 		Note note, saved;
 
-		final Collection<Note> notes;
 		final int reportId = this.getEntityId("report1");
 		try {
 			note = this.noteService.create(reportId);
@@ -87,9 +82,8 @@ public class NoteServiceTest extends AbstractTest {
 
 			saved = this.noteService.save(note);
 
-			notes = this.reportService.findOne(reportId).getNote();
-			notes.add(saved);
-			Assert.isTrue(notes.contains(saved));
+			Collection<Note> notes1 = noteService.findAll();
+			Assert.isTrue(notes1.contains(saved));
 			System.out.println("¡Exito!");
 
 		} catch (final Exception e) {

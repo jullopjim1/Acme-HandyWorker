@@ -14,33 +14,38 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import services.ComplaintService;
-import services.CustomerService;
+import services.FixUpTaskService;
 import utilities.AbstractTest;
 import domain.Complaint;
+import domain.FixUpTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
-})
+@ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
 @Transactional
 public class ComplaintServiceTest extends AbstractTest {
 
-	//Service----------------------------------------------------------
+	// Service----------------------------------------------------------
 	@Autowired
-	private ComplaintService	complaintService;
+	private ComplaintService complaintService;
 
 	@Autowired
-	private CustomerService		customerService;
+	private FixUpTaskService fixUpTaskService;
 
-
-	//Test-------------------------------------------------------------
+	// Test-------------------------------------------------------------
 
 	@Test
 	public void testCreate() {
 		System.out.println("========== testCreate() ==========");
+
+		authenticate("customer2");
+
 		final int customerId = this.getEntityId("customer2");
+
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(fixUpTaskService.findFixUpTaskByCustomerId(customerId));
+		FixUpTask fixUpTask = fixUpTasks.get(0);
+
 		try {
-			final Complaint complaint = this.complaintService.create(customerId);
+			final Complaint complaint = this.complaintService.create(customerId, fixUpTask.getId());
 			complaint.setAttachments("http://www.attachments1.com");
 			complaint.setDescription("Te como la verga");
 			Assert.notNull(complaint);
@@ -89,9 +94,15 @@ public class ComplaintServiceTest extends AbstractTest {
 	@Test
 	public void testSave() {
 		System.out.println("========== testSave() ==========");
+		authenticate("customer2");
+
 		final int customerId = this.getEntityId("customer2");
+
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(fixUpTaskService.findFixUpTaskByCustomerId(customerId));
+		FixUpTask fixUpTask = fixUpTasks.get(0);
+
 		try {
-			final Complaint complaint = this.complaintService.create(customerId);
+			final Complaint complaint = this.complaintService.create(customerId, fixUpTask.getId());
 			complaint.setAttachments("http://www.attachments1.com");
 			complaint.setDescription("Te como la verga");
 			Assert.notNull(complaint);
@@ -107,28 +118,28 @@ public class ComplaintServiceTest extends AbstractTest {
 		}
 	}
 	/*
-	 * @Test
-	 * public void testDelete() {
+	 * @Test public void testDelete() {
 	 * System.out.println("========== testDelete() ==========");
 	 * 
-	 * this.authenticate("handyWorker2");
-	 * final int handyWorkerId = this.getEntityId("handyWorker2");
+	 * this.authenticate("handyWorker2"); final int handyWorkerId =
+	 * this.getEntityId("handyWorker2");
 	 * 
 	 * try {
 	 * 
-	 * final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
+	 * final Curriculum curriculum =
+	 * this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 	 * Assert.notNull(curriculum);
 	 * 
 	 * this.curriculumService.delete(curriculum);
 	 * 
-	 * final Collection<Curriculum> curriculums = new ArrayList<>(this.curriculumService.findAll());
+	 * final Collection<Curriculum> curriculums = new
+	 * ArrayList<>(this.curriculumService.findAll());
 	 * Assert.isTrue(!curriculums.contains(curriculum));
 	 * 
 	 * System.out.println("¡Exito!");
 	 * 
-	 * } catch (final Exception e) {
-	 * System.out.println("¡Fallo," + e.getMessage() + "!");
-	 * }
+	 * } catch (final Exception e) { System.out.println("¡Fallo," +
+	 * e.getMessage() + "!"); }
 	 * 
 	 * this.unauthenticate();
 	 * 

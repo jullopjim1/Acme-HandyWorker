@@ -14,38 +14,44 @@ import org.springframework.util.Assert;
 import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
+import domain.FixUpTask;
 
 @Service
 @Transactional
 public class ComplaintService {
 
-	//Repository-----------------------------------------------
+	// Repository-----------------------------------------------
 	@Autowired
-	private ComplaintRepository	complaintRepository;
+	private ComplaintRepository complaintRepository;
 
-	//Services-------------------------------------------------
+	// Services-------------------------------------------------
 	@Autowired
-	private CurriculumService	curriculumService;
+	private CurriculumService curriculumService;
 
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService customerService;
 
+	@Autowired
+	private FixUpTaskService fixUpTaskService;
 
-	//Constructor----------------------------------------------
+	// Constructor----------------------------------------------
 	public ComplaintService() {
 		super();
 	}
-	//Simple CRUD----------------------------------------------
+	// Simple CRUD----------------------------------------------
 
-	public Complaint create(final int customerId) {
+	public Complaint create(final int customerId, int fixUpTaskId) {
 		final Complaint complaint = new Complaint();
 		final Customer customer = this.customerService.findOne(customerId);
+		FixUpTask fixUpTask = fixUpTaskService.findOne(fixUpTaskId);
 
+		complaint.setFixUpTask(fixUpTask);
 		complaint.setCustomer(customer);
 		complaint.setTicker(this.curriculumService.generateTicker());
 		complaint.setMoment(new Date(System.currentTimeMillis() - 1000));
 		return complaint;
 	}
+
 	public List<Complaint> findAll() {
 		return this.complaintRepository.findAll();
 	}
@@ -64,7 +70,7 @@ public class ComplaintService {
 		this.complaintRepository.delete(entity);
 
 	}
-	//Other Methods--------------------------------------------
+	// Other Methods--------------------------------------------
 
 	Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
 		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);

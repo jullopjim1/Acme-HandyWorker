@@ -15,32 +15,27 @@ import repositories.RefereeRepository;
 import security.Authority;
 import security.UserAccount;
 import domain.Referee;
-import domain.Report;
 
 @Service
 @Transactional
 public class RefereeService {
 
-	//Repository-----------------------------------------------
+	// Repository-----------------------------------------------
 	@Autowired
-	private RefereeRepository	refereeRepository;
+	private RefereeRepository refereeRepository;
 
-
-	//Services-------------------------------------------------
-	//Constructor----------------------------------------------
+	// Services-------------------------------------------------
+	// Constructor----------------------------------------------
 	public RefereeService() {
 		super();
 	}
-	//Simple CRUD----------------------------------------------
+	// Simple CRUD----------------------------------------------
 
 	public Referee create() {
 		final Referee referee = new Referee();
 
-		final Collection<Report> reports = new ArrayList<>();
 		final Collection<Authority> authorities = new ArrayList<Authority>();
 		final UserAccount userAccount = new UserAccount();
-
-		referee.setReports(reports);
 
 		final Authority a = new Authority();
 		a.setAuthority("REFEREE");
@@ -72,6 +67,6 @@ public class RefereeService {
 		this.refereeRepository.delete(entity);
 
 	}
-	//Other Methods--------------------------------------------
+	// Other Methods--------------------------------------------
 
 }

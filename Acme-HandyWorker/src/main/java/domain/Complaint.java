@@ -8,7 +8,6 @@ import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -26,11 +25,10 @@ public class Complaint extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	ticker;
-	private Date	moment;
-	private String	description;
-	private String	attachments;
-
+	private String ticker;
+	private Date moment;
+	private String description;
+	private String attachments;
 
 	@NotBlank
 	@Column(unique = true)
@@ -73,11 +71,9 @@ public class Complaint extends DomainEntity {
 		this.attachments = attachments;
 	}
 
-
 	// Relationships ---------------------------------------------------------
-	private Customer	customer;
-	private Report		report;
-
+	private Customer customer;
+	private FixUpTask fixUpTask;
 
 	@NotNull
 	@Valid
@@ -91,12 +87,14 @@ public class Complaint extends DomainEntity {
 	}
 
 	@Valid
-	@OneToOne(optional = true)
-	public Report getReport() {
-		return this.report;
+	@NotNull
+	@ManyToOne(optional = false)
+	public FixUpTask getFixUpTask() {
+		return fixUpTask;
 	}
 
-	public void setReport(final Report report) {
-		this.report = report;
+	public void setFixUpTask(FixUpTask fixUpTask) {
+		this.fixUpTask = fixUpTask;
 	}
+
 }

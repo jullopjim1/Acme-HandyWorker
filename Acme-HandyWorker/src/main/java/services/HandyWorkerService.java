@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import domain.Actor;
-import domain.Application;
 import domain.HandyWorker;
 import repositories.HandyWorkerRepository;
 import security.Authority;
@@ -26,12 +25,11 @@ public class HandyWorkerService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private HandyWorkerRepository	handyWorkerRepository;
+	private HandyWorkerRepository handyWorkerRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private ActorService			actorService;
-
+	private ActorService actorService;
 
 	// Constructor----------------------------------------------
 
@@ -50,9 +48,7 @@ public class HandyWorkerService {
 		a.setAuthority("HANDY");
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
-		final Collection<Application> applications = new ArrayList<Application>();
 		handyWorker.setUserAccount(userAccount);
-		handyWorker.setApplications(applications);
 		handyWorker.setIsBanned(false);
 		handyWorker.setIsSuspicious(false);
 
@@ -83,7 +79,8 @@ public class HandyWorkerService {
 
 		// MAKE POR DEFECTO
 		if (handyWorker.getMake() == null)
-			handyWorker.setMake(handyWorker.getSurname() + " " + handyWorker.getMiddleName() + " " + handyWorker.getName());
+			handyWorker.setMake(
+					handyWorker.getSurname() + " " + handyWorker.getMiddleName() + " " + handyWorker.getName());
 
 		// GUARDO HANDYWORKER
 		final HandyWorker saved = this.handyWorkerRepository.save(handyWorker);
@@ -111,4 +108,9 @@ public class HandyWorkerService {
 		return this.handyWorkerRepository.findHandyWorkerByPhaseId(phaseId);
 	}
 
+	public HandyWorker findHandyWorkerByUserAccount(int userAccountId) {
+		return handyWorkerRepository.findHandyWorkerByUserAccount(userAccountId);
+	}
+
+	
 }

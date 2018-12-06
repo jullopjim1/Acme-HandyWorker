@@ -31,9 +31,6 @@ public class ReportService {
 	@Autowired
 	private RefereeService refereeService;
 
-	@Autowired
-	private NoteService noteService;
-
 	// Constructor----------------------------------------------
 	public ReportService() {
 		super();
@@ -44,7 +41,6 @@ public class ReportService {
 
 	public Report create(final int complaintId, final int refereeId) {
 		final Report report = new Report();
-		final Collection<Note> notes = new ArrayList<>();
 		final Complaint complaint = this.complaintService.findOne(complaintId);
 		final Referee referee = this.refereeService.findOne(refereeId);
 
@@ -52,7 +48,6 @@ public class ReportService {
 		report.setReferee(referee);
 		report.setMoment(new Date(System.currentTimeMillis() - 1000));
 		report.setIsFinal(false);
-		report.setNote(notes);
 
 		return report;
 	}
@@ -79,7 +74,7 @@ public class ReportService {
 		// noteService.delete(n);
 		// }
 		// }
-		
+
 		this.reportRepository.delete(report);
 	}
 	// Other Methods--------------------------------------------

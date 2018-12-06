@@ -1,15 +1,12 @@
 
 package domain;
 
-import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,12 +23,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Report extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
-	//ATRIBUTOS
-	private Date	moment;
-	private String	description;
-	private String	attachments;
-	private boolean	isFinal;
-
+	// ATRIBUTOS
+	private Date moment;
+	private String description;
+	private String attachments;
+	private boolean isFinal;
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -72,12 +68,9 @@ public class Report extends DomainEntity {
 		this.isFinal = isFinal;
 	}
 
-
 	// Relationships ---------------------------------------------------------
-	private Complaint			complaint;
-	private Referee				referee;
-	private Collection<Note>	note;
-
+	private Complaint complaint;
+	private Referee referee;
 
 	@NotNull
 	@Valid
@@ -101,14 +94,4 @@ public class Report extends DomainEntity {
 		this.referee = referee;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@Valid
-	@NotNull
-	public Collection<Note> getNote() {
-		return this.note;
-	}
-
-	public void setNote(final Collection<Note> note) {
-		this.note = note;
-	}
 }

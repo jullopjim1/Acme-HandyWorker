@@ -1,5 +1,7 @@
 package service;
 
+import java.util.ArrayList;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -15,10 +17,10 @@ import services.FixUpTaskService;
 import services.HandyWorkerService;
 import utilities.AbstractTest;
 import domain.Application;
+import domain.FixUpTask;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml" })
+@ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
 @Transactional
 public class ApplicationServiceTest extends AbstractTest {
 
@@ -42,12 +44,16 @@ public class ApplicationServiceTest extends AbstractTest {
 		// LOGIN COMO HANDYWORKER
 		authenticate("handyworker1");
 
+		int handyWorkerId = getEntityId("handyWorker1");
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(
+				fixUpTaskService.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId));
+
+		FixUpTask fixUpTask = fixUpTasks.get(0);
 		// CREO APPLICATION Y SETEO ATRIBUTOS
-		final Application application = applicationService.create();
+		final Application application = applicationService.create(fixUpTask.getId());
 		application.setStatus("PENDING");
 		application.setPrice(23);
 		application.setComments("comments");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 		application.setHandyWorker(handyWorkerService.findOne(handyWorkerId));
 
 		// FIXUPTASK DE CUSTOMER1
@@ -92,12 +98,17 @@ public class ApplicationServiceTest extends AbstractTest {
 		// LOGIN COMO HANDYWORKER
 		authenticate("handyworker1");
 
+		int handyWorkerId = getEntityId("handyWorker1");
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(
+				fixUpTaskService.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId));
+
+		FixUpTask fixUpTask = fixUpTasks.get(0);
+
 		// CREO APPLICATION Y SETEO ATRIBUTOS
-		final Application application = applicationService.create();
+		final Application application = applicationService.create(fixUpTask.getId());
 		application.setStatus("PENDING");
 		application.setPrice(23);
 		application.setComments("comments");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 		application.setHandyWorker(handyWorkerService.findOne(handyWorkerId));
 
 		// FIXUPTASK DE CUSTOMER1
@@ -112,12 +123,16 @@ public class ApplicationServiceTest extends AbstractTest {
 		// LOGIN COMO HANDYWORKER
 		authenticate("handyworker1");
 
+		int handyWorkerId = getEntityId("handyWorker1");
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(
+				fixUpTaskService.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId));
+
+		FixUpTask fixUpTask = fixUpTasks.get(0);
 		// CREO APPLICATION Y SETEO ATRIBUTOS
-		final Application application = applicationService.create();
+		final Application application = applicationService.create(fixUpTask.getId());
 		application.setStatus("PENDING");
 		application.setPrice(23);
 		application.setComments("comments");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 		application.setHandyWorker(handyWorkerService.findOne(handyWorkerId));
 
 		// FIXUPTASK DE CUSTOMER1
@@ -134,13 +149,17 @@ public class ApplicationServiceTest extends AbstractTest {
 	public void testFind() {
 		// LOGIN COMO HANDYWORKER
 		authenticate("handyworker1");
+		int handyWorkerId = getEntityId("handyWorker1");
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(
+				fixUpTaskService.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId));
+
+		FixUpTask fixUpTask = fixUpTasks.get(0);
 
 		// CREO APPLICATION Y SETEO ATRIBUTOS
-		final Application application = applicationService.create();
+		final Application application = applicationService.create(fixUpTask.getId());
 		application.setStatus("PENDING");
 		application.setPrice(23);
 		application.setComments("comments");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 		application.setHandyWorker(handyWorkerService.findOne(handyWorkerId));
 
 		// FIXUPTASK DE CUSTOMER1
@@ -163,13 +182,16 @@ public class ApplicationServiceTest extends AbstractTest {
 	public void testEdit() {
 		// LOGIN COMO HANDYWORKER
 		authenticate("handyworker1");
+		int handyWorkerId = getEntityId("handyWorker1");
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(
+				fixUpTaskService.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId));
 
+		FixUpTask fixUpTask = fixUpTasks.get(0);
 		// CREO APPLICATION Y SETEO ATRIBUTOS
-		final Application application = applicationService.create();
+		final Application application = applicationService.create(fixUpTask.getId());
 		application.setStatus("PENDING");
 		application.setPrice(23);
 		application.setComments("comments");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 		application.setHandyWorker(handyWorkerService.findOne(handyWorkerId));
 
 		// FIXUPTASK DE CUSTOMER1
@@ -205,12 +227,17 @@ public class ApplicationServiceTest extends AbstractTest {
 		// LOGIN COMO HANDYWORKER
 		authenticate("handyworker1");
 
+		int handyWorkerId = getEntityId("handyWorker1");
+		ArrayList<FixUpTask> fixUpTasks = new ArrayList<>(
+				fixUpTaskService.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId));
+
+		FixUpTask fixUpTask = fixUpTasks.get(0);
+
 		// CREO APPLICATION Y SETEO ATRIBUTOS
-		final Application application = applicationService.create();
+		final Application application = applicationService.create(fixUpTask.getId());
 		application.setStatus("PENDING");
 		application.setPrice(23);
 		application.setComments("comments");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 		application.setHandyWorker(handyWorkerService.findOne(handyWorkerId));
 
 		// FIXUPTASK DE CUSTOMER1

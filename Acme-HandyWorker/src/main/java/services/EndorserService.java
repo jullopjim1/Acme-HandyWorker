@@ -16,35 +16,31 @@ import domain.Endorser;
 @Transactional
 public class EndorserService {
 
-	//Repository-------------------------------------------------------------------------
+	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private EndorserRepository	endorserRepository;
+	private EndorserRepository endorserRepository;
 
-	//Services---------------------------------------------------------------------------
+	// Services---------------------------------------------------------------------------
 	@Autowired
-	private EndorsementService	endorsementService;
-	@Autowired
-	private CustomerService		customerService;
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private EndorsementService endorsementService;
 
-
-	//Constructor------------------------------------------------------------------------
+	// Constructor------------------------------------------------------------------------
 
 	public EndorserService() {
 		super();
 	}
 
-	//Simple CRUD------------------------------------------------------------------------
+	// Simple
+	// CRUD------------------------------------------------------------------------
 
-	//TODO create endorser
-	//	public Endorser create() {
-	//		final Endorser endorser = new Endorser();
+	// TODO create endorser
+	// public Endorser create() {
+	// final Endorser endorser = new Endorser();
 	//
-	//		return endorser;
+	// return endorser;
 	//
-	//	}
+	// }
 
 	public List<Endorser> findAll() {
 		return this.endorserRepository.findAll();
@@ -54,7 +50,8 @@ public class EndorserService {
 		return this.endorserRepository.findOne(endorserId);
 	}
 
-	//Other Methods---------------------------------------------------------------------------
+	// Other
+	// Methods---------------------------------------------------------------------------
 	public Endorser findEndorserByUseraccount(final UserAccount userAccount) {
 		final Endorser endorser = this.endorserRepository.findEndorserByUseraccount(userAccount);
 
