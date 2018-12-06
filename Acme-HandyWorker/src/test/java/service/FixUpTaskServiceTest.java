@@ -48,11 +48,11 @@ public class FixUpTaskServiceTest extends AbstractTest {
 	// Test-------------------------------------------------------------
 
 	@Test
-	public void test() {
-		//LOGIN COMO CUSTOMER
+	public void testAll() {
+		// LOGIN COMO CUSTOMER
 		authenticate("customer1");
-		
-		//CREO FIXUPTASK Y SETEO VALORES
+
+		// CREO FIXUPTASK Y SETEO VALORES
 		final FixUpTask fixUpTask = fixUpTaskService.create();
 		fixUpTask.setAdress("adress");
 		fixUpTask.setDescription("description");
@@ -64,35 +64,189 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		fixUpTask.setCategory(categoryService.findOne(categoryId));
 		fixUpTask.setCustomer(customerService.findOne(customerId));
 		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
-		
-		//GUARDO FIXUPTASK
+
+		// GUARDO FIXUPTASK
 		FixUpTask saved = fixUpTaskService.save(fixUpTask);
-		
-		//CHECK FINDALL
+
+		// CHECK FINDALL
 		Assert.isTrue(fixUpTaskService.findAll().contains(saved));
-		
-		//CHECK FINDONE
+
+		// CHECK FINDONE
 		Assert.isTrue(fixUpTaskService.findOne(saved.getId()) == saved);
-		
-		//EDITO VALOR Y GUARDO FIXUPTASK EDITADO
+
+		// EDITO VALOR Y GUARDO FIXUPTASK EDITADO
 		saved.setAdress("adressEdited");
 		FixUpTask saved2 = fixUpTaskService.save(saved);
 		Assert.isTrue(fixUpTaskService.findOne(saved2.getId()).getAdress() == "adressEdited");
-		
-		//BORRO FIXUPTASK
+
+		// BORRO FIXUPTASK
 		fixUpTaskService.delete(saved);
 		Assert.isTrue(!fixUpTaskService.findAll().contains(saved));
 		final int phaseId = this.getEntityId("phase1");
 		final int fixUpTaskId = this.getEntityId("fixuptask3");
-		
-		//LOGIN COMO ADMIN
+
+		// LOGIN COMO ADMIN
 		unauthenticate();
 		authenticate("admin");
-		
-		//BORRO FIXUPTASK
+
+		// BORRO FIXUPTASK
 		fixUpTaskService.delete(fixUpTaskService.findOne(fixUpTaskId));
-		
-		//CHEKEO QUE SE HA BORRADO PHASES Y APPLICATIONS DE FIXUPTASK ELIMINADA
+
+		// CHEKEO QUE SE HA BORRADO PHASES Y APPLICATIONS DE FIXUPTASK ELIMINADA
+		Assert.isNull(phaseService.findOne(phaseId));
+		final int applicationId = this.getEntityId("application3");
+		Assert.isNull(applicationService.findOne(applicationId));
+		unauthenticate();
+	}
+
+	@Test
+	public void testCreate() {
+		// LOGIN COMO CUSTOMER
+		authenticate("customer1");
+
+		// CREO FIXUPTASK Y SETEO VALORES
+		final FixUpTask fixUpTask = fixUpTaskService.create();
+		fixUpTask.setAdress("adress");
+		fixUpTask.setDescription("description");
+		fixUpTask.setMaxPrice(25);
+		fixUpTask.setDeadline(new Date());
+		final int categoryId = this.getEntityId("category1");
+		final int customerId = this.getEntityId("customer1");
+		final int warrantyId = this.getEntityId("warranty1");
+		fixUpTask.setCategory(categoryService.findOne(categoryId));
+		fixUpTask.setCustomer(customerService.findOne(customerId));
+		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
+	}
+
+	@Test
+	public void testSave() {
+		// LOGIN COMO CUSTOMER
+		authenticate("customer1");
+
+		// CREO FIXUPTASK Y SETEO VALORES
+		final FixUpTask fixUpTask = fixUpTaskService.create();
+		fixUpTask.setAdress("adress");
+		fixUpTask.setDescription("description");
+		fixUpTask.setMaxPrice(25);
+		fixUpTask.setDeadline(new Date());
+		final int categoryId = this.getEntityId("category1");
+		final int customerId = this.getEntityId("customer1");
+		final int warrantyId = this.getEntityId("warranty1");
+		fixUpTask.setCategory(categoryService.findOne(categoryId));
+		fixUpTask.setCustomer(customerService.findOne(customerId));
+		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
+
+		// GUARDO FIXUPTASK
+		fixUpTaskService.save(fixUpTask);
+	}
+
+	@Test
+	public void testFind() {
+		// LOGIN COMO CUSTOMER
+		authenticate("customer1");
+
+		// CREO FIXUPTASK Y SETEO VALORES
+		final FixUpTask fixUpTask = fixUpTaskService.create();
+		fixUpTask.setAdress("adress");
+		fixUpTask.setDescription("description");
+		fixUpTask.setMaxPrice(25);
+		fixUpTask.setDeadline(new Date());
+		final int categoryId = this.getEntityId("category1");
+		final int customerId = this.getEntityId("customer1");
+		final int warrantyId = this.getEntityId("warranty1");
+		fixUpTask.setCategory(categoryService.findOne(categoryId));
+		fixUpTask.setCustomer(customerService.findOne(customerId));
+		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
+
+		// GUARDO FIXUPTASK
+		FixUpTask saved = fixUpTaskService.save(fixUpTask);
+
+		// CHECK FINDALL
+		Assert.isTrue(fixUpTaskService.findAll().contains(saved));
+
+		// CHECK FINDONE
+		Assert.isTrue(fixUpTaskService.findOne(saved.getId()) == saved);
+	}
+
+	@Test
+	public void testEdit() {
+		// LOGIN COMO CUSTOMER
+		authenticate("customer1");
+
+		// CREO FIXUPTASK Y SETEO VALORES
+		final FixUpTask fixUpTask = fixUpTaskService.create();
+		fixUpTask.setAdress("adress");
+		fixUpTask.setDescription("description");
+		fixUpTask.setMaxPrice(25);
+		fixUpTask.setDeadline(new Date());
+		final int categoryId = this.getEntityId("category1");
+		final int customerId = this.getEntityId("customer1");
+		final int warrantyId = this.getEntityId("warranty1");
+		fixUpTask.setCategory(categoryService.findOne(categoryId));
+		fixUpTask.setCustomer(customerService.findOne(customerId));
+		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
+
+		// GUARDO FIXUPTASK
+		FixUpTask saved = fixUpTaskService.save(fixUpTask);
+
+		// CHECK FINDALL
+		Assert.isTrue(fixUpTaskService.findAll().contains(saved));
+
+		// CHECK FINDONE
+		Assert.isTrue(fixUpTaskService.findOne(saved.getId()) == saved);
+
+		// EDITO VALOR Y GUARDO FIXUPTASK EDITADO
+		saved.setAdress("adressEdited");
+		FixUpTask saved2 = fixUpTaskService.save(saved);
+		Assert.isTrue(fixUpTaskService.findOne(saved2.getId()).getAdress() == "adressEdited");
+	}
+
+	@Test
+	public void testDelete() {
+		// LOGIN COMO CUSTOMER
+		authenticate("customer1");
+
+		// CREO FIXUPTASK Y SETEO VALORES
+		final FixUpTask fixUpTask = fixUpTaskService.create();
+		fixUpTask.setAdress("adress");
+		fixUpTask.setDescription("description");
+		fixUpTask.setMaxPrice(25);
+		fixUpTask.setDeadline(new Date());
+		final int categoryId = this.getEntityId("category1");
+		final int customerId = this.getEntityId("customer1");
+		final int warrantyId = this.getEntityId("warranty1");
+		fixUpTask.setCategory(categoryService.findOne(categoryId));
+		fixUpTask.setCustomer(customerService.findOne(customerId));
+		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
+
+		// GUARDO FIXUPTASK
+		FixUpTask saved = fixUpTaskService.save(fixUpTask);
+
+		// CHECK FINDALL
+		Assert.isTrue(fixUpTaskService.findAll().contains(saved));
+
+		// CHECK FINDONE
+		Assert.isTrue(fixUpTaskService.findOne(saved.getId()) == saved);
+
+		// EDITO VALOR Y GUARDO FIXUPTASK EDITADO
+		saved.setAdress("adressEdited");
+		FixUpTask saved2 = fixUpTaskService.save(saved);
+		Assert.isTrue(fixUpTaskService.findOne(saved2.getId()).getAdress() == "adressEdited");
+
+		// BORRO FIXUPTASK
+		fixUpTaskService.delete(saved);
+		Assert.isTrue(!fixUpTaskService.findAll().contains(saved));
+		final int phaseId = this.getEntityId("phase1");
+		final int fixUpTaskId = this.getEntityId("fixuptask3");
+
+		// LOGIN COMO ADMIN
+		unauthenticate();
+		authenticate("admin");
+
+		// BORRO FIXUPTASK
+		fixUpTaskService.delete(fixUpTaskService.findOne(fixUpTaskId));
+
+		// CHEKEO QUE SE HA BORRADO PHASES Y APPLICATIONS DE FIXUPTASK ELIMINADA
 		Assert.isNull(phaseService.findOne(phaseId));
 		final int applicationId = this.getEntityId("application3");
 		Assert.isNull(applicationService.findOne(applicationId));

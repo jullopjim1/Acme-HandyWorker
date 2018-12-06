@@ -27,24 +27,21 @@ public class CustomerServiceTest extends AbstractTest {
 	@Autowired
 	private CustomerService customerService;
 
-
-
 	// Test-------------------------------------------------------------
 
 	@Test
-	public void test() {
-		//NO LOGIN
-		//CREO Y SETEO VALORES DE CUSTOMER
+	public void testAll() {
+		// NO LOGIN
+		// CREO Y SETEO VALORES DE CUSTOMER
 		final Customer customer = customerService.create();
 		final UserAccount userAccount = new UserAccount();
 		userAccount.setUsername("customerT1");
 		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-		userAccount.setPassword(encoder.encodePassword("customerT1",
-				null));
+		userAccount.setPassword(encoder.encodePassword("customerT1", null));
 		final Authority a = new Authority();
 		a.setAuthority(Authority.CUSTOMER);
 		userAccount.addAuthority(a);
-		
+
 		customer.setName("Augusto");
 		customer.setMiddleName("Pepinero");
 		customer.setSurname("Angostino");
@@ -55,29 +52,209 @@ public class CustomerServiceTest extends AbstractTest {
 		customer.setIsSuspicious(false);
 		customer.setIsBanned(false);
 		customer.setUserAccount(userAccount);
-		
-		//GUARDO CUSTOMER
+
+		// GUARDO CUSTOMER
 		Customer saved = customerService.save(customer);
-		
-		//CHECK FINDALL
+
+		// CHECK FINDALL
 		Assert.isTrue(customerService.findAll().contains(saved));
-		
-		//CHECK FINDONE
+
+		// CHECK FINDONE
 		Assert.isTrue(customerService.findOne(saved.getId()) == saved);
-		
-		//LOGIN COMO CUSTOMER CREADO
+
+		// LOGIN COMO CUSTOMER CREADO
 		authenticate("customerT1");
-		
-		//EDITO VALOR Y GUARDO CUSTOMER EDITADO
+
+		// EDITO VALOR Y GUARDO CUSTOMER EDITADO
 		saved.setAddress("adressEdited");
 		Customer saved2 = customerService.save(saved);
 		Assert.isTrue(customerService.findOne(saved2.getId()).getAddress() == "adressEdited");
-		
-		//LOGIN COMO ADMIN
+
+		// LOGIN COMO ADMIN
 		unauthenticate();
 		authenticate("admin");
-		
-		//BORRO CUSTOMER
+
+		// BORRO CUSTOMER
+		customerService.delete(saved2);
+		Assert.isTrue(!customerService.findAll().contains(saved));
+		unauthenticate();
+	}
+
+	@Test
+	public void testCreate() {
+		// NO LOGIN
+		// CREO Y SETEO VALORES DE CUSTOMER
+		final Customer customer = customerService.create();
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setUsername("customerT1");
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		userAccount.setPassword(encoder.encodePassword("customerT1", null));
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CUSTOMER);
+		userAccount.addAuthority(a);
+
+		customer.setName("Augusto");
+		customer.setMiddleName("Pepinero");
+		customer.setSurname("Angostino");
+		customer.setPhoto("http://www.photo122.com");
+		customer.setEmail("customer@gmail.com");
+		customer.setPhone("657824410");
+		customer.setAddress("Calle chicoss");
+		customer.setIsSuspicious(false);
+		customer.setIsBanned(false);
+		customer.setUserAccount(userAccount);
+	}
+
+	@Test
+	public void testSave() {
+		// NO LOGIN
+		// CREO Y SETEO VALORES DE CUSTOMER
+		final Customer customer = customerService.create();
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setUsername("customerT1");
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		userAccount.setPassword(encoder.encodePassword("customerT1", null));
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CUSTOMER);
+		userAccount.addAuthority(a);
+
+		customer.setName("Augusto");
+		customer.setMiddleName("Pepinero");
+		customer.setSurname("Angostino");
+		customer.setPhoto("http://www.photo122.com");
+		customer.setEmail("customer@gmail.com");
+		customer.setPhone("657824410");
+		customer.setAddress("Calle chicoss");
+		customer.setIsSuspicious(false);
+		customer.setIsBanned(false);
+		customer.setUserAccount(userAccount);
+
+		// GUARDO CUSTOMER
+		customerService.save(customer);
+	}
+
+	@Test
+	public void testFind() {
+		// NO LOGIN
+		// CREO Y SETEO VALORES DE CUSTOMER
+		final Customer customer = customerService.create();
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setUsername("customerT1");
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		userAccount.setPassword(encoder.encodePassword("customerT1", null));
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CUSTOMER);
+		userAccount.addAuthority(a);
+
+		customer.setName("Augusto");
+		customer.setMiddleName("Pepinero");
+		customer.setSurname("Angostino");
+		customer.setPhoto("http://www.photo122.com");
+		customer.setEmail("customer@gmail.com");
+		customer.setPhone("657824410");
+		customer.setAddress("Calle chicoss");
+		customer.setIsSuspicious(false);
+		customer.setIsBanned(false);
+		customer.setUserAccount(userAccount);
+
+		// GUARDO CUSTOMER
+		Customer saved = customerService.save(customer);
+
+		// CHECK FINDALL
+		Assert.isTrue(customerService.findAll().contains(saved));
+
+		// CHECK FINDONE
+		Assert.isTrue(customerService.findOne(saved.getId()) == saved);
+	}
+
+	@Test
+	public void testEdit() {
+		// NO LOGIN
+		// CREO Y SETEO VALORES DE CUSTOMER
+		final Customer customer = customerService.create();
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setUsername("customerT1");
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		userAccount.setPassword(encoder.encodePassword("customerT1", null));
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CUSTOMER);
+		userAccount.addAuthority(a);
+
+		customer.setName("Augusto");
+		customer.setMiddleName("Pepinero");
+		customer.setSurname("Angostino");
+		customer.setPhoto("http://www.photo122.com");
+		customer.setEmail("customer@gmail.com");
+		customer.setPhone("657824410");
+		customer.setAddress("Calle chicoss");
+		customer.setIsSuspicious(false);
+		customer.setIsBanned(false);
+		customer.setUserAccount(userAccount);
+
+		// GUARDO CUSTOMER
+		Customer saved = customerService.save(customer);
+
+		// CHECK FINDALL
+		Assert.isTrue(customerService.findAll().contains(saved));
+
+		// CHECK FINDONE
+		Assert.isTrue(customerService.findOne(saved.getId()) == saved);
+
+		// LOGIN COMO CUSTOMER CREADO
+		authenticate("customerT1");
+
+		// EDITO VALOR Y GUARDO CUSTOMER EDITADO
+		saved.setAddress("adressEdited");
+		Customer saved2 = customerService.save(saved);
+		Assert.isTrue(customerService.findOne(saved2.getId()).getAddress() == "adressEdited");
+	}
+
+	@Test
+	public void testDelete() {
+		// NO LOGIN
+		// CREO Y SETEO VALORES DE CUSTOMER
+		final Customer customer = customerService.create();
+		final UserAccount userAccount = new UserAccount();
+		userAccount.setUsername("customerT1");
+		final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+		userAccount.setPassword(encoder.encodePassword("customerT1", null));
+		final Authority a = new Authority();
+		a.setAuthority(Authority.CUSTOMER);
+		userAccount.addAuthority(a);
+
+		customer.setName("Augusto");
+		customer.setMiddleName("Pepinero");
+		customer.setSurname("Angostino");
+		customer.setPhoto("http://www.photo122.com");
+		customer.setEmail("customer@gmail.com");
+		customer.setPhone("657824410");
+		customer.setAddress("Calle chicoss");
+		customer.setIsSuspicious(false);
+		customer.setIsBanned(false);
+		customer.setUserAccount(userAccount);
+
+		// GUARDO CUSTOMER
+		Customer saved = customerService.save(customer);
+
+		// CHECK FINDALL
+		Assert.isTrue(customerService.findAll().contains(saved));
+
+		// CHECK FINDONE
+		Assert.isTrue(customerService.findOne(saved.getId()) == saved);
+
+		// LOGIN COMO CUSTOMER CREADO
+		authenticate("customerT1");
+
+		// EDITO VALOR Y GUARDO CUSTOMER EDITADO
+		saved.setAddress("adressEdited");
+		Customer saved2 = customerService.save(saved);
+		Assert.isTrue(customerService.findOne(saved2.getId()).getAddress() == "adressEdited");
+
+		// LOGIN COMO ADMIN
+		unauthenticate();
+		authenticate("admin");
+
+		// BORRO CUSTOMER
 		customerService.delete(saved2);
 		Assert.isTrue(!customerService.findAll().contains(saved));
 		unauthenticate();
