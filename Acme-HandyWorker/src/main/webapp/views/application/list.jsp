@@ -29,7 +29,7 @@
 		<display:column>
 			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
 				<a href="application/handyworker/edit.do?applicationId=${row.id}">
-					<spring:message code="tutorial.edit" />
+					<spring:message code="application.edit" />
 				</a>
 			</jstl:if>
 		</display:column>
@@ -38,7 +38,7 @@
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
 			<a href="application/customer/edit.do?applicationId=${row.id}"> <spring:message
-					code="tutorial.edit" />
+					code="application.edit" />
 			</a>
 		</display:column>
 	</security:authorize>
@@ -58,6 +58,6 @@
 
 <security:authorize access="hasRole('HANDY')">
 	<a href="application/handyworker/create.do"> <spring:message
-			code="tutorial.create" />
+			code="application.create" />
 	</a>
 </security:authorize>

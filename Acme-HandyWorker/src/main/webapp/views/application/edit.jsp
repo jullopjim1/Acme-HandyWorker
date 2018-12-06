@@ -26,6 +26,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
+	<form:hidden path="status" />
 
 
 	<form:label path="price">
@@ -42,12 +43,72 @@
 	<form:errors ccsClass="error" path="comments" />
 	<br />
 
-	<form:label path="status">
-		<spring:message code="tutorial.pictures" />
-	</form:label>
-	<form:input path="pictures" />
-	<form:errors ccsClass="error" path="pictures" />
-	<br />
+	<security:authorize access="hasRole('CUSTOMER')">
+		<jstl:if test="${application.id != 0 }">
+
+			<form:label path="status">
+				<spring:message code="application.status"></spring:message>
+			</form:label>
+			<form:select id="statuses" path="status">
+				<form:options items="${status}" />
+			</form:select>
+			<br />
+		</jstl:if>
+
+	</security:authorize>
+
+	<jstl:if
+		test="${application.id !=0 && application.status == 'ACCEPTED'}">
+		<fieldset>
+			<legend>
+				<spring:message code="application.creditcard" />
+			</legend>
+
+			<form:label path="creditCard.holderName">
+				<spring:message code="creditCard.holderName" />:
+     		 </form:label>
+			<form:input path="creditCard.holderName" />
+			<form:errors cssClass="error" path="creditCard.holderName" />
+			<br>
+
+			<form:label path="creditCard.brandName">
+				<spring:message code="creditCard.brandName" />:
+      		</form:label>
+			<form:input path="creditCard.brandName" />
+			<form:errors cssClass="error" path="creditCard.brandName" />
+			<br>
+
+			<form:label path="creditCard.number">
+				<spring:message code="creditCard.number" />:
+     		 </form:label>
+			<form:input path="creditCard.number" />
+			<form:errors cssClass="error" path="creditCard.number" />
+			<br>
+
+			<form:label path="creditCard.expirationMonth">
+				<spring:message code="creditCard.expirationMonth" />:
+      		</form:label>
+			<form:input path="creditCard.monthExpiration" />
+			<form:errors cssClass="error" path="creditCard.expirationMonth" />
+			<br>
+
+			<form:label path="creditCard.expirationYear">
+				<spring:message code="creditCard.expirationYear" />:
+     		</form:label>
+			<form:input path="creditCard.yearExpiration" />
+			<form:errors cssClass="error" path="creditCard.expirationYear" />
+			<br>
+
+			<form:label path="creditCard.CVVCode">
+				<spring:message code="creditCard.cvvCode" />:
+      		</form:label>
+			<form:input path="creditCard.cvv" />
+			<form:errors cssClass="error" path="creditCard.CVVCode" />
+			<br>
+
+		</fieldset>
+	</jstl:if>
+
 
 
 	<input type="submit" name="save"
