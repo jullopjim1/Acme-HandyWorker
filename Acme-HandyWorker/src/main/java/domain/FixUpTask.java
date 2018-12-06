@@ -9,6 +9,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -26,14 +27,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class FixUpTask extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
-	//ATRIBUTOS
-	private String	ticker;
-	private Date	moment;
-	private String	description;
-	private String	adress;
-	private double	maxPrice;
-	private Date	deadline;
-
+	// ATRIBUTOS
+	private String ticker;
+	private Date moment;
+	private String description;
+	private String adress;
+	private double maxPrice;
+	private Date deadline;
 
 	@NotBlank
 	@Column(unique = true)
@@ -97,14 +97,12 @@ public class FixUpTask extends DomainEntity {
 		this.deadline = deadline;
 	}
 
-
 	// Relationships ---------------------------------------------------------
-	private Warranty				warranty;
-	private Category				category;
-	private Customer				customer;
-	private Collection<Application>	applications	= new ArrayList<Application>();
-	private Collection<Complaint>	complaints;
-
+	private Warranty warranty;
+	private Category category;
+	private Customer customer;
+	private Collection<Application> applications;
+	private Collection<Complaint> complaints;
 
 	@NotNull
 	@Valid
@@ -141,7 +139,7 @@ public class FixUpTask extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "fixUpTask")
+	@OneToMany(mappedBy = "fixUpTask", fetch = FetchType.EAGER)
 	public Collection<Application> getApplications() {
 		return this.applications;
 	}

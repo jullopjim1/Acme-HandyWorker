@@ -23,15 +23,14 @@ public class PhaseService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private PhaseRepository		phaseRepository;
+	private PhaseRepository phaseRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService fixUpTaskService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
-
+	private HandyWorkerService handyWorkerService;
 
 	// Constructor----------------------------------------------
 
@@ -58,13 +57,13 @@ public class PhaseService {
 
 	public Phase save(final Phase phase) {
 		Assert.notNull(phase);
-		//this.checkPrincipal(phase);
+		this.checkPrincipal(phase);
 		final Phase saved = this.phaseRepository.save(phase);
 		return saved;
 	}
 
 	public void delete(final Phase phase) {
-		//this.checkPrincipal(phase);
+		this.checkPrincipal(phase);
 		this.phaseRepository.delete(phase);
 	}
 
