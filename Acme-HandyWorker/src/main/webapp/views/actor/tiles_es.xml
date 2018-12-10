@@ -22,14 +22,20 @@
 	</definition>
 	
 	<definition name="actor/registerCustomer" extends="master.page">	
-		<put-attribute name="title" value="Registrar un cliente" />
+		<put-attribute name="title" value="Registrar como un cliente" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
 	
 	
 	<definition name="actor/registerHandyWorker" extends="master.page">	
-		<put-attribute name="title" value="Registrar un manitas" />
+		<put-attribute name="title" value="Registrar como un manitas" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
+	
+	
+	<definition name="actor/registerSponsor" extends="master.page">	
+		<put-attribute name="title" value="Registrar como un patrocinador" />
+		<put-attribute name="body" value="/views/actor/register.jsp" />
+	</definition>	
 	
 </tiles-definitions>
