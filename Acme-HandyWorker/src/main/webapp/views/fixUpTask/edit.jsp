@@ -30,10 +30,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize
-	access="hasRole('CUSTOMER')">
-	<form:form action="fixUpTask/customer/edit.do"
-		modelAttribute="fixUpTask">
+<security:authorize access="hasRole('CUSTOMER')">
+	<form:form action="${requestURI}" modelAttribute="fixUpTask">
 
 		<form:hidden path="id" />
 		<form:hidden path="version" />
@@ -89,10 +87,10 @@
 		<input type="submit" name="save"
 			value="<spring:message code="fixuptask.save" />" />&nbsp;
 	
-	
-	<input type="submit" name="delete"
-			value="<spring:message code="fixuptask.delete"/>" />
-
+		<jstl:if test="${fixUpTask.id != 0 }">
+			<input type="submit" name="delete"
+				value="<spring:message code="fixuptask.delete"/>" />
+		</jstl:if>
 
 		<input type="button" name="cancel"
 			value="<spring:message code="fixuptask.cancel" />"

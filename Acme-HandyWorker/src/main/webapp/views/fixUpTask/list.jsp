@@ -30,68 +30,79 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize
-	access="hasRole('CUSTOMER')">
-<form:form action="fixUpTask/customer/create.do"
-	modelAttribute="fixUpTask">
 
-	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="ticker" />
-	<form:hidden path="moment" />
+<spring:message code="fixuptask.keyWord" />
+<input type="text" id="textSearch" value="">
+<br />
+<spring:message code="fixuptask.category" />
+<select id="category">
+	<form:options items="${categories}" itemValue="id" itemLabel="name" />
+</select>
+<spring:message code="fixuptask.warranty" />
+<form:select id="warranties" path="warranty">
+	<form:options items="${warranties}" itemValue="id" itemLabel="title" />
+</form:select>
+<spring:message code="fixuptask.minPrice" />
+<input type="number" id="minPrice" value="" min="0" max="999999">
+<spring:message code="fixuptask.maxPrice" />
+<input type="number" id="maxPrice" value="" min="0" max="999999">
+<br />
+<spring:message code="fixuptask.startDate" />
+<input type="date" id="dateStart" value="">
+<spring:message code="fixuptask.endDate" />
+<input type="date" id="dateEnd" value="">
+<br />
+
+<input type="button" id="buttonSearch"
+	value="<spring:message code="fixuptask.search"/>" />
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$("#buttonSearch").click(
+						function() {
+							if ($("#textSearch").val() != "")
+								window.location
+										.replace('fixuptask/list.do?search='
+												+ $("#textSearch").val());
+						});
+				$("#textSearch").on(
+						'keyup',
+						function(e) {
+							if (e.keyCode === 13
+									&& $("#textSearch").val() != "")
+								window.location
+										.replace('fixuptask/list.do?search='
+												+ $("#textSearch").val());
+							e.preventDefault();
+						});
+			});
+</script>
 
 
-	<form:label path="description">
-		<spring:message code="fixuptask.description" />:
-	</form:label>
-	<form:input path="description" />
-	<form:errors cssClass="error" path="description" />
-	<br />
+<display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
 
-	<form:label path="adress">
-		<spring:message code="fixuptask.adress" />:
-	</form:label>
-	<form:input path="adress" />
-	<form:errors cssClass="error" path="adress" />
-	<br />
+	<display:column title="${customerHeader}" sortable="true">
+		<spring:url value="/actor/details.do" var="editURL">
+			<spring:param name="customerId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}">${row.customer}</a>
+		<br />
+	</display:column>
 
-	<form:label path="maxPrice">
-		<spring:message code="fixuptask.maxPrice" />:
-	</form:label>
-	<form:input path="maxPrice" />
-	<form:errors cssClass="error" path="maxPrice" />
-	<br />
-
-	<form:label path="deadline">
-		<spring:message code="fixuptask.deadline" />:
-	</form:label>
-	<form:input path="deadline" />
-	<form:errors cssClass="error" path="deadline" />
-	<br />
-
-	<form:label path="category">
-		<spring:message code="fixuptask.category" />:
-	</form:label>
-	<form:select id="categories" path="category">
-		<form:options items="${categories}" itemValue="id" itemLabel="name" />
-	</form:select>
-	<form:errors cssClass="error" path="category" />
-
-	<form:label path="warranty">
-		<spring:message code="fixuptask.warranty" />:
-	</form:label>
-	<form:select id="warranties" path="warranty">
-		<form:options items="${warranties}" itemValue="id" itemLabel="title" />
-	</form:select>
-	<form:errors cssClass="error" path="warranty" />
-	<br />
-
-	<input type="submit" name="save"
-		value="<spring:message code="fixuptask.save" />" />&nbsp;
-
-	<input type="button" name="cancel"
-		value="<spring:message code="fixuptask.cancel" />"
-		onclick="javascript: relativeRedir('welcome/index.do');" />
-	<br />
-</form:form>
-</security:authorize>
+	<display:column title="${categoryHeader}" sortable="true">
+		<spring:url value="/category/list.do" var="editURL">
+			<spring:param name="categoryId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}">${row.category}</a>
+		<br />
+	</display:column>
+	<display:column property="ticker" titleKey="fixuptask.ticker" />
+	<display:column property="moment" titleKey="fixuptask.moment" />
+	<display:column property="maxPrice" titleKey="fixuptask.price" />
+	<display:column property="description" titleKey="fixuptask.description" />
+	<display:column property="address" titleKey="fixuptask.address" />
+	<display:column property="deadline" titleKey="fixuptask.deadline" />
+	<display:column property="warraty" titleKey="fixuptask.warranty" />
+</display:table>
