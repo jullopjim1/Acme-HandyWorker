@@ -22,5 +22,15 @@
 	</definition>
 	
 	
+	<definition name="actor/registerCustomer" extends="master.page">	
+		<put-attribute name="title" value="Register a customer" />
+		<put-attribute name="body" value="/views/actor/register.jsp" />
+	</definition>
+	
+	
+	<definition name="actor/registerHandyWorker" extends="master.page">	
+		<put-attribute name="title" value="Register a handy worker" />
+		<put-attribute name="body" value="/views/actor/register.jsp" />
+	</definition>
 	
 </tiles-definitions>
