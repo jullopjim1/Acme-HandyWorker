@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -66,15 +65,18 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService
+				.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// SI ES NUEVA FIXUPTASK
 		if (fixUpTask.getId() == 0) {
 			fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
-			Assert.isTrue(actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER"),
+			Assert.isTrue(actorActual.getUserAccount().getAuthorities()
+					.toString().contains("CUSTOMER"),
 					"SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
-			fixUpTask.setCustomer(this.customerService.findOne(actorActual.getId()));
+			fixUpTask.setCustomer(this.customerService.findOne(actorActual
+					.getId()));
 		}
 
 		// GUARDO FIXUPTASK
@@ -86,18 +88,22 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService
+				.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
 		if (!(actorActual.getId() == fixUpTask.getCustomer().getId()))
-			if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
-				Assert.notNull(null, "SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
+			if (!actorActual.getUserAccount().getAuthorities().toString()
+					.contains("ADMIN"))
+				Assert.notNull(null,
+						"SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
 
 		// BORRO SUS PHASES
-		final Collection<Phase> phases = this.phaseService.findPhasesByFixUpTaskIdActive(fixUpTask.getId());
+		final Collection<Phase> phases = this.phaseService
+				.findPhasesByFixUpTaskIdActive(fixUpTask.getId());
 		for (final Phase p : phases)
-			this.phaseService.delete(p);
+			this.phaseService.deleteFromFixUpTask(p);
 
 		// BORRO SUS APPLICATIONS
 		final Collection<Application> applications = applicationService
@@ -140,12 +146,15 @@ public class FixUpTaskService {
 	}
 
 	public Collection<FixUpTask> findTasksByCategoryId(final int categoryId) {
-		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskRepository.findTasksByCategoryId(categoryId);
+		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskRepository
+				.findTasksByCategoryId(categoryId);
 		return fixUpTasks;
 	}
 
-	public Collection<FixUpTask> findTasksActiveByApplicationAcceptedAndHandyWorkerId(final int handyWorkerId) {
-		return this.fixUpTaskRepository.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId);
+	public Collection<FixUpTask> findTasksActiveByApplicationAcceptedAndHandyWorkerId(
+			final int handyWorkerId) {
+		return this.fixUpTaskRepository
+				.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId);
 	}
 
 	public Collection<FixUpTask> findFixUpTaskByCustomerId(int customerId) {
