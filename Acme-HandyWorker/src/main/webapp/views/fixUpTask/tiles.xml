@@ -19,5 +19,10 @@
 		<put-attribute name="title" value="List fix up tasks" />
 		<put-attribute name="body" value="/views/fixUpTask/list.jsp" />
 	</definition>
+	
+	<definition name="fixUpTask/handyWorker/browsing.do" extends="master.page">
+		<put-attribute name="title" value="Browse fix up tasks" />
+		<put-attribute name="body" value="/views/fixUpTask/browse.jsp" />
+	</definition>
 
 </tiles-definitions>

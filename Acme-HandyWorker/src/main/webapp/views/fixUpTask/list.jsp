@@ -57,26 +57,17 @@
 	value="<spring:message code="fixuptask.search"/>" />
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-				$("#buttonSearch").click(
-						function() {
-							if ($("#textSearch").val() != "")
-								window.location
-										.replace('fixuptask/list.do?search='
-												+ $("#textSearch").val());
-						});
-				$("#textSearch").on(
-						'keyup',
-						function(e) {
-							if (e.keyCode === 13
-									&& $("#textSearch").val() != "")
-								window.location
-										.replace('fixuptask/list.do?search='
-												+ $("#textSearch").val());
-							e.preventDefault();
-						});
-			});
+	$(document).ready(function() {
+		$("#buttonSearch").click(function() {
+			if ($("#textSearch").val() != "")
+				window.location.replace('fixuptask/list.do?search=' + $("#textSearch").val());
+		});
+		$("#textSearch").on('keyup', function(e) {
+			if (e.keyCode === 13 && $("#textSearch").val() != "")
+				window.location.replace('fixuptask/list.do?search=' + $("#textSearch").val());
+			e.preventDefault();
+		});
+	});
 </script>
 
 
