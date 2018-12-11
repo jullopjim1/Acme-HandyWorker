@@ -106,3 +106,9 @@
 	<display:column property="deadline" titleKey="fixuptask.deadline" />
 	<display:column property="warraty" titleKey="fixuptask.warranty" />
 </display:table>
+
+<security:authorize access="hasRole('CUSTOMER')">
+	<a href="fixuptask/customer/create.do"> <spring:message
+			code="application.create" />
+	</a>
+</security:authorize>

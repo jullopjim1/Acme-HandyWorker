@@ -30,60 +30,64 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('CUSTOMER')">
-	<form:form action="${requestURI}" modelAttribute="fixUpTask">
-
-		<form:hidden path="id" />
-		<form:hidden path="version" />
-		<form:hidden path="ticker" />
-		<form:hidden path="moment" />
 
 
-		<form:label path="description">
-			<spring:message code="fixuptask.description" />:
+<form:form action="${requestURI}" modelAttribute="fixUpTask"
+	readonly="${isRead}">
+
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="ticker" />
+	<form:hidden path="moment" />
+	<form:hidden path="customer" />
+
+
+	<form:label path="description">
+		<spring:message code="fixuptask.description" />:
 	</form:label>
-		<form:input path="description" />
-		<form:errors cssClass="error" path="description" />
-		<br />
+	<form:input path="description" />
+	<form:errors cssClass="error" path="description" />
+	<br />
 
-		<form:label path="adress">
-			<spring:message code="fixuptask.adress" />:
+	<form:label path="adress">
+		<spring:message code="fixuptask.adress" />:
 	</form:label>
-		<form:input path="adress" />
-		<form:errors cssClass="error" path="adress" />
-		<br />
+	<form:input path="adress" />
+	<form:errors cssClass="error" path="adress" />
+	<br />
 
-		<form:label path="maxPrice">
-			<spring:message code="fixuptask.maxPrice" />:
+	<form:label path="maxPrice">
+		<spring:message code="fixuptask.maxPrice" />:
 	</form:label>
-		<form:input path="maxPrice" />
-		<form:errors cssClass="error" path="maxPrice" />
-		<br />
+	<form:input path="maxPrice" />
+	<form:errors cssClass="error" path="maxPrice" />
+	<br />
 
-		<form:label path="deadline">
-			<spring:message code="fixuptask.deadline" />:
+	<form:label path="deadline">
+		<spring:message code="fixuptask.deadline" />:
 	</form:label>
-		<form:input path="deadline" />
-		<form:errors cssClass="error" path="deadline" />
-		<br />
+	<form:input path="deadline" />
+	<form:errors cssClass="error" path="deadline" />
+	<br />
 
-		<form:label path="category">
-			<spring:message code="fixuptask.category" />:
+	<form:label path="category">
+		<spring:message code="fixuptask.category" />:
 	</form:label>
-		<form:select id="categories" path="category">
-			<form:options items="${categories}" itemValue="id" itemLabel="name" />
-		</form:select>
-		<form:errors cssClass="error" path="category" />
+	<form:select id="categories" path="category">
+		<form:options items="${categories}" itemValue="id" itemLabel="name" />
+	</form:select>
+	<form:errors cssClass="error" path="category" />
 
-		<form:label path="warranty">
-			<spring:message code="fixuptask.warranty" />:
+	<form:label path="warranty">
+		<spring:message code="fixuptask.warranty" />:
 	</form:label>
-		<form:select id="warranties" path="warranty">
-			<form:options items="${warranties}" itemValue="id" itemLabel="title" />
-		</form:select>
-		<form:errors cssClass="error" path="warranty" />
-		<br />
+	<form:select id="warranties" path="warranty">
+		<form:options items="${warranties}" itemValue="id" itemLabel="title" />
+	</form:select>
+	<form:errors cssClass="error" path="warranty" />
+	<br />
 
+	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="fixuptask.save" />" />&nbsp;
 	
@@ -91,10 +95,20 @@
 			<input type="submit" name="delete"
 				value="<spring:message code="fixuptask.delete"/>" />
 		</jstl:if>
+	</jstl:if>
 
+	<jstl:if test="${isRead == true}">
+		<input type="button" name="back"
+			value="<spring:message code="fixuptask.back" />"
+			onclick="javascript: relativeRedir('welcome/index.do');" />
+		<br />
+
+	</jstl:if>
+
+	<jstl:if test="${isRead == false}">
 		<input type="button" name="cancel"
 			value="<spring:message code="fixuptask.cancel" />"
 			onclick="javascript: relativeRedir('welcome/index.do');" />
 		<br />
-	</form:form>
-</security:authorize>
+	</jstl:if>
+</form:form>
