@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -31,7 +30,7 @@ public class PhaseService {
 
 	@Autowired
 	private HandyWorkerService handyWorkerService;
-
+	
 	// Constructor----------------------------------------------
 
 	public PhaseService() {
@@ -66,6 +65,10 @@ public class PhaseService {
 		this.checkPrincipal(phase);
 		this.phaseRepository.delete(phase);
 	}
+	
+	public void deleteFromFixUpTask(final Phase phase) {
+		this.phaseRepository.delete(phase);
+	}
 
 	// Other Methods--------------------------------------------
 
@@ -74,8 +77,10 @@ public class PhaseService {
 	}
 
 	public Boolean checkPrincipal(final Phase phase) {
-		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByPhaseId(phase.getId());
-		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		final HandyWorker handyWorker = this.handyWorkerService
+				.findHandyWorkerByPhaseId(phase.getId());
+		Assert.isTrue(handyWorker.getUserAccount().equals(
+				LoginService.getPrincipal()));
 		return true;
 	}
 }

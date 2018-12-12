@@ -45,15 +45,17 @@
 
 	<display:column property="pictures" titleKey="tutorial.pictures" />
 
-	<spring:message code="tutorial.sponsorship" var="sponsorship" />
-	<display:column property="sponsorship.banner" title="${sponsorship}" />
+	<display:column property="sponsorship.banner"
+		titleKey="tutorial.sponsorship">
+		<img src="${row.sponsorship.banner}" />
+	</display:column>
 
 	<display:column title="tutorial.section">
 		<a href="tutorail/handyworker/view.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.view" />
 		</a>
 	</display:column>
-	
+
 	<security:authorize access="isAnonymous()">
 		<spring:message code="tutorial.handyworker" var="handyworker" />
 		<display:column property="handyworker.name" title="${handyworker}" />

@@ -14,16 +14,17 @@
 		<put-attribute name="title" value="Editar tarea" />
 		<put-attribute name="body" value="/views/fixUpTask/edit.jsp" />
 	</definition>
+	
+	<definition name="fixUpTask/create.do" extends="master.page">
+		<put-attribute name="title" value="Crear tarea" />
+		<put-attribute name="body" value="/views/fixUpTask/edit.jsp" />
+	</definition>
 
 	<definition name="fixUpTask/list.do" extends="master.page">
 		<put-attribute name="title" value="Listar tarea" />
 		<put-attribute name="body" value="/views/fixUpTask/list.jsp" />
 	</definition>
-
-	<definition name="fixUpTask/handyWorker/browsing.do"
-		extends="master.page">
-		<put-attribute name="title" value="Navegar fix up tasks" />
-		<put-attribute name="body" value="/views/fixUpTask/browse.jsp" />
-	</definition>
+	
+	
 
 </tiles-definitions>
