@@ -34,19 +34,24 @@
 
 			<security:authorize access="hasRole('REFEREE')">
 				<display:column>
-					<jstl:if test="${complaint.report==Null}">
+					<jstl:if test="${complaint.report==null}">
 						<spring:message code="complaint.assign" />
-						<input type="checkbox" value="True" />
-					</jstl:if>
-					<a href="report/referee/list.do?reportId=${report.id}"> <spring:message
-							code="report.list" />
+						<a href="report/referee/edit.do?complaintId=${row.id}"> <spring:message
+							code="complaint.assign" />
 					</a>
+					</jstl:if>
+					<jstl:if test="${complaint.report!=null}">
+						<a href="report/referee/show.do?complaintId=${row.id}"> <spring:message
+							code="complaint.show" />
+							</a>
+					</jstl:if>
+					
 				</display:column>
 			</security:authorize>
 
 			<security:authorize access="hasRole('CUSTOMER')">
 				<display:column>
-					<a href="complaint/customer/edit.do?complaintId=${complaint.id}">
+					<a href="report/customer/edit.do?complaintId=${complaint.id}">
 						<spring:message code="complaint.edit" />
 					</a>
 				</display:column>

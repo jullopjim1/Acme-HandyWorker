@@ -30,7 +30,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
+<security:authorize access="hasRole('HANDY')">
 <spring:message code="fixuptask.keyWord" />
 <input type="text" id="textSearch" value="">
 <br />
@@ -70,21 +70,22 @@
 	});
 </script>
 
-
+</security:authorize >
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-
+<security:authorize access="hasRole('HANDY')">
 	<display:column title="${customerHeader}" sortable="true">
 		<spring:url value="/actor/details.do" var="editURL">
-			<spring:param name="customerId" value="${row.id}" />
+			<spring:param name="fixUpTaskId" value="${row.id}" />
 		</spring:url>
 		<a href="${editURL}">${row.customer}</a>
 		<br />
 	</display:column>
+</security:authorize>
 
 	<display:column title="${categoryHeader}" sortable="true">
 		<spring:url value="/category/list.do" var="editURL">
-			<spring:param name="categoryId" value="${row.id}" />
+			<spring:param name="fixUpTaskId" value="${row.id}" />
 		</spring:url>
 		<a href="${editURL}">${row.category}</a>
 		<br />
