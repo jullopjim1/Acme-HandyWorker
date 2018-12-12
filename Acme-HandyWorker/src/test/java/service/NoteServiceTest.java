@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
 import services.NoteService;
-import services.ReportService;
 import utilities.AbstractTest;
 import domain.Note;
 
