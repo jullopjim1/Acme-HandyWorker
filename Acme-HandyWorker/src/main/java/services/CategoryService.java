@@ -113,7 +113,7 @@ public class CategoryService {
 		final Collection<Category> result = new LinkedList<>();
 
 		final Category category = this.categoryRepository.findRootCategory();
-
+		result.add(category);
 		for (final Category c : category.getSubcategories())
 			if (!c.getSubcategories().isEmpty())
 				result.addAll(this.findDescendant(c));
@@ -127,7 +127,7 @@ public class CategoryService {
 		final Collection<Category> result = new LinkedList<>();
 
 		final Collection<String> keys = father.getName().keySet();
-
+		result.add(father);
 		for (final Category c : father.getSubcategories()) {
 
 			for (final String key : keys) {

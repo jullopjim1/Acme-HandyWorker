@@ -1163,6 +1163,7 @@
 				<ref bean="category3" />
 				<ref bean="category4" />
 				<ref bean="category5" />
+				<ref bean="category7" />
 			</list>
 		</property>
 	</bean>
@@ -1184,6 +1185,11 @@
 				</entry>
 			</map>
 		</property>
+				<property name="subcategories">
+			<list>
+				<ref bean="category6" />
+			</list>
+		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
 
@@ -1203,6 +1209,10 @@
 					<value>Reparacion de techos</value>
 				</entry>
 			</map>
+		</property>
+				<property name="subcategories">
+			<list>
+			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1224,6 +1234,10 @@
 				</entry>
 			</map>
 		</property>
+				<property name="subcategories">
+			<list>
+			</list>
+		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
 
@@ -1243,6 +1257,11 @@
 					<value>Trabajos concretos</value>
 				</entry>
 			</map>
+		</property>
+				<property name="subcategories">
+			<list>
+				
+			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1264,8 +1283,139 @@
 				</entry>
 			</map>
 		</property>
+				<property name="subcategories">
+			<list>
+			</list>
+		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
+
+	<bean id="category6" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Kitchen furniture</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Muebles cocina</value>
+				</entry>
+			</map>
+		</property>
+				<property name="subcategories">
+			<list>
+			</list>
+		</property>
+		<property name="rootcategory" ref="category1" />
+	</bean>
+	
+	<bean id="category7" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Installation</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Instalaciones</value>
+				</entry>
+			</map>
+		</property>
+		<property name="subcategories">
+			<list>
+				<ref bean="category8" />
+				<ref bean="category9" />
+			</list>
+		</property>
+		<property name="rootcategory" ref="rootCategory" />
+	</bean>
+	
+		<bean id="category8" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Appliance</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Electrodomestico</value>
+				</entry>
+			</map>
+		</property>
+				<property name="subcategories">
+			<list>
+				<ref bean="category10" />
+			</list>
+		</property>
+		<property name="rootcategory" ref="category7" />
+	</bean>
+			<bean id="category10" class="domain.Category">
+	<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Ceramic hob</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Vitrocerámica</value>
+				</entry>
+			</map>
+		</property>
+				<property name="subcategories">
+			<list>
+			</list>
+		</property>
+		<property name="rootcategory" ref="category8" />
+	</bean>
+	
+	
+	<bean id="category9" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Air conditioning</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Aire acondicionado</value>
+				</entry>
+			</map>
+		</property>
+				<property name="subcategories">
+			<list>
+			</list>
+		</property>
+		<property name="rootcategory" ref="category7" />
+	</bean>
+	
+	
+	
+	
 
 	<!-- FIX UP TASK -->
 	<bean id="fixuptask1" class="domain.FixUpTask">
