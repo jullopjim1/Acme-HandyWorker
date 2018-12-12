@@ -1,7 +1,9 @@
+
 package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -22,14 +24,15 @@ public class CategoryService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryRepository	categoryRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
 
 	// Constructor----------------------------------------------
 	public CategoryService() {
@@ -56,22 +59,18 @@ public class CategoryService {
 
 	public Category save(final Category category) {
 		Assert.notNull(category, "CATEGORY A CREAR/EDITAR NO PUEDE SER NULL");
-		
+
 		//ASIGNAR A ROOT SI NO TIENE PADRE
-		if(category.getRootcategory()==null) {
-			category.setRootcategory(this.findCategoryByName("rootCategory"));
-		}
+		if (category.getRootcategory() == null)
+			category.setRootcategory(this.categoryRepository.findRootCategory());
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService
-				.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString()
-				.contains("ADMIN")) {
+		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
 			Assert.notNull(null, "SOLO PUEDE CREAR/EDITAR CATEGORY ADMIN");
-		}
 
 		// GUARDO CATEGORY
 		final Category saved = this.categoryRepository.save(category);
@@ -83,26 +82,21 @@ public class CategoryService {
 		Assert.isTrue(category.getRootcategory() != null, "NO SE PUEDE BORRAR CATEGORY ROOT");
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService
-				.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString()
-				.contains("ADMIN")) {
+		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
 			Assert.notNull(null, "SOLO PUEDE BORRAR CATEGORY ADMIN");
-		}
 
 		// ASIGNAR CATEGORY PADRE A FIXUPTASK
-		Collection<FixUpTask> fixUpTasks = fixUpTaskService
-				.findTasksByCategoryId(category.getId());
-		if (!fixUpTasks.isEmpty()) {
-			for (FixUpTask f : fixUpTasks) {
+		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskService.findTasksByCategoryId(category.getId());
+		if (!fixUpTasks.isEmpty())
+			for (final FixUpTask f : fixUpTasks) {
 				f.setCategory(category.getRootcategory());
-				fixUpTaskService.save(f);
+				this.fixUpTaskService.save(f);
 			}
-		}
-		
+
 		//BORRO CATEGORY
 		this.categoryRepository.delete(category);
 
@@ -110,9 +104,48 @@ public class CategoryService {
 
 	// Other Methods--------------------------------------------
 
-	public Category findCategoryByName(String categoryName) {
-		Category category = categoryRepository.findCategoryByName(categoryName);
-		return category;
+	//	public Category findCategoryByName(final String categoryName) {
+	//		final Category category = this.categoryRepository.findCategoryByName(categoryName);
+	//		return category;
+	//	}
+
+	public Collection<Category> categoryTreeToPlain() {
+		final Collection<Category> result = new LinkedList<>();
+
+		final Category category = this.categoryRepository.findRootCategory();
+
+		for (final Category c : category.getSubcategories())
+			if (!c.getSubcategories().isEmpty())
+				result.addAll(this.findDescendant(c));
+			else
+				result.add(c);
+
+		return result;
+	}
+
+	private Collection<Category> findDescendant(final Category father) {
+		final Collection<Category> result = new LinkedList<>();
+
+		final Collection<String> keys = father.getName().keySet();
+
+		for (final Category c : father.getSubcategories()) {
+
+			for (final String key : keys) {
+				final String value = father.getName().get(key) + "/" + c.getName().get(key);
+				c.getName().remove(key);
+				c.getName().put(key, value);
+			}
+
+			if (!c.getSubcategories().isEmpty())
+				result.addAll(this.findDescendant(c));
+			else
+				result.add(c);
+		}
+		return result;
+	}
+
+	public Category findRootCategory() {
+		return this.categoryRepository.findRootCategory();
 	}
 
 }
