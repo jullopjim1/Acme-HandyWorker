@@ -1,7 +1,7 @@
-
 package domain;
 
 import java.util.Collection;
+import java.util.Map;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -19,17 +19,15 @@ public class Configuration extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private int					varTax;
-	private int					countryCode;
-	private String				welcomeMessageES;
-	private String				welcomeMessageEN;
-	private String				banner;
-	private Collection<String>	spamWords;
-	private int					finderCacheTime;
-	private int					finderMaxResults;
-	private Collection<String>	negativeWords;
-	private Collection<String>	positiveWords;
-
+	private int varTax;
+	private int countryCode;
+	private Map<String, String> welcomeMessage;
+	private String banner;
+	private Map<String, Collection<String>> spamWords;
+	private int finderCacheTime;
+	private int finderMaxResults;
+	private Map<String, Collection<String>> negativeWords;
+	private Map<String, Collection<String>> positiveWords;
 
 	public void setFinderMaxResults(final Integer finderMaxResults) {
 		this.finderMaxResults = finderMaxResults;
@@ -51,24 +49,6 @@ public class Configuration extends DomainEntity {
 
 	public void setCountryCode(final int countryCode) {
 		this.countryCode = countryCode;
-	}
-
-	@NotBlank
-	public String getWelcomeMessageES() {
-		return this.welcomeMessageES;
-	}
-
-	public void setWelcomeMessageES(final String welcomeMessage) {
-		this.welcomeMessageES = welcomeMessage;
-	}
-
-	@NotBlank
-	public String getWelcomeMessageEN() {
-		return this.welcomeMessageEN;
-	}
-
-	public void setWelcomeMessageEN(final String welcomeMessage) {
-		this.welcomeMessageEN = welcomeMessage;
 	}
 
 	@NotBlank
@@ -94,38 +74,49 @@ public class Configuration extends DomainEntity {
 	public int getFinderMaxResults() {
 		return this.finderMaxResults;
 	}
+
 	public void setFinderMaxResults(final int finderMaxResults) {
 		this.finderMaxResults = finderMaxResults;
 	}
 
 	@NotEmpty
-	@ElementCollection
-	public Collection<String> getSpamWords() {
-		return this.spamWords;
+	@ElementCollection(targetClass = String.class)
+	public Map<String, String> getWelcomeMessage() {
+		return welcomeMessage;
 	}
 
-	public void setSpamWords(final Collection<String> spamWords) {
-		this.spamWords = spamWords;
+	public void setWelcomeMessage(Map<String, String> welcomeMessage) {
+		this.welcomeMessage = welcomeMessage;
 	}
 
 	@NotEmpty
-	@ElementCollection
-	public Collection<String> getNegativeWords() {
-		return this.negativeWords;
+	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
+	public Map<String, Collection<String>> getNegativeWords() {
+		return negativeWords;
 	}
 
-	public void setNegativeWords(final Collection<String> negativeWords) {
+	public void setNegativeWords(Map<String, Collection<String>> negativeWords) {
 		this.negativeWords = negativeWords;
 	}
 
 	@NotEmpty
-	@ElementCollection
-	public Collection<String> getPositiveWords() {
-		return this.positiveWords;
+	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
+	public Map<String, Collection<String>> getPositiveWords() {
+		return positiveWords;
 	}
 
-	public void setPositiveWords(final Collection<String> positiveWords) {
+	public void setPositiveWords(Map<String, Collection<String>> positiveWords) {
 		this.positiveWords = positiveWords;
+	}
+
+	@NotEmpty
+	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
+	public Map<String, Collection<String>> getSpamWords() {
+		return spamWords;
+	}
+
+	public void setSpamWords(Map<String, Collection<String>> spamWords) {
+		this.spamWords = spamWords;
 	}
 
 	// Relationships ---------------------------------------------------------

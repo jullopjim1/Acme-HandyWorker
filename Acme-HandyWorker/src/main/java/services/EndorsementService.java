@@ -24,29 +24,29 @@ import domain.Endorser;
 @Transactional
 public class EndorsementService {
 
-	//Repository-------------------------------------------------------------------------
+	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private EndorsementRepository	endorsementRepository;
+	private EndorsementRepository endorsementRepository;
 
-	//Services---------------------------------------------------------------------------
+	// Services---------------------------------------------------------------------------
 	@Autowired
-	private ConfigurationService	configurationService;
-
-	@Autowired
-	private ActorService			actorService;
+	private ConfigurationService configurationService;
 
 	@Autowired
-	private EndorserService			endorserService;
+	private ActorService actorService;
 
+	@Autowired
+	private EndorserService endorserService;
 
-	//Constructor------------------------------------------------------------------------
+	// Constructor------------------------------------------------------------------------
 
 	public EndorsementService() {
 		super();
 	}
 
-	//Simple CRUD------------------------------------------------------------------------
+	// Simple
+	// CRUD------------------------------------------------------------------------
 
 	public Endorsement create() {
 		final Endorsement endorsement = new Endorsement();
@@ -76,10 +76,11 @@ public class EndorsementService {
 	public Endorsement findOne(final Integer endorsementId) {
 		return this.endorsementRepository.findOne(endorsementId);
 	}
+
 	public Endorsement save(final Endorsement endorsement) {
 
 		final double score = this.calculateScore(endorsement);
-		//System.out.println(endorsement + " --- " + score);
+		// System.out.println(endorsement + " --- " + score);
 		endorsement.setScore(score);
 
 		Assert.notNull(endorsement.getEndorsee(), "El destinatario de la endorsement no puede ser nulo");
@@ -93,17 +94,20 @@ public class EndorsementService {
 		this.endorsementRepository.delete(entity);
 	}
 
-	//Other Methods---------------------------------------------------------------------------
+	// Other
+	// Methods---------------------------------------------------------------------------
 
 	public double calculateScore(final Endorsement endorsement) {
 		double score = 0.0;
 
 		final String comments = endorsement.getComments().toUpperCase();
 
-		final Configuration configuration = this.configurationService.findAll().iterator().next();
+		final Configuration configuration = this.configurationService.findOne();
 
-		final Collection<String> positiveWords = configuration.getPositiveWords();
-		final Collection<String> negativeWords = configuration.getNegativeWords();
+		final Collection<String> positiveWords = configurationService
+				.internacionalizcionListas(configuration.getPositiveWords());
+		final Collection<String> negativeWords = configurationService
+				.internacionalizcionListas(configuration.getNegativeWords());
 
 		final double total = positiveWords.size() + negativeWords.size();
 
@@ -135,8 +139,11 @@ public class EndorsementService {
 		final Authority authority = new Authority();
 		authority.setAuthority("ENDORSER");
 
-		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority) || actor.getUserAccount().getAuthorities().contains(customerAuthority) || actor.getUserAccount().getAuthorities().contains(handyAuthority),
-			"Solo los endorser pueden realizar endorsement");
+		Assert.isTrue(
+				actor.getUserAccount().getAuthorities().contains(authority)
+						|| actor.getUserAccount().getAuthorities().contains(customerAuthority)
+						|| actor.getUserAccount().getAuthorities().contains(handyAuthority),
+				"Solo los endorser pueden realizar endorsement");
 
 	}
 

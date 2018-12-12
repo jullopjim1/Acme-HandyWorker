@@ -1,7 +1,5 @@
 package services;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +11,6 @@ import org.springframework.util.Assert;
 
 import repositories.ReportRepository;
 import domain.Complaint;
-import domain.Note;
 import domain.Referee;
 import domain.Report;
 

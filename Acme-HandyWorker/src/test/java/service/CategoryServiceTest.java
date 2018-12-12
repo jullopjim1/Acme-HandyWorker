@@ -14,8 +14,7 @@ import utilities.AbstractTest;
 import domain.Category;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/datasource.xml",
-		"classpath:spring/config/packages.xml" })
+@ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
 @Transactional
 public class CategoryServiceTest extends AbstractTest {
 
@@ -33,8 +32,7 @@ public class CategoryServiceTest extends AbstractTest {
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
 		category.setName("categoryT1");
-		category.setRootcategory(categoryService
-				.findCategoryByName("rootCategory"));
+		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
 
 		// GUARDO CATEGORY
 		Category saved = categoryService.save(category);
@@ -64,8 +62,7 @@ public class CategoryServiceTest extends AbstractTest {
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
 		category.setName("categoryT1");
-		category.setRootcategory(categoryService
-				.findCategoryByName("rootCategory"));
+		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
 	}
 
 	@Test
@@ -76,8 +73,7 @@ public class CategoryServiceTest extends AbstractTest {
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
 		category.setName("categoryT1");
-		category.setRootcategory(categoryService
-				.findCategoryByName("rootCategory"));
+		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
 
 		// GUARDO CATEGORY
 		categoryService.save(category);
@@ -91,8 +87,7 @@ public class CategoryServiceTest extends AbstractTest {
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
 		category.setName("categoryT1");
-		category.setRootcategory(categoryService
-				.findCategoryByName("rootCategory"));
+		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
 
 		// GUARDO CATEGORY
 		Category saved = categoryService.save(category);
@@ -112,8 +107,7 @@ public class CategoryServiceTest extends AbstractTest {
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
 		category.setName("categoryT1");
-		category.setRootcategory(categoryService
-				.findCategoryByName("rootCategory"));
+		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
 
 		// GUARDO CATEGORY
 		Category saved = categoryService.save(category);
@@ -138,8 +132,7 @@ public class CategoryServiceTest extends AbstractTest {
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
 		category.setName("categoryT1");
-		category.setRootcategory(categoryService
-				.findCategoryByName("rootCategory"));
+		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
 
 		// GUARDO CATEGORY
 		Category saved = categoryService.save(category);
