@@ -1,5 +1,8 @@
 package service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.transaction.Transactional;
 
 import org.junit.Test;
@@ -25,44 +28,19 @@ public class CategoryServiceTest extends AbstractTest {
 	// Test-------------------------------------------------------------
 
 	@Test
-	public void testAll() {
-		// LOGIN COMO ADMIN
-		authenticate("admin");
-
-		// CREO CATEGORY Y SETEO VALORES
-		final Category category = categoryService.create();
-		category.setName("categoryT1");
-		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
-
-		// GUARDO CATEGORY
-		Category saved = categoryService.save(category);
-
-		// CHECK FINDALL
-		Assert.isTrue(categoryService.findAll().contains(saved));
-
-		// CHECK FINDONE
-		Assert.isTrue(categoryService.findOne(saved.getId()) == saved);
-
-		// EDITO VALOR Y GUARDO CATEGORY EDITADA
-		saved.setName("categoryT1Edit");
-		Category saved2 = categoryService.save(saved);
-		Assert.isTrue(categoryService.findOne(saved2.getId()).getName() == "categoryT1Edit");
-
-		// BORRO CATEGORY
-		categoryService.delete(saved);
-		Assert.isTrue(!categoryService.findAll().contains(saved));
-		unauthenticate();
-	}
-
-	@Test
 	public void testCreate() {
 		// LOGIN COMO ADMIN
 		authenticate("admin");
 
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
-		category.setName("categoryT1");
-		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
+		Map<String, String> name = new HashMap<>();
+		name.put("en", "category");
+		name.put("es", "category");
+
+		category.setName(name);
+		Category root = categoryService.findOne(getEntityId("rootCategory"));
+		category.setRootcategory(root);
 	}
 
 	@Test
@@ -72,8 +50,13 @@ public class CategoryServiceTest extends AbstractTest {
 
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
-		category.setName("categoryT1");
-		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
+		Map<String, String> name = new HashMap<>();
+		name.put("en", "category");
+		name.put("es", "category");
+
+		category.setName(name);
+		Category root = categoryService.findOne(getEntityId("rootCategory"));
+		category.setRootcategory(root);
 
 		// GUARDO CATEGORY
 		categoryService.save(category);
@@ -86,8 +69,13 @@ public class CategoryServiceTest extends AbstractTest {
 
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
-		category.setName("categoryT1");
-		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
+		Map<String, String> name = new HashMap<>();
+		name.put("en", "category");
+		name.put("es", "category");
+
+		category.setName(name);
+		Category root = categoryService.findOne(getEntityId("rootCategory"));
+		category.setRootcategory(root);
 
 		// GUARDO CATEGORY
 		Category saved = categoryService.save(category);
@@ -106,8 +94,13 @@ public class CategoryServiceTest extends AbstractTest {
 
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
-		category.setName("categoryT1");
-		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
+		Map<String, String> name = new HashMap<>();
+		name.put("en", "category");
+		name.put("es", "category");
+
+		category.setName(name);
+		Category root = categoryService.findOne(getEntityId("rootCategory"));
+		category.setRootcategory(root);
 
 		// GUARDO CATEGORY
 		Category saved = categoryService.save(category);
@@ -119,9 +112,12 @@ public class CategoryServiceTest extends AbstractTest {
 		Assert.isTrue(categoryService.findOne(saved.getId()) == saved);
 
 		// EDITO VALOR Y GUARDO CATEGORY EDITADA
-		saved.setName("categoryT1Edit");
+		name.put("en", "category2");
+		name.put("es", "category2");
+
+		category.setName(name);
 		Category saved2 = categoryService.save(saved);
-		Assert.isTrue(categoryService.findOne(saved2.getId()).getName() == "categoryT1Edit");
+		Assert.isTrue(categoryService.findOne(saved2.getId()).getName().values().contains("category"));
 	}
 
 	@Test
@@ -131,8 +127,13 @@ public class CategoryServiceTest extends AbstractTest {
 
 		// CREO CATEGORY Y SETEO VALORES
 		final Category category = categoryService.create();
-		category.setName("categoryT1");
-		category.setRootcategory(categoryService.findCategoryByName("rootCategory"));
+		Map<String, String> name = new HashMap<>();
+		name.put("en", "category");
+		name.put("es", "category");
+
+		category.setName(name);
+		Category root = categoryService.findOne(getEntityId("rootCategory"));
+		category.setRootcategory(root);
 
 		// GUARDO CATEGORY
 		Category saved = categoryService.save(category);
@@ -144,9 +145,13 @@ public class CategoryServiceTest extends AbstractTest {
 		Assert.isTrue(categoryService.findOne(saved.getId()) == saved);
 
 		// EDITO VALOR Y GUARDO CATEGORY EDITADA
-		saved.setName("categoryT1Edit");
+		name.put("en", "category");
+		name.put("es", "category");
+
+		category.setName(name);
+		saved.setName(name);
 		Category saved2 = categoryService.save(saved);
-		Assert.isTrue(categoryService.findOne(saved2.getId()).getName() == "categoryT1Edit");
+		Assert.isTrue(categoryService.findOne(saved2.getId()).getName().values().contains("category"));
 
 		// BORRO CATEGORY
 		categoryService.delete(saved);

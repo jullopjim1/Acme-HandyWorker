@@ -20,21 +20,18 @@ import domain.Configuration;
 import domain.Endorsement;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
-})
+@ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
 @Transactional
 public class EndorsementServiceTest extends AbstractTest {
 
 	// Service under test
 	@Autowired
-	private EndorsementService		endorsementService;
+	private EndorsementService endorsementService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
+	private ConfigurationService configurationService;
 
-
-	//Tests
+	// Tests
 	@Test
 	public void testCreate() {
 		System.out.println("========== testCreate() ==========");
@@ -71,6 +68,7 @@ public class EndorsementServiceTest extends AbstractTest {
 		}
 
 	}
+
 	@Test
 	public void testFindAll() {
 		System.out.println("========== testFindAll() ==========");
@@ -101,13 +99,20 @@ public class EndorsementServiceTest extends AbstractTest {
 
 			String comments = "";
 
-			final Configuration configuration = this.configurationService.findAll().iterator().next();
+			final Configuration configuration = this.configurationService.findOne();
 
-			for (final String negativeWord : configuration.getNegativeWords())
+			Collection<String> negativeWords = configurationService
+					.internacionalizcionListas(configuration.getNegativeWords());
+			final Collection<String> positiveWords = configurationService
+					.internacionalizcionListas(configuration.getPositiveWords());
+
+			for (final String negativeWord : negativeWords)
 				comments = comments.concat(negativeWord).concat(" ");
-			comments = comments.concat(configuration.getPositiveWords().iterator().next());
+			for (String positiveWord : positiveWords) {
+				comments = comments.concat(positiveWord);
+			}
 
-			//System.err.println("\n------" + comments);
+			// System.err.println("\n------" + comments);
 
 			endorsement.setComments(comments);
 
@@ -120,7 +125,7 @@ public class EndorsementServiceTest extends AbstractTest {
 			final double total = nSize + configuration.getPositiveWords().size();
 
 			final double score = (1 - nSize) / total;
-			//System.err.println(score);
+			// System.err.println(score);
 			Assert.isTrue(saved.getScore() == score, "Error en la puntuación de la endorsement");
 
 			System.out.println("¡Exito!");
@@ -132,6 +137,7 @@ public class EndorsementServiceTest extends AbstractTest {
 		this.unauthenticate();
 
 	}
+
 	@Test
 	public void testDelete() {
 		System.out.println("========== testDelete() ==========");
