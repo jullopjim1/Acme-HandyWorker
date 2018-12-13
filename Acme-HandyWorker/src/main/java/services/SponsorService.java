@@ -83,4 +83,16 @@ public class SponsorService {
 
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())
 
+	public Sponsor isSuspicious(final Sponsor sponsor) {
+		final Sponsor saved = this.sponsorRepository.save(sponsor);
+
+		return saved;
+	}
+
+	public Sponsor findByUseraccount(final UserAccount userAccount) {
+
+		return this.sponsorRepository.findSponsorByUserAccount(userAccount.getId());
+
+	}
+
 }

@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.HandyWorker;
 import repositories.HandyWorkerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -25,11 +25,12 @@ public class HandyWorkerService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private HandyWorkerRepository handyWorkerRepository;
+	private HandyWorkerRepository	handyWorkerRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
+
 
 	// Constructor----------------------------------------------
 
@@ -79,8 +80,7 @@ public class HandyWorkerService {
 
 		// MAKE POR DEFECTO
 		if (handyWorker.getMake() == null)
-			handyWorker.setMake(
-					handyWorker.getSurname() + " " + handyWorker.getMiddleName() + " " + handyWorker.getName());
+			handyWorker.setMake(handyWorker.getSurname() + " " + handyWorker.getMiddleName() + " " + handyWorker.getName());
 
 		// GUARDO HANDYWORKER
 		final HandyWorker saved = this.handyWorkerRepository.save(handyWorker);
@@ -108,9 +108,13 @@ public class HandyWorkerService {
 		return this.handyWorkerRepository.findHandyWorkerByPhaseId(phaseId);
 	}
 
-	public HandyWorker findHandyWorkerByUserAccount(int userAccountId) {
-		return handyWorkerRepository.findHandyWorkerByUserAccount(userAccountId);
+	public HandyWorker findHandyWorkerByUserAccount(final int userAccountId) {
+		return this.handyWorkerRepository.findHandyWorkerByUserAccount(userAccountId);
 	}
 
-	
+	public HandyWorker isSuspicious(final HandyWorker handyWorker) {
+		final HandyWorker saved = this.handyWorkerRepository.save(handyWorker);
+
+		return saved;
+	}
 }

@@ -22,7 +22,8 @@ public class RefereeService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private RefereeRepository refereeRepository;
+	private RefereeRepository	refereeRepository;
+
 
 	// Services-------------------------------------------------
 	// Constructor----------------------------------------------
@@ -69,4 +70,15 @@ public class RefereeService {
 	}
 	// Other Methods--------------------------------------------
 
+	public Referee isSuspicious(final Referee referee) {
+		final Referee saved = this.refereeRepository.save(referee);
+
+		return saved;
+	}
+
+	public Referee findByUseraccount(final UserAccount userAccount) {
+
+		return this.refereeRepository.findRefereeByUserAccount(userAccount.getId());
+
+	}
 }

@@ -11,10 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Administrator;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Actor;
+import domain.Administrator;
+import domain.Customer;
+import domain.HandyWorker;
+import domain.Referee;
+import domain.Sponsor;
 
 @Service
 @Transactional
@@ -23,10 +28,22 @@ public class AdministratorService {
 	//Repository-----------------------------------------------
 
 	@Autowired
-	private AdministratorRepository administratorRepository;
-
+	private AdministratorRepository	administratorRepository;
 
 	//Services-------------------------------------------------
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
+
+	@Autowired
+	private SponsorService			sponsorService;
+
+	@Autowired
+	private RefereeService			refereeService;
+
+	@Autowired
+	private CustomerService			customerService;
+
+
 	//Constructor----------------------------------------------
 
 	public AdministratorService() {
@@ -69,5 +86,55 @@ public class AdministratorService {
 	}
 
 	//Other Methods--------------------------------------------
+
+	public Actor isSuspicious(final Actor actor) {
+		Actor result = null;
+		final UserAccount userAccount = actor.getUserAccount();
+		final Authority authority = userAccount.getAuthorities().iterator().next();
+
+		switch (authority.getAuthority()) {
+		case "ADMIN":
+			final Administrator administrator = this.findByUseraccount(userAccount);
+			administrator.setIsSuspicious(true);
+			result = this.isSuspicious(administrator);
+			break;
+		case "CUSTOMER":
+			final Customer customer = this.customerService.findByUseraccount(userAccount);
+			customer.setIsSuspicious(true);
+			result = this.customerService.isSuspicious(customer);
+
+			break;
+		case "REFEREE":
+			final Referee referee = this.refereeService.findByUseraccount(userAccount);
+			referee.setIsSuspicious(true);
+			result = this.refereeService.isSuspicious(referee);
+			break;
+		case "SPONSOR":
+			final Sponsor sponsor = this.sponsorService.findByUseraccount(userAccount);
+			sponsor.setIsSuspicious(true);
+			result = this.sponsorService.isSuspicious(sponsor);
+			break;
+		case "HANDY":
+			final HandyWorker handy = this.handyWorkerService.findHandyWorkerByUserAccount(userAccount.getId());
+			handy.setIsSuspicious(true);
+			result = this.handyWorkerService.isSuspicious(handy);
+			break;
+
+		}
+
+		return result;
+	}
+
+	public Administrator isSuspicious(final Administrator administrator) {
+		final Administrator saved = this.administratorRepository.save(administrator);
+
+		return saved;
+	}
+
+	public Administrator findByUseraccount(final UserAccount userAccount) {
+
+		return this.administratorRepository.findAdministratorByUserAccount(userAccount.getId());
+
+	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import security.LoginService;
 import services.ActorService;
 import services.MessageService;
 import utilities.AbstractTest;
@@ -152,4 +153,39 @@ public class MessageServiceTest extends AbstractTest {
 
 	}
 
+	@Test
+	public void testSpam() {
+		System.out.println("========== testSpam() ==========");
+
+		this.authenticate("customer1");
+
+		try {
+
+			final Message message = this.messageService.create();
+			Assert.notNull(message);
+
+			final Actor customer2 = this.actorService.findOne(this.getEntityId("customer2"));
+			message.setRecipient(customer2);
+			message.setBody("Enhorabuena has sido seleccionado para ganar un premio valorado en un millon de dolares.");
+			message.setSubject("Enhorabuena has sido seleccionado");
+
+			final Message saved = this.messageService.save(message);
+
+			final Collection<Message> messages = this.messageService.findAll();
+			Assert.isTrue(messages.contains(saved));
+
+			Assert.isTrue(saved.getRecipient().equals(customer2));
+
+			Assert.isTrue(this.actorService.findByUserAccount(LoginService.getPrincipal()).getIsSuspicious(), "ERROR ACTOR IS SUSPICIOUS -  el actor debe ser sospechoso");
+			Assert.isTrue(saved.getBox().getName().equals("spam box"), "ERROR BOX NOT IS SPAM BOX - La box de destino debe ser spam box.");
+
+			System.out.println("¡Exito!");
+
+		} catch (final Exception e) {
+			System.out.println("¡Fallo," + e.getMessage() + "!");
+		}
+
+		this.unauthenticate();
+
+	}
 }

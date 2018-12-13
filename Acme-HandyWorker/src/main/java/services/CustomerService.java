@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -24,11 +25,12 @@ public class CustomerService {
 	// Repository-----------------------------------------------
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private CustomerRepository	customerRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
 
 	// Constructor----------------------------------------------
 
@@ -67,13 +69,12 @@ public class CustomerService {
 		// SI NO ES USUARIO NUEVO
 		if (customer.getId() != 0) {
 			// COJO ACTOR ACTUAL
-			Actor actorActual = actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+			final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 			Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 			// COMPRUEBO RESTRICCIONES DE USUARIOS
-			if (!(actorActual.getId() == customer.getId())) {
+			if (!(actorActual.getId() == customer.getId()))
 				Assert.notNull(null, "UN CUSTOMER SOLO PUEDE EDITAR SUS PROPIOS DATOS PERSONALES");
-			}
 		}
 
 		// GUARDO CUSTOMER
@@ -85,18 +86,29 @@ public class CustomerService {
 		Assert.notNull(customer, "CUSTOMER A BORRAR NO PUEDE SER NULL");
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN")) {
+		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
 			Assert.notNull(null, "SOLO ADMIN PUEDE BORRAR CUSTOMER");
-		}
 
 		// BORRO EL CUSTOMER
 		this.customerRepository.delete(customer);
 	}
 
 	// Other Methods--------------------------------------------
+
+	public Customer isSuspicious(final Customer customer) {
+		final Customer saved = this.customerRepository.save(customer);
+
+		return saved;
+	}
+
+	public Customer findByUseraccount(final UserAccount userAccount) {
+
+		return this.customerRepository.findCustomerByUserAccount(userAccount.getId());
+
+	}
 
 }

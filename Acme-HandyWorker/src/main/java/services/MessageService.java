@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -17,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Box;
+import domain.Configuration;
 import domain.Message;
 
 @Service
@@ -26,14 +28,20 @@ public class MessageService {
 	//Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageRepository		messageRepository;
 
 	//Services---------------------------------------------------------------------------
 	@Autowired
-	private BoxService			boxService;
+	private BoxService				boxService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	//Constructor------------------------------------------------------------------------
@@ -84,27 +92,38 @@ public class MessageService {
 
 	public Message save(final Message message) {
 
+		final boolean isSpam = this.isSpam(message);
+
 		final Actor sender = message.getSender();
 		final Actor recipient = message.getRecipient();
 
 		final Box outBoxSender = this.boxService.findBoxByActorIdAndName(sender.getId(), "out Box");
-		final Box inBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in Box");
-
 		Assert.notNull(outBoxSender, "NULL OUT BOX\ncada actor debe tener debe tener un out Box");
-		Assert.notNull(inBoxRecipient, "NULL IN BOX\nCada actor debe tener un in box");
 
 		final Message messageSend = message;
 		final Message messageRecipient = message;
 
 		messageSend.setBox(outBoxSender);
-		messageRecipient.setBox(inBoxRecipient);
+
+		Box spamBoxRecipient;
+		Box inBoxRecipient;
+		if (isSpam) {
+			spamBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam Box");
+			Assert.notNull(spamBoxRecipient, "NULL SPAM BOX\nCada actor debe tener un spam box");
+			messageRecipient.setBox(spamBoxRecipient);
+			this.administratorService.isSuspicious(sender);
+
+		} else {
+			inBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in Box");
+			Assert.notNull(inBoxRecipient, "NULL IN BOX\nCada actor debe tener un in box");
+			messageRecipient.setBox(inBoxRecipient);
+		}
 
 		final Message saved = this.messageRepository.save(messageRecipient);
 		this.messageRepository.save(messageSend);
 
 		return saved;
 	}
-
 	public void delete(final Message entity) {
 		final Box box = entity.getBox();
 		final Actor actor = this.checkPrincipal(entity);
@@ -166,5 +185,25 @@ public class MessageService {
 		final Actor actor = this.actorService.findByUserAccount(userAccount);
 		Assert.isTrue(message.getSender().equals(actor) || message.getRecipient().equals(actor), "Un actor solo puede ver sus mensajes");
 		return actor;
+	}
+	private boolean isSpam(final Message message) {
+		boolean result = false;
+		final Configuration configuration = this.configurationService.findOne();
+		final Map<String, Collection<String>> spamWords = configuration.getSpamWords();
+
+		final Collection<String> keySet = spamWords.keySet();
+
+		for (final String key : keySet) {
+			final Collection<String> spamList = spamWords.get(key);
+			for (final String spamWord : spamList)
+				if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord)) {
+					result = true;
+					break;
+				}
+			if (result = true)
+				break;
+		}
+
+		return result;
 	}
 }
