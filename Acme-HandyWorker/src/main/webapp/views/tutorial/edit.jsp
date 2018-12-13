@@ -22,7 +22,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="tutorial/handyworker/edit.do"
-	modelAttribute="tutorial">
+	modelAttribute="tutorial" readonly="${isRead }">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
@@ -53,26 +53,34 @@
 		<spring:message code="tutorial.sponsorship" />
 	</form:label>
 	<form:select id="sponsorships" path="sponsorship">
-		<form:options items="${sponsorships}" itemLabel="banner" itemValue="id" />
+		<form:options items="${sponsorships}" itemLabel="banner"
+			itemValue="id" />
 		<form:option value="0" label="------" />
 	</form:select>
 
-	<input type="submit" name="save"
-		value="<spring:message code="tutorial.save"/>" />
+	<jstl:if test="${isRead==false }">
+		<input type="submit" name="save"
+			value="<spring:message code="tutorial.save"/>" />
 
-	<jstl:if test="${tutorial.id != 0}">
+		<jstl:if test="${tutorial.id != 0}">
 
-		<input type="submit" name="delete"
-			value="<spring:message code="tutorial.delete" />"
-			onclick="javascript: return confirm('<spring:message code="tutorial.confirmDelete" />')" />
+			<input type="submit" name="delete"
+				value="<spring:message code="tutorial.delete" />"
+				onclick="javascript: return confirm('<spring:message code="tutorial.confirmDelete" />')" />
 
+		</jstl:if>
+
+		<input type="button" name="cancel"
+			value="<spring:message code="tutorial.cancel" />"
+			onclick="javascript: relativeRedir('tutorial/handyworker/list.do');" />
+
+		<br />
 	</jstl:if>
 
-	<input type="button" name="cancel"
-		value="<spring:message code="tutorial.cancel" />"
-		onclick="javascript: relativeRedir('tutorial/handyworker/list.do');" />
-
-	<br />
-
+	<jstl:if test="${isRead == true }">
+		<input type="button" name="cancel"
+			value="<spring:message code="tutorial.back" />"
+			onclick="javascript: relativeRedir('tutorial/handyworker/list.do');" />
+	</jstl:if>
 
 </form:form>

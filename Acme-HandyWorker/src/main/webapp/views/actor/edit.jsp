@@ -24,7 +24,8 @@
 <security:authorize access="isAuthenticated()">
 	<security:authentication property="principal.username" />
 </security:authorize>
-<form:form action="actor/actor/edit.do" modelAttribute="actor">
+<form:form action="actor/edit.do" modelAttribute="actor"
+	readonly="${isRead}">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="isSuspicious" />
@@ -83,19 +84,31 @@
 		<form:label path="isBanned">
 			<spring:message code="actor.isBanned" />
 		</form:label>
-	Is Banned <input type="checkbox" value="True" />
+		<input type="checkbox" value="True" />
 		<form:errors ccsClass="error" path="isBanned" />
 		<br />
 	</security:authorize>
 
-	<input type="submit" name="save"
-		value="<spring:message code="actor.save" />" />; 
 
-	<input type="button" name="cancel"
-		value="<spring:message code="message.cancel" />"
-		onclick="javascript: relativeRedir('welcome/index.do');" />
+	<jstl:if test="${isRead == false}">
+		<input type="submit" name="save"
+			value="<spring:message code="actor.save" />" />
 
-	<br />
+		<input type="button" name="cancel"
+			value="<spring:message code="fixuptask.cancel" />"
+			onclick="javascript: relativeRedir('welcome/index.do');" />
+		<br />
+	</jstl:if>
+
+	<jstl:if test="${isRead == true}">
+		<input type="button" name="back"
+			value="<spring:message code="actor.back" />"
+			onclick="javascript: relativeRedir('welcome/index.do');" />
+		<br />
+
+	</jstl:if>
+
+
 
 
 </form:form>

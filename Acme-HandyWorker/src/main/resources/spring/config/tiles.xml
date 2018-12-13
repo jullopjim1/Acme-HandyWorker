@@ -26,6 +26,9 @@
 		<value>/views/application/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
 		<value>/views/fixUpTask/tiles.xml</value>
+		<value>/views/tutorial/tiles.xml</value>
+		<value>/views/complaint/tiles.xml</value>
+		<value>/views/section/tiles.xml</value>
 
 	</util:list>
 

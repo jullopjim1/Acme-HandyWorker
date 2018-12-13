@@ -21,41 +21,42 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('CUSTOMER')">
-	<security:authorize access="hasRole('REFEREE')">
-		<display:table name="complaints" id="row" requestURI="${requestURI}"
-			pagesize="5" class="displaytag">
-			<display:column property="ticker" titleKey="complaint.ticker" />
-			<display:column property="moment" titleKey="complaint.moment" />
-			<display:column property="description"
-				titleKey="complaint.description" />
-			<display:column property="attachments"
-				titleKey="complaint.attachments" />
+<display:table name="complaints" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
 
-			<security:authorize access="hasRole('REFEREE')">
-				<display:column>
-					<jstl:if test="${complaint.report==null}">
-						<spring:message code="complaint.assign" />
-						<a href="report/referee/edit.do?complaintId=${row.id}"> <spring:message
-							code="complaint.assign" />
-					</a>
-					</jstl:if>
-					<jstl:if test="${complaint.report!=null}">
-						<a href="report/referee/show.do?complaintId=${row.id}"> <spring:message
-							code="complaint.show" />
-							</a>
-					</jstl:if>
-					
-				</display:column>
-			</security:authorize>
-
-			<security:authorize access="hasRole('CUSTOMER')">
-				<display:column>
-					<a href="report/customer/edit.do?complaintId=${complaint.id}">
-						<spring:message code="complaint.edit" />
-					</a>
-				</display:column>
-			</security:authorize>
-		</display:table>
+	<security:authorize access="hasRole('CUSTOMER')">
+		<display:column>
+			<a href="complaint/customer/edit.do?complaintId=${complaint.id}">
+				<spring:message code="complaint.edit" />
+			</a>
+		</display:column>
 	</security:authorize>
-</security:authorize>
+
+	<display:column property="ticker" titleKey="complaint.ticker" />
+	<display:column property="moment" titleKey="complaint.moment" />
+
+	<display:column titleKey="compliant.notes">
+		<a href="note/list.do?complaintId=${complaint.id}"> <spring:message
+				code="complaint.show" />
+		</a>
+	</display:column>
+
+	<security:authorize access="hasRole('REFEREE')">
+		<display:column titleKey="complaint.details">
+			<jstl:if test="${complaint.report==null}">
+				<spring:message code="complaint.assign" />
+				<a href="report/referee/edit.do?complaintId=${row.id}"> <spring:message
+						code="complaint.assign" />
+				</a>
+			</jstl:if>
+			<jstl:if test="${complaint.report!=null}">
+				<a href="report/referee/show.do?complaintId=${row.id}"> <spring:message
+						code="complaint.show" />
+				</a>
+			</jstl:if>
+
+		</display:column>
+	</security:authorize>
+
+
+</display:table>

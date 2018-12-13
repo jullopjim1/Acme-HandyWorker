@@ -34,16 +34,12 @@
 			</jstl:if>
 		</display:column>
 	</security:authorize>
-	<display:column property="title" titleKey="tutorial.title" />
 
-
-	<display:column property="moment" titleKey="tutorial.moment" />
-
-
-	<display:column property="summary" titleKey="tutorial.summary" />
-
-
-	<display:column property="pictures" titleKey="tutorial.pictures" />
+	<display:column titleKey="tutorial.details">
+		<a href="tutorail/show.do?tutorialId=${row.id}"> <spring:message
+				code="tutorial.show" />
+		</a>
+	</display:column>
 
 	<display:column property="sponsorship.banner"
 		titleKey="tutorial.sponsorship">
