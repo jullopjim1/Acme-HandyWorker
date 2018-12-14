@@ -28,7 +28,7 @@
 	<security:authorize access="hasRole('HANDY')">
 		<display:column>
 			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
-				<a href="tutorail/handyworker/edit.do?tutorialId=${row.id}"> <spring:message
+				<a href="tutorial/handyworker/edit.do?tutorialId=${row.id}"> <spring:message
 						code="tutorial.edit" />
 				</a>
 			</jstl:if>
@@ -47,7 +47,7 @@
 	</display:column>
 
 	<display:column title="tutorial.section">
-		<a href="tutorail/handyworker/view.do?tutorialId=${row.id}"> <spring:message
+		<a href="tutorial/handyworker/view.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.view" />
 		</a>
 	</display:column>
