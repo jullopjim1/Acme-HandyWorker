@@ -1,5 +1,5 @@
 <%--
- * edit.jsp
+ * list.jsp
  *
  * Copyright (C) 2018 Universidad de Sevilla
  * 
@@ -53,8 +53,23 @@
 	</display:column>
 
 	<security:authorize access="isAnonymous()">
-		<spring:message code="tutorial.handyworker" var="handyworker" />
-		<display:column property="handyworker.name" title="${handyworker}" />
+		<display:column titleKey="tutorial.details">
+			<a href="tutorail/show.do?tutorialId=${row.id}"> <spring:message
+					code="tutorial.show" />
+			</a>
+		</display:column>
+
+		<display:column property="sponsorship.banner"
+			titleKey="tutorial.sponsorship">
+			<img src="${row.sponsorship.banner}" />
+		</display:column>
+
+		<display:column titleKey="tutorial.handyworker">
+			<a href="profile/view.do?tutorialId=${row.id}"> <spring:message
+					code="tutorial.profile" />
+			</a>
+		</display:column>
+
 	</security:authorize>
 
 </display:table>
@@ -62,4 +77,10 @@
 	<a href="tutorial/handyworker/create.do"> <spring:message
 			code="tutorial.create" />
 	</a>
+</security:authorize>
+
+<security:authorize access="isAnonymous()">
+	<input type="button" name="home"
+		value="<spring:message code="tutorial.home" />"
+		onclick="javascript: relativeRedir('welcome/index.do');" />
 </security:authorize>
