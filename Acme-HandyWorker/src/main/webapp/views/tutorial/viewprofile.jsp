@@ -80,13 +80,21 @@
 	<form:errors ccsClass="error" path="address" />
 	<br />
 	
+	<form:label path="score">
+		<spring:message code="actor.score" />
+	</form:label>
+	<form:input path="${row.score }" />
+	<form:errors ccsClass="error" path="score" />
+	<br />
+	
+	
 	<a href="tutorial/list.do?handyworkerId=${row.id}"> <spring:message
-					code="tutorial.profile" />
+					code="tutorial.viewTutorials" />
 			</a>
 
 	<input type="button" name="back"
 		value="<spring:message code="profile.back" />"
-		onclick="javascript: relativeRedir('tutorial.browsing.do');" />
+		onclick="javascript: relativeRedir('tutorial.list.do');" />
 	<br />
 
 	

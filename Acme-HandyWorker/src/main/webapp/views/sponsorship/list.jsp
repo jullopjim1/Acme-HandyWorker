@@ -36,7 +36,7 @@
 
 		<display:column property="sponsorship.banner"
 			titleKey="sponsorship.banner">
-			<img src="${row.sponsorship.banner}" />
+			<img src="${row.banner}" />
 		</display:column>
 
 		<display:column property="link" titleKey="sponsorship.link" />
