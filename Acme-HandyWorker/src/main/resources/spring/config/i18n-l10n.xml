@@ -30,6 +30,7 @@
 		<value>/views/complaint/messages</value>
 		<value>/views/section/messages</value>
 		<value>/views/curriculum/messages</value>
+		<value>/views/personalRecord/messages</value>
 
 	</util:list>
 

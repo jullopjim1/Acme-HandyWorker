@@ -46,6 +46,12 @@
 								code="master.page.customer.action.2" /></a></li>
 				</ul></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('HANDY')">
+		<li><a href="curriculum/handyworker/list.do"><spring:message
+								code="master.page.handy.curriculum" /></a></li>
+			
+		</security:authorize>
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message

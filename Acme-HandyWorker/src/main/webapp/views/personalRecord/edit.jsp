@@ -14,49 +14,47 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<form:form action="${requestURI}" modelAttribute="curriculum"
-	readonly="${isRead}">
+<form:form action="${requestURI}" modelAttribute="personalRecord">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="ticker" />
-	<form:hidden path="handyWorker" />
+	<form:hidden path="curriculum" />
 
 
 
-	<form:label path="personalRecord.fullName">
+	<form:label path="fullName">
 		<spring:message code="personalRecord.fullName" />:
 	</form:label>
-	<form:input path="personalRecord.fullName" />
-	<form:errors cssClass="error" path="personalRecord.fullName" />
+	<form:input path="fullName" readonly="${isRead}" />
+	<form:errors cssClass="error" path="fullName" />
 	<br />
 
-	<form:label path="personalRecord.email">
+	<form:label path="email">
 		<spring:message code="personalRecord.email" />:
 	</form:label>
-	<form:input path="personalRecord.email" />
-	<form:errors cssClass="error" path="personalRecord.email" />
+	<form:input path="email" readonly="${isRead}" />
+	<form:errors cssClass="error" path="email" />
 	<br />
 
-	<form:label path="personalRecord.photo">
+	<form:label path="photo">
 		<spring:message code="personalRecord.picture" />:
 	</form:label>
-	<form:input path="personalRecord.photo" />
-	<form:errors cssClass="error" path="personalRecord.photo" />
+	<form:input path="photo" readonly="${isRead}" />
+	<form:errors cssClass="error" path="photo" />
 	<br />
 
-	<form:label path="personalRecord.link">
+	<form:label path="link">
 		<spring:message code="personalRecord.link" />:
 	</form:label>
-	<form:input path="personalRecord.link" />
-	<form:errors cssClass="error" path="personalRecord.link" />
+	<form:input path="link" readonly="${isRead}" />
+	<form:errors cssClass="error" path="link" />
 	<br />
 
-	<form:label path="personalRecord.phone">
+	<form:label path="phone">
 		<spring:message code="personalRecord.phone" />
 	</form:label>
-	<form:input path="personalRecord.phone" id="tlf" />
-	<form:errors path="personalRecord.phone" cssClass="error" />
+	<form:input path="phone" id="tlf" readonly="${isRead}" />
+	<form:errors path="phone" cssClass="error" />
 	<br />
 
 
@@ -76,7 +74,7 @@
 	<jstl:if test="${isRead == false}">
 		<input type="button" class="btn btn-warning" name="cancel"
 			value='<spring:message code="curriculum.cancel"/>'
-			onclick="document.location.href='curriculum/handyWorker/list.do';">
+			onclick="document.location.href='curriculum/handyworker/list.do?handyWorkerId=${handyWorkerId}';">
 		<input type="submit" class="btn btn-success" name="save"
 			value='<spring:message code="curriculum.save"/>'
 			onclick=" javascript: return isValid('tlf');">
@@ -85,7 +83,7 @@
 	<jstl:if test="${isRead == true}">
 		<input type="button" class="btn btn-warning" name="back"
 			value='<spring:message code="curriculum.back"/>'
-			onclick="document.location.href='curriculum/handyWorker/list.do';">
+			onclick="document.location.href='curriculum/handyworker/list.do?handyWorkerId=${handyWorkerId}';">
 	</jstl:if>
 
 
