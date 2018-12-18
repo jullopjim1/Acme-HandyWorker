@@ -21,47 +21,35 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<a href="finder/handyworker/updateFinder.do"> <spring:message
+		code="finder.update" />
+</a>
 
-<display:table name="tutorials" id="row" requestURI="${requestURI}"
+<display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('HANDY')">
-		<display:column>
-			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
-				<a href="tutorail/handyworker/edit.do?tutorialId=${row.id}"> <spring:message
-						code="tutorial.edit" />
-				</a>
-			</jstl:if>
-		</display:column>
-	</security:authorize>
-	<display:column property="title" titleKey="tutorial.title" />
+	<display:column property="ticker" titleKey="finder.fix.ticker" />
 
 
-	<display:column property="moment" titleKey="tutorial.moment" />
+	<display:column property="moment" titleKey="finder.fix.moment" />
 
 
-	<display:column property="summary" titleKey="tutorial.summary" />
+	<display:column property="description"
+		titleKey="finder.fix.description" />
 
 
-	<display:column property="pictures" titleKey="tutorial.pictures" />
+	<display:column property="adress" titleKey="finder.fix.adress" />
 
-	<spring:message code="tutorial.sponsorship" var="sponsorship" />
-	<display:column property="sponsorship.banner" title="${sponsorship}" />
+	<display:column property="maxPrice" titleKey="finder.fix.maxPrice" />
+	<display:column property="deadline" titleKey="finder.fix.deadline" />
 
-	<display:column title="tutorial.section">
-		<a href="tutorail/handyworker/view.do?tutorialId=${row.id}"> <spring:message
-				code="tutorial.view" />
+<%-- 	<display:column>
+		<a href="fixUpTasks/handyworker/show.do?fixUpTaskId=${row.id}"> <spring:message
+				code="finder.fix.show" />
 		</a>
-	</display:column>
-	
-	<security:authorize access="isAnonymous()">
-		<spring:message code="tutorial.handyworker" var="handyworker" />
-		<display:column property="handyworker.name" title="${handyworker}" />
-	</security:authorize>
+	</display:column> --%>
+
 
 </display:table>
-<security:authorize access="hasRole('HANDY')">
-	<a href="tutorial/handyworker/create.do"> <spring:message
-			code="tutorial.create" />
-	</a>
-</security:authorize>
+
+
