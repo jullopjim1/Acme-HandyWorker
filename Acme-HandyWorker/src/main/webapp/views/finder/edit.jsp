@@ -21,12 +21,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="finder/handy/update.do"
-	modelAttribute="finder">
+<form:form action="finder/handy/update.do" modelAttribute="finder">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="lastUpdate" />
-	<form:hidden path="fixUpTasks"/>
+	<form:hidden path="fixUpTasks" />
 
 
 
@@ -51,7 +50,7 @@
 	<form:input path="priceMax" />
 	<form:errors ccsClass="error" path="priceMax" />
 	<br />
-	 
+
 	<form:label path="dateMin">
 		<spring:message code="finder.dateMin" />
 	</form:label>
@@ -65,21 +64,34 @@
 	<form:input path="dateMax" />
 	<form:errors ccsClass="error" path="dateMax" />
 	<br />
-	
+
 	<form:label path="namecategory">
 		<spring:message code="finder.namecategory" />
 	</form:label>
 	<form:select id="categories" path="namecategory">
-		<form:option value="null" label="------" />
-		<form:options items="${categories}" itemLabel="name" itemValue="name" />	
+		<form:option value="" label="------" />
+		<form:options items="${categories}"  />
 	</form:select>
-	
+
+<%-- 	<p>
+		<jstl:forEach var="myMap" items="${categories}">
+			<p>
+			<jstl:forEach var="entry" items="${myMap.name}">	
+  				<jstl:if test="${lang==entry.key}">
+  					<jstl:out value="${entry.value}" />
+  				</jstl:if>
+			</jstl:forEach>
+			</p>
+		</jstl:forEach>
+	</p> --%>
+
 	<form:label path="namewarranty">
 		<spring:message code="finder.namewarranty" />
 	</form:label>
 	<form:select id="warranties" path="namewarranty">
-		<form:option value="null" label="------" />
-		<form:options items="${warranties}" itemLabel="title" itemValue="title" />	
+		<form:option value="" label="------" />
+		<form:options items="${warranties}" itemLabel="title"
+			itemValue="title" />
 	</form:select>
 
 	<input type="submit" name="save"

@@ -21,64 +21,65 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="section/handyworker/edit.do" modelAttribute="section">
+<form:form action="note/edit.do" modelAttribute="note">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="tutorial" />
+	<form:hidden path="moment" />
 
 
-
-	<form:label path="title">
-		<spring:message code="section.title" />
+	<security:authorize access="hasRole('REFEREE')">
+	<form:label path="mandatoryCommentReferee">
+		<spring:message code="note.comment" />
 	</form:label>
-	<form:input path="title" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="title" />
+	<form:input path="mandatoryCommentReferee" readonly="${isRead }"/>
+	<form:errors ccsClass="error" path="mandatoryCommentReferee" />
 	<br />
+	</security:authorize>
 
-	<form:label path="text">
-		<spring:message code="section.text" />
+	<security:authorize access="hasRole('CUSTOMER')">
+	<form:label path="mandatoryCommentCustomer">
+		<spring:message code="note.comment" />
 	</form:label>
-	<form:input path="text" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="text" />
+	<form:input path="mandatoryCommentCustomer" readonly="${isRead }"/>
+	<form:errors ccsClass="error" path="mandatoryCommentCustomer" />
 	<br />
+	</security:authorize>
+	
+	<security:authorize access="hasRole('HANDY')">
+	<form:label path="mandatoryCommentHandyWorker">
+		<spring:message code="note.comment" />
+	</form:label>
+	<form:input path="mandatoryCommentHandyWorker" readonly="${isRead }"/>
+	<form:errors ccsClass="error" path="mandatoryCommentHandyWorker" />
+	<br />
+	</security:authorize>
 
-	<form:label path="pictures">
-		<spring:message code="section.pictures" />
-	</form:label>
-	<form:input path="pictures" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="pictures" />
-	<br />
-
-	<form:label path="position">
-		<spring:message code="section.position" />
-	</form:label>
-	<form:input path="position" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="position" />
-	<br />
 
 	<jstl:if test="${isRead==false }">
 		<input type="submit" name="save"
-			value="<spring:message code="section.save"/>" />
-
-		<jstl:if test="${section.id != 0}">
+			value="<spring:message code="note.save"/>" />
+		
+		<security:authorize access="hasRole('REFEREE')">
+		<jstl:if test="${note.id != 0}">
 
 			<input type="submit" name="delete"
-				value="<spring:message code="section.delete" />"
-				onclick="javascript: return confirm('<spring:message code="section.confirmDelete" />')" />
+				value="<spring:message code="note.delete" />"
+				onclick="javascript: return confirm('<spring:message code="note.confirmDelete" />')" />
 
 		</jstl:if>
-
+		</security:authorize>
+		
 		<input type="button" name="cancel"
-			value="<spring:message code="section.cancel" />"
-			onclick="javascript: relativeRedir('section/handyworker/list.do');" />
+			value="<spring:message code="note.cancel" />"
+			onclick="javascript: relativeRedir('note/list.do');" />
 
 		<br />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true }">
 		<input type="button" name="cancel"
-			value="<spring:message code="section.back" />"
-			onclick="javascript: relativeRedir('section/handyworker/list.do');" />
+			value="<spring:message code="note.back" />"
+			onclick="javascript: relativeRedir('note/list.do');" />
 	</jstl:if>
 
 </form:form>

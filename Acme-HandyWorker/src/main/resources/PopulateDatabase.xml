@@ -834,6 +834,7 @@
 		<property name="mandatoryCommentReferee" value="" />
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="isFinal" value="true" />
 		<property name="report" ref="report1" />
 	</bean>
 
@@ -843,6 +844,7 @@
 		<property name="mandatoryCommentReferee" value="mandatory2" />
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="isFinal" value="true" />
 		<property name="report" ref="report2" />
 	</bean>
 
@@ -851,6 +853,7 @@
 		<property name="mandatoryCommentReferee" value="mandatory3" />
 		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
+		<property name="isFinal" value="true" />
 		<property name="report" ref="report3" />
 	</bean>
 
