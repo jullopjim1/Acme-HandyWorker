@@ -74,7 +74,8 @@ public class PersonalRecordService {
 	}
 
 	public void delete(final PersonalRecord personalRecord) {
-		this.checkPrincipal(personalRecord);
+		if (personalRecord.getId() != 0)
+			this.checkPrincipal(personalRecord);
 		this.personalRecordRepository.delete(personalRecord);
 	}
 

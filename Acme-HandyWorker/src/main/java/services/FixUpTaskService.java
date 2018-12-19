@@ -93,8 +93,6 @@ public class FixUpTaskService {
 	public void delete(final FixUpTask fixUpTask) {
 		Assert.notNull(fixUpTask);
 
-		this.tickerService.delete(fixUpTask.getTicker());
-
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");

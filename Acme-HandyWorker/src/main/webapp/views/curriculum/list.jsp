@@ -32,7 +32,7 @@
 	</display:column>
 
 
-	<display:column property="ticker" titleKey="curriculum.ticker" />
+	<display:column property="ticker.ticker" titleKey="curriculum.ticker" />
 
 
 	<!-- DETALLES -->

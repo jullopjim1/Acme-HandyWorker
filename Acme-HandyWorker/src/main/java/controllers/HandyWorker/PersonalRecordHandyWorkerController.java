@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
-import domain.Curriculum;
-import domain.HandyWorker;
 import domain.PersonalRecord;
 import security.LoginService;
 import services.CurriculumService;
@@ -47,11 +45,7 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 	private ModelAndView create() {
 		final ModelAndView modelAndView;
 
-		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		final int handyWorkerId = handyWorker.getId();
-		final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
-		final Curriculum saved = this.curriculumService.save(curriculum);
-		final PersonalRecord personalRecord = this.personalRecordService.create(saved.getId());
+		final PersonalRecord personalRecord = this.personalRecordService.create();
 
 		modelAndView = this.createEditModelAndView(personalRecord);
 
@@ -100,6 +94,24 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(personalRecord, "personalRecord.commit.error");
 			}
+		return result;
+	}
+
+	//Cancel
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "cancel")
+	public ModelAndView cancel(final PersonalRecord personalRecord) {
+
+		ModelAndView result;
+
+		if (personalRecord.getId() == 0)
+			try {
+				this.curriculumService.delete(personalRecord.getCurriculum());
+				result = new ModelAndView("redirect:/curriculum/handyworker/list.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(personalRecord, "personalRecord.commit.error");
+			}
+		else
+			result = new ModelAndView("redirect:/curriculum/handyworker/list.do");
 		return result;
 	}
 
