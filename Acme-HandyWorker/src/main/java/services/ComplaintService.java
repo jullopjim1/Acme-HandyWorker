@@ -11,10 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
+import domain.Ticker;
+import repositories.ComplaintRepository;
 
 @Service
 @Transactional
@@ -25,14 +26,15 @@ public class ComplaintService {
 	private ComplaintRepository	complaintRepository;
 
 	// Services-------------------------------------------------
-	@Autowired
-	private CurriculumService	curriculumService;
 
 	@Autowired
 	private CustomerService		customerService;
 
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private TickerService		tickerService;
 
 
 	// Constructor----------------------------------------------
@@ -46,9 +48,13 @@ public class ComplaintService {
 		final Customer customer = this.customerService.findOne(customerId);
 		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 
+		//Ticker Unico
+		final Ticker ticker = this.tickerService.isUniqueTicker();
+		final Ticker saved = this.tickerService.save(ticker);
+
 		complaint.setFixUpTask(fixUpTask);
 		complaint.setCustomer(customer);
-		complaint.setTicker(this.curriculumService.generateTicker());
+		complaint.setTicker(saved);
 		complaint.setMoment(new Date(System.currentTimeMillis() - 1000));
 		complaint.setIsFinal(false);
 		return complaint;

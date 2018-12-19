@@ -5,9 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -25,22 +25,11 @@ public class Complaint extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String	ticker;
 	private Date	moment;
 	private String	description;
 	private String	attachments;
 	private Boolean	isFinal;
 
-
-	@NotBlank
-	@Column(unique = true)
-	public String getTicker() {
-		return this.ticker;
-	}
-
-	public void setTicker(final String ticker) {
-		this.ticker = ticker;
-	}
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -86,6 +75,7 @@ public class Complaint extends DomainEntity {
 	// Relationships ---------------------------------------------------------
 	private Customer	customer;
 	private FixUpTask	fixUpTask;
+	private Ticker		ticker;
 
 
 	@NotNull
@@ -110,4 +100,14 @@ public class Complaint extends DomainEntity {
 		this.fixUpTask = fixUpTask;
 	}
 
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public Ticker getTicker() {
+		return this.ticker;
+	}
+
+	public void setTicker(final Ticker ticker) {
+		this.ticker = ticker;
+	}
 }

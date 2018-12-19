@@ -20,6 +20,7 @@ import domain.HandyWorker;
 import domain.MiscellaneousRecord;
 import domain.PersonalRecord;
 import domain.ProfessionalRecord;
+import domain.Ticker;
 import repositories.CurriculumRepository;
 import security.LoginService;
 
@@ -52,6 +53,9 @@ public class CurriculumService {
 	@Autowired
 	private MiscellaneousRecordService	miscellaneousRecordService;
 
+	@Autowired
+	private TickerService				tickerService;
+
 
 	//Constructor------------------------------------------------------------------------
 
@@ -64,7 +68,11 @@ public class CurriculumService {
 	public Curriculum create(final int handyWorkerId) {
 		final Curriculum curriculum = new Curriculum();
 
-		curriculum.setTicker(this.generateTicker());
+		//Ticker Unico
+		final Ticker ticker = this.tickerService.isUniqueTicker();
+		final Ticker saved = this.tickerService.save(ticker);
+
+		curriculum.setTicker(saved);
 		curriculum.setHandyWorker(this.handyWorkerService.findOne(handyWorkerId));
 
 		return curriculum;
