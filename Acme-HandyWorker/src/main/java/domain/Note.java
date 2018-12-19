@@ -25,6 +25,7 @@ public class Note extends DomainEntity {
 	private String	mandatoryCommentReferee;
 	private String	mandatoryCommentCustomer;
 	private String	mandatoryCommentHandyWorker;
+	private Boolean	isFinal;
 
 
 	@NotNull
@@ -61,6 +62,15 @@ public class Note extends DomainEntity {
 
 	public void setMandatoryCommentHandyWorker(final String mandatoryCommentHandyWorker) {
 		this.mandatoryCommentHandyWorker = mandatoryCommentHandyWorker;
+	}
+
+	@Valid
+	public Boolean getIsFinal() {
+		return this.isFinal;
+	}
+
+	public void setIsFinal(final Boolean isFinal) {
+		this.isFinal = isFinal;
 	}
 
 

@@ -18,7 +18,7 @@ public class Warranty extends DomainEntity {
 	private String	title;
 	private String	terms;
 	private String	laws;
-	private boolean	isFinal;
+	private Boolean	isFinal;
 
 
 	@NotBlank
@@ -48,7 +48,7 @@ public class Warranty extends DomainEntity {
 		this.laws = laws;
 	}
 	@NotNull
-	public boolean getIsFinal() {
+	public Boolean getIsFinal() {
 		return this.isFinal;
 	}
 

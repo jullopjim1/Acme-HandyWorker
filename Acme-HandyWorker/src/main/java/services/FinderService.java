@@ -88,11 +88,17 @@ public class FinderService {
 	}
 	public Finder save(final Finder finder) {
 		this.check(finder);
+		
+		this.searchFixUpTask(f, maxResult)
+		
+				final Date updateFinder = new Date(currentDate.getTime() - this.configurationService.findOne().getFinderCacheTime() * 1000 * 60 * 60);
+		final Date lastUpdate = new Date(currentDate.getTime() - 1000);
+		
+		
 		final Finder saved = this.finderRepository.save(this.updateFinder(finder));
 
 		return saved;
 	}
-
 	/**
 	 * No se puede borrar un finder
 	 */

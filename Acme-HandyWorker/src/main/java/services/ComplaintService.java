@@ -22,17 +22,18 @@ public class ComplaintService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private ComplaintRepository complaintRepository;
+	private ComplaintRepository	complaintRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private CurriculumService curriculumService;
+	private CurriculumService	curriculumService;
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
+
 
 	// Constructor----------------------------------------------
 	public ComplaintService() {
@@ -40,15 +41,16 @@ public class ComplaintService {
 	}
 	// Simple CRUD----------------------------------------------
 
-	public Complaint create(final int customerId, int fixUpTaskId) {
+	public Complaint create(final int customerId, final int fixUpTaskId) {
 		final Complaint complaint = new Complaint();
 		final Customer customer = this.customerService.findOne(customerId);
-		FixUpTask fixUpTask = fixUpTaskService.findOne(fixUpTaskId);
+		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 
 		complaint.setFixUpTask(fixUpTask);
 		complaint.setCustomer(customer);
 		complaint.setTicker(this.curriculumService.generateTicker());
 		complaint.setMoment(new Date(System.currentTimeMillis() - 1000));
+		complaint.setIsFinal(false);
 		return complaint;
 	}
 
@@ -63,6 +65,8 @@ public class ComplaintService {
 	public Complaint save(final Complaint complaint) {
 		Assert.notNull(complaint);
 		final Complaint saved = this.complaintRepository.save(complaint);
+		saved.setIsFinal(true);
+		Assert.isTrue(saved.getIsFinal().equals(true));
 		return saved;
 	}
 
