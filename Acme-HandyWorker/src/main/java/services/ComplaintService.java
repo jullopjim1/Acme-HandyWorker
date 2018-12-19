@@ -77,6 +77,7 @@ public class ComplaintService {
 	}
 
 	public void delete(final Complaint entity) {
+		this.tickerService.delete(entity.getTicker());
 		this.complaintRepository.delete(entity);
 
 	}

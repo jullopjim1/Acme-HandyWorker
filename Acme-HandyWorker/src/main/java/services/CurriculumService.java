@@ -103,6 +103,7 @@ public class CurriculumService {
 		final Collection<MiscellaneousRecord> miscellaneousRecords = new ArrayList<>(this.miscellaneousRecordService.findMiscellaneousRecordByCurriculumId(curriculum.getId()));
 
 		this.personalRecordService.delete(personalRecord);
+		this.tickerService.delete(curriculum.getTicker());
 
 		if (educationRecords.size() != 0 || professionalRecords.size() != 0 || endorserRecords.size() != 0 || miscellaneousRecords.size() != 0) {
 			for (final EducationRecord educationRecord : educationRecords)
