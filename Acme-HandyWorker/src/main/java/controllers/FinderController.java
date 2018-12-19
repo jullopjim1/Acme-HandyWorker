@@ -10,11 +10,13 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ import services.CategoryService;
 import services.FinderService;
 import services.HandyWorkerService;
 import services.WarrantyService;
+import utilities.internal.SchemaPrinter;
 import domain.Category;
 import domain.Finder;
 import domain.FixUpTask;
@@ -63,14 +66,21 @@ public class FinderController extends AbstractController {
 		ModelAndView result;
 
 		final Finder finder = this.findFinder();
-
-		final Collection<Category> categories = this.categoryService.findAll();
+		Collection<Category> categories;
+		//TODO Arreglar categoryTreeToPlain
+		//categories = this.categoryService.categoryTreeToPlain();
+		categories = this.categoryService.findAll();
 		final Collection<Warranty> warranties = this.warrantyService.findAll();
+		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+		final Collection<String> nameCategories = new ArrayList<>();
+		for (final Category category : categories)
+			nameCategories.add(category.getName().get(lang));
 
 		result = new ModelAndView("finder/handy/update");
 		result.addObject("finder", finder);
-		result.addObject("categories", categories);
+		result.addObject("categories", nameCategories);
 		result.addObject("warranties", warranties);
+		result.addObject("lang", lang);
 
 		return result;
 	}
@@ -79,7 +89,9 @@ public class FinderController extends AbstractController {
 	public ModelAndView updateFinder(@Valid final Finder finder, final BindingResult binding) {
 		ModelAndView result;
 
-		System.out.println("\n\n\n\n=======\n\n\n" + binding + "\n\n\n=======\n\n\n\n");
+		System.out.println("\n\n\n\n=======\n\n\n");
+		SchemaPrinter.print(finder);
+		System.out.println("\n\n\n=======\n\n\n\n");
 		if (!binding.hasErrors()) {
 
 			this.finderService.save(finder);
@@ -95,7 +107,6 @@ public class FinderController extends AbstractController {
 		}
 		return result;
 	}
-
 	// List result finder ---------------------------------------------------------------		
 
 	@RequestMapping("/listFixUpTasks")
