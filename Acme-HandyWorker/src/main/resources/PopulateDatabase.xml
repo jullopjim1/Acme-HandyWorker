@@ -569,7 +569,7 @@
 		<property name="ticker" value="111111-AA11AA" />
 	</bean>
 
-	<bean id="ticker1" class="domain.Ticker">
+	<bean id="ticker12" class="domain.Ticker">
 		<property name="ticker" value="111111-AA12AA" />
 	</bean>
 

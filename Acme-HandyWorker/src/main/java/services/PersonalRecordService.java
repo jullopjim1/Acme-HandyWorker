@@ -29,6 +29,9 @@ public class PersonalRecordService {
 	@Autowired
 	private CurriculumService			curriculumService;
 
+	@Autowired
+	private HandyWorkerService			handyWorkerService;
+
 
 	//Constructor----------------------------------------------------------------------------
 
@@ -38,13 +41,16 @@ public class PersonalRecordService {
 
 	//Simply CRUD----------------------------------------------------------------------------
 
-	public PersonalRecord create(final int curriculumId) {
+	public PersonalRecord create() {
 		final PersonalRecord personalRecord = new PersonalRecord();
-		final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
-		final HandyWorker handyWorker = curriculum.getHandyWorker();
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+
+		//Creacion del curriculum
+		final Curriculum curriculum = this.curriculumService.create(handyWorker.getId());
+		final Curriculum saved = this.curriculumService.save(curriculum);
 
 		personalRecord.setFullName(handyWorker.getName() + " " + handyWorker.getSurname());
-		personalRecord.setCurriculum(curriculum);
+		personalRecord.setCurriculum(saved);
 		personalRecord.setEmail(handyWorker.getEmail());
 		personalRecord.setPhone(handyWorker.getPhone());
 		personalRecord.setPhoto(handyWorker.getPhoto());
