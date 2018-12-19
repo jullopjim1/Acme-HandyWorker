@@ -19,7 +19,7 @@ public class NoteService {
 	// Managed repository ------------------------------ (Relacion con su propio repositorio)
 	@Autowired
 	private NoteRepository	noteRepository;
-	
+
 	@Autowired
 	private ReportService	reportService;
 
@@ -35,6 +35,7 @@ public class NoteService {
 		Note note;
 
 		note = new Note();
+		note.setIsFinal(false);
 		note.setReport(this.reportService.findOne(ReportId));
 		note.setMoment(new Date(System.currentTimeMillis() - 1000));
 		return note;
@@ -64,14 +65,15 @@ public class NoteService {
 		note.setMoment(new Date(System.currentTimeMillis() - 1000));
 
 		result = this.noteRepository.save(note);
-
+		result.setIsFinal(true);
+		Assert.isTrue(result.getIsFinal().equals(true));
 		return result;
 	}
 
 	public Note findNoteReportById(final int reportId) {
 		return this.noteRepository.findNoteReportById(reportId);
 	}
-	
+
 	public void delete(final Note note) {
 		this.noteRepository.delete(note);
 	}

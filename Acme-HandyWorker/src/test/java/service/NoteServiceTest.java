@@ -18,13 +18,16 @@ import utilities.AbstractTest;
 import domain.Note;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring/datasource.xml", "classpath:spring/config/packages.xml" })
+@ContextConfiguration(locations = {
+	"classpath:spring/datasource.xml", "classpath:spring/config/packages.xml"
+})
 @Transactional
 public class NoteServiceTest extends AbstractTest {
 
 	// Service ------------------------------
 	@Autowired
-	private NoteService noteService;
+	private NoteService	noteService;
+
 
 	// Test
 	@Test
@@ -81,8 +84,9 @@ public class NoteServiceTest extends AbstractTest {
 
 			saved = this.noteService.save(note);
 
-			Collection<Note> notes1 = noteService.findAll();
+			final Collection<Note> notes1 = this.noteService.findAll();
 			Assert.isTrue(notes1.contains(saved));
+
 			System.out.println("¡Exito!");
 
 		} catch (final Exception e) {
