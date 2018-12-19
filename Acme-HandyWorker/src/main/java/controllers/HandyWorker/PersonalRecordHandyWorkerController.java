@@ -54,8 +54,6 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		final PersonalRecord personalRecord = this.personalRecordService.create(saved.getId());
 
 		modelAndView = this.createEditModelAndView(personalRecord);
-		modelAndView.addObject("isRead", false);
-		modelAndView.addObject("requestURI", "/create.do?handyWorkerId=" + handyWorkerId);
 
 		return modelAndView;
 	}
@@ -84,8 +82,6 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(personalRecord);
 		modelAndView.addObject("isRead", false);
-		modelAndView.addObject("requestURI", "/edit.do?curriculumId=" + personalRecord.getCurriculum().getId());
-
 		return modelAndView;
 	}
 
@@ -100,7 +96,7 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.personalRecordService.save(personalRecord);
-				result = new ModelAndView("redirect:show.do?curriculumId=" + personalRecord.getCurriculum().getId());
+				result = new ModelAndView("redirect:/curriculum/handyworker/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(personalRecord, "personalRecord.commit.error");
 			}
@@ -126,7 +122,8 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 		result.addObject("personalRecord", personalRecord);
 		result.addObject("message", message);
 		result.addObject("handyWorkerId", handyWorkerId);
-		result.addObject("requestURI", "edit.do?curriculumId=" + personalRecord.getCurriculum().getId());
+		result.addObject("isRead", false);
+		result.addObject("requestURI", "personalRecord/handyworker/edit.do");
 
 		return result;
 	}
