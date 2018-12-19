@@ -50,8 +50,6 @@
 		<security:authorize access="hasRole('HANDY')">
 			<li><a href="curriculum/handyworker/list.do"><spring:message
 						code="master.page.handy.curriculum.list" /></a></li>
-			<li><a href="finder/handy/listFixUpTasks.do"><spring:message
-						code="master.page.finder.result" /></a></li>
 
 			<li><a class="fNiv"><spring:message
 						code="master.page.finder" /></a>
@@ -59,6 +57,8 @@
 					<li class="arrow"></li>
 					<li><a href="finder/handy/update.do"><spring:message
 								code="master.page.finder.update" /></a></li>
+					<li><a href="finder/handy/listFixUpTasks.do"><spring:message
+								code="master.page.finder.result" /></a></li>
 
 				</ul></li>
 		</security:authorize>

@@ -24,11 +24,7 @@
 		width="500" height="250">
 </p>
 
-<p>
-	<spring:message code="welcome.greeting.prefix" />
-	${name}
-	<spring:message code="welcome.greeting.suffix" />
-</p>
+<p>${welomeMessage}</p>
 
 <p>
 	<spring:message code="welcome.greeting.current.time" />

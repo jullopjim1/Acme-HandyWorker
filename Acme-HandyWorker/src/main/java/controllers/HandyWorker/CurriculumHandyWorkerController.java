@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
@@ -49,6 +50,21 @@ public class CurriculumHandyWorkerController extends AbstractController {
 		modelAndView.addObject("requestURI", "/list.do?handyworkerId=" + handyWorkerId);
 
 		return modelAndView;
+	}
+
+	//Delete
+	@RequestMapping(value = "/delete")
+	public ModelAndView delete(@RequestParam final int curriculumId) {
+
+		ModelAndView result = null;
+
+		try {
+			final Curriculum curriculum = this.curriculumService.findOne(curriculumId);
+			this.curriculumService.delete(curriculum);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+		}
+		return result;
 	}
 
 }

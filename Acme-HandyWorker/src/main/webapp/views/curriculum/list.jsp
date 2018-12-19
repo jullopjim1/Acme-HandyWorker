@@ -86,7 +86,7 @@
 			onclick="
 			javascript:
 			confirm('<spring:message code="curricumlum.confirm.delete" />');
-			window.location.href='curriculum/handyworker/list.do?handyWorkerId=${row.handyWorker.id}' ;" />
+			window.location.href='curriculum/handyworker/delete.do?curriculumId=${row.id}' ;" />
 	</display:column>
 
 
