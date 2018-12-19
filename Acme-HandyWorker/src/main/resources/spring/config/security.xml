@@ -67,9 +67,10 @@
 			access="permitAll" />
 
 
-		<!-- Finder -->
-		<security:intercept-url pattern="/finder/handyWorker/updateFinder.do"
-			access="hasRole('HANDY')" />
+				<!-- Finder -->
+		<security:intercept-url pattern="/finder/handy/update.do" access="hasRole('HANDY')" /> 
+		<security:intercept-url pattern="/finder/handy/listFixUpTasks.do" access="hasRole('HANDY')" /> 
+	
 
 
 
