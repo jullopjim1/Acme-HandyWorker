@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 import domain.Curriculum;
+import domain.HandyWorker;
 import security.LoginService;
 import services.CurriculumService;
 import services.HandyWorkerService;
@@ -38,11 +39,13 @@ public class CurriculumHandyWorkerController extends AbstractController {
 	private ModelAndView list() {
 		final ModelAndView modelAndView;
 
-		final int handyWorkerId = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId()).getId();
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final int handyWorkerId = handyWorker.getId();
 		final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorkerId);
 
 		modelAndView = new ModelAndView("curriculum/list");
 		modelAndView.addObject("curriculum", curriculum);
+		modelAndView.addObject("hasCurriculum", this.curriculumService.hasCurriculum(handyWorker));
 		modelAndView.addObject("requestURI", "/list.do?handyworkerId=" + handyWorkerId);
 
 		return modelAndView;
