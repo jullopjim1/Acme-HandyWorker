@@ -1031,6 +1031,7 @@
 		<property name="attachments" value="http://www.attachments1.com" />
 		<property name="customer" ref="customer1" />
 		<property name="fixUpTask" ref="fixuptask1" />
+		<property name="isFinal" value="true" />
 	</bean>
 
 	<bean id="complaint2" class="domain.Complaint">
@@ -1040,6 +1041,7 @@
 		<property name="attachments" value="http://www.attachments2.com" />
 		<property name="customer" ref="customer2" />
 		<property name="fixUpTask" ref="fixuptask2" />
+		<property name="isFinal" value="false" />
 	</bean>
 
 	<bean id="complaint3" class="domain.Complaint">
@@ -1049,6 +1051,7 @@
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 		<property name="fixUpTask" ref="fixuptask3" />
+		<property name="isFinal" value="true" />
 	</bean>
 
 	<bean id="complaint4" class="domain.Complaint">
@@ -1058,6 +1061,7 @@
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 		<property name="fixUpTask" ref="fixuptask1" />
+		<property name="isFinal" value="false" />
 	</bean>
 
 	<bean id="complaint5" class="domain.Complaint">
@@ -1067,6 +1071,7 @@
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 		<property name="fixUpTask" ref="fixuptask2" />
+		<property name="isFinal" value="true" />
 	</bean>
 
 	<!-- WARRANTY -->
@@ -1185,7 +1190,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 				<ref bean="category6" />
 			</list>
@@ -1210,7 +1215,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
@@ -1234,7 +1239,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
@@ -1258,9 +1263,9 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
-				
+
 			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
@@ -1283,7 +1288,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
@@ -1307,13 +1312,13 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
 		<property name="rootcategory" ref="category1" />
 	</bean>
-	
+
 	<bean id="category7" class="domain.Category">
 		<property name="name">
 			<map>
@@ -1339,8 +1344,8 @@
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
-	
-		<bean id="category8" class="domain.Category">
+
+	<bean id="category8" class="domain.Category">
 		<property name="name">
 			<map>
 				<entry>
@@ -1357,15 +1362,15 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 				<ref bean="category10" />
 			</list>
 		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
-			<bean id="category10" class="domain.Category">
-	<property name="name">
+	<bean id="category10" class="domain.Category">
+		<property name="name">
 			<map>
 				<entry>
 					<key>
@@ -1381,14 +1386,14 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
 		<property name="rootcategory" ref="category8" />
 	</bean>
-	
-	
+
+
 	<bean id="category9" class="domain.Category">
 		<property name="name">
 			<map>
@@ -1406,16 +1411,16 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
-	
-	
-	
-	
+
+
+
+
 
 	<!-- FIX UP TASK -->
 	<bean id="fixuptask1" class="domain.FixUpTask">

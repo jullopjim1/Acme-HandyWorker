@@ -25,10 +25,12 @@ public class Complaint extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
-	private Date moment;
-	private String description;
-	private String attachments;
+	private String	ticker;
+	private Date	moment;
+	private String	description;
+	private String	attachments;
+	private Boolean	isFinal;
+
 
 	@NotBlank
 	@Column(unique = true)
@@ -71,9 +73,20 @@ public class Complaint extends DomainEntity {
 		this.attachments = attachments;
 	}
 
+	@Valid
+	public Boolean getIsFinal() {
+		return this.isFinal;
+	}
+
+	public void setIsFinal(final boolean isFinal) {
+		this.isFinal = isFinal;
+	}
+
+
 	// Relationships ---------------------------------------------------------
-	private Customer customer;
-	private FixUpTask fixUpTask;
+	private Customer	customer;
+	private FixUpTask	fixUpTask;
+
 
 	@NotNull
 	@Valid
@@ -90,10 +103,10 @@ public class Complaint extends DomainEntity {
 	@NotNull
 	@ManyToOne(optional = false)
 	public FixUpTask getFixUpTask() {
-		return fixUpTask;
+		return this.fixUpTask;
 	}
 
-	public void setFixUpTask(FixUpTask fixUpTask) {
+	public void setFixUpTask(final FixUpTask fixUpTask) {
 		this.fixUpTask = fixUpTask;
 	}
 
