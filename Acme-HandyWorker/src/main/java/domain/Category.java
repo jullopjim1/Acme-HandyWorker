@@ -21,21 +21,24 @@ public class Category extends DomainEntity {
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
 
-	private Map<String, String> name;
+	private Map<String, String>	name;
+
 
 	@NotEmpty
-	@ElementCollection(targetClass = String.class)
+	@ElementCollection
 	public Map<String, String> getName() {
-		return name;
+		return this.name;
 	}
 
-	public void setName(Map<String, String> name) {
+	public void setName(final Map<String, String> name) {
 		this.name = name;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Collection<Category> subcategories;
-	private Category rootcategory;
+	private Collection<Category>	subcategories;
+	private Category				rootcategory;
+
 
 	@Valid
 	@OneToMany

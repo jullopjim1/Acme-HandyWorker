@@ -15,10 +15,7 @@
 		<put-attribute name="body" value="/views/fixUpTask/edit.jsp" />
 	</definition>
 	
-	<definition name="fixUpTask/create.do" extends="master.page">
-		<put-attribute name="title" value="Crear tarea" />
-		<put-attribute name="body" value="/views/fixUpTask/edit.jsp" />
-	</definition>
+	
 
 	<definition name="fixUpTask/list.do" extends="master.page">
 		<put-attribute name="title" value="Listar tarea" />

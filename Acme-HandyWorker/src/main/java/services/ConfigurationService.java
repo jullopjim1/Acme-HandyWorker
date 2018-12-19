@@ -23,7 +23,8 @@ public class ConfigurationService {
 	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private ConfigurationRepository configurationRepository;
+	private ConfigurationRepository	configurationRepository;
+
 
 	// Services---------------------------------------------------------------------------
 
@@ -42,7 +43,7 @@ public class ConfigurationService {
 		final Map<String, Collection<String>> spamWords = new HashMap<>();
 		final Map<String, Collection<String>> negativeWords = new HashMap<>();
 		final Map<String, Collection<String>> positiveWords = new HashMap<>();
-		Map<String, String> welcomeMessage = new HashMap<>();
+		final Map<String, String> welcomeMessage = new HashMap<>();
 
 		configuration.setVarTax(21);
 		configuration.setCountryCode(34);
@@ -68,7 +69,7 @@ public class ConfigurationService {
 	}
 
 	public Configuration findOne() {
-		return new ArrayList<>(findAll()).get(0);
+		return new ArrayList<>(this.findAll()).get(0);
 	}
 
 	public Configuration save(final Configuration configuration) {
@@ -83,30 +84,23 @@ public class ConfigurationService {
 	// Other
 	// Methods---------------------------------------------------------------------------
 
-	public Collection<String> internacionalizcionListas(Map<String, Collection<String>> words) {
+	public Collection<String> internacionalizcionListas(final Map<String, Collection<String>> words) {
 
-		String laungage = LocaleContextHolder.getLocale().getLanguage();
+		final String laungage = LocaleContextHolder.getLocale().getLanguage();
 		Collection<String> res;
 
-		if (laungage.equals("en")) {
+		if (laungage.equals("en"))
 			res = words.get(laungage);
-		} else {
+		else
 			res = words.get(laungage);
-		}
 
 		return res;
 	}
 
-	public String internacionalizcion(Map<String, String> words) {
+	public String internacionalizcion(final Map<String, String> words) {
 
-		String laungage = LocaleContextHolder.getLocale().getLanguage();
-		String res;
-
-		if (laungage.equals("en")) {
-			res = words.get(laungage);
-		} else {
-			res = words.get(laungage);
-		}
+		final String laungage = LocaleContextHolder.getLocale().getLanguage();
+		final String res = words.get(laungage);
 
 		return res;
 	}

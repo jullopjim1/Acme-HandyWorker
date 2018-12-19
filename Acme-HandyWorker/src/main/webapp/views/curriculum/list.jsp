@@ -24,21 +24,58 @@
 	pagesize="4" class="displaytag">
 
 
-	<display:column property="ticker" title="curriculum.ticker" />
+	<display:column property="ticker" titleKey="curriculum.ticker" />
+
 
 	<!-- DETALLES -->
-	<display:column>
-		<input type="button" value="curriculum.show"
-			onclick="javascript: window.location.href = './curricula/handyWorker/show.do?curriculumId=${row.id}';" />
+	<display:column titleKey="curriculum.personalRecord">
+		<spring:url value="/personalRecord/handyworker/show.do" var="editURL">
+			<spring:param name="curriculumId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}"><spring:message code="curriculum.show" /> </a>
 	</display:column>
 
 	<!-- Realizar vistas de los records -->
 
+	<display:column titleKey="curriculum.educationRecords">
+		<spring:url value="/educationRecord/handyworker/list.do" var="editURL">
+			<spring:param name="curriculumId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}"><spring:message code="curriculum.show" /> </a>
+		<br />
+	</display:column>
+
+	<display:column titleKey="curriculum.endorserRecords">
+		<spring:url value="/endorserRecord/handyworker/list.do" var="editURL">
+			<spring:param name="curriculumId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}"><spring:message code="curriculum.show" /> </a>
+		<br />
+	</display:column>
+
+	<display:column titleKey="curriculum.professionalRecords">
+		<spring:url value="/professionalRecord/handyworker/list.do"
+			var="editURL">
+			<spring:param name="curriculumId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}"><spring:message code="curriculum.show" /> </a>
+		<br />
+	</display:column>
+
+	<display:column titleKey="curriculum.miscellaneousRecords">
+		<spring:url value="/miscellaneousRecord/handyworker/list.do"
+			var="editURL">
+			<spring:param name="curriculumId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}"><spring:message code="curriculum.show" /> </a>
+		<br />
+	</display:column>
 
 	<!-- BORRAR -->
 	<jstl:if test="${owner}">
 		<display:column>
-			<input type="button" value="curriculum.delete"
+			<input type="button" value="value="
+				<spring:message code="curriculum.delete"/>
 				onclick="javascript: confirm('<spring:message code="curricumlum.confirm" />');
 			window.location.href = './curricula/handyWorker/delete.do?curriculumId=${row.id}';" />
 		</display:column>
@@ -50,6 +87,6 @@
 
 <!-- CREAR -->
 <security:authorize access="hasRole('HANDY')">
-	<input type="button" value="curriculum.create"
-		onclick="javascript: window.location.href = './curricula/handyWorker/create.do';" />
+	<input type="button" value="<spring:message code="curriculum.create"/>"
+		onclick="javascript: window.location.href = ' ./curricula/handyWorker/create.do';" />
 </security:authorize>
