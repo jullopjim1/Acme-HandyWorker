@@ -52,25 +52,11 @@
 		</a>
 	</display:column>
 
-	<security:authorize access="isAnonymous()">
-		<display:column titleKey="tutorial.details">
-			<a href="tutorail/show.do?tutorialId=${row.id}"> <spring:message
-					code="tutorial.show" />
-			</a>
-		</display:column>
-
-		<display:column property="sponsorship.banner"
-			titleKey="tutorial.sponsorship">
-			<img src="${row.sponsorship.banner}" />
-		</display:column>
-
-		<display:column titleKey="tutorial.handyworker">
-			<a href="profile/view.do?tutorialId=${row.id}"> <spring:message
-					code="tutorial.profile" />
-			</a>
-		</display:column>
-
-	</security:authorize>
+	<display:column titleKey="tutorial.handyworker">
+		<a href="profile/view.do?tutorialId=${row.id}"> <spring:message
+				code="tutorial.profile" />
+		</a>
+	</display:column>
 
 </display:table>
 <security:authorize access="hasRole('HANDY')">

@@ -21,34 +21,31 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="hasRole('SPONSOR')">
-	<display:table name="sponsorships" id="row" requestURI="${requestURI}"
-		pagesize="5" class="displaytag">
 
-
-		<display:column>
-			<jstl:if test="${sponsorId==row.sponsor.id}">
-				<a href="sponsorship/sponsor/edit.do?sponsorshipId=${row.id}"> <spring:message
-						code="sponsorship.edit" />
+<display:table name="sections" id="row" requestURI="${requestURI}"
+	pagesize="5" class="displaytag">
+	
+	<display:column>
+	<a href="section/handyworker/edit.do?sectionId=${row.id}"> <spring:message
+						code="section.edit" />
 				</a>
-			</jstl:if>
-		</display:column>
+	</display:column>
 
-		<display:column property="sponsorship.banner"
-			titleKey="sponsorship.banner">
-			<img src="${row.banner}" />
-		</display:column>
-
-		<display:column property="link" titleKey="sponsorship.link" />
+	<display:column property="title" titleKey="section.title" />
 
 
-		<display:column property="${row.sponsor.name}"
-			titleKey="sponsorship.sponsor" />
+	<display:column property="text" titleKey="section.text" />
 
 
-	</display:table>
+	<display:column property="pictures" titleKey="section.pictures" />
 
-	<a href="sponsorship/sponsor/create.do"> <spring:message
-			code="sponsorship.create" />
-	</a>
-</security:authorize>
+	<display:column property="position" titleKey="section.position"
+		sortable="true" />
+
+
+</display:table>
+
+<a href="section/handyworker/create.do"> <spring:message
+		code="section.create" />
+</a>
+
