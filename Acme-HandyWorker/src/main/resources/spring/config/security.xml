@@ -48,10 +48,16 @@
 		<security:intercept-url pattern="/curriculum/handyworker/list.do"
 			access="hasRole('HANDY')" />
 
-		<security:intercept-url pattern="/curriculum/handyworker/edit.do"
+		<security:intercept-url pattern="/personalRecord/handyworker/edit.do"
 			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/personalRecord/handyworker/show.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/personalRecord/handyworker/create.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/personalRecord/handyworker/delete.do"
 			access="hasRole('HANDY')" />
 
 		<!-- Message -->

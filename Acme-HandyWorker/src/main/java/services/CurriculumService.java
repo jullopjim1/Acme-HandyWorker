@@ -154,4 +154,14 @@ public class CurriculumService {
 		return true;
 	}
 
+	public Boolean hasCurriculum(final HandyWorker handyWorker) {
+		Boolean res = false;
+
+		final Curriculum curriculum = this.findCurriculumHandyWorkerById(handyWorker.getId());
+		if (curriculum != null)
+			res = true;
+
+		return res;
+	}
+
 }

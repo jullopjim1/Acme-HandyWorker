@@ -72,12 +72,13 @@
 	</script>
 
 	<jstl:if test="${isRead == false}">
-		<input type="button" class="btn btn-warning" name="cancel"
-			value='<spring:message code="curriculum.cancel"/>'
-			onclick="document.location.href='curriculum/handyworker/list.do?handyWorkerId=${handyWorkerId}';">
+
 		<input type="submit" class="btn btn-success" name="save"
 			value='<spring:message code="curriculum.save"/>'
 			onclick=" javascript: return isValid('tlf');">
+		<input type="button" class="btn btn-warning" name="cancel"
+			value='<spring:message code="curriculum.cancel"/>'
+			onclick="document.location.href='curriculum/handyworker/list.do?handyWorkerId=${handyWorkerId}';">
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">

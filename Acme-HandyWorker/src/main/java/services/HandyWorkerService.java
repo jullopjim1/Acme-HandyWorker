@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.HandyWorker;
 import repositories.HandyWorkerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
-import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -117,4 +117,15 @@ public class HandyWorkerService {
 
 		return saved;
 	}
+
+	public boolean isPrincipalHandy() {
+		boolean res = false;
+		final UserAccount u = LoginService.getPrincipal();
+		final Authority a = new Authority();
+		a.setAuthority("HANDY");
+		if (u.getAuthorities().contains(a))
+			res = true;
+		return res;
+	}
+
 }

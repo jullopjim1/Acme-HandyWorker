@@ -23,6 +23,14 @@
 <display:table name="curriculum" id="row" requestURI="${requestURI}"
 	pagesize="4" class="displaytag">
 
+	<!-- EDITAR -->
+	<display:column titleKey="curriculum.personalRecord">
+		<spring:url value="/personalRecord/handyworker/edit.do" var="editURL">
+			<spring:param name="curriculumId" value="${row.id}" />
+		</spring:url>
+		<a href="${editURL}"><spring:message code="curriculum.edit" /> </a>
+	</display:column>
+
 
 	<display:column property="ticker" titleKey="curriculum.ticker" />
 
@@ -72,21 +80,25 @@
 	</display:column>
 
 	<!-- BORRAR -->
-	<jstl:if test="${owner}">
-		<display:column>
-			<input type="button" value="value="
-				<spring:message code="curriculum.delete"/>
-				onclick="javascript: confirm('<spring:message code="curricumlum.confirm" />');
-			window.location.href = './curricula/handyWorker/delete.do?curriculumId=${row.id}';" />
-		</display:column>
-	</jstl:if>
+	<display:column>
+		<input type="button"
+			value="<spring:message code="curriculum.delete"/>"
+			onclick="
+			javascript:
+			confirm('<spring:message code="curricumlum.confirm.delete" />');
+			window.location.href='curriculum/handyworker/list.do?handyWorkerId=${row.handyWorker.id}' ;" />
+	</display:column>
 
 
 
 </display:table>
-
+<br />
+<br />
 <!-- CREAR -->
 <security:authorize access="hasRole('HANDY')">
-	<input type="button" value="<spring:message code="curriculum.create"/>"
-		onclick="javascript: window.location.href = ' ./curricula/handyWorker/create.do';" />
+	<jstl:if test="${hasCurriculum == false}">
+		<input type="button"
+			value="<spring:message code="curriculum.create"/>"
+			onclick="javascript: window.location.href = 'personalRecord/handyworker/create.do';" />
+	</jstl:if>
 </security:authorize>

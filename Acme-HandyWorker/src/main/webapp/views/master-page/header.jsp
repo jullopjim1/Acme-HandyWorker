@@ -12,6 +12,7 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 
@@ -42,20 +43,23 @@
 					<li class="arrow"></li>
 					<li><a href="customer/action-1.do"><spring:message
 								code="master.page.customer.action.1" /></a></li>
-					<li><a href="customer/action-2.do"><spring:message
-								code="master.page.customer.action.2" /></a></li>
+
 				</ul></li>
 		</security:authorize>
 
-<security:authorize access="hasRole('HANDY')">
+		<security:authorize access="hasRole('HANDY')">
+			<li><a href="curriculum/handyworker/list.do"><spring:message
+						code="master.page.handy.curriculum.list" /></a></li>
+			<li><a href="finder/handy/listFixUpTasks.do"><spring:message
+						code="master.page.finder.result" /></a></li>
+
 			<li><a class="fNiv"><spring:message
 						code="master.page.finder" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="finder/handy/update.do"><spring:message
 								code="master.page.finder.update" /></a></li>
-					<li><a href="finder/handy/listFixUpTasks.do"><spring:message
-								code="master.page.finder.result" /></a></li>
+
 				</ul></li>
 		</security:authorize>
 
