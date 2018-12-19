@@ -21,7 +21,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="finder/handyworker/updateFinder.do"> <spring:message
+<a href="finder/handy/update.do"> <spring:message
 		code="finder.update" />
 </a>
 

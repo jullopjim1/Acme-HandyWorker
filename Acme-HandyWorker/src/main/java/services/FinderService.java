@@ -9,6 +9,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -152,8 +153,15 @@ public class FinderService {
 
 	public Collection<FixUpTask> searchFixUpTask(final Finder f, final int maxResult) {
 		List<FixUpTask> result;
+		final String nameCategory = f.getNamecategory();
+		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
-		final Page<FixUpTask> p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), f.getNamecategory(), f.getNamewarranty(), new PageRequest(0, maxResult));
+		Page<FixUpTask> p;
+		if (nameCategory == "")
+			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), f.getNamewarranty(), new PageRequest(0, maxResult));
+		else
+			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), langCategory, nameCategory, f.getNamewarranty(), new PageRequest(0, maxResult));
+
 		result = new ArrayList<>(p.getContent());
 
 		return result;
