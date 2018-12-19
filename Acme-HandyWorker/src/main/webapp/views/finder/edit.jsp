@@ -21,7 +21,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="finder/handyworker/updateFinder.do"
+<form:form action="finder/handy/update.do"
 	modelAttribute="finder">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -70,7 +70,7 @@
 		<spring:message code="finder.namecategory" />
 	</form:label>
 	<form:select id="categories" path="namecategory">
-		<form:option value="0" label="------" />
+		<form:option value="null" label="------" />
 		<form:options items="${categories}" itemLabel="name" itemValue="name" />	
 	</form:select>
 	
@@ -78,7 +78,7 @@
 		<spring:message code="finder.namewarranty" />
 	</form:label>
 	<form:select id="warranties" path="namewarranty">
-		<form:option value="0" label="------" />
+		<form:option value="null" label="------" />
 		<form:options items="${warranties}" itemLabel="title" itemValue="title" />	
 	</form:select>
 
@@ -87,7 +87,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="finder.cancel" />"
-		onclick="javascript: relativeRedir('finder/handyworker/list.do');" />
+		onclick="javascript: relativeRedir('finder/handy/listFixUpTasks.do');" />
 
 	<br />
 
