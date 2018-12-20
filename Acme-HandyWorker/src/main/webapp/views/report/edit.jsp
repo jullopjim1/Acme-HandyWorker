@@ -21,50 +21,45 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="complaint/customer/edit.do"
-	modelAttribute="complaint" readonly="${isRead }">
+<form:form action="report/referee/edit.do" modelAttribute="report"
+	readonly="${isRead }">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:label path="title">
-		<spring:message code="warranty.title" />
+	<form:hidden path="moment" />
+
+	<form:label path="description">
+		<spring:message code="report.description" />
 	</form:label>
-	<form:input path="title" />
-	<form:errors ccsClass="error" path="title" />
+	<form:input path="description" />
+	<form:errors ccsClass="error" path="description" />
 	<br />
 
-	<form:label path="terms">
-		<spring:message code="warranty.terms" />
+	<form:label path="attachments">
+		<spring:message code="report.attachments" />
 	</form:label>
-	<form:input path="terms" />
-	<form:errors ccsClass="error" path="terms" />
-	<br />
-
-	<form:label path="laws">
-		<spring:message code="warranty.laws" />
-	</form:label>
-	<form:input path="laws" />
-	<form:errors ccsClass="error" path="laws" />
+	<form:textarea path="attachments" />
+	<form:errors ccsClass="error" path="attachments" />
 	<br />
 
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
-			value="<spring:message code="warranty.save" />" />; 
+			value="<spring:message code="report.save" />" />; 
 	
-		<jstl:if test="${complaint.id != 0}">
+		<jstl:if test="${report.id != 0}">
 			<input type="submit" name="delete"
-				value="<spring:message code="warranty.delete" />"
-				onclick="javascript: return confirm('<spring:message code="warranty.confirmDelete" />')" />
+				value="<spring:message code="report.delete" />"
+				onclick="javascript: return confirm('<spring:message code="report.confirmDelete" />')" />
 		</jstl:if>
 
 		<input type="button" name="cancel"
-			value="<spring:message code="warranty.cancel" />"
-			onclick="javascript: relativeRedir('warranty/administrator/list.do');" />
+			value="<spring:message code="report.cancel" />"
+			onclick="javascript: relativeRedir('report/referee/list.do');" />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
 		<input type="button" name="cancel"
-			value="<spring:message code="warranty.back" />"
-			onclick="javascript: relativeRedir('warranty/administrator/list.do');" />
+			value="<spring:message code="report.back" />"
+			onclick="javascript: relativeRedir('report/referee/list.do');" />
 	</jstl:if>
 </form:form>

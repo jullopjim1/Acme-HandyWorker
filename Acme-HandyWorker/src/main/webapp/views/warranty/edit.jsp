@@ -51,7 +51,7 @@
 		<input type="submit" name="save"
 			value="<spring:message code="warranty.save" />" />; 
 	
-		<jstl:if test="${complaint.id != 0}">
+		<jstl:if test="${warranty.id != 0}">
 			<input type="submit" name="delete"
 				value="<spring:message code="warranty.delete" />"
 				onclick="javascript: return confirm('<spring:message code="warranty.confirmDelete" />')" />

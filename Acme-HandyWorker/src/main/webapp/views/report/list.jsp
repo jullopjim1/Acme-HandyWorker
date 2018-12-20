@@ -21,19 +21,31 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="warranties" id="row" requestURI="${requestURI}"
+<display:table name="reports" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<display:column property="title" titleKey="warranty.title" />
-	<display:column property="terms" titleKey="warranty.terms" />
-	<display:column property="laws" titleKey="warranty.laws" />
+	
 
-	<security:authorize access="hasRole('ADMIN')">
+	
+	<display:column property="moment" titleKey="report.moment" />
+	<display:column property="description" titleKey="report.decription"/>
+	<display:column property="attachaments" titleKey="report.attachments"/>
+
+	<display:column titleKey="report.notes">
+		<a href="note/list.do?reportId=${report.id}"> <spring:message
+				code="report.show" />
+		</a>
+	</display:column>
+	
+	<security:authorize access="hasRole('REFEREE')">
 		<display:column>
-			<a href="warranty/administrator/edit.do?warrantyId=${warranty.id}">
-				<spring:message code="warranty.edit" />
+			<a href="report/referee/edit.do?reportId=${report.id}">
+				<spring:message code="report.edit" />
 			</a>
 		</display:column>
 	</security:authorize>
+
+
+
 
 </display:table>
