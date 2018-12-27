@@ -86,5 +86,8 @@ public class ComplaintService {
 		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
 		return complaints;
 	}
+	public Object[] queryB4() {
+		return this.complaintRepository.queryB4();
+	}
 
 }
