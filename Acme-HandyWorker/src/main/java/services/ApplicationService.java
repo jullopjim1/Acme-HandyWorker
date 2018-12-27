@@ -162,4 +162,8 @@ public class ApplicationService {
 		return this.applicationRepository.queryC10();
 	}
 
+	public Object[] queryC9() {
+		return this.applicationRepository.queryC9();
+	}
+
 }

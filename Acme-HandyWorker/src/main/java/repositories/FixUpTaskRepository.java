@@ -37,7 +37,7 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 	public Object[] queryC3();
 
 	// Queries Level B----------------------------------------------------------
-	// Query C1
+	// Query B1
 	@Query("select avg(1.0 * (select count(c) from Complaint c where c.fixUpTask.id = f.id)) from FixUpTask f")
 	Double queryB1AVG();
 

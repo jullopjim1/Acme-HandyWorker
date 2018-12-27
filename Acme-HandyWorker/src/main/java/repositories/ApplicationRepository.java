@@ -49,6 +49,10 @@ public interface ApplicationRepository extends JpaRepository<Application, Intege
 	@Query("select (count(a)*1.0)/(select count(aa) from Application aa where aa.fixUpTask > CURRENT_TIMESTAMP) from Application a")
 	public Double queryC8();
 
+	// QueryC9---------------------------------------------------------------------------
+	@Query("select c.name from Customer c where ((select count(f) from FixUpTask f)*1.0 > (select avg(1.0 * (select count(ff) from FixUpTask ff where ff.customer.id = c.id))*1.1 from Customer c)) order by (select count(aaa) from Application aaa)*1.0 desc")
+	public Object[] queryC9();
+
 	// QueryC10---------------------------------------------------------------------------
 	@Query("select h.name from HandyWorker h where ((select count(a) from Application a where a.status = 'ACCEPTED')*1.0 > (select avg(1.0 * (select count(aa) from Application aa where aa.fixUpTask.id = f.id))*1.1 from FixUpTask f)) order by (select count(aaa) from Application aaa)*1.0 desc")
 	public Object[] queryC10();
