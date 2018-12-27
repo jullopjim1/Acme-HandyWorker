@@ -25,11 +25,11 @@
 <display:table name="sections" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	<security:authorize access="hasRole('HANDY')">
-	<display:column>
-	<a href="section/handyworker/edit.do?sectionId=${row.id}"> <spring:message
-						code="section.edit" />
-				</a>
-	</display:column>
+		<display:column>
+			<a href="section/handyworker/edit.do?sectionId=${row.id}"> <spring:message
+					code="section.edit" />
+			</a>
+		</display:column>
 	</security:authorize>
 
 	<display:column property="title" titleKey="section.title" />
@@ -45,9 +45,14 @@
 
 
 </display:table>
+<br/>
+<input type="button" name="cancel"
+	value="<spring:message code="section.back" />"
+	onclick="javascript: relativeRedir('tutorial/list.do');" />
+
 <security:authorize access="hasRole('HANDY')">
-<a href="section/handyworker/create.do"> <spring:message
-		code="section.create" />
-</a>
+	<a href="section/handyworker/create.do"> <spring:message
+			code="section.create" />
+	</a>
 </security:authorize>
 

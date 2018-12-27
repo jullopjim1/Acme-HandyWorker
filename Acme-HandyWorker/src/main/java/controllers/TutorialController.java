@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.SponsorshipService;
 import services.TutorialService;
+import domain.Sponsorship;
 import domain.Tutorial;
 
 @Controller
@@ -20,7 +22,10 @@ public class TutorialController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private TutorialService	tutorialService;
+	private TutorialService		tutorialService;
+
+	@Autowired
+	private SponsorshipService	sponsorshipService;
 
 
 	//Constructor---------------------------------------------------------
@@ -39,13 +44,14 @@ public class TutorialController extends AbstractController {
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
 		result.addObject("requestURI", "tutorial/list.do");
+		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 	}
 
 	//Show
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	private ModelAndView show(@RequestParam final int tutorialId) {
+	public ModelAndView show(@RequestParam final int tutorialId) {
 		final ModelAndView modelAndView;
 
 		final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
@@ -71,10 +77,16 @@ public class TutorialController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Tutorial tutorial, final String message) {
 		ModelAndView result;
 
-		result = new ModelAndView("personal/edit");
+		Collection<Sponsorship> sponsorships;
+
+		sponsorships = this.sponsorshipService.findAll();
+
+		result = new ModelAndView("tutorial/edit");
+		result.addObject("tutorial", tutorial);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "tutorial/handyworker/edit.do");
+		result.addObject("sponsorships", sponsorships);
 
 		return result;
 	}
