@@ -33,7 +33,7 @@
 		<value>/views/personalRecord/tiles.xml</value>
 		<value>/views/endorserRecord/tiles.xml</value>
 		<value>/views/educationRecord/tiles.xml</value>
-		<value>/views/professionakRecord/tiles.xml</value>
+		<value>/views/professionalRecord/tiles.xml</value>
 		<value>/views/miscellaneousRecord/tiles.xml</value>
 
 	</util:list>
