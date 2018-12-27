@@ -17,37 +17,42 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="miscellaneousRecords" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+<display:table name="miscellaneousRecords" id="row"
+	requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('RANGER')">
+	<security:authorize access="hasRole('HANDY')">
 		<display:column>
-			<a href="miscellaneousRecord/ranger/edit.do?miscellaneousRecordId=${row.id}"><spring:message
-				code="miscellaneousRecord.edit" /></a>
+			<a
+				href="miscellaneousRecord/handyworker/edit.do?miscellaneousRecordId=${row.id}"><spring:message
+					code="miscellaneousRecord.edit" /></a>
 		</display:column>
 	</security:authorize>
 
 	<display:column property="title" titleKey="miscellaneousRecord.title" />
-	<display:column property="attachment" titleKey="miscellaneousRecord.attachment" />
-	<display:column property="comment" titleKey="miscellaneousRecord.comment" />
-	<security:authorize access="hasRole('RANGER')">
+	<display:column property="link"
+		titleKey="miscellaneousRecord.link" />
+	<display:column property="comments"
+		titleKey="miscellaneousRecord.comments" />
+	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="miscellaneousRecord.delete">
-			<a href="miscellaneousRecord/ranger/delete.do?miscellaneousRecordId=${row.id}"><spring:message
-				code="miscellaneousRecord.delete" /></a>
+			<a
+				href="miscellaneousRecord/handyworker/delete.do?miscellaneousRecordId=${row.id}"><spring:message
+					code="miscellaneousRecord.delete" /></a>
 		</display:column>
 	</security:authorize>
 </display:table>
 
-<security:authorize access="hasRole('RANGER')">
-		<div>
-			<a href="miscellaneousRecord/ranger/create.do"> <spring:message
-					code="miscellaneousRecord.create" />
-			</a>
-		</div>
+<security:authorize access="hasRole('HANDY')">
+	<div>
+		<a href="miscellaneousRecord/handyworker/create.do"> <spring:message
+				code="miscellaneousRecord.create" />
+		</a>
+	</div>
 </security:authorize>
 
-<br/><input type=button name="back"
-		value="<spring:message code="miscellaneousRecord.back" />"
-		onclick="javascript: relativeRedir('curriculum/ranger/list.do');" />
+<br />
+<input type=button name="back"
+	value="<spring:message code="miscellaneousRecord.back" />"
+	onclick="javascript: relativeRedir('curriculum/handyworker/list.do');" />
 
 

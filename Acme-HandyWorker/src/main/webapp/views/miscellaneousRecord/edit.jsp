@@ -17,10 +17,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="miscellaneousRecord/ranger/edit.do" modelAttribute="miscellaneousRecord">
+<form:form action="miscellaneousRecord/handyworker/edit.do"
+	modelAttribute="miscellaneousRecord">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="curriculum" />
 
 	<form:label path="title">
 		<spring:message code="miscellaneousRecord.title" />:
@@ -29,18 +31,18 @@
 	<form:errors cssClass="error" path="title" />
 	<br />
 
-	<form:label path="attachment">
-		<spring:message code="miscellaneousRecord.attachment" />:
+	<form:label path="link">
+		<spring:message code="miscellaneousRecord.link" />:
 	</form:label>
-	<form:input path="attachment" />
-	<form:errors cssClass="error" path="attachment" />
+	<form:input path="link" />
+	<form:errors cssClass="error" path="link" />
 	<br />
-	
-	<form:label path="comment">
-		<spring:message code="miscellaneousRecord.comment" />:
+
+	<form:label path="comments">
+		<spring:message code="miscellaneousRecord.comments" />:
 	</form:label>
-	<form:input path="comment" />
-	<form:errors cssClass="error" path="comment" />
+	<form:input path="comments" />
+	<form:errors cssClass="error" path="comments" />
 	<br />
 
 	<input type="submit" name="save"
@@ -48,7 +50,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="miscellaneousRecord.cancel" />"
-		onclick="javascript: relativeRedir('miscellaneousRecord/ranger/list.do');" />
+		onclick="javascript: relativeRedir('miscellaneousRecord/handyworker/list.do?curriculumId=${curriculumId}');" />
 	<br />
 
 
