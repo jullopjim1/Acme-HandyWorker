@@ -42,7 +42,7 @@ public class DashboardAdministratorController extends AbstractController {
 
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView dashboard() {
-		final ModelAndView modelAndView = new ModelAndView("dashboard");
+		final ModelAndView modelAndView = new ModelAndView("administrator/dashboard");
 
 		//QueryC1
 		final Double avgC1 = this.fixUpTaskService.queryC1AVG();
