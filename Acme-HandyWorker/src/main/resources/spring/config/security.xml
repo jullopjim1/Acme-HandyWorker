@@ -60,7 +60,14 @@
 		<security:intercept-url pattern="/personalRecord/handyworker/create.do"
 			access="hasRole('HANDY')" />
 
+		<security:intercept-url pattern="/endorserRecord/handyworker/create.do"
+			access="hasRole('HANDY')" />
 
+		<security:intercept-url pattern="/endorserRecord/handyworker/edit.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/endorserRecord/handyworker/delete.do"
+			access="hasRole('HANDY')" />
 
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"

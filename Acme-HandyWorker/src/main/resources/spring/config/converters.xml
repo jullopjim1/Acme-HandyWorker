@@ -20,10 +20,13 @@
 
 		<bean class="converters.PersonalRecordToStringConverter" />
 		<bean class="converters.StringToPersonalRecordConverter" />
-		
+
+		<bean class="converters.EndorserRecordToStringConverter" />
+		<bean class="converters.StringToEndorserRecordConverter" />
+
 		<bean class="converters.FinderToStringConverter" />
 		<bean class="converters.StringToFinderConverter" />
-		
+
 		<bean class="converters.FixUpTaskToStringConverter" />
 		<bean class="converters.StringToFixUpTaskConverter" />
 	</util:list>
