@@ -132,4 +132,48 @@ public class FixUpTaskService {
 		return this.fixUpTaskRepository.findFixUpTaskByCustomerId(customerId);
 	}
 
+	public Double queryC1AVG() {
+		return this.fixUpTaskRepository.queryC1AVG();
+	}
+
+	public Double queryC1MAX() {
+		return this.fixUpTaskRepository.queryC1MAX();
+	}
+
+	public Double queryC1MIN() {
+		return this.fixUpTaskRepository.queryC1MIN();
+	}
+
+	public Double queryC1STDDEV() {
+		return this.fixUpTaskRepository.queryC1STDDEV();
+	}
+
+	public Object[] queryC3() {
+		return this.fixUpTaskRepository.queryC3();
+	}
+
+	public Double queryB1AVG() {
+		return this.fixUpTaskRepository.queryB1AVG();
+	}
+
+	public Double queryB1MAX() {
+		return this.fixUpTaskRepository.queryB1MAX();
+	}
+
+	public Double queryB1MIN() {
+		return this.fixUpTaskRepository.queryB1MIN();
+	}
+
+	public Double queryB1STDDEV() {
+		return this.fixUpTaskRepository.queryB1STDDEV();
+	}
+
+	public Double queryB3() {
+		return this.fixUpTaskRepository.queryB3();
+	}
+
+	public Object[] queryB5() {
+		return this.fixUpTaskRepository.queryB5();
+	}
+
 }

@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Date;
@@ -9,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ReportRepository;
 import domain.Complaint;
 import domain.Referee;
 import domain.Report;
+import repositories.ReportRepository;
 
 @Service
 @Transactional
@@ -20,13 +21,14 @@ public class ReportService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private ReportRepository reportRepository;
+	private ReportRepository	reportRepository;
 	// Services-------------------------------------------------
 	@Autowired
-	private ComplaintService complaintService;
+	private ComplaintService	complaintService;
 
 	@Autowired
-	private RefereeService refereeService;
+	private RefereeService		refereeService;
+
 
 	// Constructor----------------------------------------------
 	public ReportService() {
@@ -75,5 +77,21 @@ public class ReportService {
 		this.reportRepository.delete(report);
 	}
 	// Other Methods--------------------------------------------
+
+	public Double queryB2AVG() {
+		return this.reportRepository.queryB2AVG();
+	}
+
+	public Double queryB2MAX() {
+		return this.reportRepository.queryB2MAX();
+	}
+
+	public Double queryB2MIN() {
+		return this.reportRepository.queryB2MIN();
+	}
+
+	public Double queryB2STDDEV() {
+		return this.reportRepository.queryB2STDDEV();
+	}
 
 }
