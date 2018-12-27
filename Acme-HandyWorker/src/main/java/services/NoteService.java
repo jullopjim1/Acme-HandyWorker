@@ -65,7 +65,7 @@ public class NoteService {
 		note.setMoment(new Date(System.currentTimeMillis() - 1000));
 
 		result = this.noteRepository.save(note);
-		result.setIsFinal(true);
+
 		Assert.isTrue(result.getIsFinal().equals(true));
 		return result;
 	}
