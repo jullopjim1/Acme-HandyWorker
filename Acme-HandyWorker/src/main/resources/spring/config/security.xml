@@ -42,6 +42,9 @@
 
 		<security:intercept-url pattern="/welcome/index.do"
 			access="permitAll" />
+			
+		<security:intercept-url pattern="/tutorial/list.do"
+			access="permitAll" />
 
 		<!-- HandyWorker -->
 
@@ -70,6 +73,21 @@
 			access="hasRole('HANDY')" />
 		
 		<security:intercept-url pattern="/endorserRecord/handyworker/list.do"
+			access="hasRole('HANDY')" />
+		
+		<security:intercept-url pattern="/section/handyworker/list.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/section/handyworker/delete.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/section/handyworker/edit.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/section/handyworker/show.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/section/handyworker/create.do"
 			access="hasRole('HANDY')" />
 
 		<!-- Message -->
