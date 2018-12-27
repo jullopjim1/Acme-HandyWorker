@@ -17,40 +17,46 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="professionalRecords" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+<display:table name="professionalRecords" id="row"
+	requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('RANGER')">
+	<security:authorize access="hasRole('HANDY')">
 		<display:column>
-			<a href="professionalRecord/ranger/edit.do?professionalRecordId=${row.id}"><spring:message
-				code="professionalRecord.edit" /></a>
+			<a
+				href="professionalRecord/handyworker/edit.do?professionalRecordId=${row.id}"><spring:message
+					code="professionalRecord.edit" /></a>
 		</display:column>
 	</security:authorize>
 
-	<display:column property="companyName" titleKey="professionalRecord.companyName" />
-	<display:column property="startYear" titleKey="professionalRecord.startYear" />
-	<display:column property="finishYear" titleKey="professionalRecord.finishYear" />
+	<display:column property="name" titleKey="professionalRecord.name" />
+	<display:column property="startMoment"
+		titleKey="professionalRecord.startMoment" />
+	<display:column property="endMoment"
+		titleKey="professionalRecord.endMoment" />
 	<display:column property="role" titleKey="professionalRecord.role" />
-	<display:column property="attachment" titleKey="professionalRecord.attachment" />
-	<display:column property="comment" titleKey="professionalRecord.comment" />
-	<security:authorize access="hasRole('RANGER')">
+	<display:column property="link" titleKey="professionalRecord.link" />
+	<display:column property="comments"
+		titleKey="professionalRecord.comments" />
+	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="professionalRecord.delete">
-			<a href="professionalRecord/ranger/delete.do?professionalRecordId=${row.id}"><spring:message
-				code="professionalRecord.delete" /></a>
+			<a
+				href="professionalRecord/handyworker/delete.do?professionalRecordId=${row.id}"><spring:message
+					code="professionalRecord.delete" /></a>
 		</display:column>
 	</security:authorize>
 </display:table>
 
-<security:authorize access="hasRole('RANGER')">
-		<div>
-			<a href="professionalRecord/ranger/create.do"> <spring:message
-					code="professionalRecord.create" />
-			</a>
-		</div>
+<security:authorize access="hasRole('HANDY')">
+	<div>
+		<a href="professionalRecord/handyworker/create.do"> <spring:message
+				code="professionalRecord.create" />
+		</a>
+	</div>
 </security:authorize>
 
-<br/><input type=button name="back"
-		value="<spring:message code="professionalRecord.back" />"
-		onclick="javascript: relativeRedir('curriculum/ranger/list.do');" />
+<br />
+<input type=button name="back"
+	value="<spring:message code="professionalRecord.back" />"
+	onclick="javascript: relativeRedir('curriculum/handyworker/list.do');" />
 
 

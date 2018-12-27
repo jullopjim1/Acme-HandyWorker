@@ -17,31 +17,32 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="professionalRecord/ranger/edit.do" modelAttribute="professionalRecord">
+<form:form action="professionalRecord/handyworker/edit.do"
+	modelAttribute="professionalRecord">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="curriculum" />
 
-	<form:label path="companyName">
-		<spring:message code="professionalRecord.companyName" />:
+	<form:label path="name">
+		<spring:message code="professionalRecord.name" />:
 	</form:label>
-	<form:input path="companyName" />
-	<form:errors cssClass="error" path="companyName" />
+	<form:input path="name" />
+	<form:errors cssClass="error" path="name" />
 	<br />
-	
-	<form:label path="startYear">
-		<spring:message code="professionalRecord.startYear" />:
+
+	<form:label path="startMoment">
+		<spring:message code="professionalRecord.startMoment" />:
 	</form:label>
-	<form:input path="startYear" />
-	<form:errors cssClass="error" path="startYear" />
-	dd/mm/yyyy
+	<form:input path="startMoment" />
+	<form:errors cssClass="error" path="startMoment" />
 	<br />
-	
-	<form:label path="finishYear">
-		<spring:message code="professionalRecord.finishYear" />:
+
+	<form:label path="endMoment">
+		<spring:message code="professionalRecord.endMoment" />:
 	</form:label>
-	<form:input path="finishYear" />
-	<form:errors cssClass="error" path="finishYear" />
+	<form:input path="endMoment" />
+	<form:errors cssClass="error" path="endMoment" />
 	dd/mm/yyyy
 	<br />
 
@@ -51,19 +52,19 @@
 	<form:input path="role" />
 	<form:errors cssClass="error" path="role" />
 	<br />
-	
-	<form:label path="attachment">
-		<spring:message code="professionalRecord.attachment" />:
+
+	<form:label path="link">
+		<spring:message code="professionalRecord.link" />:
 	</form:label>
-	<form:input path="attachment" />
-	<form:errors cssClass="error" path="attachment" />
+	<form:input path="link" />
+	<form:errors cssClass="error" path="link" />
 	<br />
-	
-	<form:label path="comment">
-		<spring:message code="professionalRecord.comment" />:
+
+	<form:label path="comments">
+		<spring:message code="professionalRecord.comments" />:
 	</form:label>
-	<form:input path="comment" />
-	<form:errors cssClass="error" path="comment" />
+	<form:input path="comments" />
+	<form:errors cssClass="error" path="comments" />
 	<br />
 
 	<input type="submit" name="save"
@@ -71,7 +72,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="professionalRecord.cancel" />"
-		onclick="javascript: relativeRedir('professionalRecord/ranger/list.do');" />
+		onclick="javascript: relativeRedir('professionalRecord/handyworker/list.do');" />
 	<br />
 
 
