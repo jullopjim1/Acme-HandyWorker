@@ -25,7 +25,7 @@
 <display:table name="tutorials" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('HANDY')">
+	<security:authorize access="isAuthenticated()">
 		<display:column>
 			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
 				<a href="tutorial/handyworker/edit.do?tutorialId=${row.id}"> <spring:message
@@ -36,7 +36,7 @@
 	</security:authorize>
 
 	<display:column titleKey="tutorial.details">
-		<a href="tutorail/show.do?tutorialId=${row.id}"> <spring:message
+		<a href="tutorial/show.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.show" />
 		</a>
 	</display:column>
@@ -46,7 +46,7 @@
 		<img src="${row.sponsorship.banner}" />
 	</display:column>
 
-	<display:column title="tutorial.section">
+	<display:column titleKey="tutorial.section">
 		<a href="section/list.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.view" />
 		</a>
@@ -65,8 +65,8 @@
 	</a>
 </security:authorize>
 
-<security:authorize access="isAnonymous()">
+
 	<input type="button" name="home"
 		value="<spring:message code="tutorial.home" />"
 		onclick="javascript: relativeRedir('welcome/index.do');" />
-</security:authorize>
+
