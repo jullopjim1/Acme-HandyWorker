@@ -59,6 +59,7 @@ public class EducationRecordService {
 	public EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		this.checkPrincipal(educationRecord);
+		Assert.isTrue(educationRecord.getStartMoment().before(educationRecord.getEndMoment()), "date.commit.error");
 		final EducationRecord saved = this.educationRecordRepository.save(educationRecord);
 		return saved;
 	}

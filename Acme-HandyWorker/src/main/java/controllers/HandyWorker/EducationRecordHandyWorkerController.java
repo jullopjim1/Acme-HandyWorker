@@ -102,7 +102,10 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 
 				modelAndView = new ModelAndView("redirect:list.do?curriculumId=" + educationRecord.getCurriculum().getId());
 			} catch (final Throwable oops) {
-				modelAndView = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
+				if (oops.getMessage().equals("date.commit.error"))
+					modelAndView = this.createEditModelAndView(educationRecord, "date.commit.error");
+				else
+					modelAndView = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 			}
 
 		return modelAndView;

@@ -42,7 +42,7 @@
 
 		<security:intercept-url pattern="/welcome/index.do"
 			access="permitAll" />
-			
+
 		<security:intercept-url pattern="/tutorial/list.do"
 			access="permitAll" />
 
@@ -71,10 +71,46 @@
 
 		<security:intercept-url pattern="/endorserRecord/handyworker/delete.do"
 			access="hasRole('HANDY')" />
-		
+
 		<security:intercept-url pattern="/endorserRecord/handyworker/list.do"
 			access="hasRole('HANDY')" />
-		
+
+		<security:intercept-url pattern="/educationRecord/handyworker/create.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/educationRecord/handyworker/edit.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/educationRecord/handyworker/delete.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/educationRecord/handyworker/list.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/professionalRecord/handyworker/create.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/professionalRecord/handyworker/edit.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/professionalRecord/handyworker/delete.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/professionalRecord/handyworker/list.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/miscellaneousRecord/handyworker/create.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/miscellaneousRecord/handyworker/edit.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/miscellaneousRecord/handyworker/delete.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/miscellaneousRecord/handyworker/list.do"
+			access="hasRole('HANDY')" />
+
 		<security:intercept-url pattern="/section/handyworker/list.do"
 			access="hasRole('HANDY')" />
 
