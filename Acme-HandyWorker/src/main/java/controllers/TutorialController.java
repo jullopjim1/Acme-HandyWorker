@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.TutorialService;
@@ -41,4 +42,41 @@ public class TutorialController extends AbstractController {
 
 		return result;
 	}
+
+	//Show
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	private ModelAndView show(@RequestParam final int tutorialId) {
+		final ModelAndView modelAndView;
+
+		final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
+
+		modelAndView = this.createEditModelAndView(tutorial);
+		modelAndView.addObject("isRead", true);
+		modelAndView.addObject("requestURI", "/show.do?tutorialId=" + tutorialId);
+
+		return modelAndView;
+	}
+
+	//CreateModelAndView
+
+	protected ModelAndView createEditModelAndView(final Tutorial tutorial) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(tutorial, null);
+
+		return result;
+
+	}
+
+	protected ModelAndView createEditModelAndView(final Tutorial tutorial, final String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("personal/edit");
+		result.addObject("message", message);
+		result.addObject("isRead", false);
+		result.addObject("requestURI", "tutorial/handyworker/edit.do");
+
+		return result;
+	}
+
 }

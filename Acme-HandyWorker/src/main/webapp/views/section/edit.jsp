@@ -70,7 +70,7 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="section.cancel" />"
-			onclick="javascript: relativeRedir('section/handyworker/list.do');" />
+			onclick="javascript: relativeRedir('section/list.do');" />
 
 		<br />
 	</jstl:if>

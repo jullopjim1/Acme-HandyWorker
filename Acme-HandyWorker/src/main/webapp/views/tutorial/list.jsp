@@ -47,7 +47,7 @@
 	</display:column>
 
 	<display:column title="tutorial.section">
-		<a href="tutorial/handyworker/view.do?tutorialId=${row.id}"> <spring:message
+		<a href="section/list.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.view" />
 		</a>
 	</display:column>

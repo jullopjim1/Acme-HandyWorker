@@ -45,6 +45,12 @@
 
 		<security:intercept-url pattern="/tutorial/list.do"
 			access="permitAll" />
+			
+		<security:intercept-url pattern="/tutorial/show.do"
+			access="permitAll" />
+			
+		<security:intercept-url pattern="/section/list.do"
+			access="permitAll" />
 
 		<!-- HandyWorker -->
 
@@ -111,16 +117,10 @@
 		<security:intercept-url pattern="/miscellaneousRecord/handyworker/list.do"
 			access="hasRole('HANDY')" />
 
-		<security:intercept-url pattern="/section/handyworker/list.do"
-			access="hasRole('HANDY')" />
-
 		<security:intercept-url pattern="/section/handyworker/delete.do"
 			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/section/handyworker/edit.do"
-			access="hasRole('HANDY')" />
-
-		<security:intercept-url pattern="/section/handyworker/show.do"
 			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/section/handyworker/create.do"
