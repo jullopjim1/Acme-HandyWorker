@@ -22,8 +22,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <security:authorize access="isAuthenticated()">
-	<security:authentication property="principal.username" />
-</security:authorize>
+	
+
 <form:form action="${requestURI}" modelAttribute="actor">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -88,9 +88,8 @@
 		<br />
 	</security:authorize>
 
-	<a href="tutorial/list.do?handyWorkerId=${row.id}"> <spring:message
-			code="profile.viewTutorials" /></a>
-			
+
+
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="actor.save" />" />
@@ -109,7 +108,7 @@
 
 	</jstl:if>
 
-
-
-
 </form:form>
+<a href="tutorial/list.do"> <spring:message
+		code="profile.viewTutorials" /></a>
+</security:authorize>

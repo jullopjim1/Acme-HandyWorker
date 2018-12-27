@@ -53,11 +53,24 @@
 	<form:errors ccsClass="error" path="mandatoryCommentHandyWorker" />
 	<br />
 	</security:authorize>
-
+	
+	<security:authorize access="hasRole('REFEREE')">
+		<form:label path="isFinal">
+			<spring:message code="note.isFinal" />
+		</form:label>
+		<input type="checkbox" value="True" />
+		<form:errors ccsClass="error" path="isFinal" />
+		<br />
+	</security:authorize>
 
 	<jstl:if test="${isRead==false }">
 		<input type="submit" name="save"
-			value="<spring:message code="note.save"/>" />
+			value="<spring:message code="note.save"/>" 
+			onclick="
+			javascript:
+			confirm('<spring:message code="note.confirm.save" />');
+			window.location.href='note/save.do?noteId=${row.id}' ;"
+			/>
 		
 		<security:authorize access="hasRole('REFEREE')">
 		<jstl:if test="${note.id != 0}">
