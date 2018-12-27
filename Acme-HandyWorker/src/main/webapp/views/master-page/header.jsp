@@ -50,6 +50,9 @@
 		<security:authorize access="hasRole('HANDY')">
 			<li><a href="curriculum/handyworker/list.do"><spring:message
 						code="master.page.handy.curriculum.list" /></a></li>
+						
+			<li><a href="tutorial/handyworker/list.do"><spring:message
+						code="master.page.handy.tutorial.list" /></a></li>
 
 			<li><a class="fNiv"><spring:message
 						code="master.page.finder" /></a>

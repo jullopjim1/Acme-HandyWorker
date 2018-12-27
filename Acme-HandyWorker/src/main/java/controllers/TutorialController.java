@@ -44,7 +44,6 @@ public class TutorialController extends AbstractController {
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
 		result.addObject("requestURI", "tutorial/list.do");
-		result.addObject("handyWorkerId", handyWorkerId);
 
 		return result;
 	}

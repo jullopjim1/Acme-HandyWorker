@@ -25,13 +25,11 @@
 <display:table name="tutorials" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<security:authorize access="isAuthenticated()">
+	<security:authorize access="hasRole('HANDY')">
 		<display:column>
-			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
 				<a href="tutorial/handyworker/edit.do?tutorialId=${row.id}"> <spring:message
 						code="tutorial.edit" />
 				</a>
-			</jstl:if>
 		</display:column>
 	</security:authorize>
 
