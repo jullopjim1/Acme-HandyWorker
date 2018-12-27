@@ -24,18 +24,24 @@
 		<bean class="converters.EndorserRecordToStringConverter" />
 		<bean class="converters.StringToEndorserRecordConverter" />
 
+		<bean class="converters.EducationRecordToStringConverter" />
+		<bean class="converters.StringToEducationRecordConverter" />
+
+		<bean class="converters.ProfessionalRecordToStringConverter" />
+		<bean class="converters.StringToProfessionalRecordConverter" />
+
+		<bean class="converters.MiscellaneousRecordToStringConverter" />
+		<bean class="converters.StringToMiscellaneousRecordConverter" />
+
 		<bean class="converters.FinderToStringConverter" />
 		<bean class="converters.StringToFinderConverter" />
 
 		<bean class="converters.FixUpTaskToStringConverter" />
 		<bean class="converters.StringToFixUpTaskConverter" />
-		
+
 		<bean class="converters.SectionToStringConverter" />
 		<bean class="converters.StringToSectionConverter" />
-		
-		<bean class="converters.TutorialToStringConverter" />
-		<bean class="converters.StringToTutorialConverter" />
-		
+
 	</util:list>
 
 </beans>

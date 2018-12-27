@@ -20,9 +20,10 @@
 <display:table name="endorserRecords" id="row"
 	requestURI="${requestURI}" pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('RANGER')">
+	<security:authorize access="hasRole('HANDY')">
 		<display:column>
-			<a href="endorserRecord/ranger/edit.do?endorserRecordId=${row.id}"><spring:message
+			<a
+				href="endorserRecord/handyworker/edit.do?endorserRecordId=${row.id}"><spring:message
 					code="endorserRecord.edit" /></a>
 		</display:column>
 	</security:authorize>
@@ -30,7 +31,7 @@
 	<display:column property="fullName" titleKey="endorserRecord.fullName" />
 	<display:column property="email" titleKey="endorserRecord.email" />
 	<display:column property="phone" titleKey="endorserRecord.phone" />
-	<display:column property="link" titleKey="endorserRecord.linkedin" />
+	<display:column property="link" titleKey="endorserRecord.link" />
 	<display:column property="comments" titleKey="endorserRecord.comment" />
 	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="endorserRecord.delete">
@@ -43,8 +44,9 @@
 
 <security:authorize access="hasRole('HANDY')">
 	<div>
-		<a href="endorserRecord/handyworker/create.do?curriculumId=${row.id}"> <spring:message
-				code="endorserRecord.create" />
+		<a
+			href="endorserRecord/handyworker/create.do?curriculumId=${row.curriculum.id}">
+			<spring:message code="endorserRecord.create" />
 		</a>
 	</div>
 </security:authorize>

@@ -16,21 +16,21 @@ import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
 import domain.Curriculum;
-import domain.EndorserRecord;
+import domain.EducationRecord;
 import domain.HandyWorker;
 import security.LoginService;
 import services.CurriculumService;
-import services.EndorserRecordService;
+import services.EducationRecordService;
 import services.HandyWorkerService;
 
 @Controller
-@RequestMapping("/endorserRecord/handyworker")
-public class EndorserRecordHandyWorkerController extends AbstractController {
+@RequestMapping("/educationRecord/handyworker")
+public class EducationRecordHandyWorkerController extends AbstractController {
 
 	//Service----------------------------------------------------------------------------
 
 	@Autowired
-	private EndorserRecordService	endorserRecordService;
+	private EducationRecordService	educationRecordService;
 
 	@Autowired
 	private CurriculumService		curriculumService;
@@ -41,7 +41,7 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 	//Constructor-----------------------------------------------------------------------
 
-	public EndorserRecordHandyWorkerController() {
+	public EducationRecordHandyWorkerController() {
 		super();
 	}
 
@@ -51,11 +51,11 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	public ModelAndView list(@RequestParam final int curriculumId) {
 		ModelAndView modelAndView;
 
-		final ArrayList<EndorserRecord> endorserRecords = new ArrayList<>(this.endorserRecordService.findEndorserRecordByCurriculumId(curriculumId));
+		final ArrayList<EducationRecord> educationRecords = new ArrayList<>(this.educationRecordService.findEducationRecordByCurriculumId(curriculumId));
 
-		modelAndView = new ModelAndView("endorserRecord/list");
-		modelAndView.addObject("endorserRecords", endorserRecords);
-		modelAndView.addObject("requestURI", "/endorserRecord/handyworker/list.do");
+		modelAndView = new ModelAndView("educationRecord/list");
+		modelAndView.addObject("educationRecords", educationRecords);
+		modelAndView.addObject("requestURI", "/educationRecord/handyworker/list.do");
 
 		return modelAndView;
 	}
@@ -68,10 +68,10 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorker.getId());
-		final EndorserRecord endorserRecord = this.endorserRecordService.create(curriculum.getId());
+		final EducationRecord educationRecord = this.educationRecordService.create(curriculum.getId());
 
-		modelAndView = this.createEditModelAndView(endorserRecord);
-		modelAndView.addObject("endorserRecord", endorserRecord);
+		modelAndView = this.createEditModelAndView(educationRecord);
+		modelAndView.addObject("educationRecord", educationRecord);
 
 		return modelAndView;
 	}
@@ -79,30 +79,30 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	//Editing---------------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int endorserRecordId) {
+	public ModelAndView edit(@RequestParam final int educationRecordId) {
 		final ModelAndView modelAndView;
 
-		final EndorserRecord endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
-		Assert.notNull(endorserRecord);
+		final EducationRecord educationRecord = this.educationRecordService.findOne(educationRecordId);
+		Assert.notNull(educationRecord);
 
-		modelAndView = this.createEditModelAndView(endorserRecord);
+		modelAndView = this.createEditModelAndView(educationRecord);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final EndorserRecord endorserRecord, final BindingResult bindingResult) {
+	public ModelAndView save(@Valid final EducationRecord educationRecord, final BindingResult bindingResult) {
 		ModelAndView modelAndView;
 
 		if (bindingResult.hasErrors())
-			modelAndView = this.createEditModelAndView(endorserRecord);
+			modelAndView = this.createEditModelAndView(educationRecord);
 		else
 			try {
-				this.endorserRecordService.save(endorserRecord);
+				this.educationRecordService.save(educationRecord);
 
-				modelAndView = new ModelAndView("redirect:list.do?curriculumId=" + endorserRecord.getCurriculum().getId());
+				modelAndView = new ModelAndView("redirect:list.do?curriculumId=" + educationRecord.getCurriculum().getId());
 			} catch (final Throwable oops) {
-				modelAndView = this.createEditModelAndView(endorserRecord, "endorserRecord.commit.error");
+				modelAndView = this.createEditModelAndView(educationRecord, "educationRecord.commit.error");
 			}
 
 		return modelAndView;
@@ -111,13 +111,13 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	//Delete----------------------------------------------------------------------------
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView ModelAndView(@RequestParam final int endorserRecordId) {
+	public ModelAndView ModelAndView(@RequestParam final int educationRecordId) {
 		ModelAndView modelAndView = null;
 
 		try {
-			final EndorserRecord endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
-			this.endorserRecordService.delete(endorserRecord);
-			modelAndView = new ModelAndView("redirect:list.do?curriculumId=" + endorserRecord.getCurriculum().getId());
+			final EducationRecord educationRecord = this.educationRecordService.findOne(educationRecordId);
+			this.educationRecordService.delete(educationRecord);
+			modelAndView = new ModelAndView("redirect:list.do?curriculumId=" + educationRecord.getCurriculum().getId());
 		} catch (final Throwable oops) {
 		}
 
@@ -126,22 +126,22 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(final EndorserRecord endorserRecord) {
+	protected ModelAndView createEditModelAndView(final EducationRecord educationRecord) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(endorserRecord, null);
+		result = this.createEditModelAndView(educationRecord, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final EndorserRecord endorserRecord, final String message) {
+	protected ModelAndView createEditModelAndView(final EducationRecord educationRecord, final String message) {
 		ModelAndView result;
 
 		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorker.getId());
 
-		result = new ModelAndView("endorserRecord/edit");
-		result.addObject("endorserRecord", endorserRecord);
+		result = new ModelAndView("educationRecord/edit");
+		result.addObject("educationRecord", educationRecord);
 		result.addObject("message", message);
 		result.addObject("curriculumId", curriculum.getId());
 

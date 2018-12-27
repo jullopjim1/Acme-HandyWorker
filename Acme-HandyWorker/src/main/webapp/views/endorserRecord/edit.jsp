@@ -22,6 +22,7 @@
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="curriculum" />
 
 	<form:label path="fullName">
 		<spring:message code="endorserRecord.fullName" />:
@@ -44,18 +45,18 @@
 	<form:errors cssClass="error" path="phone" />
 	<br />
 
-	<form:label path="linkedin">
-		<spring:message code="endorserRecord.linkedin" />:
+	<form:label path="link">
+		<spring:message code="endorserRecord.link" />:
 	</form:label>
-	<form:input path="linkedin" />
-	<form:errors cssClass="error" path="linkedin" />
+	<form:input path="link" />
+	<form:errors cssClass="error" path="link" />
 	<br />
 
-	<form:label path="comment">
+	<form:label path="comments">
 		<spring:message code="endorserRecord.comment" />:
 	</form:label>
-	<form:input path="comment" />
-	<form:errors cssClass="error" path="comment" />
+	<form:input path="comments" />
+	<form:errors cssClass="error" path="comments" />
 	<br />
 
 	<input type="submit" name="save"
@@ -63,7 +64,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="endorserRecord.cancel" />"
-		onclick="javascript: relativeRedir('endorserRecord/handyworker/list.do');" />
+		onclick="javascript: relativeRedir('endorserRecord/handyworker/list.do?curriculumId=${curriculumId}');" />
 	<br />
 
 
