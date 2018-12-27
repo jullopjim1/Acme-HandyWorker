@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
+import domain.Curriculum;
 import domain.EndorserRecord;
+import domain.HandyWorker;
+import security.LoginService;
 import services.CurriculumService;
 import services.EndorserRecordService;
+import services.HandyWorkerService;
 
 @Controller
 @RequestMapping("/endorserRecord/handyworker")
@@ -30,6 +34,9 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private CurriculumService		curriculumService;
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
 
 	//Constructor-----------------------------------------------------------------------
@@ -56,10 +63,12 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	//Creating---------------------------------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int curriculumId) {
+	public ModelAndView create() {
 		final ModelAndView modelAndView;
 
-		final EndorserRecord endorserRecord = this.endorserRecordService.create(curriculumId);
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorker.getId());
+		final EndorserRecord endorserRecord = this.endorserRecordService.create(curriculum.getId());
 
 		modelAndView = this.createEditModelAndView(endorserRecord);
 		modelAndView.addObject("endorserRecord", endorserRecord);
@@ -91,7 +100,7 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 			try {
 				this.endorserRecordService.save(endorserRecord);
 
-				modelAndView = new ModelAndView("redirect:list.do");
+				modelAndView = new ModelAndView("redirect:list.do?curriculumId=" + endorserRecord.getCurriculum().getId());
 			} catch (final Throwable oops) {
 				modelAndView = this.createEditModelAndView(endorserRecord, "endorserRecord.commit.error");
 			}
@@ -106,8 +115,9 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 		ModelAndView modelAndView = null;
 
 		try {
-			this.endorserRecordService.delete(this.endorserRecordService.findOne(endorserRecordId));
-			modelAndView = new ModelAndView("redirect:list.do");
+			final EndorserRecord endorserRecord = this.endorserRecordService.findOne(endorserRecordId);
+			this.endorserRecordService.delete(endorserRecord);
+			modelAndView = new ModelAndView("redirect:list.do?curriculumId=" + endorserRecord.getCurriculum().getId());
 		} catch (final Throwable oops) {
 		}
 
@@ -127,9 +137,13 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final EndorserRecord endorserRecord, final String message) {
 		ModelAndView result;
 
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final Curriculum curriculum = this.curriculumService.findCurriculumHandyWorkerById(handyWorker.getId());
+
 		result = new ModelAndView("endorserRecord/edit");
 		result.addObject("endorserRecord", endorserRecord);
 		result.addObject("message", message);
+		result.addObject("curriculumId", curriculum.getId());
 
 		return result;
 	}
