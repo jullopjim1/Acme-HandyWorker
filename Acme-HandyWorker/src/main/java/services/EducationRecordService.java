@@ -59,7 +59,7 @@ public class EducationRecordService {
 	public EducationRecord save(final EducationRecord educationRecord) {
 		Assert.notNull(educationRecord);
 		this.checkPrincipal(educationRecord);
-		Assert.isTrue(educationRecord.getStartMoment().before(educationRecord.getEndMoment()), "date.commit.error");
+		Assert.isTrue(educationRecord.getStartMoment().before(educationRecord.getEndMoment()), "DateError");
 		final EducationRecord saved = this.educationRecordRepository.save(educationRecord);
 		return saved;
 	}
@@ -77,7 +77,7 @@ public class EducationRecordService {
 
 	public Boolean checkPrincipal(final EducationRecord educationRecord) {
 		final HandyWorker handyWorker = educationRecord.getCurriculum().getHandyWorker();
-		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()), "NotPrincipal");
 		return true;
 	}
 
