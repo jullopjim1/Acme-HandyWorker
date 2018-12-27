@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.PersonalRecord;
 import security.LoginService;
 import services.CurriculumService;
 import services.HandyWorkerService;
 import services.PersonalRecordService;
+import controllers.AbstractController;
+import domain.PersonalRecord;
 
 @Controller
 @RequestMapping("/personalRecord/handyworker")
