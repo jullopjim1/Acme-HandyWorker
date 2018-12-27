@@ -41,6 +41,9 @@
 
 		<bean class="converters.SectionToStringConverter" />
 		<bean class="converters.StringToSectionConverter" />
+		
+		<bean class="converters.TutorialToStringConverter" />
+		<bean class="converters.StringToTutorialConverter" />
 
 	</util:list>
 
