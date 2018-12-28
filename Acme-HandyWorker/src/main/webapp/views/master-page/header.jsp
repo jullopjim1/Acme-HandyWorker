@@ -50,9 +50,6 @@
 		<security:authorize access="hasRole('HANDY')">
 			<li><a href="curriculum/handyworker/list.do"><spring:message
 						code="master.page.handy.curriculum.list" /></a></li>
-						
-			<li><a href="tutorial/handyworker/list.do"><spring:message
-						code="master.page.handy.tutorial.list" /></a></li>
 
 			<li><a class="fNiv"><spring:message
 						code="master.page.finder" /></a>
@@ -74,8 +71,17 @@
 		
 		<security:authorize access="permitAll()">
 			<li><a class="fNiv" href="tutorial/list.do"><spring:message
-						code="master.page.tutorial" /></a></li>
-			
+						code="master.page.tutorial" /></a>
+						
+				<ul>
+					<li class="arrow"></li>
+					<security:authorize access="hasRole('HANDY')">
+					<li><a href="tutorial/handyworker/list.do"><spring:message
+						code="master.page.handy.tutorial.list" /></a></li>
+					</security:authorize>
+				</ul>
+				</li>
+				
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">

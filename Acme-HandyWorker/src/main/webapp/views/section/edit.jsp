@@ -55,6 +55,7 @@
 	<form:input path="position" readonly="${isRead }"/>
 	<form:errors ccsClass="error" path="position" />
 	<br />
+	<br/>
 
 	<jstl:if test="${isRead==false }">
 		<input type="submit" name="save"

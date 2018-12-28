@@ -68,7 +68,11 @@ public class SectionHandyWorkerController extends AbstractController {
 				this.sectionService.save(section);
 				result = new ModelAndView("redirect:/section/list.do?tutorialId=" + section.getTutorial().getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(section, "section.commit.error");
+				if (oops.getMessage().equals("positionerror"))
+					result = this.createEditModelAndView(section, "position.error");
+				else
+					result = this.createEditModelAndView(section, "section.commit.error");
+
 			}
 		return result;
 	}
