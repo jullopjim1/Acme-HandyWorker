@@ -106,6 +106,21 @@ public class TutorialHandyWorkerController extends AbstractController {
 		return result;
 	}
 
+	//DELETE
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Tutorial tutorial, final BindingResult binding) {
+
+		ModelAndView result;
+
+		try {
+			this.tutorialService.delete(tutorial);
+			result = new ModelAndView("redirect:/tutorial/list.do?handyWorkerId=" + tutorial.getHandyWorker().getId());
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
+		}
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final Tutorial tutorial) {
 		ModelAndView result;
 
