@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -86,7 +87,7 @@ public class ComplaintService {
 		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
 		return complaints;
 	}
-	public Object[] queryB4() {
+	public ArrayList<Customer> queryB4() {
 		return this.complaintRepository.queryB4();
 	}
 

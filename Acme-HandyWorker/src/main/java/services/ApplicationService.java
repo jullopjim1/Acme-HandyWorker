@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Application;
+import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import repositories.ApplicationRepository;
@@ -158,11 +160,11 @@ public class ApplicationService {
 		return this.applicationRepository.queryC8();
 	}
 
-	public Object[] queryC10() {
+	public ArrayList<HandyWorker> queryC10() {
 		return this.applicationRepository.queryC10();
 	}
 
-	public Object[] queryC9() {
+	public ArrayList<Customer> queryC9() {
 		return this.applicationRepository.queryC9();
 	}
 

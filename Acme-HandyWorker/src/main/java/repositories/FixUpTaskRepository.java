@@ -1,6 +1,7 @@
 
 package repositories;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import domain.FixUpTask;
+import domain.HandyWorker;
 
 @Repository
 public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
@@ -55,8 +57,8 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 	@Query("select 1.0*(select count(c) from Complaint c where c.fixUpTask.id= f.id)/count(f) from FixUpTask f")
 	public Double queryB3();
 
-	@Query("select a.handyWorker.name from Application a where a.status = 'ACCEPTED' order by (select count(c) from Complaint c)*1.0 desc")
-	public Object[] queryB5();
+	@Query("select a.handyWorker from Application a where a.status = 'ACCEPTED' order by (select count(c) from Complaint c)*1.0 desc")
+	public ArrayList<HandyWorker> queryB5();
 
 	// Other Queries------------------------------------------------------------
 	@Query("select f from FixUpTask f where f.category.id = ?1")

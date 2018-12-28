@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.util.Assert;
 import domain.Actor;
 import domain.Application;
 import domain.FixUpTask;
+import domain.HandyWorker;
 import domain.Phase;
 import domain.Ticker;
 import repositories.FixUpTaskRepository;
@@ -172,7 +174,7 @@ public class FixUpTaskService {
 		return this.fixUpTaskRepository.queryB3();
 	}
 
-	public Object[] queryB5() {
+	public ArrayList<HandyWorker> queryB5() {
 		return this.fixUpTaskRepository.queryB5();
 	}
 
