@@ -58,6 +58,15 @@
 		</a>
 	</display:column>
 
+<security:authorize access="hasRole('HANDY')">
+		<display:column>
+			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
+				<a href="section/handyworker/create.do?tutorialId=${row.id}"> <spring:message
+			code="section.create" />
+	</a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 </display:table>
 <security:authorize access="hasRole('HANDY')">
 	<a href="tutorial/handyworker/create.do"> <spring:message
