@@ -66,9 +66,13 @@ public class SectionHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.sectionService.save(section);
-				result = new ModelAndView("redirect:/section/handyworker/list.do");
+				result = new ModelAndView("redirect:/section/list.do?tutorialId=" + section.getTutorial().getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(section, "section.commit.error");
+				if (oops.getMessage().equals("positionerror"))
+					result = this.createEditModelAndView(section, "position.error");
+				else
+					result = this.createEditModelAndView(section, "section.commit.error");
+
 			}
 		return result;
 	}
@@ -81,7 +85,7 @@ public class SectionHandyWorkerController extends AbstractController {
 
 		try {
 			this.sectionService.delete(section);
-			result = new ModelAndView("redirect:/section/handyworker/list.do");
+			result = new ModelAndView("redirect:/section/list.do?tutorialId=" + section.getTutorial().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(section, "section.commit.error");
 		}
@@ -103,6 +107,7 @@ public class SectionHandyWorkerController extends AbstractController {
 		result.addObject("section", section);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
+		result.addObject("tutorialId", section.getTutorial().getId());
 		result.addObject("requestURI", "section/handyworker/edit.do");
 
 		return result;
