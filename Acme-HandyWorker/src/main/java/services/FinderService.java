@@ -23,6 +23,7 @@ import domain.Actor;
 import domain.Configuration;
 import domain.Finder;
 import domain.FixUpTask;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -38,6 +39,9 @@ public class FinderService {
 	private ConfigurationService	configurationService;
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private HandyWorkerService		handyWorkerService;
 
 
 	//Constructor------------------------------------------------------------------------
@@ -86,15 +90,13 @@ public class FinderService {
 
 		return finder;
 	}
-	public Finder save(final Finder finder) {
+	public Finder save(Finder finder) {
 		this.check(finder);
-		
-		this.searchFixUpTask(f, maxResult)
-		
-				final Date updateFinder = new Date(currentDate.getTime() - this.configurationService.findOne().getFinderCacheTime() * 1000 * 60 * 60);
-		final Date lastUpdate = new Date(currentDate.getTime() - 1000);
-		
-		
+
+		finder.setLastUpdate(this.updateTime());
+
+		finder = this.updateFinder(finder);
+
 		final Finder saved = this.finderRepository.save(this.updateFinder(finder));
 
 		return saved;
@@ -126,6 +128,15 @@ public class FinderService {
 
 		return result;
 	}
+
+	private Date updateTime() {
+		final Date currentDate = new Date();
+		final Date updateFinder = new Date(currentDate.getTime() - this.configurationService.findOne().getFinderCacheTime() * 1000 * 60 * 60);
+		final Date lastUpdate = new Date(updateFinder.getTime() - 1000);
+
+		return lastUpdate;
+	}
+
 	private Finder checkPrincipal(final Finder f) {
 		Finder result;
 
@@ -133,9 +144,6 @@ public class FinderService {
 
 		if (f.getKeyword() == null)
 			f.setKeyword("");
-
-		if (f.getNamecategory() == null)
-			f.setNamecategory("");
 
 		if (f.getNamewarranty() == null)
 			f.setNamewarranty("");
@@ -156,19 +164,24 @@ public class FinderService {
 
 		return result;
 	}
-
 	public Collection<FixUpTask> searchFixUpTask(final Finder f, final int maxResult) {
-		List<FixUpTask> result;
+		List<FixUpTask> result = new ArrayList<>();
 		final String nameCategory = f.getNamecategory();
 		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
+		//		System.out.println("\n\n\n\n===========================\n");
+		//		SchemaPrinter.print(f);
+		//		System.out.println(f.getNamecategory());
+		//		System.out.println("\n===========================\n\n\n\n");
+
 		Page<FixUpTask> p;
-		if (nameCategory == "")
+		if (nameCategory == null || nameCategory.equals(""))
 			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), f.getNamewarranty(), new PageRequest(0, maxResult));
 		else
 			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), langCategory, nameCategory, f.getNamewarranty(), new PageRequest(0, maxResult));
 
-		result = new ArrayList<>(p.getContent());
+		if (p.getContent() != null)
+			result = new ArrayList<>(p.getContent());
 
 		return result;
 	}
@@ -190,4 +203,16 @@ public class FinderService {
 
 	}
 
+	public Finder findFinder() {
+		final UserAccount userAccount = LoginService.getPrincipal();
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(userAccount.getId());
+
+		Finder finder = this.findFinderByHandyWorkerId(handyWorker.getId());
+
+		if (finder == null)
+			finder = this.create();
+
+		return finder;
+
+	}
 }

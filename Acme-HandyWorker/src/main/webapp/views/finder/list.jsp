@@ -29,19 +29,28 @@
 	pagesize="5" class="displaytag">
 
 	<display:column property="ticker" titleKey="finder.fix.ticker" />
-
-
-	<display:column property="moment" titleKey="finder.fix.moment" />
-
-
+	
 	<display:column property="description"
 		titleKey="finder.fix.description" />
-
-
+	
 	<display:column property="adress" titleKey="finder.fix.adress" />
 
 	<display:column property="maxPrice" titleKey="finder.fix.maxPrice" />
+	
+	<display:column property="moment" titleKey="finder.fix.moment" />
+	
 	<display:column property="deadline" titleKey="finder.fix.deadline" />
+
+	<display:column titleKey="finder.fix.category" >
+		<jstl:forEach var="entry" items="${row.category.name}">	
+  				<jstl:if test="${lang==entry.key}">
+  					<jstl:out value="${entry.value}" />
+  				</jstl:if>
+		</jstl:forEach>
+	</display:column>
+	
+	<display:column property="warranty.title" titleKey="finder.fix.warranty" />
+	
 
 <%-- 	<display:column>
 		<a href="fixUpTasks/handyworker/show.do?fixUpTaskId=${row.id}"> <spring:message

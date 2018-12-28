@@ -23,17 +23,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import security.UserAccount;
 import services.CategoryService;
 import services.FinderService;
 import services.HandyWorkerService;
 import services.WarrantyService;
-import utilities.internal.SchemaPrinter;
 import domain.Category;
 import domain.Finder;
 import domain.FixUpTask;
-import domain.HandyWorker;
 import domain.Warranty;
 
 @Controller
@@ -65,7 +61,7 @@ public class FinderController extends AbstractController {
 	public ModelAndView updateFinder() {
 		ModelAndView result;
 
-		final Finder finder = this.findFinder();
+		final Finder finder = this.finderService.findFinder();
 		Collection<Category> categories;
 		//TODO Arreglar categoryTreeToPlain
 		//categories = this.categoryService.categoryTreeToPlain();
@@ -89,9 +85,6 @@ public class FinderController extends AbstractController {
 	public ModelAndView updateFinder(@Valid final Finder finder, final BindingResult binding) {
 		ModelAndView result;
 
-		System.out.println("\n\n\n\n=======\n\n\n");
-		SchemaPrinter.print(finder);
-		System.out.println("\n\n\n=======\n\n\n\n");
 		if (!binding.hasErrors()) {
 
 			this.finderService.save(finder);
@@ -112,28 +105,18 @@ public class FinderController extends AbstractController {
 	@RequestMapping("/listFixUpTasks")
 	public ModelAndView listFixUpTasks() {
 		ModelAndView result;
-		Finder finder = this.findFinder();
+		Finder finder = this.finderService.findFinder();
 		//Comprobar fecha ultima actualización
 		finder = this.finderService.updateFinder(finder);
 		//Obtener resultados fixuptasks de finder
 		final Collection<FixUpTask> fixUpTasks = finder.getFixUpTasks();
+		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
 		result = new ModelAndView("finder/handy/listFixUpTasks");
 		result.addObject("fixUpTasks", fixUpTasks);
-
+		result.addObject("lang", lang);
+		result.addObject("requestURI","finder/handy/listFixUpTasks");
 		return result;
 	}
 
-	private Finder findFinder() {
-		final UserAccount userAccount = LoginService.getPrincipal();
-		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(userAccount.getId());
-
-		Finder finder = this.finderService.findFinderByHandyWorkerId(handyWorker.getId());
-
-		if (finder == null)
-			finder = this.finderService.create();
-
-		return finder;
-
-	}
 }

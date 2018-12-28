@@ -73,18 +73,6 @@
 		<form:options items="${categories}"  />
 	</form:select>
 
-<%-- 	<p>
-		<jstl:forEach var="myMap" items="${categories}">
-			<p>
-			<jstl:forEach var="entry" items="${myMap.name}">	
-  				<jstl:if test="${lang==entry.key}">
-  					<jstl:out value="${entry.value}" />
-  				</jstl:if>
-			</jstl:forEach>
-			</p>
-		</jstl:forEach>
-	</p> --%>
-
 	<form:label path="namewarranty">
 		<spring:message code="finder.namewarranty" />
 	</form:label>
