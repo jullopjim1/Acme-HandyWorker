@@ -45,14 +45,18 @@
 
 
 </display:table>
-<br/>
-<input type="button" name="cancel"
-	value="<spring:message code="section.back" />"
-	onclick="javascript: relativeRedir('tutorial/list.do');" />
+<br />
 
 <security:authorize access="hasRole('HANDY')">
 	<a href="section/handyworker/create.do"> <spring:message
 			code="section.create" />
 	</a>
 </security:authorize>
+<br />
+<br/>
+<input type="button" name="cancel"
+	value="<spring:message code="section.back" />"
+	onclick="javascript: relativeRedir('tutorial/list.do');" />
+
+
 

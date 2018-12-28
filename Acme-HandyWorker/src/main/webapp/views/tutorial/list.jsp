@@ -27,9 +27,11 @@
 
 	<security:authorize access="hasRole('HANDY')">
 		<display:column>
+			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
 				<a href="tutorial/handyworker/edit.do?tutorialId=${row.id}"> <spring:message
 						code="tutorial.edit" />
 				</a>
+			</jstl:if>
 		</display:column>
 	</security:authorize>
 
@@ -62,9 +64,10 @@
 			code="tutorial.create" />
 	</a>
 </security:authorize>
+<br />
 
-
-	<input type="button" name="home"
-		value="<spring:message code="tutorial.home" />"
-		onclick="javascript: relativeRedir('welcome/index.do');" />
+<br />
+<input type="button" name="home"
+	value="<spring:message code="tutorial.back" />"
+	onclick="javascript: relativeRedir('welcome/index.do');" />
 

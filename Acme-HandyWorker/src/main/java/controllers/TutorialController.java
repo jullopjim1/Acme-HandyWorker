@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.HandyWorkerService;
 import services.SponsorshipService;
 import services.TutorialService;
+import domain.HandyWorker;
 import domain.Sponsorship;
 import domain.Tutorial;
 
@@ -27,6 +30,9 @@ public class TutorialController extends AbstractController {
 	@Autowired
 	private SponsorshipService	sponsorshipService;
 
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
 
 	//Constructor---------------------------------------------------------
 
@@ -38,12 +44,14 @@ public class TutorialController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Tutorial> tutorials;
-
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final int b = a.getId();
 		tutorials = this.tutorialService.findAll();
 
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
 		result.addObject("requestURI", "tutorial/list.do");
+		result.addObject("handyWorkerId", b);
 
 		return result;
 	}

@@ -50,7 +50,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
 		result.addObject("requestURI", "tutorial/handyworker/list.do");
-
+		result.addObject("handyWorkerId", a.getId());
 		return result;
 	}
 }
