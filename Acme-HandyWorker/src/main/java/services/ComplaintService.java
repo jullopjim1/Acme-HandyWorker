@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Ticker;
-import repositories.ComplaintRepository;
 
 @Service
 @Transactional
@@ -72,8 +72,8 @@ public class ComplaintService {
 	public Complaint save(final Complaint complaint) {
 		Assert.notNull(complaint);
 		final Complaint saved = this.complaintRepository.save(complaint);
-		saved.setIsFinal(true);
-		Assert.isTrue(saved.getIsFinal().equals(true));
+		//		saved.setIsFinal(true);
+		//		Assert.isTrue(saved.getIsFinal().equals(true));
 		return saved;
 	}
 
