@@ -12,6 +12,7 @@ package controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.CurriculumService;
+import services.ConfigurationService;
 
 @Controller
 @RequestMapping("/welcome")
@@ -27,7 +28,7 @@ public class WelcomeController extends AbstractController {
 
 	//Services-----------------------------------------------------------------
 	@Autowired
-	private CurriculumService curriculumService;
+	private ConfigurationService configurationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -44,12 +45,16 @@ public class WelcomeController extends AbstractController {
 		SimpleDateFormat formatter;
 		String moment;
 
+		final Map<String, String> welcomeMessages = this.configurationService.findOne().getWelcomeMessage();
+		final String welcomeMessage = this.configurationService.internacionalizcion(welcomeMessages);
+
 		formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		moment = formatter.format(new Date());
 
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("moment", moment);
+		result.addObject("welomeMessage", welcomeMessage);
 
 		return result;
 	}

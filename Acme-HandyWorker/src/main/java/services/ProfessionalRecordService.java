@@ -58,6 +58,7 @@ public class ProfessionalRecordService {
 	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		this.checkPrincipal(professionalRecord);
+		Assert.isTrue(professionalRecord.getStartMoment().before(professionalRecord.getEndMoment()), "DateError");
 		final ProfessionalRecord saved = this.professionalRecordRepository.save(professionalRecord);
 		return saved;
 	}
@@ -75,7 +76,7 @@ public class ProfessionalRecordService {
 
 	public Boolean checkPrincipal(final ProfessionalRecord professionalRecord) {
 		final HandyWorker handyWorker = professionalRecord.getCurriculum().getHandyWorker();
-		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()));
+		Assert.isTrue(handyWorker.getUserAccount().equals(LoginService.getPrincipal()), "NotPrincipal");
 		return true;
 	}
 

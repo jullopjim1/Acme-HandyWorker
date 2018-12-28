@@ -40,13 +40,10 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		System.out.println("========== testCreate() ==========");
 
 		this.authenticate("handyWorker1");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 
 		try {
-			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
-			Assert.notNull(curriculum);
 
-			final PersonalRecord personalRecord = this.personalRecordService.create(curriculum.getId());
+			final PersonalRecord personalRecord = this.personalRecordService.create();
 			personalRecord.setLink("http://prueba.com");
 			Assert.notNull(personalRecord);
 
@@ -119,15 +116,10 @@ public class PersonalRecordServiceTest extends AbstractTest {
 		System.out.println("========== testSave() ==========");
 
 		this.authenticate("handyWorker1");
-		final int handyWorkerId = this.getEntityId("handyWorker1");
 
 		try {
-			final Curriculum curriculum = this.curriculumService.create(handyWorkerId);
-			Assert.notNull(curriculum.getHandyWorker());
-			Assert.notNull(curriculum.getTicker());
-			final Curriculum saved = this.curriculumService.save(curriculum);
 
-			final PersonalRecord personalRecord = this.personalRecordService.create(saved.getId());
+			final PersonalRecord personalRecord = this.personalRecordService.create();
 			personalRecord.setLink("http://jajajajajja.com");
 			Assert.notNull(personalRecord);
 

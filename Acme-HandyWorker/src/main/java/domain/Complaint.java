@@ -5,9 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -25,20 +25,11 @@ public class Complaint extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
-	private Date moment;
-	private String description;
-	private String attachments;
+	private Date	moment;
+	private String	description;
+	private String	attachments;
+	private Boolean	isFinal;
 
-	@NotBlank
-	@Column(unique = true)
-	public String getTicker() {
-		return this.ticker;
-	}
-
-	public void setTicker(final String ticker) {
-		this.ticker = ticker;
-	}
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -71,9 +62,21 @@ public class Complaint extends DomainEntity {
 		this.attachments = attachments;
 	}
 
+	@Valid
+	public Boolean getIsFinal() {
+		return this.isFinal;
+	}
+
+	public void setIsFinal(final boolean isFinal) {
+		this.isFinal = isFinal;
+	}
+
+
 	// Relationships ---------------------------------------------------------
-	private Customer customer;
-	private FixUpTask fixUpTask;
+	private Customer	customer;
+	private FixUpTask	fixUpTask;
+	private Ticker		ticker;
+
 
 	@NotNull
 	@Valid
@@ -90,11 +93,21 @@ public class Complaint extends DomainEntity {
 	@NotNull
 	@ManyToOne(optional = false)
 	public FixUpTask getFixUpTask() {
-		return fixUpTask;
+		return this.fixUpTask;
 	}
 
-	public void setFixUpTask(FixUpTask fixUpTask) {
+	public void setFixUpTask(final FixUpTask fixUpTask) {
 		this.fixUpTask = fixUpTask;
 	}
 
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public Ticker getTicker() {
+		return this.ticker;
+	}
+
+	public void setTicker(final Ticker ticker) {
+		this.ticker = ticker;
+	}
 }

@@ -34,8 +34,10 @@
 
 	<display:column property="ticker" titleKey="complaint.ticker" />
 	<display:column property="moment" titleKey="complaint.moment" />
+	<display:column property="description" titleKey="complaint.description" />
+	<display:column property="attachments" titleKey="complaint.attachments" />
 
-	<display:column titleKey="compliant.notes">
+	<display:column titleKey="complaint.notes">
 		<a href="note/list.do?complaintId=${complaint.id}"> <spring:message
 				code="complaint.show" />
 		</a>

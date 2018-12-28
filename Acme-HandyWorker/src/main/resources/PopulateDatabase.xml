@@ -530,22 +530,65 @@
 		<property name="userAccount" ref="userAccount26" />
 	</bean>
 
+	<!-- TICKER -->
+
+	<bean id="ticker1" class="domain.Ticker">
+		<property name="ticker" value="111111-AA01AA" />
+	</bean>
+
+	<bean id="ticker2" class="domain.Ticker">
+		<property name="ticker" value="111111-AA02AA" />
+	</bean>
+	<bean id="ticker3" class="domain.Ticker">
+		<property name="ticker" value="111111-AA03AA" />
+	</bean>
+	<bean id="ticker4" class="domain.Ticker">
+		<property name="ticker" value="111111-AA04AA" />
+	</bean>
+	<bean id="ticker5" class="domain.Ticker">
+		<property name="ticker" value="111111-AA05AA" />
+	</bean>
+	<bean id="ticker6" class="domain.Ticker">
+		<property name="ticker" value="111111-AA06AA" />
+	</bean>
+	<bean id="ticker7" class="domain.Ticker">
+		<property name="ticker" value="111111-AA07AA" />
+	</bean>
+	<bean id="ticker8" class="domain.Ticker">
+		<property name="ticker" value="111111-AA08AA" />
+	</bean>
+	<bean id="ticker9" class="domain.Ticker">
+		<property name="ticker" value="111111-AA09AA" />
+	</bean>
+
+	<bean id="ticker10" class="domain.Ticker">
+		<property name="ticker" value="111111-AA10AA" />
+	</bean>
+
+	<bean id="ticker11" class="domain.Ticker">
+		<property name="ticker" value="111111-AA11AA" />
+	</bean>
+
+	<bean id="ticker12" class="domain.Ticker">
+		<property name="ticker" value="111111-AA12AA" />
+	</bean>
+
 
 	<!-- CURRICULUM -->
 
 
 	<bean id="curriculum2" class="domain.Curriculum">
-		<property name="ticker" value="041112-AA99AA" />
+		<property name="ticker" ref="ticker1" />
 		<property name="handyWorker" ref="handyWorker2" />
 	</bean>
 
 	<bean id="curriculum3" class="domain.Curriculum">
-		<property name="ticker" value="041113-AA99AA" />
+		<property name="ticker" ref="ticker2" />
 		<property name="handyWorker" ref="handyWorker3" />
 	</bean>
 
 	<bean id="curriculum4" class="domain.Curriculum">
-		<property name="ticker" value="041114-AA99AA" />
+		<property name="ticker" ref="ticker3" />
 		<property name="handyWorker" ref="handyWorker4" />
 	</bean>
 
@@ -834,6 +877,7 @@
 		<property name="mandatoryCommentReferee" value="" />
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="isFinal" value="true" />
 		<property name="report" ref="report1" />
 	</bean>
 
@@ -843,6 +887,7 @@
 		<property name="mandatoryCommentReferee" value="mandatory2" />
 		<property name="mandatoryCommentCustomer" value="" />
 		<property name="mandatoryCommentHandyWorker" value="" />
+		<property name="isFinal" value="true" />
 		<property name="report" ref="report2" />
 	</bean>
 
@@ -851,6 +896,7 @@
 		<property name="mandatoryCommentReferee" value="mandatory3" />
 		<property name="mandatoryCommentCustomer" value="mandatory3" />
 		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
+		<property name="isFinal" value="true" />
 		<property name="report" ref="report3" />
 	</bean>
 
@@ -1025,48 +1071,53 @@
 
 	<!-- COMPLAINT -->
 	<bean id="complaint1" class="domain.Complaint">
-		<property name="ticker" value="ticker1" />
+		<property name="ticker" ref="ticker4" />
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments1.com" />
 		<property name="customer" ref="customer1" />
 		<property name="fixUpTask" ref="fixuptask1" />
+		<property name="isFinal" value="true" />
 	</bean>
 
 	<bean id="complaint2" class="domain.Complaint">
-		<property name="ticker" value="ticker3" />
+		<property name="ticker" ref="ticker5" />
 		<property name="moment" value="2014/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments2.com" />
 		<property name="customer" ref="customer2" />
 		<property name="fixUpTask" ref="fixuptask2" />
+		<property name="isFinal" value="false" />
 	</bean>
 
 	<bean id="complaint3" class="domain.Complaint">
-		<property name="ticker" value="ticker2" />
+		<property name="ticker" ref="ticker6" />
 		<property name="moment" value="2015/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 		<property name="fixUpTask" ref="fixuptask3" />
+		<property name="isFinal" value="true" />
 	</bean>
 
 	<bean id="complaint4" class="domain.Complaint">
-		<property name="ticker" value="ticker4" />
+		<property name="ticker" ref="ticker7" />
 		<property name="moment" value="2015/01/10 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 		<property name="fixUpTask" ref="fixuptask1" />
+		<property name="isFinal" value="false" />
 	</bean>
 
 	<bean id="complaint5" class="domain.Complaint">
-		<property name="ticker" value="ticker5" />
+		<property name="ticker" ref="ticker8" />
 		<property name="moment" value="2015/01/15 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="customer" ref="customer3" />
 		<property name="fixUpTask" ref="fixuptask2" />
+		<property name="isFinal" value="true" />
 	</bean>
 
 	<!-- WARRANTY -->
@@ -1185,7 +1236,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 				<ref bean="category6" />
 			</list>
@@ -1210,7 +1261,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
@@ -1234,7 +1285,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
@@ -1258,9 +1309,9 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
-				
+
 			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
@@ -1283,7 +1334,7 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
@@ -1307,13 +1358,13 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
 		<property name="rootcategory" ref="category1" />
 	</bean>
-	
+
 	<bean id="category7" class="domain.Category">
 		<property name="name">
 			<map>
@@ -1339,8 +1390,8 @@
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
-	
-		<bean id="category8" class="domain.Category">
+
+	<bean id="category8" class="domain.Category">
 		<property name="name">
 			<map>
 				<entry>
@@ -1357,15 +1408,15 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 				<ref bean="category10" />
 			</list>
 		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
-			<bean id="category10" class="domain.Category">
-	<property name="name">
+	<bean id="category10" class="domain.Category">
+		<property name="name">
 			<map>
 				<entry>
 					<key>
@@ -1381,14 +1432,14 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
 		<property name="rootcategory" ref="category8" />
 	</bean>
-	
-	
+
+
 	<bean id="category9" class="domain.Category">
 		<property name="name">
 			<map>
@@ -1406,20 +1457,20 @@
 				</entry>
 			</map>
 		</property>
-				<property name="subcategories">
+		<property name="subcategories">
 			<list>
 			</list>
 		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
-	
-	
-	
-	
+
+
+
+
 
 	<!-- FIX UP TASK -->
 	<bean id="fixuptask1" class="domain.FixUpTask">
-		<property name="ticker" value="180921-12ABC3" />
+		<property name="ticker" ref="ticker9" />
 		<property name="moment" value="2018/09/21 11:12" />
 		<property name="description" value="description1" />
 		<property name="adress" value="adress1" />
@@ -1431,7 +1482,7 @@
 	</bean>
 
 	<bean id="fixuptask2" class="domain.FixUpTask">
-		<property name="ticker" value="181022-25874J" />
+		<property name="ticker" ref="ticker10" />
 		<property name="moment" value="2018/10/22 12:13" />
 		<property name="description" value="description2" />
 		<property name="adress" value="adress2" />
@@ -1443,7 +1494,7 @@
 	</bean>
 
 	<bean id="fixuptask3" class="domain.FixUpTask">
-		<property name="ticker" value="180901-25GH4S" />
+		<property name="ticker" ref="ticker11" />
 		<property name="moment" value="2018/09/01 09:15" />
 		<property name="description" value="description3" />
 		<property name="adress" value="adress3" />
@@ -1455,7 +1506,7 @@
 	</bean>
 
 	<bean id="fixuptask4" class="domain.FixUpTask">
-		<property name="ticker" value="180805-254GHS" />
+		<property name="ticker" ref="ticker12" />
 		<property name="moment" value="2018/08/05 09:45" />
 		<property name="description" value="description4" />
 		<property name="adress" value="adress4" />

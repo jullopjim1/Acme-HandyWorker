@@ -25,15 +25,8 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->
 		<security:authorize access="hasRole('ADMIN')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.administrator" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="administrator/action-1.do"><spring:message
-								code="master.page.administrator.action.1" /></a></li>
-					<li><a href="administrator/action-2.do"><spring:message
-								code="master.page.administrator.action.2" /></a></li>
-				</ul></li>
+			<li><a href="dashboard/administrator/dashboard.do"><spring:message
+						code="master.page.administrator.dashboard" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
@@ -50,8 +43,11 @@
 		<security:authorize access="hasRole('HANDY')">
 			<li><a href="curriculum/handyworker/list.do"><spring:message
 						code="master.page.handy.curriculum.list" /></a></li>
-			<li><a href="finder/handy/listFixUpTasks.do"><spring:message
-						code="master.page.finder.result" /></a></li>
+
+
+			<li><a href="tutorial/handyworker/list.do"><spring:message
+						code="master.page.handy.tutorial.list" /></a></li>
+
 
 			<li><a class="fNiv"><spring:message
 						code="master.page.finder" /></a>
@@ -59,6 +55,8 @@
 					<li class="arrow"></li>
 					<li><a href="finder/handy/update.do"><spring:message
 								code="master.page.finder.update" /></a></li>
+					<li><a href="finder/handy/listFixUpTasks.do"><spring:message
+								code="master.page.finder.result" /></a></li>
 
 				</ul></li>
 		</security:authorize>
@@ -66,9 +64,26 @@
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
+
+		</security:authorize>
+
+		<security:authorize access="permitAll()">
+			<li><a class="fNiv" href="tutorial/list.do"><spring:message
+						code="master.page.tutorial" /></a></li>
+			<ul>
+				<li class="arrow"></li>
+				<security:authorize access="hasRole('HANDY')">
+					<li><a href="tutorial/handyworker/list.do"><spring:message
+								code="master.page.handy.tutorial.list" /></a></li>
+				</security:authorize>
+			</ul>
+
+
+
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
+
 			<li><a class="fNiv"> <spring:message
 						code="master.page.profile" /> (<security:authentication
 						property="principal.username" />)

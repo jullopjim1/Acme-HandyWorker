@@ -1,5 +1,7 @@
+
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -10,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ApplicationRepository;
-import security.LoginService;
 import domain.Actor;
 import domain.Application;
+import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
+import repositories.ApplicationRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -23,17 +26,18 @@ public class ApplicationService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private ApplicationRepository applicationRepository;
+	private ApplicationRepository	applicationRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private HandyWorkerService handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
+
 
 	// Constructor----------------------------------------------
 	public ApplicationService() {
@@ -42,9 +46,9 @@ public class ApplicationService {
 
 	// Simple CRUD----------------------------------------------
 
-	public Application create(int fixUpTaskId) {
-		FixUpTask fixUpTask = fixUpTaskService.findOne(fixUpTaskId);
-		HandyWorker handyWorker = handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+	public Application create(final int fixUpTaskId) {
+		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final Application application = new Application();
 		application.setMoment(new Date(System.currentTimeMillis() - 1000));
 		application.setStatus("PENDING");
@@ -66,33 +70,28 @@ public class ApplicationService {
 		Assert.notNull(application, "APPLICATION A CREAR/EDITAR NO PUEDE SER NULL");
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
 		if (actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER")) {
-			boolean restriccion = (application.getId() != 0)
-					&& (application.getFixUpTask().getCustomer().getId() == (actorActual.getId()));
-			boolean restriccion2 = (application.getFixUpTask().getCustomer().getId() == actorActual.getId());
+			final boolean restriccion = (application.getId() != 0) && (application.getFixUpTask().getCustomer().getId() == (actorActual.getId()));
+			final boolean restriccion2 = (application.getFixUpTask().getCustomer().getId() == actorActual.getId());
 			Assert.isTrue(restriccion, "CUSTOMER NO PUEDE CREAR APPLICATION");
 			Assert.isTrue(restriccion2, "CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
 		} else if (actorActual.getUserAccount().getAuthorities().toString().contains("HANDY")) {
-			boolean restriccion = (application.getId() == 0)
-					&& (application.getHandyWorker().getId() == (actorActual.getId()));
+			final boolean restriccion = (application.getId() == 0) && (application.getHandyWorker().getId() == (actorActual.getId()));
 			Assert.isTrue(restriccion, "HANDY NO PUEDE MODIFICAR APPLICATION");
-		} else {
+		} else
 			Assert.notNull(null, "PARA CREAR APPLICATION -> HANDY, PARA MODIFICAR APPLICATION -> CUSTOMER");
-		}
 
 		// TARJETA DE CREDITO NECESARIA SI STATUS = ACCPETED
-		if (application.getStatus() == "ACCEPTED") {
+		if (application.getStatus() == "ACCEPTED")
 			Assert.isTrue(application.getCreditCard() != null, "SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
-		}
 
 		// SOLO CAMBIAR FECHA SI ES NUEVO
-		if (application.getId() == 0) {
+		if (application.getId() == 0)
 			application.setMoment(new Date(System.currentTimeMillis() - 1000));
-		}
 		// GUARDO APPLICATION
 		final Application saved = this.applicationRepository.save(application);
 		return saved;
@@ -102,13 +101,12 @@ public class ApplicationService {
 		Assert.notNull(application, "APPLICATION A BORRAR NO PUEDE SER NULL");
 
 		// COJO ACTOR ACTUAL
-		Actor actorActual = actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN")) {
+		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
 			Assert.notNull(null, "SOLO ADMIN PUEDE BORRAR APPLICATION");
-		}
 
 		// BORRO APPLICATION
 		this.applicationRepository.delete(application);
@@ -117,13 +115,57 @@ public class ApplicationService {
 
 	// Other Methods--------------------------------------------
 
-	Collection<Application> findApplicationsByCreditCardId(int creditCardId) {
-		Collection<Application> applications = applicationRepository.findApplicationsByCreditCardId(creditCardId);
+	Collection<Application> findApplicationsByCreditCardId(final int creditCardId) {
+		final Collection<Application> applications = this.applicationRepository.findApplicationsByCreditCardId(creditCardId);
 		return applications;
 	}
 
-	public Collection<Application> findApplicationsByFixUpTeaskId(int fixUpTaskId) {
-		return applicationRepository.findApplicationsByFixUpTeaskId(fixUpTaskId);
+	public Collection<Application> findApplicationsByFixUpTeaskId(final int fixUpTaskId) {
+		return this.applicationRepository.findApplicationsByFixUpTeaskId(fixUpTaskId);
+	}
+
+	public Double queryC2AVG() {
+		return this.applicationRepository.queryC2AVG();
+	}
+
+	public Double queryC2MAX() {
+		return this.applicationRepository.queryC2MAX();
+	}
+
+	public Double queryC2MIN() {
+		return this.applicationRepository.queryC2MIN();
+	}
+
+	public Double queryC2STDDEV() {
+		return this.applicationRepository.queryC2STDDEV();
+	}
+
+	public Object[] queryC4() {
+		return this.applicationRepository.queryC4();
+	}
+
+	public Double queryC5() {
+		return this.applicationRepository.queryC5();
+	}
+
+	public Double queryC6() {
+		return this.applicationRepository.queryC6();
+	}
+
+	public Double queryC7() {
+		return this.applicationRepository.queryC7();
+	}
+
+	public Double queryC8() {
+		return this.applicationRepository.queryC8();
+	}
+
+	public ArrayList<HandyWorker> queryC10() {
+		return this.applicationRepository.queryC10();
+	}
+
+	public ArrayList<Customer> queryC9() {
+		return this.applicationRepository.queryC9();
 	}
 
 }

@@ -21,7 +21,7 @@
 		<put-attribute name="body" value="/views/section/list.jsp" />
 	</definition>
 	
-		<definition name="section/list" extends="master.page">	
+		<definition name="section/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit Section" />
 		<put-attribute name="body" value="/views/section/edit.jsp" />
 	</definition>

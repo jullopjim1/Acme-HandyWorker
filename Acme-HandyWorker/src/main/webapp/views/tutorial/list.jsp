@@ -36,7 +36,7 @@
 	</security:authorize>
 
 	<display:column titleKey="tutorial.details">
-		<a href="tutorail/show.do?tutorialId=${row.id}"> <spring:message
+		<a href="tutorial/show.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.show" />
 		</a>
 	</display:column>
@@ -46,8 +46,8 @@
 		<img src="${row.sponsorship.banner}" />
 	</display:column>
 
-	<display:column title="tutorial.section">
-		<a href="tutorial/handyworker/view.do?tutorialId=${row.id}"> <spring:message
+	<display:column titleKey="tutorial.section">
+		<a href="section/list.do?tutorialId=${row.id}"> <spring:message
 				code="tutorial.view" />
 		</a>
 	</display:column>
@@ -58,15 +58,25 @@
 		</a>
 	</display:column>
 
+<security:authorize access="hasRole('HANDY')">
+		<display:column>
+			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
+				<a href="section/handyworker/create.do?tutorialId=${row.id}"> <spring:message
+			code="section.create" />
+	</a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 </display:table>
 <security:authorize access="hasRole('HANDY')">
 	<a href="tutorial/handyworker/create.do"> <spring:message
 			code="tutorial.create" />
 	</a>
 </security:authorize>
+<br />
 
-<security:authorize access="isAnonymous()">
-	<input type="button" name="home"
-		value="<spring:message code="tutorial.home" />"
-		onclick="javascript: relativeRedir('welcome/index.do');" />
-</security:authorize>
+<br />
+<input type="button" name="home"
+	value="<spring:message code="tutorial.back" />"
+	onclick="javascript: relativeRedir('welcome/index.do');" />
+

@@ -3,38 +3,21 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
 public class Curriculum extends DomainEntity {
 
 	//Atributtes------------------------------------------------------------------------------
-	private String ticker;
-
-
-	@NotBlank
-	@Column(unique = true)
-	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
-	public String getTicker() {
-		return this.ticker;
-	}
-
-	public void setTicker(final String ticker) {
-		this.ticker = ticker;
-	}
-
 
 	// Relationships ---------------------------------------------------------
 
-	private HandyWorker handyWorker;
+	private HandyWorker	handyWorker;
+	private Ticker		ticker;
 
 
 	@NotNull
@@ -48,4 +31,14 @@ public class Curriculum extends DomainEntity {
 		this.handyWorker = handyWorker;
 	}
 
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public Ticker getTicker() {
+		return this.ticker;
+	}
+
+	public void setTicker(final Ticker ticker) {
+		this.ticker = ticker;
+	}
 }

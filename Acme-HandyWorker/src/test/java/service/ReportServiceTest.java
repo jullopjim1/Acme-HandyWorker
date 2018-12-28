@@ -38,7 +38,7 @@ public class ReportServiceTest extends AbstractTest {
 		final int refereeId = this.getEntityId("referee1");
 		try {
 			final Report report = this.reportService.create(complaintId, refereeId);
-			report.setDescription("JIJIJIJI");
+			report.setDescription("Una descripcion potente aquí");
 			report.setAttachments("http://www.attachments1.com");
 			Assert.notNull(report);
 			System.out.println("¡Exito!");

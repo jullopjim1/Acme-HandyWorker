@@ -37,9 +37,9 @@ public class WarrantyServiceTest extends AbstractTest {
 		try {
 			final Warranty warranty = this.warrantyService.create();
 
-			warranty.setTitle("Garantia de tu puta madre");
-			warranty.setTerms("Esto no vale para una mierda jaja salu2");
-			warranty.setLaws("Chupala perro");
+			warranty.setTitle("Garantia de Alola");
+			warranty.setTerms("Esto contrato está en garantía");
+			warranty.setLaws("Not yet");
 			Assert.notNull(warranty);
 			System.out.println("¡Exito!");
 

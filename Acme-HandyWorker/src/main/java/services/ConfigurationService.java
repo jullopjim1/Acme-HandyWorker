@@ -13,8 +13,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ConfigurationRepository;
 import domain.Configuration;
+import repositories.ConfigurationRepository;
 
 @Service
 @Transactional
@@ -23,10 +23,10 @@ public class ConfigurationService {
 	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private ConfigurationRepository	configurationRepository;
-
+	private ConfigurationRepository configurationRepository;
 
 	// Services---------------------------------------------------------------------------
+
 
 	// Constructor------------------------------------------------------------------------
 
@@ -100,7 +100,7 @@ public class ConfigurationService {
 	public String internacionalizcion(final Map<String, String> words) {
 
 		final String laungage = LocaleContextHolder.getLocale().getLanguage();
-		final String res = words.get(laungage);
+		final String res = words.get(laungage.toUpperCase());
 
 		return res;
 	}

@@ -22,30 +22,36 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="sections" id="row" requestURI="${requestURI}"
+<display:table name="notes" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	
-	<display:column>
-	<a href="section/handyworker/edit.do?sectionId=${row.id}"> <spring:message
-						code="section.edit" />
+	<security:authorize access="hasRole('HANDY||REFEREE||CUSTOMER')">
+		<display:column>
+			<jstl:if test="${row.isFinal==false}">
+				<a href="note/edit.do?noteId=${row.id}"> <spring:message
+						code="note.edit" />
 				</a>
-	</display:column>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
+	<display:column property="moment" titleKey="note.moment" />
 
-	<display:column property="title" titleKey="section.title" />
+	<display:column property="mandatoryCommentReferee" titleKey="note.commentReferee" />
 
 
-	<display:column property="text" titleKey="section.text" />
+	<display:column property="mandatoryCommentCustomer" titleKey="note.commentCustomer" />
 
 
-	<display:column property="pictures" titleKey="section.pictures" />
+	<display:column property="mandatoryCommentHandyWorker" titleKey="note.commentHandyworker" />
 
-	<display:column property="position" titleKey="section.position"
-		sortable="true" />
+	
 
 
 </display:table>
-
-<a href="section/handyworker/create.do"> <spring:message
-		code="section.create" />
+<security:authorize access="hasRole('REFEREE')">
+<a href="note/create.do"> <spring:message
+		code="note.create" />
 </a>
+</security:authorize>
 

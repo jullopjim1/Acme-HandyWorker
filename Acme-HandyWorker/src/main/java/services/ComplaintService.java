@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,7 @@ import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
+import domain.Ticker;
 
 @Service
 @Transactional
@@ -22,17 +24,19 @@ public class ComplaintService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private ComplaintRepository complaintRepository;
+	private ComplaintRepository	complaintRepository;
 
 	// Services-------------------------------------------------
-	@Autowired
-	private CurriculumService curriculumService;
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private TickerService		tickerService;
+
 
 	// Constructor----------------------------------------------
 	public ComplaintService() {
@@ -40,15 +44,20 @@ public class ComplaintService {
 	}
 	// Simple CRUD----------------------------------------------
 
-	public Complaint create(final int customerId, int fixUpTaskId) {
+	public Complaint create(final int customerId, final int fixUpTaskId) {
 		final Complaint complaint = new Complaint();
 		final Customer customer = this.customerService.findOne(customerId);
-		FixUpTask fixUpTask = fixUpTaskService.findOne(fixUpTaskId);
+		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+
+		//Ticker Unico
+		final Ticker ticker = this.tickerService.isUniqueTicker();
+		final Ticker saved = this.tickerService.save(ticker);
 
 		complaint.setFixUpTask(fixUpTask);
 		complaint.setCustomer(customer);
-		complaint.setTicker(this.curriculumService.generateTicker());
+		complaint.setTicker(saved);
 		complaint.setMoment(new Date(System.currentTimeMillis() - 1000));
+		complaint.setIsFinal(false);
 		return complaint;
 	}
 
@@ -63,6 +72,8 @@ public class ComplaintService {
 	public Complaint save(final Complaint complaint) {
 		Assert.notNull(complaint);
 		final Complaint saved = this.complaintRepository.save(complaint);
+		//		saved.setIsFinal(true);
+		//		Assert.isTrue(saved.getIsFinal().equals(true));
 		return saved;
 	}
 
@@ -75,6 +86,9 @@ public class ComplaintService {
 	Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
 		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
 		return complaints;
+	}
+	public ArrayList<Customer> queryB4() {
+		return this.complaintRepository.queryB4();
 	}
 
 }

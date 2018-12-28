@@ -59,9 +59,9 @@
 
 
 	<script type="text/javascript">
-		function isValid(phoneElement) {
+		function isValid() {
 			var phoneRe = /^(((\+[1-9][0-9]{0,2}) \(([1-9][0-9]{0,2})\) (\d\d\d\d+))|((\+[1-9][0-9]{0,2}) (\d\d\d\d+))|((\d\d\d\d+)))$/;
-			var digits = document.getElementById(phoneElement).value;
+			var digits = document.getElementById('tlf').value;
 			var res = phoneRe.test(digits);
 			if (res) {
 				return true;
@@ -75,10 +75,10 @@
 
 		<input type="submit" class="btn btn-success" name="save"
 			value='<spring:message code="curriculum.save"/>'
-			onclick=" javascript: return isValid('tlf');">
-		<input type="button" class="btn btn-warning" name="cancel"
-			value='<spring:message code="curriculum.cancel"/>'
-			onclick="document.location.href='curriculum/handyworker/list.do?handyWorkerId=${handyWorkerId}';">
+			onclick=" javascript: return isValid();">
+
+		<input type="submit" class="btn btn-warning" name="cancel"
+			value='<spring:message code="curriculum.cancel"/>'>
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">

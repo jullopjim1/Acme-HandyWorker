@@ -50,9 +50,10 @@ public class WarrantyService {
 	public Warranty save(final Warranty warranty) {
 		Assert.notNull(warranty);
 		final Warranty saved = this.warrantyRepository.save(warranty);
+		//		saved.setIsFinal(true);
+		//		Assert.isTrue(saved.getIsFinal().equals(true));
 		return saved;
 	}
-
 	public void delete(final Warranty entity) {
 		this.warrantyRepository.delete(entity);
 	}

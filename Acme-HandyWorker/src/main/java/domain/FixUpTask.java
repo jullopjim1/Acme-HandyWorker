@@ -5,15 +5,14 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,24 +23,12 @@ public class FixUpTask extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private String ticker;
-	private Date moment;
-	private String description;
-	private String adress;
-	private double maxPrice;
-	private Date deadline;
+	private Date	moment;
+	private String	description;
+	private String	adress;
+	private double	maxPrice;
+	private Date	deadline;
 
-	@NotBlank
-	@Column(unique = true)
-	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
-	public String getTicker() {
-		return this.ticker;
-	}
-
-	@NotBlank
-	public void setTicker(final String ticker) {
-		this.ticker = ticker;
-	}
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -93,10 +80,13 @@ public class FixUpTask extends DomainEntity {
 		this.deadline = deadline;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Warranty warranty;
-	private Category category;
-	private Customer customer;
+	private Warranty	warranty;
+	private Category	category;
+	private Customer	customer;
+	private Ticker		ticker;
+
 
 	@NotNull
 	@Valid
@@ -129,6 +119,17 @@ public class FixUpTask extends DomainEntity {
 
 	public void setCustomer(final Customer customer) {
 		this.customer = customer;
+	}
+
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public Ticker getTicker() {
+		return this.ticker;
+	}
+
+	public void setTicker(final Ticker ticker) {
+		this.ticker = ticker;
 	}
 
 }
