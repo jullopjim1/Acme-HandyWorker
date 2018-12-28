@@ -70,7 +70,7 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="section.cancel" />"
-			onclick="javascript: relativeRedir('section/list.do');" />
+			onclick="javascript: relativeRedir('section/list.do?tutorialId=${tutorialId}');" />
 
 		<br />
 	</jstl:if>
@@ -78,7 +78,7 @@
 	<jstl:if test="${isRead == true }">
 		<input type="button" name="cancel"
 			value="<spring:message code="section.back" />"
-			onclick="javascript: relativeRedir('section/list.do');" />
+			onclick="javascript: relativeRedir('section/list.do?tutorialId=${tutorialId}');" />
 	</jstl:if>
 
 </form:form>
