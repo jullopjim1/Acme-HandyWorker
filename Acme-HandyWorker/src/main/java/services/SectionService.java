@@ -61,7 +61,8 @@ public class SectionService {
 		Section result;
 		final Collection<Section> a = this.sectionpository.findAll();
 		for (final Section b : a)
-			Assert.isTrue(section.getPosition() != b.getPosition(), "positionerror");
+			if (b.getTutorial().equals(section.getTutorial()))
+				Assert.isTrue(section.getPosition() != b.getPosition(), "positionerror");
 		result = this.sectionpository.save(section);
 
 		return result;

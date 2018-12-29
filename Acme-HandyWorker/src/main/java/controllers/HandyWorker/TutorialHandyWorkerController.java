@@ -92,13 +92,13 @@ public class TutorialHandyWorkerController extends AbstractController {
 	public ModelAndView save(@Valid final Tutorial tutorial, final BindingResult binding) {
 
 		ModelAndView result;
-
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(tutorial);
 		else
 			try {
 				this.tutorialService.save(tutorial);
-				result = new ModelAndView("redirect:/list.do?handyWorkerId=" + tutorial.getHandyWorker().getId());
+				result = new ModelAndView("redirect:tutorial/handyworker/list.do?=" + a.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
 
@@ -111,16 +111,15 @@ public class TutorialHandyWorkerController extends AbstractController {
 	public ModelAndView delete(@Valid final Tutorial tutorial, final BindingResult binding) {
 
 		ModelAndView result;
-
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.tutorialService.delete(tutorial);
-			result = new ModelAndView("redirect:/list.do?handyWorkerId=" + tutorial.getHandyWorker().getId());
+			result = new ModelAndView("redirect:tutorial/handyworker/list.do?handyWorkerId=" + a.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
 		}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(final Tutorial tutorial) {
 		ModelAndView result;
 
@@ -134,12 +133,12 @@ public class TutorialHandyWorkerController extends AbstractController {
 		Collection<Sponsorship> sponsorships;
 
 		sponsorships = this.sponsorshipService.findAll();
-
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		result = new ModelAndView("tutorial/edit");
 		result.addObject("tutorial", tutorial);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("handyWorkerId", tutorial.getHandyWorker().getId());
+		result.addObject("handyWorkerId", a.getId());
 		result.addObject("sponsorships", sponsorships);
 		result.addObject("requestURI", "tutorial/handyworker/edit.do");
 

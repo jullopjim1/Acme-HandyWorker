@@ -10,41 +10,85 @@
 
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.HandyWorkerService;
+import services.ProfileService;
+import domain.HandyWorker;
+import domain.Profile;
+
 @Controller
-@RequestMapping("/profile")
+@RequestMapping("/actor")
 public class ProfileController extends AbstractController {
 
-	// Action-1 ---------------------------------------------------------------		
+	@Autowired
+	ProfileService		profileService;
 
-	@RequestMapping("/action-1")
-	public ModelAndView action1() {
+	@Autowired
+	HandyWorkerService	handyWorkerService;
+
+
+	// Edit ---------------------------------------------------------------		
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int profileId) {
 		ModelAndView result;
+		Profile profile;
 
-		result = new ModelAndView("profile/action-1");
+		profile = this.profileService.findOne(profileId);
+		Assert.notNull(profile);
+
+		result = this.createEditModelAndView(profile);
 
 		return result;
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	//Show
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(@RequestParam final int handyWorkerId) {
+		final ModelAndView modelAndView;
 
-	@RequestMapping("/action-2")
-	public ModelAndView action2() {
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final Profile profile = this.profileService.findOne(a.getId());
+
+		modelAndView = this.createEditModelAndView(profile);
+		modelAndView.addObject("isRead", true);
+		modelAndView.addObject("requestURI", "/show.do?handyWorkerId=" + handyWorkerId);
+
+		return modelAndView;
+	}
+	//CreateModelAndView
+
+	protected ModelAndView createEditModelAndView(final Profile profile) {
 		ModelAndView result;
 
-		result = new ModelAndView("profile/action-2");
+		result = this.createEditModelAndView(profile, null);
 
 		return result;
+
 	}
 
-	// Action-2 ---------------------------------------------------------------		
+	protected ModelAndView createEditModelAndView(final Profile profile, final String message) {
+		ModelAndView result;
 
-	@RequestMapping("/action-3")
-	public ModelAndView action3() {
-		throw new RuntimeException("Oops! An *expected* exception was thrown. This is normal behaviour.");
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final int b = a.getId();
+
+		result = new ModelAndView("actor/edit");
+		result.addObject("profile", profile);
+		result.addObject("message", message);
+		result.addObject("isRead", false);
+		result.addObject("requestURI", "actor/edit.do");
+		result.addObject("handyWorkerId", b);
+
+		return result;
 	}
 
 }

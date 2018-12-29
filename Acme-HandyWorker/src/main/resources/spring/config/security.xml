@@ -51,6 +51,9 @@
 
 		<security:intercept-url pattern="/section/list.do"
 			access="permitAll" />
+		
+		<security:intercept-url pattern="/actor/show.do"
+			access="permitAll" />
 
 		<!-- HandyWorker -->
 
@@ -145,6 +148,8 @@
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="actor/edit.do"
+			access="isAuthenticated()" />
 
 		<!-- Register -->
 		<security:intercept-url pattern="/actor/registerCustomer.do"
@@ -161,8 +166,10 @@
 		<security:intercept-url pattern="/finder/handy/listFixUpTasks.do"
 			access="hasRole('HANDY')" />
 
-
-
+		<!-- SPONSOR -->
+			<security:intercept-url pattern="/sponsorship/sponsor/list.do"
+			access="hasRole('HANDY')" />
+			
 		<!-- ADMIN -->
 		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
 			access="hasRole('ADMIN')" />
@@ -176,12 +183,7 @@
 		<security:intercept-url pattern="/customer/action-2.do"
 			access="hasRole('CUSTOMER')" />
 
-		<security:intercept-url pattern="/profile/action-1.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-2.do"
-			access="isAuthenticated()" />
-		<security:intercept-url pattern="/profile/action-3.do"
-			access="isAuthenticated()" />
+		
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

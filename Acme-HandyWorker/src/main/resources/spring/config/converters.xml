@@ -44,6 +44,9 @@
 		
 		<bean class="converters.TutorialToStringConverter" />
 		<bean class="converters.StringToTutorialConverter" />
+		
+		<bean class="converters.ProfileToStringConverter" />
+		<bean class="converters.StringToProfileConverter" />
 
 	</util:list>
 

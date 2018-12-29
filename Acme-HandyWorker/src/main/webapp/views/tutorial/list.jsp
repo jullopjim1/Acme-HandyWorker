@@ -53,7 +53,7 @@
 	</display:column>
 
 	<display:column titleKey="tutorial.handyworker">
-		<a href="profile/view.do?tutorialId=${row.id}"> <spring:message
+		<a href="profile/show.do?handyWorkerId=${row.id}"> <spring:message
 				code="tutorial.profile" />
 		</a>
 	</display:column>

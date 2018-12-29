@@ -44,14 +44,12 @@ public class TutorialController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Tutorial> tutorials;
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		final int b = a.getId();
+
 		tutorials = this.tutorialService.findAll();
 
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
 		result.addObject("requestURI", "tutorial/list.do");
-		result.addObject("handyWorkerId", b);
 
 		return result;
 	}
@@ -88,12 +86,16 @@ public class TutorialController extends AbstractController {
 
 		sponsorships = this.sponsorshipService.findAll();
 
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final int b = a.getId();
+
 		result = new ModelAndView("tutorial/edit");
 		result.addObject("tutorial", tutorial);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "tutorial/handyworker/edit.do");
 		result.addObject("sponsorships", sponsorships);
+		result.addObject("handyWorkerId", b);
 
 		return result;
 	}

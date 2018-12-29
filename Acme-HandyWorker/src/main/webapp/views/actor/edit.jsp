@@ -21,7 +21,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<security:authorize access="isAuthenticated()">
+
 	
 
 <form:form action="${requestURI}" modelAttribute="actor">
@@ -29,6 +29,7 @@
 	<form:hidden path="version" />
 	<form:hidden path="isSuspicious" />
 	<form:hidden path="userAccount" />
+	<form:hidden path="userAccount"/>
 
 	<form:label path="name">
 		<spring:message code="actor.name" />
@@ -113,4 +114,3 @@
 <a href="tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}"> <spring:message
 		code="profile.viewTutorials" /></a>
 
-</security:authorize>
