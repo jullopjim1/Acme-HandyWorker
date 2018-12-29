@@ -74,7 +74,7 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="tutorial.cancel" />"
-			onclick="javascript: relativeRedir('tutorial/handyworker/list.do');" />
+			onclick="javascript: relativeRedir('tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}');" />
 
 		<br />
 	</jstl:if>

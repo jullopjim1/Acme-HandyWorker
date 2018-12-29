@@ -137,6 +137,9 @@
 		
 		<security:intercept-url pattern="/tutorial/handyworker/delete.do"
 			access="hasRole('HANDY')" />
+			
+		<security:intercept-url pattern="/tutorial/handyworker/save.do"
+			access="hasRole('HANDY')" />
 		
 
 		<!-- Message -->

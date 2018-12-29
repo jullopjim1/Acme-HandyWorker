@@ -55,7 +55,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
-		result.addObject("requestURI", "tutorial/handyworker/list.do");
+		result.addObject("requestURI", "/list.do?handyWorkerId=" + a.getId());
 		result.addObject("handyWorkerId", a.getId());
 		return result;
 	}
@@ -98,7 +98,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.tutorialService.save(tutorial);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/list.do?handyWorkerId=" + tutorial.getHandyWorker().getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
 
@@ -114,7 +114,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 
 		try {
 			this.tutorialService.delete(tutorial);
-			result = new ModelAndView("redirect:/tutorial/list.do?handyWorkerId=" + tutorial.getHandyWorker().getId());
+			result = new ModelAndView("redirect:/list.do?handyWorkerId=" + tutorial.getHandyWorker().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
 		}

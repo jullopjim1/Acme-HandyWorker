@@ -109,6 +109,8 @@
 	</jstl:if>
 
 </form:form>
-<a href="tutorial/list.do"> <spring:message
+
+<a href="tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}"> <spring:message
 		code="profile.viewTutorials" /></a>
+
 </security:authorize>
