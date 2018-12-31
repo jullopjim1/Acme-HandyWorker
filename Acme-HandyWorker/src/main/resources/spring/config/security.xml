@@ -51,7 +51,7 @@
 
 		<security:intercept-url pattern="/section/list.do"
 			access="permitAll" />
-		
+
 		<security:intercept-url pattern="/actor/show.do"
 			access="permitAll" />
 
@@ -125,25 +125,25 @@
 
 		<security:intercept-url pattern="/section/handyworker/edit.do"
 			access="hasRole('HANDY')" />
-		
+
 		<security:intercept-url pattern="/section/handyworker/create.do"
 			access="hasRole('HANDY')" />
-			
+
 		<security:intercept-url pattern="/tutorial/handyworker/list.do"
 			access="hasRole('HANDY')" />
-		
+
 		<security:intercept-url pattern="/tutorial/handyworker/create.do"
 			access="hasRole('HANDY')" />
-			
+
 		<security:intercept-url pattern="/tutorial/handyworker/edit.do"
 			access="hasRole('HANDY')" />
-		
+
 		<security:intercept-url pattern="/tutorial/handyworker/delete.do"
 			access="hasRole('HANDY')" />
-			
+
 		<security:intercept-url pattern="/tutorial/handyworker/save.do"
 			access="hasRole('HANDY')" />
-		
+
 
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
@@ -151,12 +151,16 @@
 		<security:intercept-url pattern="actor/edit.do"
 			access="isAuthenticated()" />
 
+
 		<!-- Register -->
 		<security:intercept-url pattern="/actor/registerCustomer.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/actor/registerHandyWorker.do"
 			access="permitAll" />
 		<security:intercept-url pattern="/actor/register.do"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/actor/show.do"
 			access="permitAll" />
 
 
@@ -167,9 +171,13 @@
 			access="hasRole('HANDY')" />
 
 		<!-- SPONSOR -->
-			<security:intercept-url pattern="/sponsorship/sponsor/list.do"
-			access="hasRole('HANDY')" />
-			
+		<security:intercept-url pattern="/sponsorship/sponsor/list.do"
+			access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsorship/sponsor/edit.do"
+			access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsorship/sponsor/delete.do"
+			access="hasRole('SPONSOR')" />
+
 		<!-- ADMIN -->
 		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
 			access="hasRole('ADMIN')" />
@@ -183,7 +191,7 @@
 		<security:intercept-url pattern="/customer/action-2.do"
 			access="hasRole('CUSTOMER')" />
 
-		
+
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

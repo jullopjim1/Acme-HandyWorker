@@ -6,25 +6,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import services.ProfileService;
-import domain.Profile;
+import services.ActorService;
+import domain.Actor;
 
 @Component
 @Transactional
-public class StringToProfileConverter implements Converter<String, Profile> {
+public class StringToActorConverter implements Converter<String, Actor> {
 
 	@Autowired
-	ProfileService	profileService;
+	ActorService	actorService;
 
 
 	@Override
-	public Profile convert(final String text) {
-		Profile result;
+	public Actor convert(final String text) {
+		Actor result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.profileService.findOne(id);
+			result = this.actorService.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

@@ -5,20 +5,20 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.Profile;
+import domain.Actor;
 
 @Component
 @Transactional
-public class ProfileToStringConverter implements Converter<Profile, String> {
+public class ActorToStringConverter implements Converter<Actor, String> {
 
 	@Override
-	public String convert(final Profile profile) {
+	public String convert(final Actor actor) {
 		String result;
 
-		if (profile == null)
+		if (actor == null)
 			result = null;
 		else
-			result = String.valueOf(profile.getId());
+			result = String.valueOf(actor.getId());
 
 		return result;
 	}
