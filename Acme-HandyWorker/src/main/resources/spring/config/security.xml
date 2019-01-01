@@ -160,8 +160,6 @@
 		<security:intercept-url pattern="/actor/register.do"
 			access="permitAll" />
 
-		<security:intercept-url pattern="/actor/show.do"
-			access="permitAll" />
 
 
 		<!-- Finder -->

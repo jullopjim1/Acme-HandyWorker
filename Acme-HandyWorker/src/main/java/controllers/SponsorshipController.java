@@ -64,6 +64,8 @@ public class SponsorshipController extends AbstractController {
 
 		return result;
 	}
+
+	//Edit
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
