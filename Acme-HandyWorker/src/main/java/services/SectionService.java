@@ -78,9 +78,9 @@ public class SectionService {
 	public Boolean checkPosition(final Section section) {
 		final Tutorial t = section.getTutorial();
 		final Collection<Section> a = this.findSectionByTutorialId(t.getId());
+		a.remove(section);
 		for (final Section b : a)
-			if (b.getTutorial().equals(section.getTutorial()))
-				Assert.isTrue(section.getPosition() != b.getPosition(), "positionerror");
+			Assert.isTrue(section.getPosition() != b.getPosition(), "positionerror");
 
 		return true;
 	}
