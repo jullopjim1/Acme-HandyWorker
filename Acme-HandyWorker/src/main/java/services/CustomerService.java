@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.Customer;
 import repositories.CustomerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
-import domain.Customer;
 
 @Service
 @Transactional
@@ -49,7 +49,9 @@ public class CustomerService {
 		final Authority a = new Authority();
 		a.setAuthority("CUSTOMER");
 		authorities.add(a);
+		userAccount.setEnabled(true);
 		userAccount.setAuthorities(authorities);
+
 		customer.setIsBanned(false);
 		customer.setIsSuspicious(false);
 		return customer;

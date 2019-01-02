@@ -11,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.AdministratorRepository;
-import security.Authority;
-import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
+import repositories.AdministratorRepository;
+import security.Authority;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -62,6 +62,7 @@ public class AdministratorService {
 		a.setAuthority("ADMIN");
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
 		administrator.setUserAccount(userAccount);
 
 		administrator.setIsBanned(false);

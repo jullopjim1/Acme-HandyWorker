@@ -22,7 +22,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-	
+
 
 <form:form action="${requestURI}" modelAttribute="actor">
 	<form:hidden path="id" />
@@ -78,18 +78,10 @@
 	<form:input path="address" readonly="${isRead}" />
 	<form:errors ccsClass="error" path="address" />
 	<br />
-	
-	
+
+
 	<h3>Score: ${score}</h3>
 
-	<security:authorize access="hasRole('ADMIN')">
-		<form:label path="isBanned">
-			<spring:message code="actor.isBanned" />
-		</form:label>
-		<input type="checkbox" value="True" />
-		<form:errors ccsClass="error" path="isBanned" />
-		<br />
-	</security:authorize>
 
 
 
@@ -113,6 +105,7 @@
 
 </form:form>
 
-<a href="tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}"> <spring:message
-		code="profile.viewTutorials" /></a>
+<a href="tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}">
+	<spring:message code="profile.viewTutorials" />
+</a>
 

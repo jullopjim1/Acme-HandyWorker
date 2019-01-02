@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Referee;
 import repositories.RefereeRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Referee;
 
 @Service
 @Transactional
@@ -22,7 +22,7 @@ public class RefereeService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private RefereeRepository	refereeRepository;
+	private RefereeRepository refereeRepository;
 
 
 	// Services-------------------------------------------------
@@ -42,6 +42,7 @@ public class RefereeService {
 		a.setAuthority("REFEREE");
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
 		referee.setUserAccount(userAccount);
 
 		referee.setIsBanned(false);
