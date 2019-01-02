@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import services.HandyWorkerService;
-import services.SponsorshipService;
-import services.TutorialService;
 import controllers.AbstractController;
 import domain.HandyWorker;
 import domain.Sponsorship;
 import domain.Tutorial;
+import security.LoginService;
+import services.HandyWorkerService;
+import services.SponsorshipService;
+import services.TutorialService;
 
 @Controller
 @RequestMapping("/tutorial/handyworker")
@@ -44,7 +44,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 	public TutorialHandyWorkerController() {
 		super();
 	}
-	//List ---------------------------------------------------------------		
+	//List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -98,7 +98,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.tutorialService.save(tutorial);
-				result = new ModelAndView("redirect:tutorial/handyworker/list.do?=" + a.getId());
+				result = new ModelAndView("redirect:/tutorial/handyworker/list.do?=" + a.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
 
@@ -114,7 +114,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.tutorialService.delete(tutorial);
-			result = new ModelAndView("redirect:tutorial/handyworker/list.do?handyWorkerId=" + a.getId());
+			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
 		}

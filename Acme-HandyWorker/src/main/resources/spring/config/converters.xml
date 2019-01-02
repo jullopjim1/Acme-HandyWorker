@@ -41,12 +41,21 @@
 
 		<bean class="converters.SectionToStringConverter" />
 		<bean class="converters.StringToSectionConverter" />
-		
+
 		<bean class="converters.TutorialToStringConverter" />
 		<bean class="converters.StringToTutorialConverter" />
-		
+
 		<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.StringToActorConverter" />
+
+		<bean class="converters.HandyWorkerToStringConverter" />
+		<bean class="converters.StringToHandyWorkerConverter" />
+
+		<bean class="converters.SponsorshipToStringConverter" />
+		<bean class="converters.StringToSponsorshipConverter" />
+
+		<bean class="converters.SponsorToStringConverter" />
+		<bean class="converters.StringToSponsorConverter" />
 
 
 	</util:list>
