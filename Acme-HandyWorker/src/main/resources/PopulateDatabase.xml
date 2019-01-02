@@ -21,6 +21,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount2" class="security.UserAccount">
@@ -33,6 +34,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount3" class="security.UserAccount">
@@ -48,10 +50,11 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount4" class="security.UserAccount">
-		<property name="username" value="handyworker1" />
+		<property name="username" value="handyWorker1" />
 		<property name="password" value="3d0e201c52a6e13f27d22b6777711541" />
 		<property name="authorities">
 			<list>
@@ -60,10 +63,11 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount5" class="security.UserAccount">
-		<property name="username" value="handyworker2" />
+		<property name="username" value="handyWorker2" />
 		<property name="password" value="549dbd77d30ecab6ca4c047cd795333f" />
 		<property name="authorities">
 			<list>
@@ -72,10 +76,11 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="false" />
 	</bean>
 
 	<bean id="userAccount6" class="security.UserAccount">
-		<property name="username" value="handyworker3" />
+		<property name="username" value="handyWorker3" />
 		<property name="password" value="94205d30655bf438096a01906a5988f5" />
 		<property name="authorities">
 			<list>
@@ -84,10 +89,11 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount7" class="security.UserAccount">
-		<property name="username" value="handyworker4" />
+		<property name="username" value="handyWorker4" />
 		<property name="password" value="966b4770f172f663f166901afd649c0e" />
 		<property name="authorities">
 			<list>
@@ -96,6 +102,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="false" />
 	</bean>
 
 	<bean id="userAccount8" class="security.UserAccount">
@@ -108,6 +115,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount9" class="security.UserAccount">
@@ -120,6 +128,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount10" class="security.UserAccount">
@@ -132,6 +141,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="false" />
 	</bean>
 
 	<bean id="userAccount11" class="security.UserAccount">
@@ -144,6 +154,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount13" class="security.UserAccount">
@@ -156,6 +167,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount15" class="security.UserAccount">
@@ -168,6 +180,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 
@@ -182,6 +195,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount17" class="security.UserAccount">
@@ -194,6 +208,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 
@@ -207,6 +222,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount24" class="security.UserAccount">
@@ -219,6 +235,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount25" class="security.UserAccount">
@@ -231,6 +248,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<bean id="userAccount26" class="security.UserAccount">
@@ -243,6 +261,7 @@
 				</bean>
 			</list>
 		</property>
+		<property name="enabled" value="true" />
 	</bean>
 
 	<!-- CREDIT CARD -->
@@ -322,8 +341,8 @@
 		<property name="email" value="email2@gmail.com" />
 		<property name="phone" value="+34 456431234" />
 		<property name="address" value="adress2" />
-		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
+		<property name="isSuspicious" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount9" />
 		<property name="score" value="154.0" />
 	</bean>
@@ -350,7 +369,7 @@
 		<property name="email" value="email4@gmail.com" />
 		<property name="phone" value="+34 765345412" />
 		<property name="address" value="adress4" />
-		<property name="isSuspicious" value="false" />
+		<property name="isSuspicious" value="true" />
 		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount11" />
 		<property name="score" value="11.5" />
@@ -384,7 +403,7 @@
 		<property name="email" value="email2@gmail.com" />
 		<property name="phone" value="+34 555555555" />
 		<property name="address" value="adress2" />
-		<property name="isSuspicious" value="false" />
+		<property name="isSuspicious" value="true" />
 		<property name="isBanned" value="true" />
 		<property name="userAccount" ref="userAccount5" />
 		<property name="score" value="0.0" />
@@ -445,7 +464,7 @@
 		<property name="phone" value="650190487" />
 		<property name="address" value="adress6" />
 		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount15" />
 	</bean>
 
@@ -458,7 +477,7 @@
 		<property name="phone" value="650190409" />
 		<property name="address" value="adress7" />
 		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount16" />
 	</bean>
 
@@ -513,7 +532,7 @@
 		<property name="phone" value="650190123" />
 		<property name="address" value="adress100" />
 		<property name="isSuspicious" value="false" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount25" />
 	</bean>
 
@@ -526,7 +545,7 @@
 		<property name="phone" value="650190107" />
 		<property name="address" value="adress10" />
 		<property name="isSuspicious" value="true" />
-		<property name="isBanned" value="true" />
+		<property name="isBanned" value="false" />
 		<property name="userAccount" ref="userAccount26" />
 	</bean>
 
