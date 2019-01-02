@@ -42,31 +42,4 @@ public class ActorService {
 		return actors;
 	}
 
-	public Actor save(final Actor actor) {
-		Assert.notNull(actor);
-		final Actor saved = this.actorRepository.save(actor);
-		return saved;
-	}
-
-	//Other Methods----------------------------------------------------------
-
-	public void ban(final Actor actor) {
-		actor.setIsBanned(true);
-		final UserAccount account = actor.getUserAccount();
-
-		this.save(actor);
-	}
-
-	public void unban(final Actor actor) {
-		actor.setIsBanned(false);
-		actor.setIsSuspicious(false);
-		final UserAccount account = actor.getUserAccount();
-
-		this.save(actor);
-	}
-
-	public Collection<Actor> findSuspiciuosActors() {
-		return this.actorRepository.findSuspiciuosActors();
-	}
-
 }
