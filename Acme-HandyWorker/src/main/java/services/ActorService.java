@@ -53,14 +53,15 @@ public class ActorService {
 	public void ban(final Actor actor) {
 		actor.setIsBanned(true);
 		final UserAccount account = actor.getUserAccount();
-		account.setEnabled(false);
+
 		this.save(actor);
 	}
 
 	public void unban(final Actor actor) {
 		actor.setIsBanned(false);
+		actor.setIsSuspicious(false);
 		final UserAccount account = actor.getUserAccount();
-		account.setEnabled(true);
+
 		this.save(actor);
 	}
 
