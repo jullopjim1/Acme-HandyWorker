@@ -27,17 +27,18 @@ public class EndorsementService {
 	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private EndorsementRepository endorsementRepository;
+	private EndorsementRepository	endorsementRepository;
 
 	// Services---------------------------------------------------------------------------
 	@Autowired
-	private ConfigurationService configurationService;
+	private ConfigurationService	configurationService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private EndorserService endorserService;
+	private EndorserService			endorserService;
+
 
 	// Constructor------------------------------------------------------------------------
 
@@ -104,10 +105,8 @@ public class EndorsementService {
 
 		final Configuration configuration = this.configurationService.findOne();
 
-		final Collection<String> positiveWords = configurationService
-				.internacionalizcionListas(configuration.getPositiveWords());
-		final Collection<String> negativeWords = configurationService
-				.internacionalizcionListas(configuration.getNegativeWords());
+		final Collection<String> positiveWords = this.configurationService.internacionalizcionListas(configuration.getPositiveWords());
+		final Collection<String> negativeWords = this.configurationService.internacionalizcionListas(configuration.getNegativeWords());
 
 		final double total = positiveWords.size() + negativeWords.size();
 
@@ -139,11 +138,8 @@ public class EndorsementService {
 		final Authority authority = new Authority();
 		authority.setAuthority("ENDORSER");
 
-		Assert.isTrue(
-				actor.getUserAccount().getAuthorities().contains(authority)
-						|| actor.getUserAccount().getAuthorities().contains(customerAuthority)
-						|| actor.getUserAccount().getAuthorities().contains(handyAuthority),
-				"Solo los endorser pueden realizar endorsement");
+		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(authority) || actor.getUserAccount().getAuthorities().contains(customerAuthority) || actor.getUserAccount().getAuthorities().contains(handyAuthority),
+			"Solo los endorser pueden realizar endorsement");
 
 	}
 

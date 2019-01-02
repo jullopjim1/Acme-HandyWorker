@@ -22,7 +22,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="tutorial/handyworker/edit.do"
-	modelAttribute="tutorial" >
+	modelAttribute="tutorial">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
@@ -32,31 +32,30 @@
 	<form:label path="title">
 		<spring:message code="tutorial.title" />
 	</form:label>
-	<form:input path="title" readonly="${isRead }"/>
+	<form:input path="title" readonly="${isRead }" />
 	<form:errors ccsClass="error" path="title" />
 	<br />
 
 	<form:label path="summary">
 		<spring:message code="tutorial.summary" />
 	</form:label>
-	<form:input path="summary" readonly="${isRead }"/>
+	<form:input path="summary" readonly="${isRead }" />
 	<form:errors ccsClass="error" path="summary" />
 	<br />
 
 	<form:label path="pictures">
 		<spring:message code="tutorial.pictures" />
 	</form:label>
-	<form:input path="pictures" readonly="${isRead }"/>
+	<form:input path="pictures" readonly="${isRead }" />
 	<form:errors ccsClass="error" path="pictures" />
 	<br />
 
 	<form:label path="sponsorship">
 		<spring:message code="tutorial.sponsorship" />
 	</form:label>
-	<form:select id="sponsorships" path="sponsorship" readonly="${isRead }" >
+	<form:select id="sponsorships" path="sponsorship" readonly="${isRead }">
 		<form:options items="${sponsorships}" itemLabel="banner"
 			itemValue="id" />
-		<form:option value="0" label="------" />
 	</form:select>
 	<br />
 
@@ -74,7 +73,7 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="tutorial.cancel" />"
-			onclick="javascript: relativeRedir('tutorial/handyworker/list.do');" />
+			onclick="javascript: relativeRedir('tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}');" />
 
 		<br />
 	</jstl:if>
