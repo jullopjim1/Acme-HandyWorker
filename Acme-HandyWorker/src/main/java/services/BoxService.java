@@ -141,11 +141,16 @@ public class BoxService {
 	//Other Methods---------------------------------------------------------------------------
 
 	public Box findBoxByActorIdAndName(final int actorId, final String nameBox) {
+		//TODO Añadir asserts
 		return this.boxRepository.findBoxByActorAndName(actorId, nameBox);
 	}
 
 	public Collection<Box> findSystemBoxesByActorId(final int actorId) {
 		return this.boxRepository.findSystemBoxByActorId(actorId);
+	}
+
+	public Collection<Box> findBoxesByActorId(final int actorId) {
+		return this.boxRepository.findBoxByActor(actorId);
 	}
 
 	/*

@@ -146,6 +146,14 @@ public class MessageService {
 	}
 	//Other Methods---------------------------------------------------------------------------
 
+	public Collection<Message> findByBox(final Box box) {
+		Assert.notNull(box, "findByBox - Box must not be null");
+
+		final Collection<Message> result = this.messageRepository.findByBoxId(box.getId());
+
+		return result;
+
+	}
 	public Message moveMessage(final Message message, final Box newBox) {
 		this.checkPrincipal(message);
 		message.setBox(newBox);
