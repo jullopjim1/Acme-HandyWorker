@@ -26,13 +26,15 @@
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('HANDY')">
-		<display:column>
-			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
+		<jstl:if test="${handyWorkerId==row.handyWorker.id}">
+			<display:column>
+
 				<a href="tutorial/handyworker/edit.do?tutorialId=${row.id}"> <spring:message
 						code="tutorial.edit" />
 				</a>
-			</jstl:if>
-		</display:column>
+
+			</display:column>
+		</jstl:if>
 	</security:authorize>
 
 	<display:column titleKey="tutorial.details">
@@ -58,14 +60,16 @@
 		</a>
 	</display:column>
 
-<security:authorize access="hasRole('HANDY')">
-		<display:column>
-			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
+	<security:authorize access="hasRole('HANDY')">
+		<jstl:if test="${handyWorkerId==row.handyWorker.id}">
+			<display:column>
+
 				<a href="section/handyworker/create.do?tutorialId=${row.id}"> <spring:message
-			code="section.create" />
-	</a>
-			</jstl:if>
-		</display:column>
+						code="section.create" />
+				</a>
+
+			</display:column>
+		</jstl:if>
 	</security:authorize>
 </display:table>
 <security:authorize access="hasRole('HANDY')">
