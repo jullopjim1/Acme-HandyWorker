@@ -56,6 +56,12 @@
 
 		<bean class="converters.SponsorToStringConverter" />
 		<bean class="converters.StringToSponsorConverter" />
+		
+		<bean class="converters.BoxToStringConverter" />
+		<bean class="converters.StringToBoxConverter" />
+		
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.StringToMessageConverter" />
 
 
 	</util:list>

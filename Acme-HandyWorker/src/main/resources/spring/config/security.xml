@@ -148,6 +148,23 @@
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/administrator/broadcastMessage.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/message/actor/list.do"
+			access="isAuthenticated()" />
+			<security:intercept-url pattern="/message/actor/show.do"
+			access="isAuthenticated()" />
+		
+		<!-- Box -->
+			<security:intercept-url pattern="/box/actor/list.do"
+			access="isAuthenticated()" />
+			<security:intercept-url pattern="/box/actor/edit.do"
+			access="isAuthenticated()" />
+			<security:intercept-url pattern="/box/actor/create.do"
+			access="isAuthenticated()" />
+			
+			
+			
 		<security:intercept-url pattern="actor/edit.do"
 			access="isAuthenticated()" />
 
@@ -167,6 +184,8 @@
 			access="hasRole('HANDY')" />
 		<security:intercept-url pattern="/finder/handy/listFixUpTasks.do"
 			access="hasRole('HANDY')" />
+			
+				
 
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/sponsorship/sponsor/list.do"
