@@ -18,17 +18,6 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
-<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
-<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="message/actor/exchangeMessage.do"
 	modelAttribute="entityMessage">
@@ -40,18 +29,15 @@
 	<form:hidden path="box" />
 
 	<jstl:if test="${isRead==true}">
-		<form:label path="sender">
 			<spring:message code="message.sender" />:
-	</form:label>
-		<form:input path="sender" readonly="${isRead}" />
-		<form:errors cssClass="error" path="sender" />
+		<jstl:out value="${entityMessage.sender.userAccount.username}"></jstl:out>
 		<br />
 
-		<form:label path="receiver">
-			<spring:message code="message.receiver" />:
-	</form:label>
-		<form:input path="receiver" readonly="${isRead}" />
-		<form:errors cssClass="error" path="receiver" />
+		<spring:message code="message.receiver" />:
+		<jstl:out value="${entityMessage.recipient.userAccount.username}"></jstl:out>
+		<br />
+		<spring:message code="message.box" />:
+		<jstl:out value="${entityMessage.box.name}"></jstl:out>
 		<br />
 
 
@@ -70,31 +56,26 @@
 		<br />
 
 
-		<form:label path="box">
-			<spring:message code="message.box" />:
-	</form:label>
-		<form:input path="box" readonly="${isRead}" />
-		<form:errors cssClass="error" path="box" />
-		<br />
 	</jstl:if>
 	<form:label path="subject">
 		<spring:message code="message.subject" />:
 	</form:label>
-	<form:input path="subject" readonly="${isRead}" />
+	<form:textarea path="subject" readonly="${isRead}" />
 	<form:errors cssClass="error" path="subject" />
 	<br />
 
 	<form:label path="body">
 		<spring:message code="message.body" />:
 	</form:label>
-	<form:input path="body" readonly="${isRead}" />
+	<form:textarea path="body" readonly="${isRead}" />
 	<form:errors cssClass="error" path="body" />
 	<br />
+
 
 	<form:label path="tags">
 		<spring:message code="message.tags" />:
 	</form:label>
-	<form:input path="tags" readonly="${isRead}" />
+	<form:textarea path="tags" readonly="${isRead}" />
 	<form:errors cssClass="error" path="tags" />
 	<br />
 
@@ -105,19 +86,18 @@
 			<spring:message code="message.priority" />:
 	</form:label>
 		<form:select id="priorities" path="priority">
-			<form:options items="${priorities}" itemValue="priority"
-				itemLabel="priority" />
+			<form:options items="${priorities}"/>
 		</form:select>
 		<form:errors cssClass="error" path="priority" />
 
 
-		<form:label path="receiver">
+		<form:label path="recipient">
 			<spring:message code="message.receiver" />:
 	</form:label>
-		<form:select id="receivers" path="receiver">
+		<form:select id="receivers" path="recipient">
 			<form:options items="${receivers}" itemValue="id" itemLabel="name" />
 		</form:select>
-		<form:errors cssClass="error" path="receiver" />
+		<form:errors cssClass="error" path="recipient" />
 		<br />
 
 

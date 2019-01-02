@@ -22,7 +22,7 @@ import domain.Box;
 
 @Controller
 @RequestMapping("/box/actor")
-public class BoxController {
+public class BoxController extends AbstractController {
 
 	@Autowired
 	private BoxService		boxService;
@@ -32,25 +32,20 @@ public class BoxController {
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final Integer boxId) {
+	public ModelAndView list() {
 		final ModelAndView result;
-		Collection<Box> boxes = new ArrayList<>();
+		final Collection<Box> boxes = new ArrayList<>();
 		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
-		if (boxId == null) {
-			final Collection<Box> allBoxes = this.boxService.findBoxesByActorId(actor.getId());
-			final Collection<Box> systemBoxes = this.boxService.findSystemBoxesByActorId(actor.getId());
-			allBoxes.removeAll(systemBoxes);
-			boxes.addAll(systemBoxes);
-			boxes.addAll(allBoxes);
-		} else {
-			final Box box1 = this.boxService.findOne(boxId);
-			boxes = box1.getSubboxes();
-		}
+		final Collection<Box> allBoxes = this.boxService.findBoxesByActorId(actor.getId());
+		final Collection<Box> systemBoxes = this.boxService.findSystemBoxesByActorId(actor.getId());
+		allBoxes.removeAll(systemBoxes);
+		boxes.addAll(systemBoxes);
+		boxes.addAll(allBoxes);
 
 		result = new ModelAndView("box/actor/list");
 		result.addObject("boxes", boxes);
-		result.addObject("requestURI", "box/actor/list");
+		result.addObject("requestURI", "box/actor/list.do");
 		return result;
 	}
 
@@ -60,6 +55,17 @@ public class BoxController {
 		final ModelAndView modelAndView;
 
 		final Box box = this.boxService.create();
+
+		modelAndView = this.createEditModelAndView(box);
+
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int boxId) {
+		final ModelAndView modelAndView;
+
+		final Box box = this.boxService.findOne(boxId);
 
 		modelAndView = this.createEditModelAndView(box);
 
@@ -84,6 +90,18 @@ public class BoxController {
 		return result;
 	}
 
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView save(final Box box) {
+
+		ModelAndView result;
+		try {
+			this.boxService.delete(box);
+			result = new ModelAndView("redirect:/box/actor/list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(box, "box.commit.error");
+		}
+		return result;
+	}
 	//CreateModelAndView
 
 	protected ModelAndView createEditModelAndView(final Box box) {

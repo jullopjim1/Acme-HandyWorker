@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.transaction.Transactional;
@@ -64,7 +65,7 @@ public class MessageService {
 		final String priority = "LOW";
 		final String tags = "";
 
-		final Box box = this.boxService.create();
+		final Box box = this.boxService.findBoxByActorIdAndName(actor.getId(), "out box");
 		final Actor sender = actor;
 		//final Actor recipient = this.actorService.create();
 
@@ -97,32 +98,40 @@ public class MessageService {
 		final Actor sender = message.getSender();
 		final Actor recipient = message.getRecipient();
 
-		final Box outBoxSender = this.boxService.findBoxByActorIdAndName(sender.getId(), "out Box");
+		final Message messageSend = this.copyMessage(message);
+		final Message messageRecipient = this.copyMessage(message);
+
+		messageSend.setSender(sender);
+		messageSend.setRecipient(recipient);
+
+		messageRecipient.setSender(sender);
+		messageRecipient.setRecipient(recipient);
+
+		final Box outBoxSender = this.boxService.findBoxByActorIdAndName(sender.getId(), "out box");
 		Assert.notNull(outBoxSender, "NULL OUT BOX\ncada actor debe tener debe tener un out Box");
-
-		final Message messageSend = message;
-		final Message messageRecipient = message;
-
 		messageSend.setBox(outBoxSender);
 
 		Box spamBoxRecipient;
 		Box inBoxRecipient;
 		if (isSpam) {
-			spamBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam Box");
+			spamBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam box");
 			Assert.notNull(spamBoxRecipient, "NULL SPAM BOX\nCada actor debe tener un spam box");
 			messageRecipient.setBox(spamBoxRecipient);
 			this.administratorService.isSuspicious(sender);
 
 		} else {
-			inBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in Box");
+			inBoxRecipient = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in box");
 			Assert.notNull(inBoxRecipient, "NULL IN BOX\nCada actor debe tener un in box");
 			messageRecipient.setBox(inBoxRecipient);
 		}
 
-		final Message saved = this.messageRepository.save(messageRecipient);
-		this.messageRepository.save(messageSend);
+		final Collection<Message> messages = new ArrayList<>();
+		messages.add(messageRecipient);
+		messages.add(messageSend);
 
-		return saved;
+		final List<Message> saved = this.messageRepository.save(messages);
+
+		return saved.get(0);
 	}
 	public void delete(final Message entity) {
 		final Box box = entity.getBox();
@@ -174,19 +183,37 @@ public class MessageService {
 
 		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusi�n");
 
-		final Collection<Actor> allActor = this.actorService.findAll();
+		//final Collection<Actor> allActor = this.actorService.findAll();
+		final Collection<Actor> allActor = new ArrayList<>();
+		allActor.add(this.actorService.findOne(2041));
+		allActor.add(this.actorService.findOne(2040));
 
 		final Collection<Message> messages = new ArrayList<>();
 
 		for (final Actor recipient : allActor) {
-			final Message message2 = message;
+			final Message message2 = this.copyMessage(message);
 			message2.setRecipient(recipient);
+			final Box box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in box");
+			message2.setBox(box);
 			messages.add(message2);
 		}
 
 		this.messageRepository.save(messages);
 
 	}
+	private Message copyMessage(final Message message) {
+		final Message result = this.create();
+		result.setSubject(message.getSubject());
+		result.setBody(message.getBody());
+		result.setSender(message.getSender());
+		result.setRecipient(message.getRecipient());
+		result.setMoment(message.getMoment());
+		result.setTags(message.getTags());
+		result.setPriority(message.getPriority());
+
+		return result;
+	}
+
 	private Actor checkPrincipal(final Message message) {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount, "Debe estar logeado para modificar o borrar un mensaje");
@@ -208,7 +235,7 @@ public class MessageService {
 					result = true;
 					break;
 				}
-			if (result = true)
+			if (result == true)
 				break;
 		}
 

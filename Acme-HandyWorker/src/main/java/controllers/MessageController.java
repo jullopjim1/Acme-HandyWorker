@@ -18,13 +18,14 @@ import security.LoginService;
 import services.ActorService;
 import services.BoxService;
 import services.MessageService;
+import utilities.internal.SchemaPrinter;
 import domain.Actor;
 import domain.Box;
 import domain.Message;
 
 @Controller
 @RequestMapping("/message")
-public class MessageController {
+public class MessageController extends AbstractController {
 
 	@Autowired
 	private MessageService	messageService;
@@ -45,12 +46,11 @@ public class MessageController {
 		//TODO Añadir try and cast
 		final Box box = this.boxService.findBoxByActorIdAndName(actor.getId(), box1.getName());
 
-		//Obtener resultados fixuptasks de finder
 		final Collection<Message> messages = this.messageService.findByBox(box);
 
 		result = new ModelAndView("message/actor/list");
 		result.addObject("messages", messages);
-		result.addObject("requestURI", "message/actor/list");
+		result.addObject("requestURI", "message/actor/list.do");
 		return result;
 	}
 
@@ -60,6 +60,7 @@ public class MessageController {
 		final ModelAndView modelAndView;
 
 		final Message message = this.messageService.create();
+		message.setRecipient(this.actorService.findByUserAccount(LoginService.getPrincipal()));
 
 		modelAndView = this.createEditModelAndView(message);
 
@@ -74,16 +75,16 @@ public class MessageController {
 
 		ModelAndView result;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(message);
-		else
+			result.setViewName("message/administrator/broadcastMessage");
+		} else
 			try {
 				this.messageService.broadcastMessage(message);
-				result = new ModelAndView("redirect:/message/actor/list.do");
+				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
 				result.setViewName("message/administrator/broadcastMessage");
-
 			}
 		return result;
 	}
@@ -108,15 +109,18 @@ public class MessageController {
 		final Message message = this.messageService.findOne(messageId);
 
 		modelAndView = this.createEditModelAndView(message);
+		modelAndView.setViewName("message/actor/show");
 		modelAndView.addObject("isRead", true);
 
 		return modelAndView;
 	}
 
 	//Save
-	@RequestMapping(value = "/exchangeMessage", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/actor/exchangeMessage", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Message message, final BindingResult binding) {
-
+		System.out.println("\n\n=======================\n");
+		SchemaPrinter.print(message);
+		System.out.println("\n=======================\n");
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -124,8 +128,11 @@ public class MessageController {
 		else
 			try {
 				this.messageService.save(message);
-				result = new ModelAndView("redirect:/message/actor/list.do");
+				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
+				System.out.println("\n\n=======================\n");
+				System.out.println(oops.getMessage());
+				System.out.println("\n=======================\n");
 				result = this.createEditModelAndView(message, "message.commit.error");
 			}
 		return result;
@@ -155,6 +162,7 @@ public class MessageController {
 		result.addObject("entityMessage", entityMessage);
 		result.addObject("message", message);
 		result.addObject("receivers", actors);
+		result.addObject("priorities", priorities);
 		result.addObject("isRead", false);
 
 		return result;

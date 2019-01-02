@@ -1689,6 +1689,59 @@
 		<property name="actor" ref="customer1" />
 	</bean>
 
+<bean id="trashBoxAdmin" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+	<bean id="inBoxAdmin" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+	<bean id="outBoxAdmin" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+	<bean id="spamBoxAdmin" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
 	<bean id="trashBoxC2" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystem" value="true" />

@@ -21,17 +21,12 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="finder/handy/update.do"> <spring:message
-		code="finder.update" />
-</a>
-
-<display:table name="boxes" id="row" requestURI="${requestURI}"
+<display:table name="messages" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-
 	<display:column property="subject" titleKey="message.subject" />
-	<display:column property="sender" titleKey="message.sender" />
-	<display:column property="receiver" titleKey="message.receiver" />
+	<display:column property="sender.userAccount.username" titleKey="message.sender" />
+	<display:column property="recipient.userAccount.username" titleKey="message.receiver" />
 	<display:column property="moment" titleKey="message.moment" />
 
 
@@ -41,11 +36,11 @@
 		</a>
 	</display:column>
 	
-	<display:column>
+	<%-- <display:column>
 		<a href="message/actor/delete.do?messageId=${row.id}"> <spring:message
 				code="message.delete" />
 		</a>
-	</display:column>
+	</display:column> --%>
 
 </display:table>
 

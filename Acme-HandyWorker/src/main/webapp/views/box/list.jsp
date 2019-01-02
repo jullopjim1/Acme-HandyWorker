@@ -21,36 +21,40 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<a href="finder/handy/update.do"> <spring:message
-		code="finder.update" />
-</a>
 
 <display:table name="boxes" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
 	<display:column property="name" titleKey="box.name" />
 
-	<display:column property="rootbox" titleKey="box.rootbox" />
-
+	<display:column titleKey="box.rootbox">
+		<jstl:if test="${row.rootbox!=null}">
+			<jstl:out value="${row.rootbox.name}" />
+		</jstl:if>
+	</display:column>
 	<display:column titleKey="box.subBoxes">
 		<jstl:forEach var="entry" items="${row.subboxes}">
 			<jstl:out value="${entry.name}" />&nbsp;&nbsp;
 		</jstl:forEach>
 	</display:column>
 
-	<jstl:if test="${row.isSystem != true }">
-		<display:column>
-			<a href="box/actor/edit.do?boxId=${row.id}"> <spring:message
-					code="box.edit" />
-			</a>
-		</display:column>
-	</jstl:if>
 
 	<display:column titleKey="box.message">
 		<a href="message/actor/list.do?boxId=${row.id}"> <spring:message
 				code="box.show" />
 		</a>
 	</display:column>
+
+
+	
+		<display:column>
+		<jstl:if test="${row.isSystem != true }">
+			<a href="box/actor/edit.do?boxId=${row.id}"> <spring:message
+					code="box.edit" />
+			</a>
+				</jstl:if>
+		</display:column>
+
 
 </display:table>
 
