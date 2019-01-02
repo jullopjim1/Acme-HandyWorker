@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import domain.Sponsor;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.UserAccount;
-import domain.Sponsor;
 
 @Service
 @Transactional
@@ -20,7 +20,7 @@ public class SponsorService {
 
 	// Managed repository ------------------------------------------------------------------
 	@Autowired
-	private SponsorRepository	sponsorRepository;
+	private SponsorRepository sponsorRepository;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -41,7 +41,9 @@ public class SponsorService {
 		a.setAuthority("SPONSOR");
 		authorities.add(a);
 		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
 		sponsor.setUserAccount(userAccount);
+
 		sponsor.setIsBanned(false);
 		sponsor.setIsSuspicious(false);
 
