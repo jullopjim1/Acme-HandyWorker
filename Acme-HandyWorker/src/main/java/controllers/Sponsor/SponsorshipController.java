@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import controllers.AbstractController;
-import domain.Actor;
-import domain.Sponsorship;
+
 import security.LoginService;
 import services.ActorService;
 import services.SponsorshipService;
+import domain.Actor;
+import domain.Sponsorship;
 
 @Controller
 @RequestMapping("/sponsorship/sponsor")
-public class SponsorshipSponsorController extends AbstractController {
+public class SponsorshipController extends AbstractController {
 
 	//Services-----------------------------------------------------------
 
@@ -36,11 +37,10 @@ public class SponsorshipSponsorController extends AbstractController {
 
 	//Constructor---------------------------------------------------------
 
-	public SponsorshipSponsorController() {
+	public SponsorshipController() {
 		super();
 	}
-	//List ---------------------------------------------------------------
-
+	//List ---------------------------------------------------------------		
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
@@ -63,7 +63,6 @@ public class SponsorshipSponsorController extends AbstractController {
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		sponsorship = this.sponsorshipService.create(a.getId());
 		result = this.createEditModelAndView(sponsorship);
-		result.addObject("requestURI", "sponsorship/sponsor/create.do");
 
 		return result;
 	}
