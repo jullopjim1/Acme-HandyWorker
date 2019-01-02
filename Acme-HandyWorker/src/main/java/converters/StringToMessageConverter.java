@@ -15,25 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.FinderRepository;
-import domain.Finder;
+import repositories.MessageRepository;
+import domain.Message;
 
 @Component
 @Transactional
-public class StringToFinderConverter implements Converter<String, Finder> {
+public class StringToMessageConverter implements Converter<String, Message> {
 
 	@Autowired
-	FinderRepository	finderRepository;
+	MessageRepository	messageRepository;
 
 
 	@Override
-	public Finder convert(final String text) {
-		Finder result;
+	public Message convert(final String text) {
+		Message result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.finderRepository.findOne(id);
+			result = this.messageRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

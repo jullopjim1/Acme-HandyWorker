@@ -15,25 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.FinderRepository;
-import domain.Finder;
+import repositories.BoxRepository;
+import domain.Box;
 
 @Component
 @Transactional
-public class StringToFinderConverter implements Converter<String, Finder> {
+public class StringToBoxConverter implements Converter<String, Box> {
 
 	@Autowired
-	FinderRepository	finderRepository;
+	BoxRepository	boxRepository;
 
 
 	@Override
-	public Finder convert(final String text) {
-		Finder result;
+	public Box convert(final String text) {
+		Box result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.finderRepository.findOne(id);
+			result = this.boxRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}
