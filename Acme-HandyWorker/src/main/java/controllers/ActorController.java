@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
 import security.LoginService;
 import services.ActorService;
+import services.EndorsementService;
 import services.HandyWorkerService;
 import domain.Actor;
+import domain.Endorsement;
 import domain.HandyWorker;
 
 @Controller
@@ -36,6 +41,9 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	HandyWorkerService	handyWorkerService;
+
+	@Autowired
+	EndorsementService	endorsementService;
 
 
 	// Edit ---------------------------------------------------------------		
@@ -55,18 +63,26 @@ public class ActorController extends AbstractController {
 
 	//Show
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int handyWorkerId) {
+	public ModelAndView show() {
 		final ModelAndView modelAndView;
 
-		final Actor actor = this.actorService.findOne(handyWorkerId);
+		final Actor actor1 = this.actorService.findByUserAccount(LoginService.getPrincipal());
+
+		final Actor actor = this.actorService.findOne(actor1.getId());
+		final ArrayList<String> t = new ArrayList<>();
+		t.add(Authority.HANDY);
+		t.add(Authority.CUSTOMER);
 
 		modelAndView = this.createEditModelAndView(actor);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/show.do?handyWorkerId=" + handyWorkerId);
+		modelAndView.addObject("requestURI", "/show.do?handyWorkerId=" + actor.getId());
+		if (actor.getUserAccount().getAuthorities().containsAll(t)) {
+			final Endorsement e = this.endorsementService.endorsementByUserAccount(actor1.getId());
+			modelAndView.addObject("score", e.getScore());
+		}
 
 		return modelAndView;
 	}
-
 	//Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
