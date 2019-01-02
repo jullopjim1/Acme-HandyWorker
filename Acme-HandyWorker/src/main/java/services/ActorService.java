@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Actor;
 import repositories.ActorRepository;
 import security.UserAccount;
+import domain.Actor;
 
 @Service
 @Transactional
@@ -19,7 +19,7 @@ public class ActorService {
 
 	// Managed repository ----------------------------------------------------------------
 	@Autowired
-	private ActorRepository actorRepository;
+	private ActorRepository	actorRepository;
 
 
 	public Actor findOne(final int ActorId) {
@@ -41,31 +41,4 @@ public class ActorService {
 
 		return actors;
 	}
-
-	public Actor save(final Actor actor) {
-		Assert.notNull(actor);
-		final Actor saved = this.actorRepository.save(actor);
-		return saved;
-	}
-
-	//Other Methods----------------------------------------------------------
-
-	public void ban(final Actor actor) {
-		actor.setIsBanned(true);
-		final UserAccount account = actor.getUserAccount();
-		account.setEnabled(false);
-		this.save(actor);
-	}
-
-	public void unban(final Actor actor) {
-		actor.setIsBanned(false);
-		final UserAccount account = actor.getUserAccount();
-		account.setEnabled(true);
-		this.save(actor);
-	}
-
-	public Collection<Actor> findSuspiciuosActors() {
-		return this.actorRepository.findSuspiciuosActors();
-	}
-
 }
