@@ -11,6 +11,7 @@ import org.springframework.util.Assert;
 
 import repositories.SectionRepository;
 import domain.Section;
+import domain.Tutorial;
 
 @Service
 @Transactional
@@ -59,12 +60,8 @@ public class SectionService {
 	public Section save(final Section section) {
 		Assert.notNull(section);
 		Section result;
-		final Collection<Section> a = this.sectionpository.findAll();
-		for (final Section b : a)
-			if (b.getTutorial().equals(section.getTutorial()))
-				Assert.isTrue(section.getPosition() != b.getPosition(), "positionerror");
 		result = this.sectionpository.save(section);
-
+		this.checkPosition(result);
 		return result;
 	}
 	public void delete(final Section section) {
@@ -76,6 +73,16 @@ public class SectionService {
 	//Other Methods------------------------------------------------------------------
 	public Collection<Section> findSectionByTutorialId(final int tutorialId) {
 		return this.sectionpository.findSectionByTutorialId(tutorialId);
+	}
+
+	public Boolean checkPosition(final Section section) {
+		final Tutorial t = section.getTutorial();
+		final Collection<Section> a = this.findSectionByTutorialId(t.getId());
+		for (final Section b : a)
+			if (b.getTutorial().equals(section.getTutorial()))
+				Assert.isTrue(section.getPosition() != b.getPosition(), "positionerror");
+
+		return true;
 	}
 
 }
