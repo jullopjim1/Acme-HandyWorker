@@ -8,14 +8,12 @@
  * http://www.tdg-seville.info/License.html
  --%>
 
-<%@page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
-<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -26,18 +24,17 @@
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="message/actor/exchangeMessage.do"
-	modelAttribute="entityMessage">
+<form:form action="message/administrator/broadcastMessage.do" modelAttribute="entityMessage">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
 	<form:hidden path="sender" />
-
+	<form:hidden path="receiver" />
+	
 
 	<form:label path="subject">
 		<spring:message code="message.subject" />:
@@ -69,22 +66,12 @@
 	<form:errors cssClass="error" path="tags" />
 	<br />
 
-	<form:label path="receiver">
-		<spring:message code="message.receiver" />:
-	</form:label>
-	<form:select id="receivers" path="receiver">
-		<form:options items="${receivers}" itemValue="id" itemLabel="name" />
-	</form:select>
-	<form:errors cssClass="error" path="receiver" />
-	<br />
 
 	<input type="submit" name="save"
 		value="<spring:message code="message.save" />" />&nbsp; 
 
-
-
-	<input type="button" name="cancel"
-		value="<spring:message code="message.cancel" />"
+	<input type="button" name="cancel" 
+	value="<spring:message code="message.cancel" />"
 		onclick="javascript: relativeRedir('welcome/index.do');" />
 	<br />
 

@@ -66,20 +66,6 @@ public class BoxController {
 		return modelAndView;
 	}
 
-	//Show
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int boxId) {
-		final ModelAndView modelAndView;
-
-		final Box box = this.boxService.findOne(boxId);
-
-		modelAndView = this.createEditModelAndView(box);
-		modelAndView.addObject("isRead", true);
-		//modelAndView.addObject("requestURI", "/show.do?boxId=" + boxId);
-
-		return modelAndView;
-	}
-
 	//Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Box box, final BindingResult binding) {
