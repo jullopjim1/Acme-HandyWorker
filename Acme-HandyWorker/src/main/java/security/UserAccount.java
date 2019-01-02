@@ -1,8 +1,8 @@
 /*
  * UserAccount.java
- * 
+ *
  * Copyright (C) 2018 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -34,7 +34,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	// Constructors -----------------------------------------------------------
 
-	private static final long	serialVersionUID	= 7254823034213841482L;
+	private static final long serialVersionUID = 7254823034213841482L;
 
 
 	public UserAccount() {
@@ -43,14 +43,15 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		this.authorities = new ArrayList<Authority>();
 	}
 
-
 	// Attributes -------------------------------------------------------------
+
 
 	// UserDetails interface --------------------------------------------------
 
 	private String					username;
 	private String					password;
 	private Collection<Authority>	authorities;
+	private boolean					enabled;
 
 
 	@Size(min = 5, max = 32)
@@ -123,6 +124,10 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public boolean setEnabled(final boolean enabled) {
+		return this.enabled = enabled;
 	}
 
 }
