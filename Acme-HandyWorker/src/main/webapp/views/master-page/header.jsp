@@ -27,6 +27,8 @@
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a href="dashboard/administrator/dashboard.do"><spring:message
 						code="master.page.administrator.dashboard" /></a></li>
+			<li><a href="actor/administrator/list.do"><spring:message
+						code="master.page.administrator.actors" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
