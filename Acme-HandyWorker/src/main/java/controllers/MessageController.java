@@ -109,7 +109,6 @@ public class MessageController {
 
 		modelAndView = this.createEditModelAndView(message);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/actor/show.do?messageId=" + messageId);
 
 		return modelAndView;
 	}
@@ -157,7 +156,6 @@ public class MessageController {
 		result.addObject("message", message);
 		result.addObject("receivers", actors);
 		result.addObject("isRead", false);
-		result.addObject("requestURI", "message/actor/exchangeMessage.do");
 
 		return result;
 	}

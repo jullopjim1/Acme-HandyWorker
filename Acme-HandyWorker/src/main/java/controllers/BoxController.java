@@ -107,18 +107,10 @@ public class BoxController {
 		if (box.getId() != 0)
 			boxes.removeAll(box.getSubboxes());
 
-		final Collection<String> priorities = new ArrayList<>();
-		priorities.add("HIGH");
-		priorities.add("NEUTRAL");
-		priorities.add("LOW");
-
-		result = new ModelAndView("message/actor/exchangeMessage");
+		result = new ModelAndView("box/actor/edit");
 		result.addObject("box", box);
 		result.addObject("boxes", boxes);
 		result.addObject("message", message);
-		result.addObject("isRead", false);
-		result.addObject("requestURI", "message/actor/exchangeMessage.do");
-
 		return result;
 	}
 
