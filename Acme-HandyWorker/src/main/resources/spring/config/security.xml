@@ -152,19 +152,19 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/message/actor/list.do"
 			access="isAuthenticated()" />
-		<security:intercept-url pattern="/message/actor/show.do"
+			<security:intercept-url pattern="/message/actor/show.do"
 			access="isAuthenticated()" />
-
+		
 		<!-- Box -->
-		<security:intercept-url pattern="/box/actor/list.do"
+			<security:intercept-url pattern="/box/actor/list.do"
 			access="isAuthenticated()" />
-		<security:intercept-url pattern="/box/actor/edit.do"
+			<security:intercept-url pattern="/box/actor/edit.do"
 			access="isAuthenticated()" />
-		<security:intercept-url pattern="/box/actor/create.do"
+			<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
-
-
-
+			
+			
+			
 		<security:intercept-url pattern="actor/edit.do"
 			access="isAuthenticated()" />
 
@@ -184,8 +184,8 @@
 			access="hasRole('HANDY')" />
 		<security:intercept-url pattern="/finder/handy/listFixUpTasks.do"
 			access="hasRole('HANDY')" />
-
-
+			
+				
 
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/sponsorship/sponsor/list.do"
@@ -198,12 +198,17 @@
 		<!-- ADMIN -->
 		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
 			access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/actor/administrator/list.do"
+		<security:intercept-url pattern="/administrator/action-1.do"
 			access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/actor/administrator/ban.do"
+		<security:intercept-url pattern="/administrator/action-2.do"
 			access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/actor/administrator/unban.do"
-			access="hasRole('ADMIN')" />
+
+		<security:intercept-url pattern="/customer/action-1.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/customer/action-2.do"
+			access="hasRole('CUSTOMER')" />
+
+
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />
