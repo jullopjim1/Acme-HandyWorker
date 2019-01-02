@@ -147,8 +147,4 @@ public class EndorsementService {
 		return this.endorsementRepository.calculateScoreByEndorser(endorserId);
 	}
 
-	public Endorsement endorsementByUserAccount(final int userAccountId) {
-		return this.endorsementRepository.endorsermentByUserAccountId(userAccountId);
-	}
-
 }

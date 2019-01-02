@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.Sponsor;
 
 import java.util.Collection;
 
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import controllers.AbstractController;
 
 import security.LoginService;
 import services.ActorService;
@@ -89,7 +91,7 @@ public class SponsorshipController extends AbstractController {
 		else
 			try {
 				this.sponsorshipService.save(sponsorship);
-				result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
+				result = new ModelAndView("redirect:/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
 
@@ -105,7 +107,7 @@ public class SponsorshipController extends AbstractController {
 
 		try {
 			this.sponsorshipService.delete(sponsorship);
-			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
+			result = new ModelAndView("redirect:/list.do");
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
 		}

@@ -13,7 +13,4 @@ public interface EndorsementRepository extends JpaRepository<Endorsement, Intege
 	@Query("select sum(e.score) from Endorsement e where e.endorsee.id=?1")
 	double calculateScoreByEndorser(int endorserId);
 
-	@Query("select e from Endorsement e where e.userAccount.id?=1")
-	Endorsement endorsermentByUserAccountId(int userAccountId);
-
 }

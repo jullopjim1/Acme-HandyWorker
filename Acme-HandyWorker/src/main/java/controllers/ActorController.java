@@ -26,10 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.LoginService;
 import services.ActorService;
-import services.EndorsementService;
+import services.EndorserService;
 import services.HandyWorkerService;
 import domain.Actor;
-import domain.Endorsement;
+import domain.Endorser;
 import domain.HandyWorker;
 
 @Controller
@@ -43,7 +43,7 @@ public class ActorController extends AbstractController {
 	HandyWorkerService	handyWorkerService;
 
 	@Autowired
-	EndorsementService	endorsementService;
+	EndorserService		endorserService;
 
 
 	// Edit ---------------------------------------------------------------		
@@ -77,7 +77,7 @@ public class ActorController extends AbstractController {
 		modelAndView.addObject("isRead", true);
 		modelAndView.addObject("requestURI", "/show.do?handyWorkerId=" + actor.getId());
 		if (actor.getUserAccount().getAuthorities().containsAll(t)) {
-			final Endorsement e = this.endorsementService.endorsementByUserAccount(actor1.getId());
+			final Endorser e = this.endorserService.findEndorserByUseraccount(actor1.getUserAccount());
 			modelAndView.addObject("score", e.getScore());
 		}
 

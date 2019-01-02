@@ -29,7 +29,6 @@
 	<form:hidden path="version" />
 	<form:hidden path="isSuspicious" />
 	<form:hidden path="userAccount" />
-	<form:hidden path="userAccount"/>
 
 	<form:label path="name">
 		<spring:message code="actor.name" />
@@ -79,6 +78,9 @@
 	<form:input path="address" readonly="${isRead}" />
 	<form:errors ccsClass="error" path="address" />
 	<br />
+	
+	
+	<h3>Score: ${score}</h3>
 
 	<security:authorize access="hasRole('ADMIN')">
 		<form:label path="isBanned">
