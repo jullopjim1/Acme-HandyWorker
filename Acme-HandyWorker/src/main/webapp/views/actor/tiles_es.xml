@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<!-- 
- * tiles_es.xml
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * tiles_es.xml * * Copyright (C) 2018 Universidad de Sevilla * * The 
+	use of this project is hereby constrained to the conditions of the * TDG 
+	Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <!DOCTYPE tiles-definitions PUBLIC
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-      
+
 <tiles-definitions>
 
-	<definition name="actor/edit" extends="master.page">	
+	<definition name="actor/edit" extends="master.page">
 		<put-attribute name="title" value="Editar Datos Personales" />
 		<put-attribute name="body" value="/views/actor/edit.jsp" />
 	</definition>
-	
-	<definition name="actor/registerCustomer" extends="master.page">	
+
+	<definition name="actor/list" extends="master.page">
+		<put-attribute name="title" value="Lista de Actores" />
+		<put-attribute name="body" value="/views/actor/list.jsp" />
+	</definition>
+
+	<definition name="actor/registerCustomer" extends="master.page">
 		<put-attribute name="title" value="Registrar como un cliente" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
-	
-	
-	<definition name="actor/registerHandyWorker" extends="master.page">	
+
+
+	<definition name="actor/registerHandyWorker" extends="master.page">
 		<put-attribute name="title" value="Registrar como un manitas" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
-	
-	
-	<definition name="actor/registerSponsor" extends="master.page">	
+
+
+	<definition name="actor/registerSponsor" extends="master.page">
 		<put-attribute name="title" value="Registrar como un patrocinador" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
-	</definition>	
-	
+	</definition>
+
 </tiles-definitions>
