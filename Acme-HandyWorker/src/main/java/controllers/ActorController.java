@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
+import security.LoginService;
 import services.ActorService;
 import services.EndorserService;
 import services.TutorialService;
@@ -48,11 +49,12 @@ public class ActorController extends AbstractController {
 	// Edit ---------------------------------------------------------------		
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int ActorId) {
+	public ModelAndView edit() {
 		ModelAndView result;
 		Actor actor;
 
-		actor = this.actorService.findOne(ActorId);
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		actor = this.actorService.findOne(a.getId());
 		Assert.notNull(actor);
 
 		result = this.createEditModelAndView(actor);
