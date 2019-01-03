@@ -14,6 +14,9 @@
 <display:table name="actors" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
+	<display:column property="userAccount.username"
+		titleKey="actor.username" />
+
 	<display:column titleKey="actor.profile">
 		<jstl:if test="${row.userAccount.enabled == true }"></jstl:if>
 		<a href="actor/administrator/show.do?actorId=${row.id}"> <spring:message
