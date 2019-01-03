@@ -80,14 +80,14 @@
 	<br />
 
 
-	<h3>Score: ${score}</h3>
+	<h3>${score}</h3>
 
-	<a href="tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}">
-	<spring:message code="profile.viewTutorials" />
+	<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
+			code="profile.viewTutorials" />
 	</a>
-	
-	<br/>
-	<br/>
+
+	<br />
+	<br />
 
 
 	<jstl:if test="${isRead == false}">

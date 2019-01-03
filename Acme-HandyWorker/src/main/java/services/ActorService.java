@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Actor;
 import repositories.ActorRepository;
 import security.UserAccount;
+import domain.Actor;
 
 @Service
 @Transactional
@@ -19,7 +19,7 @@ public class ActorService {
 
 	// Managed repository ----------------------------------------------------------------
 	@Autowired
-	private ActorRepository actorRepository;
+	private ActorRepository	actorRepository;
 
 
 	public Actor findOne(final int ActorId) {
@@ -43,8 +43,11 @@ public class ActorService {
 	}
 
 	public Actor save(final Actor actor) {
+
 		Assert.notNull(actor);
-		return this.actorRepository.save(actor);
+		final Actor saved = this.actorRepository.save(actor);
+
+		return saved;
 	}
 
 	//Other Methods---------------------------------------------------------------------

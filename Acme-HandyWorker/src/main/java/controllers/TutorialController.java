@@ -68,6 +68,21 @@ public class TutorialController extends AbstractController {
 		return modelAndView;
 	}
 
+	//List ---------------------------------------------------------------
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public ModelAndView view(@RequestParam final int handyWorkerId) {
+		ModelAndView result;
+		Collection<Tutorial> tutorials;
+
+		tutorials = this.tutorialService.findTutorialsByHandyWorkerId(handyWorkerId);
+
+		result = new ModelAndView("tutorial/list");
+		result.addObject("tutorials", tutorials);
+		result.addObject("requestURI", "/view.do?handyWorkerId=" + handyWorkerId);
+		result.addObject("handyWorkerId", handyWorkerId);
+		return result;
+	}
+
 	//CreateModelAndView
 
 	protected ModelAndView createEditModelAndView(final Tutorial tutorial) {

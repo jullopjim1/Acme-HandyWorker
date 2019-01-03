@@ -54,6 +54,9 @@
 
 		<security:intercept-url pattern="/actor/showProfileTutorial.do"
 			access="permitAll" />
+			
+			<security:intercept-url pattern="/tutorial/view.do"
+			access="permitAll" />
 
 		<!-- HandyWorker -->
 
