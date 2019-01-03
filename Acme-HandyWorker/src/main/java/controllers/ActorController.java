@@ -24,26 +24,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
-import security.LoginService;
 import services.ActorService;
 import services.EndorserService;
 import services.HandyWorkerService;
+import services.TutorialService;
 import domain.Actor;
 import domain.Endorser;
-import domain.HandyWorker;
+import domain.Tutorial;
 
 @Controller
 @RequestMapping("/actor")
 public class ActorController extends AbstractController {
 
 	@Autowired
-	ActorService		actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	HandyWorkerService	handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
 
 	@Autowired
-	EndorserService		endorserService;
+	private EndorserService		endorserService;
+
+	@Autowired
+	private TutorialService		tutorialService;
 
 
 	// Edit ---------------------------------------------------------------		
@@ -62,11 +65,12 @@ public class ActorController extends AbstractController {
 	}
 
 	//Show
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show() {
+	@RequestMapping(value = "/showProfileTutorial", method = RequestMethod.GET)
+	public ModelAndView showByTutorial(@RequestParam final int tutorialId) {
 		final ModelAndView modelAndView;
+		final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 
-		final Actor actor1 = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final Actor actor1 = this.actorService.findByUserAccount(tutorial.getHandyWorker().getUserAccount());
 
 		final Actor actor = this.actorService.findOne(actor1.getId());
 		final ArrayList<String> t = new ArrayList<>();
@@ -75,7 +79,7 @@ public class ActorController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(actor);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/show.do?handyWorkerId=" + actor.getId());
+		modelAndView.addObject("requestURI", "/showProfileTutorial.do?tutorialId=" + tutorial.getId());
 		if (actor.getUserAccount().getAuthorities().containsAll(t)) {
 			final Endorser e = this.endorserService.findEndorserByUseraccount(actor1.getUserAccount());
 			modelAndView.addObject("score", e.getScore());
@@ -116,15 +120,11 @@ public class ActorController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Actor actor, final String message) {
 		ModelAndView result;
 
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		final int b = a.getId();
-
 		result = new ModelAndView("actor/edit");
 		result.addObject("actor", actor);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "actor/edit.do");
-		result.addObject("handyWorkerId", b);
 
 		return result;
 	}
