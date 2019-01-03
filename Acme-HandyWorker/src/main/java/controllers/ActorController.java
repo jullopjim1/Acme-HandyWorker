@@ -26,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import services.ActorService;
 import services.EndorserService;
-import services.HandyWorkerService;
 import services.TutorialService;
 import domain.Actor;
 import domain.Endorser;
@@ -37,16 +36,13 @@ import domain.Tutorial;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService	actorService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private EndorserService	endorserService;
 
 	@Autowired
-	private EndorserService		endorserService;
-
-	@Autowired
-	private TutorialService		tutorialService;
+	private TutorialService	tutorialService;
 
 
 	// Edit ---------------------------------------------------------------		
@@ -79,7 +75,7 @@ public class ActorController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(actor);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/showProfileTutorial.do?tutorialId=" + tutorial.getId());
+		modelAndView.addObject("requestURI", "/actor/showProfileTutorial.do?tutorialId=" + tutorial.getId());
 		if (actor.getUserAccount().getAuthorities().containsAll(t)) {
 			final Endorser e = this.endorserService.findEndorserByUseraccount(actor1.getUserAccount());
 			modelAndView.addObject("score", e.getScore());
@@ -98,7 +94,7 @@ public class ActorController extends AbstractController {
 		else
 			try {
 				//	this.actorService.save(actor);
-				result = new ModelAndView("redirect:tutorial/list.do");
+				result = new ModelAndView("redirect:/tutorial/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "actor.commit.error");
 
