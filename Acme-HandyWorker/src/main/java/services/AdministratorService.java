@@ -100,7 +100,7 @@ public class AdministratorService {
 			result = this.isSuspicious(administrator);
 			break;
 		case "CUSTOMER":
-			final Customer customer = this.customerService.findByUseraccount(userAccount);
+			final Customer customer = this.customerService.findByUseraccount(userAccount.getId());
 			customer.setIsSuspicious(true);
 			result = this.customerService.isSuspicious(customer);
 
