@@ -32,8 +32,12 @@ public class StringToBoxConverter implements Converter<String, Box> {
 		int id;
 
 		try {
-			id = Integer.valueOf(text);
-			result = this.boxRepository.findOne(id);
+			if (text == "")
+				result = null;
+			else {
+				id = Integer.valueOf(text);
+				result = this.boxRepository.findOne(id);
+			}
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

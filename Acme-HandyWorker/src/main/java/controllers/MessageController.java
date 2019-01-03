@@ -18,7 +18,6 @@ import security.LoginService;
 import services.ActorService;
 import services.BoxService;
 import services.MessageService;
-import utilities.internal.SchemaPrinter;
 import domain.Actor;
 import domain.Box;
 import domain.Message;
@@ -104,37 +103,91 @@ public class MessageController extends AbstractController {
 	//Show
 	@RequestMapping(value = "/actor/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int messageId) {
-		final ModelAndView modelAndView;
-
+		ModelAndView modelAndView;
 		final Message message = this.messageService.findOne(messageId);
+		try {
+			this.messageService.checkPrincipal(message);
+			modelAndView = this.createEditModelAndView(message);
+			modelAndView.setViewName("message/actor/show");
+			modelAndView.addObject("isRead", true);
 
-		modelAndView = this.createEditModelAndView(message);
-		modelAndView.setViewName("message/actor/show");
-		modelAndView.addObject("isRead", true);
+		} catch (final Exception e) {
+			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
+			modelAndView.addObject("message", "message.commit.error");
+		}
+
+		return modelAndView;
+	}
+	//Move message
+	@RequestMapping(value = "/actor/move", method = RequestMethod.GET)
+	public ModelAndView move(@RequestParam final int messageId) {
+		ModelAndView modelAndView;
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		try {
+			final Message message = this.messageService.findOne(messageId);
+
+			this.messageService.checkPrincipal(message);
+
+			final Collection<Box> boxes = this.boxService.findBoxesByActorId(actor.getId());
+
+			modelAndView = this.createEditModelAndView(message);
+			modelAndView.setViewName("message/actor/move");
+			modelAndView.addObject("isRead", true);
+			modelAndView.addObject("isMove", true);
+			modelAndView.addObject("boxes", boxes);
+		} catch (final Exception e) {
+			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
+			modelAndView.addObject("message", "message.commit.error");
+		}
 
 		return modelAndView;
 	}
 
 	//Save
-	@RequestMapping(value = "/actor/exchangeMessage", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/actor/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Message message, final BindingResult binding) {
-		System.out.println("\n\n=======================\n");
-		SchemaPrinter.print(message);
-		System.out.println("\n=======================\n");
 		ModelAndView result;
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(message);
-		else
+			if (message.getId() != 0) {
+				result.setViewName("message/actor/move");
+				result.addObject("isRead", true);
+				result.addObject("isMove", true);
+			}
+		} else
 			try {
-				this.messageService.save(message);
+				if (message.getId() != 0)
+					this.messageService.moveMessage(message, message.getBox());
+				else
+					this.messageService.save(message);
+
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
-				System.out.println("\n\n=======================\n");
-				System.out.println(oops.getMessage());
-				System.out.println("\n=======================\n");
 				result = this.createEditModelAndView(message, "message.commit.error");
+				if (message.getId() != 0) {
+					result.setViewName("message/actor/move");
+					result.addObject("isRead", true);
+					result.addObject("isMove", true);
+
+				}
 			}
+		return result;
+	}
+	@RequestMapping(value = "/actor/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView edit(final Message message) {
+
+		ModelAndView result;
+		try {
+			this.messageService.delete(message);
+			result = new ModelAndView("redirect:/box/actor/list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(message, "message.commit.error");
+			System.out.println("========== " + oops.getMessage() + " ==========");
+			result.setViewName("message/actor/move");
+			result.addObject("isRead", true);
+			result.addObject("isMove", true);
+		}
 		return result;
 	}
 
@@ -151,7 +204,9 @@ public class MessageController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Message entityMessage, final String message) {
 		ModelAndView result;
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final Collection<Actor> actors = this.actorService.findAll();
+		actors.remove(actor);
 		final Collection<String> priorities = new ArrayList<>();
 
 		priorities.add("HIGH");

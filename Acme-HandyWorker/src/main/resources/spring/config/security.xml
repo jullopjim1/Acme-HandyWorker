@@ -154,7 +154,10 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/actor/show.do"
 			access="isAuthenticated()" />
-
+		<security:intercept-url pattern="/message/actor/move.do"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/actor/edit.do"
+			access="isAuthenticated()" />
 		<!-- Box -->
 		<security:intercept-url pattern="/box/actor/list.do"
 			access="isAuthenticated()" />

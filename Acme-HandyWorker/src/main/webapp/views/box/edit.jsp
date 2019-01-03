@@ -66,6 +66,6 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="box.cancel" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
+			onclick="javascript: relativeRedir('box/actor/list.do');" />
 		<br />
 </form:form>

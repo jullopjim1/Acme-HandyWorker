@@ -36,11 +36,11 @@
 		</a>
 	</display:column>
 	
-	<%-- <display:column>
-		<a href="message/actor/delete.do?messageId=${row.id}"> <spring:message
-				code="message.delete" />
+	<display:column>
+		<a href="message/actor/move.do?messageId=${row.id}"> <spring:message
+				code="message.edit" />
 		</a>
-	</display:column> --%>
+	</display:column>
 
 </display:table>
 

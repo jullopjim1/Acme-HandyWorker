@@ -214,7 +214,7 @@ public class MessageService {
 		return result;
 	}
 
-	private Actor checkPrincipal(final Message message) {
+	public Actor checkPrincipal(final Message message) {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		Assert.notNull(userAccount, "Debe estar logeado para modificar o borrar un mensaje");
 		final Actor actor = this.actorService.findByUserAccount(userAccount);
