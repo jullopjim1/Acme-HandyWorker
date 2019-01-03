@@ -150,6 +150,10 @@
 
 		<security:intercept-url pattern="/fixUpTask/customer/list.do"
 			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/fixUpTask/customer/create.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/fixUpTask/customer/edit.do"
+			access="hasRole('CUSTOMER')" />
 
 
 		<!-- Message -->

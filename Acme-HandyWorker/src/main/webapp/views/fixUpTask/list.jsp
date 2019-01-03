@@ -9,8 +9,19 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
+
+	<jstl:if test="${customerId==row.customer.id}">
+		<display:column>
+
+			<a href="fixUpTask/customer/edit.do?fixUpTaskId=${row.id}"> <spring:message
+					code="fixuptask.edit" />
+			</a>
+
+		</display:column>
+	</jstl:if>
 
 	<display:column property="category.name" titleKey="fixuptask.category" />
 	<display:column property="ticker.ticker" titleKey="fixuptask.ticker" />
@@ -23,9 +34,9 @@
 
 </display:table>
 
-</b>
+<br />
 <security:authorize access="hasRole('CUSTOMER')">
-	<a href="fixuptask/customer/create.do"> <spring:message
+	<a href="fixUpTask/customer/create.do"> <spring:message
 			code="application.create" />
 	</a>
 </security:authorize>

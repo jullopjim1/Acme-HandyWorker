@@ -56,22 +56,27 @@
 
 		<bean class="converters.SponsorToStringConverter" />
 		<bean class="converters.StringToSponsorConverter" />
-		
+
 		<bean class="converters.BoxToStringConverter" />
 		<bean class="converters.StringToBoxConverter" />
-		
+
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
-		
+
 		<bean class="converters.UserAccountToStringConverter" />
 		<bean class="converters.StringToUserAccountConverter" />
-		
+
 		<bean class="converters.CustomerToStringConverter" />
 		<bean class="converters.StringToCustomerConverter" />
-		
+
 		<bean class="converters.CategoryToStringConverter" />
 		<bean class="converters.StringToCategoryConverter" />
 
+		<bean class="converters.WarrantyToStringConverter" />
+		<bean class="converters.StringToWarrantyConverter" />
+		
+		<bean class="converters.TickerToStringConverter" />
+		<bean class="converters.StringToTickerConverter" />
 
 	</util:list>
 

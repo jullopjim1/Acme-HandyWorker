@@ -107,9 +107,9 @@ public class CustomerService {
 		return saved;
 	}
 
-	public Customer findByUseraccount(final UserAccount userAccount) {
+	public Customer findByUseraccount(final int customerId) {
 
-		return this.customerRepository.findCustomerByUserAccount(userAccount.getId());
+		return this.customerRepository.findCustomerByUserAccount(customerId);
 
 	}
 
