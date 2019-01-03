@@ -82,7 +82,12 @@
 
 	<h3>Score: ${score}</h3>
 
-
+	<a href="tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}">
+	<spring:message code="profile.viewTutorials" />
+	</a>
+	
+	<br/>
+	<br/>
 
 
 	<jstl:if test="${isRead == false}">
@@ -105,7 +110,5 @@
 
 </form:form>
 
-<a href="tutorial/handyworker/list.do?handyWorkerId=${handyWorkerId}">
-	<spring:message code="profile.viewTutorials" />
-</a>
+
 

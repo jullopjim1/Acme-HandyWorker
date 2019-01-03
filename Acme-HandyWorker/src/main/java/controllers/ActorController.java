@@ -95,8 +95,8 @@ public class ActorController extends AbstractController {
 			result = this.createEditModelAndView(actor);
 		else
 			try {
-				//	this.actorService.save(actor);
-				result = new ModelAndView("redirect:/tutorial/list.do");
+				this.actorService.save(actor);
+				result = new ModelAndView("redirect:index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "actor.commit.error");
 
