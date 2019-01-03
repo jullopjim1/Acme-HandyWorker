@@ -79,13 +79,15 @@
 	<form:errors ccsClass="error" path="address" />
 	<br />
 
-
+	<jstl:if test="${isRead == true}">
 	<h3>${score}</h3>
-
-	<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
-			code="profile.viewTutorials" />
-	</a>
-
+	</jstl:if>
+	<br/>
+	<jstl:if test="${isRead == true}">
+		<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
+				code="profile.viewTutorials" />
+		</a>
+	</jstl:if>
 	<br />
 	<br />
 

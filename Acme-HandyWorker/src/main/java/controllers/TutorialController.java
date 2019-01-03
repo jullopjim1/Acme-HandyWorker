@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
 import services.HandyWorkerService;
 import services.SponsorshipService;
 import services.TutorialService;
@@ -101,7 +100,7 @@ public class TutorialController extends AbstractController {
 
 		sponsorships = this.sponsorshipService.findAll();
 
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final HandyWorker a = tutorial.getHandyWorker();
 		final int b = a.getId();
 
 		result = new ModelAndView("tutorial/edit");
