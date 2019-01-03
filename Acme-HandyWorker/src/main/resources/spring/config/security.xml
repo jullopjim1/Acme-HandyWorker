@@ -54,8 +54,8 @@
 
 		<security:intercept-url pattern="/actor/showProfileTutorial.do"
 			access="permitAll" />
-			
-			<security:intercept-url pattern="/tutorial/view.do"
+
+		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
 
 		<!-- HandyWorker -->
@@ -199,6 +199,12 @@
 		<security:intercept-url pattern="/sponsorship/sponsor/edit.do"
 			access="hasRole('SPONSOR')" />
 		<security:intercept-url pattern="/sponsorship/sponsor/delete.do"
+			access="hasRole('SPONSOR')" />
+
+		<security:intercept-url pattern="/sponsorship/sponsor/create.do"
+			access="hasRole('SPONSOR')" />
+
+		<security:intercept-url pattern="/sponsorship/sponsor/save.do"
 			access="hasRole('SPONSOR')" />
 
 		<!-- ADMIN -->

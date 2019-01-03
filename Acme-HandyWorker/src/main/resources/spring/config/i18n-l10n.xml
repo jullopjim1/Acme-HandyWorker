@@ -37,7 +37,7 @@
 		<value>/views/professionalRecord/messages</value>
 		<value>/views/miscellaneousRecord/messages</value>
 		
-		<value>/views/sponsorship/tiles.xml</value>
+		<value>/views/sponsorship/messages</value>
 	</util:list>
 
 </beans>
