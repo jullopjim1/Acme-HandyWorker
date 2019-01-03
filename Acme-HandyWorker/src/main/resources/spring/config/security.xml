@@ -54,8 +54,8 @@
 
 		<security:intercept-url pattern="/actor/showProfileTutorial.do"
 			access="permitAll" />
-			
-			<security:intercept-url pattern="/tutorial/view.do"
+
+		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
 
 		<!-- HandyWorker -->
@@ -146,6 +146,10 @@
 
 		<security:intercept-url pattern="/tutorial/handyworker/save.do"
 			access="hasRole('HANDY')" />
+
+
+		<security:intercept-url pattern="/fixUpTask/customer/list.do"
+			access="hasRole('CUSTOMER')" />
 
 
 		<!-- Message -->
