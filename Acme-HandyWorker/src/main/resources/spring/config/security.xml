@@ -52,7 +52,7 @@
 		<security:intercept-url pattern="/section/list.do"
 			access="permitAll" />
 
-		<security:intercept-url pattern="/actor/show.do"
+		<security:intercept-url pattern="/actor/showProfileTutorial.do"
 			access="permitAll" />
 
 		<!-- HandyWorker -->
