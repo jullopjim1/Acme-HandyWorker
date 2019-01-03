@@ -205,6 +205,12 @@
 		<security:intercept-url pattern="/sponsorship/sponsor/delete.do"
 			access="hasRole('SPONSOR')" />
 
+		<security:intercept-url pattern="/sponsorship/sponsor/create.do"
+			access="hasRole('SPONSOR')" />
+
+		<security:intercept-url pattern="/sponsorship/sponsor/save.do"
+			access="hasRole('SPONSOR')" />
+
 		<!-- ADMIN -->
 		<security:intercept-url pattern="/dashboard/administrator/dashboard.do"
 			access="hasRole('ADMIN')" />
