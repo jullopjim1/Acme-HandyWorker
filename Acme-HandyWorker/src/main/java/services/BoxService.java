@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javax.transaction.Transactional;
 
@@ -75,6 +76,7 @@ public class BoxService {
 		return this.boxRepository.findOne(boxId);
 	}
 	public Box save(final Box box) {
+		this.checkPrincipal(box);
 		final Collection<String> systemBox = new ArrayList<>();
 		systemBox.add("trash box");
 		systemBox.add("in box");
@@ -107,6 +109,7 @@ public class BoxService {
 		return saved;
 	}
 	public void delete(final Box entity) {
+		this.checkPrincipal(entity);
 		// TODO DELETE BOX ï¿½Si se borra un actor se borra sus carpetas?
 		Assert.isTrue(!entity.getIsSystem(), "No se puede eliminar una carpeta del sistema");
 
@@ -117,11 +120,28 @@ public class BoxService {
 		}
 
 		this.messageService.deleteByBox(entity);
+		//
+		//		final Collection<Box> subBoxes = entity.getSubboxes();
+		//		this.delete(subBoxes);
 
-		final Collection<Box> subBoxes = entity.getSubboxes();
-		this.delete(subBoxes);
+		final Collection<Box> boxes = this.findDescendent(entity);
 
-		this.boxRepository.delete(entity);
+		this.boxRepository.delete(boxes);
+	}
+
+	private Collection<Box> findDescendent(final Box father) {
+		final Collection<Box> result = new LinkedList<>();
+		result.add(father);
+		final Collection<Box> boxs = father.getSubboxes();
+		for (final Box box : boxs) {
+			this.messageService.deleteByBox(box);
+			if (box.getSubboxes().isEmpty())
+				result.add(box);
+			else
+				result.addAll(this.findDescendent(box));
+		}
+
+		return result;
 	}
 
 	private void delete(final Collection<Box> subBoxes) {
@@ -139,6 +159,12 @@ public class BoxService {
 
 	}
 	//Other Methods---------------------------------------------------------------------------
+	public void checkPrincipal(final Box box) {
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+
+		Assert.isTrue(box.getActor().equals(actor), "box.commit.error");
+
+	}
 
 	public Box findBoxByActorIdAndName(final int actorId, final String nameBox) {
 		//TODO Añadir asserts

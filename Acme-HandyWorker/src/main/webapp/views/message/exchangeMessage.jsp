@@ -18,32 +18,40 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-<form:form action="message/actor/exchangeMessage.do"
+<form:form action="message/actor/edit.do"
 	modelAttribute="entityMessage">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
 	<form:hidden path="sender" />
-	<form:hidden path="box" />
-
 	<jstl:if test="${isRead==true}">
 			<spring:message code="message.sender" />:
 		<jstl:out value="${entityMessage.sender.userAccount.username}"></jstl:out>
 		<br />
-
+		
+		<form:hidden path="recipient" />
 		<spring:message code="message.receiver" />:
 		<jstl:out value="${entityMessage.recipient.userAccount.username}"></jstl:out>
 		<br />
-		<spring:message code="message.box" />:
-		<jstl:out value="${entityMessage.box.name}"></jstl:out>
-		<br />
-
-
+		<jstl:if test="${isMove==false }">
+			<form:hidden path="box" />
+			<spring:message code="message.box" />:
+			<jstl:out value="${entityMessage.box.name}"></jstl:out>
+			<br />
+		</jstl:if>
+		<jstl:if test="${isMove==true }">
+			<form:label path="box">
+				<spring:message code="message.box" />:
+			</form:label>
+			<form:select id="boxes" path="box">
+				<form:options items="${boxes}" itemValue="id" itemLabel="name" />
+			</form:select>
+			<form:errors cssClass="error" path="box" /><br/>
+		</jstl:if>
 		<form:label path="priority">
 			<spring:message code="message.priority" />:
-	</form:label>
+		</form:label>
 		<form:input path="priority" readonly="${isRead}" />
 		<form:errors cssClass="error" path="priority" />
 		<br />
@@ -82,6 +90,7 @@
 
 
 	<jstl:if test="${isRead!=true}">
+	<form:hidden path="box" />
 		<form:label path="priority">
 			<spring:message code="message.priority" />:
 	</form:label>
@@ -95,20 +104,23 @@
 			<spring:message code="message.receiver" />:
 	</form:label>
 		<form:select id="receivers" path="recipient">
-			<form:options items="${receivers}" itemValue="id" itemLabel="name" />
+			<form:options items="${receivers}" itemValue="id" itemLabel="userAccount.username" />
 		</form:select>
 		<form:errors cssClass="error" path="recipient" />
 		<br />
-
-
+</jstl:if>
+<jstl:if test="${isRead!=true || (isMove==true && isRead==true)}">
 		<input type="submit" name="save"
 			value="<spring:message code="message.save" />" />&nbsp; 
+		<input type="submit" name="delete"
+				value="<spring:message code="message.delete" />"
+				onclick="javascript: return confirm('<spring:message code="message.confirm.delete" />')" />
 	<input type="button" name="cancel"
 			value="<spring:message code="message.cancel" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
+			onclick="javascript: relativeRedir('box/actor/list.do');" />
 		<br />
-	</jstl:if>
-
+	
+</jstl:if>
 
 
 

@@ -63,11 +63,15 @@ public class BoxController extends AbstractController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int boxId) {
-		final ModelAndView modelAndView;
+		ModelAndView modelAndView;
+		try {
 
-		final Box box = this.boxService.findOne(boxId);
-
-		modelAndView = this.createEditModelAndView(box);
+			final Box box = this.boxService.findOne(boxId);
+			this.boxService.checkPrincipal(box);
+			modelAndView = this.createEditModelAndView(box);
+		} catch (final Exception e) {
+			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
+		}
 
 		return modelAndView;
 	}
