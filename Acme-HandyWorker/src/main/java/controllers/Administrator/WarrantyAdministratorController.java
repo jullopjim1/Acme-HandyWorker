@@ -14,15 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Administrator;
-import domain.HandyWorker;
-import domain.Sponsorship;
-import domain.Tutorial;
-import domain.Warranty;
 import security.LoginService;
 import services.AdministratorService;
 import services.WarrantyService;
+import controllers.AbstractController;
+import domain.Administrator;
+import domain.Warranty;
 
 @Controller
 @RequestMapping("/warranty/administrator")
@@ -68,7 +65,7 @@ public class WarrantyAdministratorController extends AbstractController {
 
 		modelAndView.addObject("warranty", warranty);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/actor/administrator/show.do?actorId=" + warrantyId);
+		modelAndView.addObject("requestURI", "/warranty/administrator/show.do?actorId=" + warrantyId);
 
 		return modelAndView;
 
@@ -145,7 +142,7 @@ public class WarrantyAdministratorController extends AbstractController {
 
 		warranties = this.warrantyService.findAll();
 		final Administrator a = this.administratorService.findByUseraccount(LoginService.getPrincipal());
-		result = new ModelAndView("tutorial/edit");
+		result = new ModelAndView("warranty/edit");
 		result.addObject("warranty", warranty);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
