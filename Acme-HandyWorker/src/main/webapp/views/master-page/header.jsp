@@ -43,7 +43,7 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('SPONSOR')">
-			<li><a class="fNiv" href="sponsorhip/sponsor/list.do"><spring:message
+			<li><a class="fNiv" href="sponsorship/sponsor/list.do"><spring:message
 						code="master.page.sponsorship" /></a>
 
 			</li>

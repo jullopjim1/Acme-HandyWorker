@@ -34,7 +34,7 @@
 			</jstl:if>
 		</display:column>
 
-		<display:column property="sponsorship.banner"
+		<display:column property="banner"
 			titleKey="sponsorship.banner">
 			<img src="${row.banner}" />
 		</display:column>
@@ -42,7 +42,7 @@
 		<display:column property="link" titleKey="sponsorship.link" />
 
 
-		<display:column property="${row.sponsor.name}"
+		<display:column property="sponsor.name"
 			titleKey="sponsorship.sponsor" />
 
 
