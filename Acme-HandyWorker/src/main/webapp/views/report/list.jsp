@@ -24,26 +24,28 @@
 <display:table name="reports" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	
+	<security:authorize access="hasRole('REFEREE')">
+		<display:column>
+			<jstl:if test="${refereeId==row.referee.id}">
+			<a href="report/referee/edit.do?reportId=${report.id}"> <spring:message
+					code="report.edit" />
+			</a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
 
-	
+
 	<display:column property="moment" titleKey="report.moment" />
-	<display:column property="description" titleKey="report.decription"/>
-	<display:column property="attachaments" titleKey="report.attachments"/>
+	<display:column property="description" titleKey="report.decription" />
+	<display:column property="attachaments" titleKey="report.attachments" />
 
 	<display:column titleKey="report.notes">
 		<a href="note/list.do?reportId=${report.id}"> <spring:message
 				code="report.show" />
 		</a>
 	</display:column>
+
 	
-	<security:authorize access="hasRole('REFEREE')">
-		<display:column>
-			<a href="report/referee/edit.do?reportId=${report.id}">
-				<spring:message code="report.edit" />
-			</a>
-		</display:column>
-	</security:authorize>
 
 
 
