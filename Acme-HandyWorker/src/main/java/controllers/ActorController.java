@@ -1,8 +1,8 @@
 /*
  * ProfileController.java
- * 
+ *
  * Copyright (C) 2018 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Endorser;
+import domain.Tutorial;
 import security.LoginService;
 import services.ActorService;
 import services.EndorserService;
 import services.TutorialService;
-import domain.Actor;
-import domain.Endorser;
-import domain.Tutorial;
 
 @Controller
 @RequestMapping("/actor")
@@ -43,18 +43,16 @@ public class ActorController extends AbstractController {
 	private EndorserService	endorserService;
 
 
-	// Edit ---------------------------------------------------------------		
+	// Edit ---------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
-		Actor actor;
 
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		actor = this.actorService.findOne(a.getId());
-		Assert.notNull(actor);
+		Assert.notNull(a);
 
-		result = this.createEditModelAndView(actor);
+		result = this.createEditModelAndView(a);
 
 		return result;
 	}

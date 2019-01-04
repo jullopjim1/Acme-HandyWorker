@@ -67,6 +67,9 @@ public interface FixUpTaskRepository extends JpaRepository<FixUpTask, Integer> {
 	@Query("select a.fixUpTask from Application a where a.status LIKE 'ACCEPTED' and a.handyWorker.id = ?1 and a.fixUpTask.deadline > CURRENT_TIMESTAMP")
 	public Collection<FixUpTask> findTasksActiveByApplicationAcceptedAndHandyWorkerId(int handyWorkerId);
 
+	@Query("select a.fixUpTask from Application a where a.handyWorker.id = ?1 and a.fixUpTask.deadline > CURRENT_TIMESTAMP")
+	public Collection<FixUpTask> findTasksActiveByApplicationHandyWorkerId(int handyWorkerId);
+
 	@Query("select t from FixUpTask t where t.customer.id = ?1")
 	public Collection<FixUpTask> findFixUpTaskByCustomerId(int customerId);
 

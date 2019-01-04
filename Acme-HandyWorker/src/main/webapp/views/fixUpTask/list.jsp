@@ -13,15 +13,17 @@
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<jstl:if test="${customerId==row.customer.id}">
+	<security:authorize access="hasRole('CUSTOMER')">
+
 		<display:column>
-
-			<a href="fixUpTask/customer/edit.do?fixUpTaskId=${row.id}"> <spring:message
-					code="fixuptask.edit" />
-			</a>
-
+			<jstl:if test="${customerId==row.customer.id}">
+				<a href="fixUpTask/customer/edit.do?fixUpTaskId=${row.id}"> <spring:message
+						code="fixuptask.edit" />
+				</a>
+			</jstl:if>
 		</display:column>
-	</jstl:if>
+
+	</security:authorize>
 
 	<display:column property="category.name" titleKey="fixuptask.category" />
 	<display:column property="ticker.ticker" titleKey="fixuptask.ticker" />

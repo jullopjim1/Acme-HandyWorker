@@ -66,15 +66,26 @@
 	<form:errors cssClass="error" path="warranty" />
 	<br />
 
-	<input type="submit" name="save"
-		value="<spring:message code="fixuptask.save" />" />
+	<jstl:if test="${isRead == false}">
+		<input type="submit" name="save"
+			value="<spring:message code="fixuptask.save" />" />
 
-	<input type="submit" name="delete"
-		value="<spring:message code="fixuptask.delete" />"
-		onclick="javascript: return confirm('<spring:message code="fixuptask.confirmDelete" />')" />
+		<input type="submit" name="delete"
+			value="<spring:message code="fixuptask.delete" />"
+			onclick="javascript: return confirm('<spring:message code="fixuptask.confirmDelete" />')" />
 
-	<input type="button" name="cancel"
-		value="<spring:message code="fixuptask.cancel" />"
-		onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
-	<br />
+		<input type="button" name="cancel"
+			value="<spring:message code="fixuptask.cancel" />"
+			onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
+		<br />
+	</jstl:if>
+
+	<jstl:if test="${isRead == true}">
+		<input type="button" class="btn btn-warning" name="back"
+			value='<spring:message code="curriculum.back"/>'
+			onclick="document.location.href='fixUpTask/customer/list.do';">
+	</jstl:if>
+
+
+
 </form:form>

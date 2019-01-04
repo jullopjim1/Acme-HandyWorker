@@ -14,6 +14,7 @@ import org.springframework.util.Assert;
 
 import domain.Actor;
 import domain.Application;
+import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Phase;
@@ -53,7 +54,7 @@ public class FixUpTaskService {
 
 	// Simple CRUD----------------------------------------------
 
-	public FixUpTask create() {
+	public FixUpTask create(final int customerId) {
 		final FixUpTask fixUpTask = new FixUpTask();
 
 		//Ticker Unico
@@ -62,6 +63,10 @@ public class FixUpTaskService {
 
 		fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
 		fixUpTask.setTicker(saved);
+
+		final Customer customer = this.customerService.findOne(customerId);
+		fixUpTask.setCustomer(customer);
+
 		return fixUpTask;
 	}
 
@@ -176,6 +181,10 @@ public class FixUpTaskService {
 
 	public ArrayList<HandyWorker> queryB5() {
 		return this.fixUpTaskRepository.queryB5();
+	}
+
+	public Collection<FixUpTask> findTasksActiveByApplicationHandyWorkerId(final int handyWorkerId) {
+		return this.fixUpTaskRepository.findTasksActiveByApplicationHandyWorkerId(handyWorkerId);
 	}
 
 }
