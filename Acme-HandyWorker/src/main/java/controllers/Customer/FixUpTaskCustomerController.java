@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -53,7 +54,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<FixUpTask> fixuptasks;
-
+		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 		final Customer c = this.customerService.findByUseraccount(LoginService
 				.getPrincipal().getId());
 		fixuptasks = this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId());
@@ -61,6 +62,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		result.addObject("fixUpTasks", fixuptasks);
 		result.addObject("requestURI", "fixUpTask/customer/list.do");
 		result.addObject("customerId", c.getId());
+		result.addObject("lang", lang);
 		return result;
 	}
 

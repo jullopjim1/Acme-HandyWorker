@@ -10,67 +10,41 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="fixUpTask/customer/create.do"
-	modelAttribute="fixUpTask">
+<form:form action="category/administrator/create.do"
+	modelAttribute="categoryForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="ticker" />
-	<form:hidden path="moment" />
-	<form:hidden path="customer" />
-
-	<form:label path="description">
-		<spring:message code="fixuptask.description" />:
+	
+	<form:label path="nameEN">
+		<spring:message code="category.nameEN" />:
 	</form:label>
-	<form:input path="description" />
-	<form:errors cssClass="error" path="description" />
+	<form:input path="nameEN" />
+	<form:errors cssClass="error" path="nameEN" />
+	<br />
+	
+	<form:label path="nameES">
+		<spring:message code="category.nameES" />:
+	</form:label>
+	<form:input path="nameES" />
+	<form:errors cssClass="error" path="nameES" />
 	<br />
 
-	<form:label path="adress">
-		<spring:message code="fixuptask.address" />:
+	<form:label path="rootcategory">
+		<spring:message code="category.rootCategory" />:
 	</form:label>
-	<form:input path="adress" />
-	<form:errors cssClass="error" path="adress" />
-	<br />
-
-	<form:label path="maxPrice">
-		<spring:message code="fixuptask.maxPrice" />:
-	</form:label>
-	<form:input path="maxPrice" />
-	<form:errors cssClass="error" path="maxPrice" />
-	<br />
-
-	<form:label path="deadline">
-		<spring:message code="fixuptask.deadlineWith" />:
-	</form:label>
-	<form:input path="deadline" />
-	<form:errors cssClass="error" path="deadline" />
-	<br />
-
-	<form:label path="category">
-		<spring:message code="fixuptask.category" />:
-	</form:label>
-	<form:select id="categories" path="category" readonly="${isRead }">
+	<form:select id="categories" path="rootcategory" readonly="${isRead }">
 		<form:options items="${categories}" itemValue="id" itemLabel="name" />
 	</form:select>
-	<form:errors cssClass="error" path="category" />
+	<form:errors cssClass="error" path="rootcategory" />
 
-	<br />
-
-	<form:label path="warranty">
-		<spring:message code="fixuptask.warranty" />:
-	</form:label>
-	<form:select id="warranties" path="warranty" readonly="${isRead }">
-		<form:options items="${warranties}" itemValue="id" itemLabel="title" />
-	</form:select>
-	<form:errors cssClass="error" path="warranty" />
 	<br />
 
 	<input type="submit" name="save"
-		value="<spring:message code="fixuptask.save" />" />
+		value="<spring:message code="category.save" />" />
 
 	<input type="button" name="cancel"
-		value="<spring:message code="fixuptask.cancel" />"
-		onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
+		value="<spring:message code="category.cancel" />"
+		onclick="javascript: relativeRedir('category/administrator/list.do');" />
 	<br />
+
 </form:form>

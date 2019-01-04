@@ -25,7 +25,13 @@
 
 	</security:authorize>
 
-	<display:column property="category.name" titleKey="fixuptask.category" />
+	<display:column titleKey="fixuptask.category">
+		<jstl:forEach var="entry" items="${row.category.name}">
+			<jstl:if test="${lang==entry.key}">
+				<jstl:out value="${entry.value}" />
+			</jstl:if>
+		</jstl:forEach>
+	</display:column>
 	<display:column property="ticker.ticker" titleKey="fixuptask.ticker" />
 	<display:column property="description" titleKey="fixuptask.description" />
 	<display:column property="warranty.title" titleKey="fixuptask.warranty" />
