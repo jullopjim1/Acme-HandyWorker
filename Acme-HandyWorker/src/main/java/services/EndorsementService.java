@@ -58,7 +58,7 @@ public class EndorsementService {
 
 		this.checkPrincipal();
 
-		final Date moment = new Date();
+		final Date moment = new Date(System.currentTimeMillis() - 1000);
 
 		endorsement.setMoment(moment);
 		endorsement.setComments("");
@@ -79,7 +79,9 @@ public class EndorsementService {
 	}
 
 	public Endorsement save(final Endorsement endorsement) {
-
+		this.checkPrincipal();
+		if (endorsement.getId() != 0)
+			this.checkPrincipal(endorsement);
 		final double score = this.calculateScore(endorsement);
 		// System.out.println(endorsement + " --- " + score);
 		endorsement.setScore(score);
@@ -145,6 +147,27 @@ public class EndorsementService {
 
 	public double calculateScoreByEndorser(final int endorserId) {
 		return this.endorsementRepository.calculateScoreByEndorser(endorserId);
+	}
+
+	public Collection<Endorsement> findByEndorser(final Endorser endorser) {
+		this.checkPrincipal();
+		Assert.notNull(endorser, "findByEndorser - endorser no puede ser nulo");
+
+		return this.endorsementRepository.findByEndorserId(endorser.getId());
+	}
+
+	public Collection<Endorsement> findByEndorsee(final Endorser endorsee) {
+		this.checkPrincipal();
+		Assert.notNull(endorsee, "findByEndorsee - endorsee no puede ser nulo");
+
+		return this.endorsementRepository.findByEndorseeId(endorsee.getId());
+	}
+
+	public void checkPrincipal(final Endorsement endorsement) {
+		this.checkPrincipal();
+		final Endorser endorser = this.endorserService.findEndorserByUseraccount(LoginService.getPrincipal());
+		final Collection<Endorsement> endorsements = this.findByEndorser(endorser);
+		Assert.isTrue(endorsements.contains(endorsement), "ENDORSEMENT - checkPrincipal - Solo puedes modificar los endorsements que has escrito");
 	}
 
 }

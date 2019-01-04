@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers;
+package controllers.HandyWorker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,6 +22,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import controllers.AbstractController;
 
 import services.CategoryService;
 import services.FinderService;
