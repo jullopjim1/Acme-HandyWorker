@@ -146,6 +146,12 @@
 
 		<security:intercept-url pattern="/tutorial/handyworker/save.do"
 			access="hasRole('HANDY')" />
+		<security:intercept-url pattern="/note/list.do"
+			access="hasRole('HANDY')" />
+		<security:intercept-url pattern="/note/edit.do"
+			access="hasRole('HANDY')" />
+		<security:intercept-url pattern="/note/save.do"
+			access="hasRole('HANDY')" />
 
 
 		<security:intercept-url pattern="/fixUpTask/customer/list.do"
@@ -154,7 +160,12 @@
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/fixUpTask/customer/edit.do"
 			access="hasRole('CUSTOMER')" />
-
+		<security:intercept-url pattern="/note/list.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/note/edit.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/note/save.do"
+			access="hasRole('CUSTOMER')" />
 
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
@@ -199,7 +210,15 @@
 		<security:intercept-url pattern="/finder/handy/listFixUpTasks.do"
 			access="hasRole('HANDY')" />
 
-
+		<!-- REFEREE -->
+		<security:intercept-url pattern="/note/list.do"
+			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/note/edit.do"
+			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/note/save.do"
+			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/note/delete.do"
+			access="hasRole('REFEREE')" />
 
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/sponsorship/sponsor/list.do"
