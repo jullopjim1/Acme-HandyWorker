@@ -22,28 +22,28 @@
 	<form:label path="description">
 		<spring:message code="fixuptask.description" />:
 	</form:label>
-	<form:input path="description" readonly="${isRead }" />
+	<form:input path="description" />
 	<form:errors cssClass="error" path="description" />
 	<br />
 
 	<form:label path="adress">
 		<spring:message code="fixuptask.address" />:
 	</form:label>
-	<form:input path="adress" readonly="${isRead }" />
+	<form:input path="adress" />
 	<form:errors cssClass="error" path="adress" />
 	<br />
 
 	<form:label path="maxPrice">
 		<spring:message code="fixuptask.maxPrice" />:
 	</form:label>
-	<form:input path="maxPrice" readonly="${isRead }" />
+	<form:input path="maxPrice" />
 	<form:errors cssClass="error" path="maxPrice" />
 	<br />
 
 	<form:label path="deadline">
 		<spring:message code="fixuptask.deadlineWith" />:
 	</form:label>
-	<form:input path="deadline" readonly="${isRead }" />
+	<form:input path="deadline" />
 	<form:errors cssClass="error" path="deadline" />
 	<br />
 
