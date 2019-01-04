@@ -22,28 +22,28 @@
 	<form:label path="description">
 		<spring:message code="fixuptask.description" />:
 	</form:label>
-	<form:input path="description" />
+	<form:input path="description" readonly="${isRead }" />
 	<form:errors cssClass="error" path="description" />
 	<br />
 
 	<form:label path="adress">
 		<spring:message code="fixuptask.address" />:
 	</form:label>
-	<form:input path="adress" />
+	<form:input path="adress" readonly="${isRead }" />
 	<form:errors cssClass="error" path="adress" />
 	<br />
 
 	<form:label path="maxPrice">
 		<spring:message code="fixuptask.maxPrice" />:
 	</form:label>
-	<form:input path="maxPrice" />
+	<form:input path="maxPrice" readonly="${isRead }" />
 	<form:errors cssClass="error" path="maxPrice" />
 	<br />
 
 	<form:label path="deadline">
 		<spring:message code="fixuptask.deadlineWith" />:
 	</form:label>
-	<form:input path="deadline" />
+	<form:input path="deadline" readonly="${isRead }" />
 	<form:errors cssClass="error" path="deadline" />
 	<br />
 
@@ -66,15 +66,26 @@
 	<form:errors cssClass="error" path="warranty" />
 	<br />
 
-	<input type="submit" name="save"
-		value="<spring:message code="fixuptask.save" />" />
+	<jstl:if test="${isRead == false}">
+		<input type="submit" name="save"
+			value="<spring:message code="fixuptask.save" />" />
 
-	<input type="submit" name="delete"
-		value="<spring:message code="fixuptask.delete" />"
-		onclick="javascript: return confirm('<spring:message code="fixuptask.confirmDelete" />')" />
+		<input type="submit" name="delete"
+			value="<spring:message code="fixuptask.delete" />"
+			onclick="javascript: return confirm('<spring:message code="fixuptask.confirmDelete" />')" />
 
-	<input type="button" name="cancel"
-		value="<spring:message code="fixuptask.cancel" />"
-		onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
-	<br />
+		<input type="button" name="cancel"
+			value="<spring:message code="fixuptask.cancel" />"
+			onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
+		<br />
+	</jstl:if>
+
+	<jstl:if test="${isRead == true}">
+		<input type="button" class="btn btn-warning" name="back"
+			value='<spring:message code="curriculum.back"/>'
+			onclick="document.location.href='fixUpTask/customer/list.do';">
+	</jstl:if>
+
+
+
 </form:form>
