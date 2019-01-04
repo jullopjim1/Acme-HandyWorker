@@ -127,7 +127,7 @@ public class EndorsementService {
 		return score;
 	}
 
-	private void checkPrincipal() {
+	public void checkPrincipal() {
 		final UserAccount userAccount = LoginService.getPrincipal();
 		final Actor actor = this.actorService.findByUserAccount(userAccount);
 

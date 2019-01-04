@@ -1,5 +1,5 @@
 
-package controllers.Endorser;
+package controllers.Administrator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,7 +23,7 @@ import domain.Endorser;
 
 @Controller
 @RequestMapping("/endorsement")
-public class EndorsementController extends AbstractController {
+public class EndorsementAdministratorController extends AbstractController {
 
 	@Autowired
 	private EndorsementService	endorsementService;

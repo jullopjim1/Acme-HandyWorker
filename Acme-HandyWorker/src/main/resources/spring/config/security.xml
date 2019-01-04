@@ -209,6 +209,8 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/endorsement/show.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/endorsement/create.do"
+			access="permitAll" />
 			
 			
 		

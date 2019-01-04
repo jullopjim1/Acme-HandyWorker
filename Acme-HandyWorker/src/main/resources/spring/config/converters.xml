@@ -57,6 +57,9 @@
 		<bean class="converters.SponsorToStringConverter" />
 		<bean class="converters.StringToSponsorConverter" />
 
+		<bean class="converters.EndorserToStringConverter" />
+		<bean class="converters.StringToEndorserConverter" />
+
 		<bean class="converters.BoxToStringConverter" />
 		<bean class="converters.StringToBoxConverter" />
 

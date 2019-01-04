@@ -20,7 +20,7 @@
 		<value>/views/administrator/messages</value>
 		<value>/views/customer/messages</value>
 		<value>/views/profile/messages</value>
-		<value>/views/endorsements/messages</value>
+		<value>/views/endorsement/messages</value>
 		<value>/views/box/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/actor/messages</value>

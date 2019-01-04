@@ -21,11 +21,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
+<jstl:out value="${score}"/>
 <display:table name="endorsements" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<display:column property="endorsee" titleKey="endorsement.endorsee" />
+	<display:column property="endorsee.userAccount.username" titleKey="endorsement.endorsee" />
 	<display:column property="moment" titleKey="message.moment" />
 	<display:column property="comments" titleKey="endorsement.comments" />
 

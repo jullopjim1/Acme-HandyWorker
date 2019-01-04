@@ -30,10 +30,19 @@
 	<form:label path="comments">
 		<spring:message code="endorsement.comments" />:
 	</form:label>
-	<form:textarea cols="50" rows="30" path="comments"
+	<form:textarea cols="40" rows="7" path="comments"
 		readonly="${isRead }" />
 	<form:errors cssClass="error" path="comments" />
 	<br />
+<jstl:if test="${isRead==true }">
+	<form:label path="endorsee">
+		<spring:message code="endorsement.endorsee" />:
+	</form:label>
+	<form:input path="endorsee.userAccount.username" readonly="${isRead }" />
+	<form:errors cssClass="error" path="endorsee" />
+	<br />
+</jstl:if>
+<jstl:if test="${isRead==false }">
 
 	<form:label path="endorsee">
 		<spring:message code="endorsement.endorsee" />:
@@ -62,4 +71,5 @@
 		value="<spring:message code="message.cancel" />"
 		onclick="javascript: relativeRedir('endorsement/list.do');" />
 	<br />
+	</jstl:if>
 </form:form>

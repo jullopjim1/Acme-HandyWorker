@@ -1,5 +1,5 @@
 
-package controllers.Customer;
+package controllers.customer;
 
 import java.util.Collection;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
 import security.LoginService;
 import services.ComplaintService;
 import services.CustomerService;
+import controllers.AbstractController;
 import domain.Complaint;
 import domain.Customer;
 
@@ -100,7 +100,7 @@ public class ComplaintCustomerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Complaint complaint, final BindingResult binding) {
 		ModelAndView result;
-		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal());
+		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(complaint);
 		else
@@ -117,7 +117,7 @@ public class ComplaintCustomerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Complaint complaint, final BindingResult binding) {
 		ModelAndView result;
-		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal());
+		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
 		try {
 			this.complaintService.delete(complaint);
 			result = new ModelAndView("redirect:complaint/customer/list.do?customerId=" + a.getId());
@@ -141,7 +141,7 @@ public class ComplaintCustomerController extends AbstractController {
 		Collection<Complaint> complaints;
 
 		complaints = this.complaintService.findAll();
-		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal());
+		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
 		result = new ModelAndView("complaint/edit");
 		result.addObject("complaint", complaint);
 		result.addObject("message", message);

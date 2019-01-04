@@ -1,5 +1,5 @@
 
-package controllers.Customer;
+package controllers.customer;
 
 import java.util.Collection;
 
@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import controllers.AbstractController;
-import domain.Category;
-import domain.Customer;
-import domain.FixUpTask;
-import domain.Warranty;
 import security.LoginService;
 import services.CategoryService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import services.WarrantyService;
+import controllers.AbstractController;
+import domain.Category;
+import domain.Customer;
+import domain.FixUpTask;
+import domain.Warranty;
 
 @Controller
 @RequestMapping("/fixUpTask/customer")
