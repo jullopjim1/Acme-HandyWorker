@@ -1,5 +1,5 @@
 
-package controllers;
+package controllers.Customer;
 
 import java.util.Collection;
 
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
 import security.LoginService;
 import services.ComplaintService;
 import services.CustomerService;
@@ -21,8 +22,8 @@ import domain.Complaint;
 import domain.Customer;
 
 @Controller
-@RequestMapping("/complaint")
-public class ComplaintController extends AbstractController {
+@RequestMapping("/complaint/customer")
+public class ComplaintCustomerController extends AbstractController {
 
 	//Service---------------------------------------------------------
 
@@ -35,7 +36,7 @@ public class ComplaintController extends AbstractController {
 
 	//Constructor-----------------------------------------------------
 
-	public ComplaintController() {
+	public ComplaintCustomerController() {
 		super();
 	}
 

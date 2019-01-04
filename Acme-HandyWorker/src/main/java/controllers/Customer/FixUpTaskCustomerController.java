@@ -1,4 +1,4 @@
-package controllers.customer;
+package controllers.Customer;
 
 import java.util.Collection;
 

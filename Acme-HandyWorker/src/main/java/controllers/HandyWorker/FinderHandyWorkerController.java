@@ -8,7 +8,7 @@
  * http://www.tdg-seville.info/License.html
  */
 
-package controllers;
+package controllers.HandyWorker;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import controllers.AbstractController;
 import services.CategoryService;
 import services.FinderService;
 import services.HandyWorkerService;
@@ -34,7 +35,7 @@ import domain.Warranty;
 
 @Controller
 @RequestMapping("/finder/handy")
-public class FinderController extends AbstractController {
+public class FinderHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
@@ -51,7 +52,7 @@ public class FinderController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public FinderController() {
+	public FinderHandyWorkerController() {
 		super();
 	}
 
