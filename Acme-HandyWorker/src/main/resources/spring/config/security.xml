@@ -149,12 +149,7 @@
 
 		<security:intercept-url pattern="/tutorial/handyworker/save.do"
 			access="hasRole('HANDY')" />
-		<security:intercept-url pattern="/note/list.do"
-			access="hasRole('HANDY')" />
-		<security:intercept-url pattern="/note/edit.do"
-			access="hasRole('HANDY')" />
-		<security:intercept-url pattern="/note/save.do"
-			access="hasRole('HANDY')" />
+		
 
 
 		<security:intercept-url pattern="/fixUpTask/customer/list.do"
@@ -163,13 +158,7 @@
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/fixUpTask/customer/edit.do"
 			access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/note/list.do"
-			access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/note/edit.do"
-			access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/note/save.do"
-			access="hasRole('CUSTOMER')" />
-
+	
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
 			access="isAuthenticated()" />
