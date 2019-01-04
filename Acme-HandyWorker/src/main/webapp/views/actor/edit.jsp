@@ -34,65 +34,67 @@
 		<spring:message code="actor.name" />
 	</form:label>
 	<form:input path="name" readonly="${isRead}" />
-	<form:errors ccsClass="error" path="name" />
+	<form:errors cssClass="error" path="name" />
 	<br />
 
 	<form:label path="middleName">
 		<spring:message code="actor.middleName" />
 	</form:label>
 	<form:input path="middleName" readonly="${isRead}" />
-	<form:errors ccsClass="error" path="middleName" />
+	<form:errors cssClass="error" path="middleName" />
 	<br />
 
 	<form:label path="surname">
 		<spring:message code="actor.surname" />
 	</form:label>
 	<form:input path="surname" readonly="${isRead}" />
-	<form:errors ccsClass="error" path="surname" />
+	<form:errors cssClass="error" path="surname" />
 	<br />
 
 	<form:label path="photo">
 		<spring:message code="actor.photo" />
 	</form:label>
 	<form:input path="photo" readonly="${isRead}" />
-	<form:errors ccsClass="error" path="photo" />
+	<form:errors cssClass="error" path="photo" />
 	<br />
 
 	<form:label path="email">
 		<spring:message code="actor.email" />
 	</form:label>
 	<form:input path="email" readonly="${isRead}" />
-	<form:errors ccsClass="error" path="email" />
+	<form:errors cssClass="error" path="email" />
 	<br />
 
 	<form:label path="phone">
 		<spring:message code="actor.phone" />
 	</form:label>
 	<form:input path="phone" readonly="${isRead}" />
-	<form:errors ccsClass="error" path="phone" />
+	<form:errors cssClass="error" path="phone" />
 	<br />
 
 	<form:label path="address">
 		<spring:message code="actor.address" />
 	</form:label>
 	<form:input path="address" readonly="${isRead}" />
-	<form:errors ccsClass="error" path="address" />
+	<form:errors cssClass="error" path="address" />
 	<br />
-
+	
 	<jstl:if test="${isRead == true}">
-	<h3>${score}</h3>
+		<h3>${score}</h3>
 	</jstl:if>
-	<br/>
+	
 	<jstl:if test="${isRead == true}">
 		<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
 				code="profile.viewTutorials" />
 		</a>
+		<br />
+		<br />
+
 	</jstl:if>
-	<br />
-	<br />
 
 
 	<jstl:if test="${isRead == false}">
+		<br/>
 		<input type="submit" name="save"
 			value="<spring:message code="actor.save" />" />
 
