@@ -1,8 +1,8 @@
 /*
  * ProfileController.java
- * 
+ *
  * Copyright (C) 2018 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -21,16 +21,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Customer;
+import domain.HandyWorker;
+import domain.Tutorial;
 import security.Authority;
 import security.LoginService;
 import services.ActorService;
 import services.CustomerService;
 import services.HandyWorkerService;
 import services.TutorialService;
-import domain.Actor;
-import domain.Customer;
-import domain.HandyWorker;
-import domain.Tutorial;
 
 @Controller
 @RequestMapping("/actor")
@@ -49,18 +49,16 @@ public class ActorController extends AbstractController {
 	private CustomerService		customerService;
 
 
-	// Edit ---------------------------------------------------------------		
+	// Edit ---------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 		ModelAndView result;
-		Actor actor;
 
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		actor = this.actorService.findOne(a.getId());
-		Assert.notNull(actor);
+		Assert.notNull(a);
 
-		result = this.createEditModelAndView(actor);
+		result = this.createEditModelAndView(a);
 
 		return result;
 	}
@@ -102,7 +100,7 @@ public class ActorController extends AbstractController {
 		else
 			try {
 				this.actorService.save(actor);
-				result = new ModelAndView("redirect:index.do");
+				result = new ModelAndView("redirect:welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "actor.commit.error");
 
