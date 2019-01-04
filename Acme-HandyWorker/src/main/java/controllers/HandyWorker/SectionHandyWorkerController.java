@@ -108,6 +108,7 @@ public class SectionHandyWorkerController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("tutorialId", section.getTutorial().getId());
+
 		result.addObject("requestURI", "section/handyworker/edit.do");
 
 		return result;

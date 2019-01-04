@@ -22,14 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Actor;
-import domain.Customer;
-import domain.HandyWorker;
+import domain.Endorser;
 import domain.Tutorial;
-import security.Authority;
 import security.LoginService;
 import services.ActorService;
-import services.CustomerService;
-import services.HandyWorkerService;
+import services.EndorserService;
 import services.TutorialService;
 
 @Controller
@@ -37,16 +34,13 @@ import services.TutorialService;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService	actorService;
 
 	@Autowired
-	private TutorialService		tutorialService;
+	private TutorialService	tutorialService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
-
-	@Autowired
-	private CustomerService		customerService;
+	private EndorserService	endorserService;
 
 
 	// Edit ---------------------------------------------------------------
@@ -72,20 +66,13 @@ public class ActorController extends AbstractController {
 		final Actor actor1 = this.actorService.findByUserAccount(tutorial.getHandyWorker().getUserAccount());
 
 		final int handyWorkerId = actor1.getId();
-		final String handy = Authority.HANDY;
-		final String custom = Authority.CUSTOMER;
 
 		modelAndView = this.createEditModelAndView(actor1);
 		modelAndView.addObject("isRead", true);
 		modelAndView.addObject("handyWorkerId", handyWorkerId);
 		modelAndView.addObject("requestURI", "/actor/showProfileTutorial.do?tutorialId=" + tutorial.getId());
-		if (actor1.getUserAccount().getAuthorities().contains(handy)) {
-			final HandyWorker h = this.handyWorkerService.findOne(actor1.getId());
-			modelAndView.addObject("score", "Score: " + h.getScore());
-		} else if (actor1.getUserAccount().getAuthorities().contains(custom)) {
-			final Customer c = this.customerService.findOne(actor1.getId());
-			modelAndView.addObject("score", "Score: " + c.getScore());
-		}
+		final Endorser e = this.endorserService.findOne(actor1.getId());
+		modelAndView.addObject("score", "Score: " + e.getScore());
 
 		return modelAndView;
 	}

@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.HandyWorkerService;
 import services.SectionService;
+import domain.HandyWorker;
 import domain.Section;
 
 @Controller
@@ -29,7 +32,10 @@ public class SectionController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private SectionService	sectionService;
+	private SectionService		sectionService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
 
 
 	//Constructor---------------------------------------------------------
@@ -44,11 +50,12 @@ public class SectionController extends AbstractController {
 		Collection<Section> sections;
 
 		sections = this.sectionService.findSectionByTutorialId(tutorialId);
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 
 		result = new ModelAndView("section/list");
 		result.addObject("sections", sections);
 		result.addObject("requestURI", "section/list.do");
-
+		result.addObject("handyWorkerId", a.getId());
 		return result;
 	}
 

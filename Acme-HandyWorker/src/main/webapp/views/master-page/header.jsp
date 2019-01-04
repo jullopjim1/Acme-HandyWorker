@@ -27,7 +27,7 @@
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a href="dashboard/administrator/dashboard.do"><spring:message
 						code="master.page.administrator.dashboard" /></a></li>
-						<li><a href="actor/administrator/list.do"><spring:message
+			<li><a href="actor/administrator/list.do"><spring:message
 						code="master.page.administrator.actors" /></a></li>
 		</security:authorize>
 
@@ -38,17 +38,17 @@
 					<li class="arrow"></li>
 					<li><a href="customer/action-1.do"><spring:message
 								code="master.page.customer.action.1" /></a></li>
-
 				</ul></li>
+
+			<li><a class="fNiv" href="fixUpTask/customer/list.do"><spring:message
+						code="master.page.fixuptasks"/></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('SPONSOR')">
-			<li><a class="fNiv" href="sponsorhip/sponsor/list.do"><spring:message
-						code="master.page.sponsorship" /></a>
-
-			</li>
+			<li><a class="fNiv" href="sponsorship/sponsor/list.do"><spring:message
+						code="master.page.sponsorship" /></a></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('HANDY')">
 			<li><a href="curriculum/handyworker/list.do"><spring:message
 						code="master.page.handy.curriculum.list" /></a></li>
@@ -65,7 +65,7 @@
 
 				</ul></li>
 		</security:authorize>
-		
+
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
@@ -76,15 +76,13 @@
 		<security:authorize access="permitAll()">
 			<li><a class="fNiv" href="tutorial/list.do"><spring:message
 						code="master.page.tutorial" /></a>
-			<ul>
-				<li class="arrow"></li>
-				<security:authorize access="hasRole('HANDY')">
-					<li><a href="tutorial/handyworker/list.do"><spring:message
-								code="master.page.handy.tutorial.list" /></a></li>
-				</security:authorize>
-			</ul>
-
-			</li>
+				<ul>
+					<li class="arrow"></li>
+					<security:authorize access="hasRole('HANDY')">
+						<li><a href="tutorial/handyworker/list.do"><spring:message
+									code="master.page.handy.tutorial.list" /></a></li>
+					</security:authorize>
+				</ul></li>
 
 		</security:authorize>
 

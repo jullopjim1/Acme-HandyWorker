@@ -54,8 +54,8 @@
 
 		<security:intercept-url pattern="/actor/showProfileTutorial.do"
 			access="permitAll" />
-			
-			<security:intercept-url pattern="/tutorial/view.do"
+
+		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
 
 		<!-- HandyWorker -->
@@ -148,6 +148,14 @@
 			access="hasRole('HANDY')" />
 
 
+		<security:intercept-url pattern="/fixUpTask/customer/list.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/fixUpTask/customer/create.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/fixUpTask/customer/edit.do"
+			access="hasRole('CUSTOMER')" />
+
+
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
 			access="isAuthenticated()" />
@@ -199,6 +207,12 @@
 		<security:intercept-url pattern="/sponsorship/sponsor/edit.do"
 			access="hasRole('SPONSOR')" />
 		<security:intercept-url pattern="/sponsorship/sponsor/delete.do"
+			access="hasRole('SPONSOR')" />
+
+		<security:intercept-url pattern="/sponsorship/sponsor/create.do"
+			access="hasRole('SPONSOR')" />
+
+		<security:intercept-url pattern="/sponsorship/sponsor/save.do"
 			access="hasRole('SPONSOR')" />
 
 		<!-- ADMIN -->

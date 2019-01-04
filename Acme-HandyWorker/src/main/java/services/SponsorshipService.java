@@ -71,11 +71,14 @@ public class SponsorshipService {
 	}
 
 	public void delete(final Sponsorship sponsorship) {
-		final Collection<Tutorial> tutorials = this.tutorialService.findAll();
-		for (final Tutorial t : tutorials)
-			Assert.isTrue(t.getSponsorship() != sponsorship, "este sponsorship está asignado");
-		this.checkPrincipal(sponsorship);
 		Assert.notNull(sponsorship);
+		this.checkPrincipal(sponsorship);
+		/*
+		 * final Collection<Tutorial> tutorials = this.tutorialService.findAll();
+		 * for (final Tutorial t : tutorials)
+		 * Assert.isTrue(t.getSponsorship() != sponsorship, "sponsorshipasignado");
+		 */
+
 		this.sponsorshipRepository.delete(sponsorship);
 
 	}

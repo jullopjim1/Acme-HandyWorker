@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-
 import security.LoginService;
 import services.ActorService;
 import services.SponsorshipService;
+import controllers.AbstractController;
 import domain.Actor;
 import domain.Sponsorship;
 
@@ -46,10 +45,13 @@ public class SponsorshipSponsorController extends AbstractController {
 		ModelAndView result;
 		Collection<Sponsorship> sponsorships;
 
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final int sponsorId = a.getId();
 		sponsorships = this.sponsorshipService.findAll();
 
 		result = new ModelAndView("sponsorship/list");
 		result.addObject("sponsorships", sponsorships);
+		result.addObject("sponsorId", sponsorId);
 		result.addObject("requestURI", "sponsorship/sponsor/list.do");
 
 		return result;
@@ -91,7 +93,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		else
 			try {
 				this.sponsorshipService.save(sponsorship);
-				result = new ModelAndView("redirect:/list.do");
+				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
 
@@ -107,13 +109,15 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		try {
 			this.sponsorshipService.delete(sponsorship);
-			result = new ModelAndView("redirect:/list.do");
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
+			if (oops.getMessage().contains("could not execute statement"))
+				result = this.createEditModelAndView(sponsorship, "sponsorship.asigned");
+			else
+				result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
 		}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(final Sponsorship sponsorship) {
 		ModelAndView result;
 
