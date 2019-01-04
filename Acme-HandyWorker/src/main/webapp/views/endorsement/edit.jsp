@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="box/actor/edit.do" modelAttribute="box">
+<form:form action="endorsement/edit.do" modelAttribute="endorsement">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />

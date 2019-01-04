@@ -36,7 +36,7 @@ import domain.Warranty;
 
 @Controller
 @RequestMapping("/finder/handy")
-public class FinderController extends AbstractController {
+public class FinderHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private HandyWorkerService	handyWorkerService;
@@ -53,7 +53,7 @@ public class FinderController extends AbstractController {
 
 	// Constructors -----------------------------------------------------------
 
-	public FinderController() {
+	public FinderHandyWorkerController() {
 		super();
 	}
 
