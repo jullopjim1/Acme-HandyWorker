@@ -202,7 +202,16 @@
 		<security:intercept-url pattern="/actor/register.do"
 			access="permitAll" />
 
-
+		<!-- Endorsements -->
+		<security:intercept-url pattern="/endorsement/list.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/endorsement/edit.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/endorsement/show.do"
+			access="permitAll" />
+			
+			
+		
 
 		<!-- Finder -->
 		<security:intercept-url pattern="/finder/handy/update.do"
