@@ -10,7 +10,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="fixUpTask/customer/edit.do"
+<form:form action="fixUpTask/customer/create.do"
 	modelAttribute="fixUpTask">
 
 	<form:hidden path="id" />
@@ -66,17 +66,11 @@
 	<form:errors cssClass="error" path="warranty" />
 	<br />
 
-	
-		<input type="submit" name="save"
-			value="<spring:message code="fixuptask.save" />" />
+	<input type="submit" name="save"
+		value="<spring:message code="fixuptask.save" />" />
 
-		<input type="submit" name="delete"
-			value="<spring:message code="fixuptask.delete" />"
-			onclick="javascript: return confirm('<spring:message code="fixuptask.confirmDelete" />')" />
-
-		<input type="button" name="cancel"
-			value="<spring:message code="fixuptask.cancel" />"
-			onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
-		<br />
-
+	<input type="button" name="cancel"
+		value="<spring:message code="fixuptask.cancel" />"
+		onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
+	<br />
 </form:form>
