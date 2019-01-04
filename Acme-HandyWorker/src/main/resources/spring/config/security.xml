@@ -57,6 +57,9 @@
 
 		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
+		
+		<security:intercept-url pattern="/report/referee/list.do"
+			access="permitAll" />
 
 		<!-- HandyWorker -->
 
@@ -228,6 +231,15 @@
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/note/delete.do"
 			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/report/referee/create.do"
+			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/report/referee/save.do"
+			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/report/referee/delete.do"
+			access="hasRole('REFEREE')" />
+			
+			
+			
 
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/sponsorship/sponsor/list.do"

@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
 import security.LoginService;
-import services.ComplaintService;
+import services.ActorService;
 import services.RefereeService;
 import services.ReportService;
+import controllers.AbstractController;
+import domain.Actor;
 import domain.Referee;
 import domain.Report;
 
@@ -29,13 +30,13 @@ public class ReportRefereeController extends AbstractController {
 	//Service---------------------------------------------------------
 
 	@Autowired
-	private ReportService		reportService;
+	private ReportService	reportService;
 
 	@Autowired
-	private RefereeService		refereeService;
+	private RefereeService	refereeService;
 
 	@Autowired
-	private ComplaintService	complaintService;
+	private ActorService	actorService;
 
 
 	//Constructor-----------------------------------------------------
@@ -49,11 +50,16 @@ public class ReportRefereeController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
+
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final int refereeId = a.getId();
+
 		final Collection<Report> reports = this.reportService.findAll();
 
 		result = new ModelAndView("report/list");
 		result.addObject("reports", reports);
-		result.addObject("requestURI", "/report/referee/list.do");
+		result.addObject("refereeId", refereeId);
+		result.addObject("requestURI", "report/referee/list.do");
 
 		return result;
 
@@ -61,27 +67,30 @@ public class ReportRefereeController extends AbstractController {
 
 	//Show------------------------------------------------------------
 
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int reportId) {
-		final ModelAndView result = new ModelAndView("report/edit");
-
-		final Report report = this.reportService.findOne(reportId);
-
-		result.addObject("report", report);
-		result.addObject("isRead", true);
-		result.addObject("requestURI", "/report/referee/show.do?actorId=" + reportId);
-
-		return result;
-
-	}
+	/*
+	 * @RequestMapping(value = "/show", method = RequestMethod.GET)
+	 * public ModelAndView show(@RequestParam final int reportId) {
+	 * final ModelAndView result = new ModelAndView("report/edit");
+	 * 
+	 * final Report report = this.reportService.findOne(reportId);
+	 * 
+	 * result.addObject("report", report);
+	 * result.addObject("isRead", true);
+	 * result.addObject("requestURI", "/report/referee/show.do?actorId=" + reportId);
+	 * 
+	 * return result;
+	 * 
+	 * }
+	 */
 
 	//Create-----------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(final int complaintId, final int refereeId) {
+	public ModelAndView create(@RequestParam final int complaintId) {
 		ModelAndView result;
 		final Report report;
 
-		report = this.reportService.create(complaintId, refereeId);
+		final Actor referee = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		report = this.reportService.create(complaintId, referee.getId());
 		result = this.createEditModelAndView(report);
 
 		return result;
@@ -104,13 +113,13 @@ public class ReportRefereeController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Report report, final BindingResult binding) {
 		ModelAndView result;
-		final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
+		//final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(report);
 		else
 			try {
 				this.reportService.save(report);
-				result = new ModelAndView("redirect:report/referee/list.do?refereeId=" + a.getId());
+				result = new ModelAndView("redirect:report/referee/list.do");//?refereeId=" + a.getId()
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(report, "report.commit.error");
 			}
@@ -121,10 +130,10 @@ public class ReportRefereeController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Report report, final BindingResult binding) {
 		ModelAndView result;
-		final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
+		//final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
 		try {
 			this.reportService.delete(report);
-			result = new ModelAndView("redirect:report/referee/list.do?refereeId=" + a.getId());
+			result = new ModelAndView("redirect:report/referee/list.do");//?refereeId=" + a.getId()
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(report, "report.commit.error");
 		}
@@ -142,9 +151,7 @@ public class ReportRefereeController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Report report, final String message) {
 		ModelAndView result;
-		Collection<Report> reports;
 
-		reports = this.reportService.findAll();
 		final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
 		result = new ModelAndView("report/edit");
 		result.addObject("report", report);
