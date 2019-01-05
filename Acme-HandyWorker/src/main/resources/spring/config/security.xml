@@ -57,7 +57,7 @@
 
 		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
-		
+
 		<security:intercept-url pattern="/report/referee/list.do"
 			access="permitAll" />
 
@@ -149,7 +149,7 @@
 
 		<security:intercept-url pattern="/tutorial/handyworker/save.do"
 			access="hasRole('HANDY')" />
-		
+
 
 
 		<security:intercept-url pattern="/fixUpTask/customer/list.do"
@@ -158,7 +158,7 @@
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/fixUpTask/customer/edit.do"
 			access="hasRole('CUSTOMER')" />
-	
+
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
 			access="isAuthenticated()" />
@@ -203,9 +203,9 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/endorsement/create.do"
 			access="permitAll" />
-			
-			
-		
+
+
+
 
 		<!-- Finder -->
 		<security:intercept-url pattern="/finder/handy/update.do"
@@ -228,9 +228,9 @@
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/report/referee/delete.do"
 			access="hasRole('REFEREE')" />
-			
-			
-			
+
+
+
 
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/sponsorship/sponsor/list.do"
@@ -257,7 +257,16 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/actor/administrator/show.do"
 			access="hasRole('ADMIN')" />
-
+		<security:intercept-url pattern="/warranty/administrator/list.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/warranty/administrator/create.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/warranty/administrator/edit.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/warranty/administrator/save.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/warranty/administrator/delete.do"
+			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/customer/action-1.do"
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/customer/action-2.do"
