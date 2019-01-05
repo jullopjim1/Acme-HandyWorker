@@ -31,6 +31,8 @@
 						code="master.page.categories"/></a></li>
 			<li><a href="actor/administrator/list.do"><spring:message
 						code="master.page.administrator.actors" /></a></li>
+			<li><a href="warranty/administrator/list.do"><spring:message
+						code="master.page.administrator.warranty" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
@@ -102,8 +104,7 @@
 								code="master.page.logout" /> </a></li>
 				</ul></li>
 			
-			<li><a href="report/referee/list.do"><spring:message
-								code="master.page.report" /></a></li>
+			
 		</security:authorize>
 	</ul>
 </div>

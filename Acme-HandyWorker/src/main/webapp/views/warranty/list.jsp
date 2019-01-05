@@ -21,6 +21,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authorize access="hasRole('ADMIN')">
 <display:table name="warranties" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
@@ -30,10 +31,15 @@
 
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<a href="warranty/administrator/edit.do?warrantyId=${warranty.id}">
+			<a href="warranty/administrator/edit.do?warrantyId=${row.id}">
 				<spring:message code="warranty.edit" />
 			</a>
 		</display:column>
 	</security:authorize>
 
 </display:table>
+
+<a href="warranty/administrator/create.do"> <spring:message
+			code="warranty.create" />
+	</a>
+</security:authorize>
