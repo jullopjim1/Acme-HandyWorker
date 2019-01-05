@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
@@ -61,6 +63,7 @@ public class FixUpTask extends DomainEntity {
 	}
 
 	@NotNull
+	@Min(0)
 	public double getMaxPrice() {
 		return this.maxPrice;
 	}

@@ -81,6 +81,9 @@ public class FixUpTaskService {
 	public FixUpTask save(final FixUpTask fixUpTask) {
 		Assert.notNull(fixUpTask);
 
+		//CHECK DEADLINE
+		Assert.isTrue(fixUpTask.getDeadline().after(fixUpTask.getMoment()), "FECHA LIMITE TIENE QUE SER POSTERIOR A FECHA DE CREACIÓN");
+		
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
