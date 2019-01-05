@@ -1,7 +1,6 @@
 
 package service;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -162,21 +161,6 @@ public class CategoryServiceTest extends AbstractTest {
 		this.categoryService.delete(saved);
 		Assert.isTrue(!this.categoryService.findAll().contains(saved));
 		this.unauthenticate();
-	}
-
-	@Test
-	public void testCategoryTreeToPlain() {
-		final Collection<Category> c = this.categoryService.findAll();
-
-		final int size = c.size();
-
-		final Collection<Category> categories = this.categoryService.categoryTreeToPlain();
-
-		for (final Category category : categories)
-			System.out.println(category.getName());
-
-		Assert.isTrue(categories.size() == size, "ERROR en tamaño de la lista");
-
 	}
 
 }

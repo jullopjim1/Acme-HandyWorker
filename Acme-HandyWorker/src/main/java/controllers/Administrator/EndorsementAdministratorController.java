@@ -22,7 +22,7 @@ import domain.Endorsement;
 import domain.Endorser;
 
 @Controller
-@RequestMapping("/endorsement")
+@RequestMapping("/endorsement/administrator")
 public class EndorsementAdministratorController extends AbstractController {
 
 	@Autowired

@@ -172,13 +172,14 @@ public class CategoryAdministratorController extends AbstractController {
 			try {
 				Category category = categoryService.findOne(categoryForm
 						.getId());
+				Assert.notNull(category, "CATGEORY A BORRAR ES NULL");
 				this.categoryService.delete(category);
 
 				result = new ModelAndView(
 						"redirect:/category/administrator/list.do");
 			} catch (final Throwable oops) {
 
-				result = this.editModelAndView(categoryForm, "commit.error");
+				result = this.editModelAndView(categoryForm, oops.getMessage());
 			}
 
 		return result;

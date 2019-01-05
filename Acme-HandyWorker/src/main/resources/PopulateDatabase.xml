@@ -1226,16 +1226,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category1" />
-				<ref bean="category2" />
-				<ref bean="category3" />
-				<ref bean="category4" />
-				<ref bean="category5" />
-				<ref bean="category7" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="category1" class="domain.Category">
@@ -1254,11 +1244,6 @@
 					<value>Carpinteria</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category6" />
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1280,10 +1265,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-			</list>
-		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
 
@@ -1303,10 +1284,6 @@
 					<value>Limpieza</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1328,11 +1305,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-
-			</list>
-		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
 
@@ -1352,10 +1324,6 @@
 					<value>Puertas</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1377,10 +1345,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-			</list>
-		</property>
 		<property name="rootcategory" ref="category1" />
 	</bean>
 
@@ -1400,12 +1364,6 @@
 					<value>Instalaciones</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category8" />
-				<ref bean="category9" />
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1427,13 +1385,9 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category10" />
-			</list>
-		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
+	
 	<bean id="category10" class="domain.Category">
 		<property name="name">
 			<map>
@@ -1450,10 +1404,6 @@
 					<value>Vitrocerámica</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="category8" />
 	</bean>
@@ -1475,10 +1425,6 @@
 					<value>Aire acondicionado</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>

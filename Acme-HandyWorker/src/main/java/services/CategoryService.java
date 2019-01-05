@@ -1,8 +1,6 @@
 package services;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -41,9 +39,6 @@ public class CategoryService {
 
 	public Category create() {
 		final Category category = new Category();
-
-		final Collection<Category> subcategories = new ArrayList<Category>();
-		category.setSubcategories(subcategories);
 		return category;
 	}
 
@@ -62,22 +57,6 @@ public class CategoryService {
 		if (category.getRootcategory() == null)
 			category.setRootcategory(this.categoryRepository.findRootCategory());
 
-		// SI HA CAMBIADO DE PADRE LO QUITO DEL ANTIGUO
-		if (category.getId() != 0) {
-			Category antiguo = this.findOne(category.getId());
-			Assert.notNull(antiguo,"ANTIGUO CATEGORY ES NULL");
-			if (antiguo.getRootcategory().getId() != category.getRootcategory().getId()) {
-				Category padreAnterior = antiguo.getRootcategory();
-				Collection<Category> hijosAnteriores = padreAnterior
-						.getSubcategories();
-				if (hijosAnteriores.contains(antiguo)) {
-					hijosAnteriores.remove(antiguo);
-					padreAnterior.setSubcategories(hijosAnteriores);
-					this.save(padreAnterior);
-				}
-			}
-		}
-
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService
 				.findActorByUsername(LoginService.getPrincipal().getUsername());
@@ -90,16 +69,6 @@ public class CategoryService {
 
 		// GUARDO CATEGORY
 		final Category saved = this.categoryRepository.save(category);
-
-		// ASIGNO A HIJOS ESTE CATEGORY
-		// Miro si ya esta en el padre y lo añado
-		Category padre = saved.getRootcategory();
-		Collection<Category> hijosDelPadre = padre.getSubcategories();
-		if (!hijosDelPadre.contains(saved)) {
-			hijosDelPadre.add(saved);
-			padre.setSubcategories(hijosDelPadre);
-			this.save(padre);
-		}
 
 		return saved;
 	}
@@ -118,6 +87,14 @@ public class CategoryService {
 		if (!actorActual.getUserAccount().getAuthorities().toString()
 				.contains("ADMIN"))
 			Assert.notNull(null, "SOLO PUEDE BORRAR CATEGORY ADMIN");
+
+		// BORRO CATEGORIES HIJAS
+		Collection<Category> hijos = this.findSons(category.getId());
+		if (!hijos.isEmpty()) {
+			for (Category c : hijos) {
+				this.delete(c);
+			}
+		}
 
 		// ASIGNAR CATEGORY PADRE A FIXUPTASK
 		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskService
@@ -141,43 +118,11 @@ public class CategoryService {
 	// return category;
 	// }
 
-	public Collection<Category> categoryTreeToPlain() {
-		final Collection<Category> result = new LinkedList<>();
-
-		final Category category = this.categoryRepository.findRootCategory();
-		result.add(category);
-		for (final Category c : category.getSubcategories())
-			if (!c.getSubcategories().isEmpty())
-				result.addAll(this.findDescendant(c));
-			else
-				result.add(c);
-
-		return result;
-	}
-
-	private Collection<Category> findDescendant(final Category father) {
-		final Collection<Category> result = new LinkedList<>();
-
-		final Collection<String> keys = father.getName().keySet();
-		result.add(father);
-		for (final Category c : father.getSubcategories()) {
-
-			for (final String key : keys) {
-				final String value = father.getName().get(key) + "/"
-						+ c.getName().get(key);
-				c.getName().remove(key);
-				c.getName().put(key, value);
-			}
-
-			if (!c.getSubcategories().isEmpty())
-				result.addAll(this.findDescendant(c));
-			else
-				result.add(c);
-		}
-		return result;
-	}
-
 	public Category findRootCategory() {
 		return this.categoryRepository.findRootCategory();
+	}
+
+	public Collection<Category> findSons(Integer categoryId) {
+		return this.categoryRepository.findSons(categoryId);
 	}
 }
