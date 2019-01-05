@@ -20,9 +20,22 @@
 		</jstl:if>
 	</display:column>
 
-	<display:column property="name" titleKey="category.name" />
-	<display:column property="rootcategory.name"
-		titleKey="category.rootCategory" />
+	<display:column titleKey="category.name">
+		<jstl:forEach var="entry" items="${row.name}">
+			<jstl:if test="${lang==entry.key}">
+				<jstl:out value="${entry.value}" />
+			</jstl:if>
+		</jstl:forEach>
+	</display:column>
+	
+	<display:column titleKey="category.rootCategory">
+		<jstl:forEach var="entry2" items="${row.rootcategory.name}">
+			<jstl:if test="${lang==entry2.key}">
+				<jstl:out value="${entry2.value}" />
+			</jstl:if>
+		</jstl:forEach>
+	</display:column>
+
 </display:table>
 
 <br />

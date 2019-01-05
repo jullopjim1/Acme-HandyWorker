@@ -11,17 +11,22 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <form:form action="category/administrator/edit.do"
-	modelAttribute="category">
+	modelAttribute="categoryForm">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="subcategories" />
 
-	<form:label path="name">
-		<spring:message code="category.name" />:
+	<form:label path="nameEN">
+		<spring:message code="category.nameEN" />:
 	</form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
+	<form:input path="nameEN" />
+	<form:errors cssClass="error" path="nameEN" />
+	<br />
+	
+	<form:label path="nameES">
+		<spring:message code="category.nameES" />:
+	</form:label>
+	<form:input path="nameES" />
+	<form:errors cssClass="error" path="nameES" />
 	<br />
 
 	<form:label path="rootcategory">
