@@ -52,6 +52,11 @@
 			<li><a class="fNiv" href="sponsorship/sponsor/list.do"><spring:message
 						code="master.page.sponsorship" /></a></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('HANDY'||'CUSTOMER'||'REFEREE')">
+			<li><a class="fNiv" href="complaint/list.do"><spring:message
+						code="master.page.complaint" /></a></li>
+		</security:authorize>
 
 		<security:authorize access="hasRole('HANDY')">
 			<li><a href="curriculum/handyworker/list.do"><spring:message

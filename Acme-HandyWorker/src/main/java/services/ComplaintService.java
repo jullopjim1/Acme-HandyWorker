@@ -83,7 +83,7 @@ public class ComplaintService {
 	}
 	// Other Methods--------------------------------------------
 
-	Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
+	public Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
 		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
 		return complaints;
 	}

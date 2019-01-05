@@ -27,7 +27,7 @@
 	<security:authorize access="hasRole('CUSTOMER')">
 		<jstl:if test="${customerId==row.customer.id}">
 			<display:column>
-				<a href="complaint/customer/edit.do?complaintId=${complaint.id}">
+				<a href="complaint/customer/edit.do?complaintId=${row.id}">
 					<spring:message code="complaint.edit" />
 				</a>
 			</display:column>
@@ -35,11 +35,9 @@
 	</security:authorize>
 
 	<display:column titleKey="complaint.details">
-
-		<a href="complaint/customer/show.do?complaintId=${row.id}"> <spring:message
+		<a href="complaint/show.do?complaintId=${row.id}"> <spring:message
 				code="complaint.show" />
 		</a>
-
 	</display:column>
 
 	<display:column property="ticker" titleKey="complaint.ticker" />
@@ -48,7 +46,6 @@
 	<security:authorize access="hasRole('REFEREE')">
 		<display:column>
 			<jstl:if test="${complaint.report==null}">
-				<spring:message code="complaint.assign" />
 				<a href="complaint/referee/edit.do?complaintId=${row.id}"> <spring:message
 						code="complaint.assign" />
 				</a>
