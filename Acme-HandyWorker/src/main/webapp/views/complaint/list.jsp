@@ -25,40 +25,46 @@
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('CUSTOMER')">
-		<display:column>
-			<a href="complaint/customer/edit.do?complaintId=${complaint.id}">
-				<spring:message code="complaint.edit" />
-			</a>
-		</display:column>
+		<jstl:if test="${customerId==row.customer.id}">
+			<display:column>
+				<a href="complaint/customer/edit.do?complaintId=${complaint.id}">
+					<spring:message code="complaint.edit" />
+				</a>
+			</display:column>
+		</jstl:if>
 	</security:authorize>
 
-	<display:column property="ticker" titleKey="complaint.ticker" />
-	<display:column property="moment" titleKey="complaint.moment" />
-	<display:column property="description" titleKey="complaint.description" />
-	<display:column property="attachments" titleKey="complaint.attachments" />
+	<display:column titleKey="complaint.details">
 
-	<display:column titleKey="complaint.notes">
-		<a href="note/list.do?complaintId=${complaint.id}"> <spring:message
+		<a href="complaint/customer/show.do?complaintId=${row.id}"> <spring:message
 				code="complaint.show" />
 		</a>
+
 	</display:column>
 
+	<display:column property="ticker" titleKey="complaint.ticker" />
+
+
 	<security:authorize access="hasRole('REFEREE')">
-		<display:column titleKey="complaint.details">
+		<display:column>
 			<jstl:if test="${complaint.report==null}">
 				<spring:message code="complaint.assign" />
-				<a href="report/referee/edit.do?complaintId=${row.id}"> <spring:message
+				<a href="complaint/referee/edit.do?complaintId=${row.id}"> <spring:message
 						code="complaint.assign" />
 				</a>
 			</jstl:if>
-			<jstl:if test="${complaint.report!=null}">
-				<a href="report/referee/show.do?complaintId=${row.id}"> <spring:message
-						code="complaint.show" />
-				</a>
-			</jstl:if>
-
 		</display:column>
 	</security:authorize>
+
+	<display:column titleKey="complaint.report">
+
+		<a href="report/referee/show.do?complaintId=${row.id}"> <spring:message
+				code="complaint.show" />
+		</a>
+
+
+	</display:column>
+
 
 
 </display:table>

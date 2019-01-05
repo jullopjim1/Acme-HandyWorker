@@ -138,9 +138,7 @@ public class ComplaintCustomerController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Complaint complaint, final String message) {
 		ModelAndView result;
-		Collection<Complaint> complaints;
 
-		complaints = this.complaintService.findAll();
 		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
 		result = new ModelAndView("complaint/edit");
 		result.addObject("complaint", complaint);

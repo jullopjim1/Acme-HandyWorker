@@ -45,7 +45,11 @@
 		</a>
 	</display:column>
 
-	
+<security:authorize access="hasRole('REFEREE')">
+<a href="report/referee/create.do"> <spring:message
+		code="report.create" />
+</a>
+</security:authorize>
 
 
 
