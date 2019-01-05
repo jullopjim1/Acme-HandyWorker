@@ -267,11 +267,6 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/warranty/administrator/delete.do"
 			access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/customer/action-1.do"
-			access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/customer/action-2.do"
-			access="hasRole('CUSTOMER')" />
-
 		<security:intercept-url pattern="/category/administrator/list.do"
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/category/administrator/edit.do"
@@ -279,6 +274,24 @@
 		<security:intercept-url pattern="/category/administrator/create.do"
 			access="hasRole('ADMIN')" />
 
+		<!-- Customer -->
+		<security:intercept-url pattern="/customer/action-1.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/customer/action-2.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/complaint/customer/list.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/complaint/customer/edit.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/complaint/customer/save.do"
+			access="hasRole('CUSTOMER')" />
+		<security:intercept-url pattern="/complaint/customer/delete.do"
+			access="hasRole('CUSTOMER')" />
+			
+		<security:intercept-url pattern="/complaint/list.do"
+			access="hasRole('CUSTOMER'||'HANDY'||'REFEREE)" />
+		<security:intercept-url pattern="/complaint/show.do"
+			access="hasRole('CUSTOMER'||'HANDY'||'REFEREE)" />
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

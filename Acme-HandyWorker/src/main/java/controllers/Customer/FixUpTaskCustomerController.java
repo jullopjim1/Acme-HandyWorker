@@ -56,7 +56,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		ModelAndView result;
 		Collection<FixUpTask> fixuptasks;
 
-		final Customer c = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		fixuptasks = this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId());
 		result = new ModelAndView("fixUpTask/list");
 		result.addObject("fixUpTasks", fixuptasks);
@@ -70,7 +70,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		FixUpTask fixUpTask;
-		final Customer c = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 
 		fixUpTask = this.fixUpTaskService.create(c.getId());
 
@@ -100,7 +100,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(final int fixUpTaskId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Customer c = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		FixUpTask fixUpTask = null;
 
 		try {
@@ -136,7 +136,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 			result = this.editModelAndView(fixUpTask, "commit.error");
 		else
 			try {
-				final Customer c = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 				Assert.isTrue(fixUpTask.getCustomer().equals(c));
 				this.fixUpTaskService.save(fixUpTask);
 
@@ -157,7 +157,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 			result = this.editModelAndView(fixUpTask, "commit.error");
 		else
 			try {
-				final Customer c = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 				Assert.isTrue(fixUpTask.getCustomer().equals(c));
 				this.fixUpTaskService.delete(fixUpTask);
 

@@ -86,6 +86,9 @@
 		
 		<bean class="converters.ReportToStringConverter" />
 		<bean class="converters.StringToReportConverter" />
+		
+		<bean class="converters.ComplaintToStringConverter" />
+		<bean class="converters.StringToComplaintConverter" />
 
 	</util:list>
 

@@ -11,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.AdministratorRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
-import repositories.AdministratorRepository;
-import security.Authority;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -100,7 +100,7 @@ public class AdministratorService {
 			result = this.isSuspicious(administrator);
 			break;
 		case "CUSTOMER":
-			final Customer customer = this.customerService.findByUseraccount(userAccount.getId());
+			final Customer customer = this.customerService.findByUserAccount(userAccount.getId());
 			customer.setIsSuspicious(true);
 			result = this.customerService.isSuspicious(customer);
 

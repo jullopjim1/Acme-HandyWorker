@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.Customer;
 import repositories.CustomerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.Customer;
 
 @Service
 @Transactional
@@ -107,7 +107,7 @@ public class CustomerService {
 		return saved;
 	}
 
-	public Customer findByUseraccount(final int customerId) {
+	public Customer findByUserAccount(final int customerId) {
 
 		return this.customerRepository.findCustomerByUserAccount(customerId);
 
