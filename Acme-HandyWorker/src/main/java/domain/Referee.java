@@ -13,5 +13,4 @@ public class Referee extends Actor {
 	// ATRIBUTOS
 
 	// Relationships ---------------------------------------------------------
-
 }

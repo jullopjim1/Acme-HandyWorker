@@ -86,6 +86,11 @@ public class ComplaintService {
 		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
 		return complaints;
 	}
+
+	public Collection<Complaint> findComplaintsByRefereeId(final int refereeId) {
+		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByRefereeId(refereeId);
+		return complaints;
+	}
 	public ArrayList<Customer> queryB4() {
 		return this.complaintRepository.queryB4();
 	}

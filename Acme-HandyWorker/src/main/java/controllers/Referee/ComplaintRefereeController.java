@@ -44,10 +44,10 @@ public class ComplaintRefereeController extends AbstractController {
 
 		final Referee r = this.refereeService.findByUseraccount(LoginService.getPrincipal());
 		final int refereeId = r.getId();
-		//		complaints = this.complaintService.;
+		complaints = this.complaintService.findComplaintsByRefereeId(refereeId);
 
 		result = new ModelAndView("complaint/list");
-		//		result.addObject("complaints", complaints);
+		result.addObject("complaints", complaints);
 		result.addObject("refereeId", refereeId);
 		result.addObject("requestURI", "/list.do?refereeId=?" + refereeId);
 

@@ -886,7 +886,7 @@
 		<property name="attachments" value="http://www.attachments3.com" />
 		<property name="isFinal" value="true" />
 		<property name="complaint" ref="complaint3" />
-		<property name="referee" ref="referee3" />
+		<property name="referee" ref="referee1" />
 	</bean>
 
 
