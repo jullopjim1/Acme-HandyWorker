@@ -72,13 +72,12 @@ public class ComplaintService {
 	public Complaint save(final Complaint complaint) {
 		Assert.notNull(complaint);
 		final Complaint saved = this.complaintRepository.save(complaint);
-		//		saved.setIsFinal(true);
-		//		Assert.isTrue(saved.getIsFinal().equals(true));
+
 		return saved;
 	}
 
-	public void delete(final Complaint entity) {
-		this.complaintRepository.delete(entity);
+	public void delete(final Complaint complaint) {
+		this.complaintRepository.delete(complaint);
 
 	}
 	// Other Methods--------------------------------------------

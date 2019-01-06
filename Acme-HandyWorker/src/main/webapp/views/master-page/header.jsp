@@ -53,7 +53,23 @@
 						code="master.page.sponsorship" /></a></li>
 		</security:authorize>
 		
-		<security:authorize access="hasRole('HANDY'||'CUSTOMER'||'REFEREE')">
+		<security:authorize access="hasRole('CUSTOMER')">
+			<li><a class="fNiv" href="complaint/list.do"><spring:message
+						code="master.page.complaint" /></a>
+				<ul>
+					<li class="arrow"></li>
+						<li><a href="complaint/customer/list.do"><spring:message
+									code="master.page.handy.myComplaint" /></a></li>
+					
+				</ul></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('HANDY')">
+			<li><a class="fNiv" href="complaint/list.do"><spring:message
+						code="master.page.complaint" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('REFEREE')">
 			<li><a class="fNiv" href="complaint/list.do"><spring:message
 						code="master.page.complaint" /></a></li>
 		</security:authorize>

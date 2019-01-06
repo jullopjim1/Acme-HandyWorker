@@ -110,7 +110,7 @@ public class ComplaintCustomerController extends AbstractController {
 		final Customer a = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.complaintService.delete(complaint);
-			result = new ModelAndView("redirect:/list.do?customerId=" + a.getId());
+			result = new ModelAndView("redirect:/complaint/customer/list.do?customerId=" + a.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(complaint, "complaint.commit.error");
 		}

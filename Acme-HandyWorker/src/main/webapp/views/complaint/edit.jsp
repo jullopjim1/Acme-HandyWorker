@@ -28,24 +28,27 @@
 	<form:hidden path="version" />
 	<form:hidden path="ticker" />
 	<form:hidden path="moment" />
+	<form:hidden path="fixUpTask"/>
+	<form:hidden path="customer"/>
+	
 
 	<form:label path="description">
 		<spring:message code="complaint.description" />
 	</form:label>
 	<form:input path="description" />
-	<form:errors ccsClass="error" path="description" />
+	<form:errors cssClass="error" path="description" />
 	<br />
 
 	<form:label path="attachments">
 		<spring:message code="complaint.attachments" />
 	</form:label>
 	<form:textarea path="attachments" />
-	<form:errors ccsClass="error" path="attachments" />
+	<form:errors cssClass="error" path="attachments" />
 	<br />
-
+	<br/>
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
-			value="<spring:message code="complaint.save" />" />; 
+			value="<spring:message code="complaint.save" />" />
 	
 		<jstl:if test="${complaint.id != 0}">
 			<input type="submit" name="delete"
@@ -55,12 +58,12 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="complaint.cancel" />"
-			onclick="javascript: relativeRedir('complaint/list.do');" />
+			onclick="javascript: relativeRedir('complaint/customer/list.do?customerId=${customerId}');" />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
 		<input type="button" name="cancel"
-			value="<spring:message code="commplaint.back" />"
+			value="<spring:message code="complaint.back" />"
 			onclick="javascript: relativeRedir('complaint/list.do');" />
 	</jstl:if>
 </form:form>

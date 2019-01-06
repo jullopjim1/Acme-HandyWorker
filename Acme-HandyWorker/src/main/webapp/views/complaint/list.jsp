@@ -40,7 +40,11 @@
 		</a>
 	</display:column>
 
-	<display:column property="ticker" titleKey="complaint.ticker" />
+	<display:column property="customer.name"
+			titleKey="complaint.customer" />
+	
+	<display:column property="moment"
+			titleKey="complaint.moment" />
 
 
 	<security:authorize access="hasRole('REFEREE')">
@@ -65,3 +69,4 @@
 
 
 </display:table>
+<br/>

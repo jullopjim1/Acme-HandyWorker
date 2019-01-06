@@ -287,11 +287,13 @@
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/complaint/customer/delete.do"
 			access="hasRole('CUSTOMER')" />
-			
+		<security:intercept-url pattern="/complaint/customer/create.do"
+			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/complaint/list.do"
-			access="hasRole('CUSTOMER'||'HANDY'||'REFEREE)" />
+			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/complaint/show.do"
-			access="hasRole('CUSTOMER'||'HANDY'||'REFEREE)" />
+			access="hasRole('CUSTOMER')" />
+		
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

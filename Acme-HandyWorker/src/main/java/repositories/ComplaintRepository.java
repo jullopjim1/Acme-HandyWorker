@@ -19,7 +19,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	public ArrayList<Customer> queryB4();
 
 	//Other Queries-------------------------------------------------------------
-	@Query("select c from Complaint c where c.customer=?1")
+	@Query("select c from Complaint c where c.customer.id=?1")
 	Collection<Complaint> findComplaintsByCustomerId(int customerId);
 
 }
