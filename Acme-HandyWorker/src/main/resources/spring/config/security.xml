@@ -58,7 +58,7 @@
 		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
 
-		<security:intercept-url pattern="/report/referee/list.do"
+		<security:intercept-url pattern="/report/list.do"
 			access="permitAll" />
 
 		<!-- HandyWorker -->

@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.ReportRepository;
 import domain.Complaint;
 import domain.Referee;
 import domain.Report;
-import repositories.ReportRepository;
 
 @Service
 @Transactional
@@ -77,6 +77,9 @@ public class ReportService {
 		this.reportRepository.delete(report);
 	}
 	// Other Methods--------------------------------------------
+	public Report findReportByComplaintId(final int complaintId) {
+		return this.reportRepository.findReportByComplaintId(complaintId);
+	}
 
 	public Double queryB2AVG() {
 		return this.reportRepository.queryB2AVG();
