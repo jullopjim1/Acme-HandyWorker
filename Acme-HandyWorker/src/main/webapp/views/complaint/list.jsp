@@ -59,7 +59,7 @@
 
 	<display:column titleKey="complaint.report">
 
-		<a href="report/referee/show.do?complaintId=${row.id}"> <spring:message
+		<a href="report/list.do?complaintId=${row.id}"> <spring:message
 				code="complaint.show" />
 		</a>
 

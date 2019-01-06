@@ -10,6 +10,8 @@ import domain.Report;
 @Repository
 public interface ReportRepository extends JpaRepository<Report, Integer> {
 
+	@Query("select r from Report r where r.complaint.id = ?1")
+	public Report findReportByComplaintId(int complaintId);
 	// Queries Level B-----------------------------------------------------
 
 	@Query("select avg(1.0 * (select count(f) from Note f where f.report.id = c.id)) from Report c")
