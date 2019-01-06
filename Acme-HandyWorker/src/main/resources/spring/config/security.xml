@@ -228,7 +228,10 @@
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/report/referee/delete.do"
 			access="hasRole('REFEREE')" />
-
+		<security:intercept-url pattern="/complaint/referee/list.do"
+			access="hasRole('REFEREE')" />
+		
+		
 
 
 
@@ -290,10 +293,10 @@
 		<security:intercept-url pattern="/complaint/customer/create.do"
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/complaint/list.do"
-			access="hasRole('CUSTOMER')" />
+			access="isAuthenticated()" />
 		<security:intercept-url pattern="/complaint/show.do"
-			access="hasRole('CUSTOMER')" />
-		
+			access="isAuthenticated()" />
+
 
 		<security:intercept-url pattern="/**"
 			access="hasRole('NONE')" />

@@ -49,7 +49,7 @@ public class ComplaintRefereeController extends AbstractController {
 		result = new ModelAndView("complaint/list");
 		result.addObject("complaints", complaints);
 		result.addObject("refereeId", refereeId);
-		result.addObject("requestURI", "/list.do?refereeId=?" + refereeId);
+		result.addObject("requestURI", "complaint/referee/list.do?refereeId=?" + refereeId);
 
 		return result;
 
