@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -80,6 +81,15 @@ public class EndorserService {
 
 	}
 
+	public void updateScoreEndorsers() {
+		final Collection<Endorser> endorsers = new LinkedList<>();
+
+		for (final Endorser endorser : this.findAll())
+			endorsers.add(this.updateEndorser(endorser));
+
+		this.endorserRepository.save(endorsers);
+
+	}
 	public Collection<Endorser> findEndorsees() {
 		this.checkPrincipal();
 		final Endorser endorser = this.findEndorserByUseraccount(LoginService.getPrincipal());
