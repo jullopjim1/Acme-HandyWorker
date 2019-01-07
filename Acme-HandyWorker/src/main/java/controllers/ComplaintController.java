@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Complaint;
 import services.ComplaintService;
 import services.ReportService;
-import domain.Complaint;
 
 @Controller
 @RequestMapping("/complaint")
@@ -59,6 +59,20 @@ public class ComplaintController extends AbstractController {
 		modelAndView = this.createEditModelAndView(complaint);
 		modelAndView.addObject("isRead", true);
 		modelAndView.addObject("requestURI", "/show.do?complaintId=" + complaintId);
+
+		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/showComplaint", method = RequestMethod.GET)
+	public ModelAndView showComplaint(@RequestParam final int fixUpTaskId) {
+		final ModelAndView modelAndView;
+
+		final Complaint complaint = this.complaintService.findComplaintByTaskId(fixUpTaskId);
+
+		modelAndView = this.createEditModelAndView(complaint);
+		modelAndView.addObject("isRead", true);
+		modelAndView.addObject("requestURI", "/showCompalint.do?fixUpTAskId=" + fixUpTaskId);
 
 		return modelAndView;
 

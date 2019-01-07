@@ -23,6 +23,7 @@ import domain.Warranty;
 import security.LoginService;
 import services.CategoryService;
 import services.ComplaintService;
+import services.ConfigurationService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import services.WarrantyService;
@@ -34,19 +35,22 @@ public class FixUpTaskCustomerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
 
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService			customerService;
 
 	@Autowired
-	private WarrantyService		warrantyService;
+	private WarrantyService			warrantyService;
 
 	@Autowired
-	private CategoryService		categoryService;
+	private CategoryService			categoryService;
 
 	@Autowired
-	private ComplaintService	complaintService;
+	private ComplaintService		complaintService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructor---------------------------------------------------------
@@ -59,25 +63,23 @@ public class FixUpTaskCustomerController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		Collection<FixUpTask> fixuptasks;
+		Collection<FixUpTask> fixUpTasks;
 
 		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
-		fixuptasks = this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId());
+		fixUpTasks = this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId());
 
 		result = new ModelAndView("fixUpTask/list");
-		result.addObject("fixUpTasks", fixuptasks);
+		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("requestURI", "fixUpTask/customer/list.do");
 		result.addObject("customerId", c.getId());
 
 		//Ver si una fixUptask tiene complaint o no
 
 		Boolean complaintBol = false;
-		for (final FixUpTask fixUpTask : fixuptasks) {
+		for (final FixUpTask fixUpTask : fixUpTasks) {
 			final Complaint complaint = this.complaintService.findComplaintByTaskId(fixUpTask.getId());
-			if (complaint != null) {
+			if (complaint != null)
 				complaintBol = true;
-				result.addObject("complaintId", complaint.getId());
-			}
 
 		}
 		result.addObject("complaintBol", complaintBol);
@@ -199,9 +201,9 @@ public class FixUpTaskCustomerController extends AbstractController {
 	}
 
 	protected ModelAndView createModelAndView(final FixUpTask fixUpTask, final String message) {
-		ModelAndView result;
+		final ModelAndView result;
 
-		final Collection<Warranty> warranties = this.warrantyService.findAll();
+		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final Collection<Category> categories = this.categoryService.findAll();
 
 		result = new ModelAndView("fixUpTask/create");

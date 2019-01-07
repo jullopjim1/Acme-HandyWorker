@@ -296,6 +296,8 @@
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/complaint/show.do"
 			access="isAuthenticated()" />
+		<security:intercept-url pattern="/complaint/showComplaint.do"
+			access="isAuthenticated()" />
 
 
 		<security:intercept-url pattern="/**"
