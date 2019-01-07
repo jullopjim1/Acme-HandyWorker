@@ -12,7 +12,7 @@ import domain.Warranty;
 @Repository
 public interface WarrantyRepository extends JpaRepository<Warranty, Integer> {
 
-	@Query("select w Warrenty w where w.isFinal = true")
+	@Query("select wa from Warranty wa where wa.isFinal = true")
 	public Collection<Warranty> warrantiesFinalMode();
 
 }

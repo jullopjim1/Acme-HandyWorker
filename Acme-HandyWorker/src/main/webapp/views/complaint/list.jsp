@@ -25,26 +25,27 @@
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('CUSTOMER')">
-		<jstl:if test="${customerId==row.customer.id}">
+		<jstl:if
+			test="${customerId==row.customer.id && complaintBol == false }">
 			<display:column>
-				<a href="complaint/customer/edit.do?complaintId=${row.id}">
-					<spring:message code="complaint.edit" />
+				<a href="complaint/customer/edit.do?complaintId=${row.id}"> <spring:message
+						code="complaint.edit" />
 				</a>
 			</display:column>
 		</jstl:if>
 	</security:authorize>
 
-	<display:column titleKey="complaint.details">
-		<a href="complaint/show.do?complaintId=${row.id}"> <spring:message
-				code="complaint.show" />
-		</a>
-	</display:column>
+	<jstl:if test="${ complaintBol == true }">
+		<display:column titleKey="complaint.details">
+			<a href="complaint/show.do?complaintId=${row.id}"> <spring:message
+					code="complaint.show" />
+			</a>
+		</display:column>
+	</jstl:if>
 
-	<display:column property="customer.name"
-			titleKey="complaint.customer" />
-	
-	<display:column property="moment"
-			titleKey="complaint.moment" />
+	<display:column property="customer.name" titleKey="complaint.customer" />
+
+	<display:column property="moment" titleKey="complaint.moment" />
 
 
 	<security:authorize access="hasRole('REFEREE')">
@@ -65,8 +66,5 @@
 
 
 	</display:column>
-
-
-
 </display:table>
-<br/>
+<br />

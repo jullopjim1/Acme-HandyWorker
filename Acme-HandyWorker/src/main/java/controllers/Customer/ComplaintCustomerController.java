@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import services.ComplaintService;
-import services.CustomerService;
 import controllers.AbstractController;
 import domain.Complaint;
 import domain.Customer;
+import security.LoginService;
+import services.ComplaintService;
+import services.CustomerService;
 
 @Controller
 @RequestMapping("/complaint/customer")

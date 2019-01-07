@@ -25,7 +25,7 @@
 	modelAttribute="warranty" readonly="${isRead }">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="isFinal" />
+
 
 	<form:label path="title">
 		<spring:message code="warranty.title" />
