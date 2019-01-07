@@ -30,12 +30,12 @@ public class ReportController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int complaintId) {
 		ModelAndView result;
-		Report report;
+		Report reports;
 
-		report = this.reportService.findReportFinal(complaintId);
+		reports = this.reportService.findReportFinal(complaintId);
 
 		result = new ModelAndView("report/list");
-		result.addObject("report", report);
+		result.addObject("reports", reports);
 		result.addObject("requestURI", "report/list.do");
 
 		return result;

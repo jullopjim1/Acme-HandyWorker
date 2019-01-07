@@ -228,6 +228,8 @@
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/report/referee/delete.do"
 			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/report/referee/edit.do"
+			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/complaint/referee/list.do"
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/report/referee/list.do"
