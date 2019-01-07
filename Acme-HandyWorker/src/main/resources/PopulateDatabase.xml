@@ -871,15 +871,6 @@
 		<property name="referee" ref="referee1" />
 	</bean>
 
-	<bean id="report2" class="domain.Report">
-		<property name="moment" value="2016/01/02 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments4.com" />
-		<property name="isFinal" value="false" />
-		<property name="complaint" ref="complaint2" />
-		<property name="referee" ref="referee2" />
-	</bean>
-
 
 	<!-- NOTE -->
 	<bean id="note1" class="domain.Note">
@@ -890,17 +881,6 @@
 		<property name="isFinal" value="true" />
 		<property name="report" ref="report1" />
 	</bean>
-
-
-	<bean id="note2" class="domain.Note">
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="mandatory2" />
-		<property name="mandatoryCommentCustomer" value="" />
-		<property name="mandatoryCommentHandyWorker" value="" />
-		<property name="isFinal" value="true" />
-		<property name="report" ref="report2" />
-	</bean>
-
 
 
 
