@@ -158,7 +158,8 @@
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/fixUpTask/customer/edit.do"
 			access="hasRole('CUSTOMER')" />
-
+		<security:intercept-url pattern="/fixUpTask/customer/show.do"
+			access="isAuthenticated()" />
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
 			access="isAuthenticated()" />

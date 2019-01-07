@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -66,11 +67,14 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		fixUpTasks = this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId());
+		final String language = LocaleContextHolder.getLocale().getLanguage();
 
 		result = new ModelAndView("fixUpTask/list");
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("requestURI", "fixUpTask/customer/list.do");
 		result.addObject("customerId", c.getId());
+		result.addObject("lang", language.toUpperCase());
+		result.addObject("complaintService", this.complaintService);
 
 		//Ver si una fixUptask tiene complaint o no
 		//TODO: Has Complaint??
@@ -87,24 +91,28 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		fixUpTask = this.fixUpTaskService.create(c.getId());
 
-		result = this.createModelAndView(fixUpTask);
+		result = this.createAndEditModelAndView(fixUpTask);
 
 		return result;
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
-
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(final int fixUpTaskId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		if (binding.hasErrors())
-			result = this.createModelAndView(fixUpTask, binding.toString());
-		else
-			try {
-				this.fixUpTaskService.save(fixUpTask);
-				result = new ModelAndView("redirect:/fixUpTask/customer/list.do");
-			} catch (final Throwable oops) {
-				result = this.createModelAndView(fixUpTask, "commit.error");
-			}
+		FixUpTask fixUpTask = null;
+
+		try {
+			fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+
+			result = this.ShowModelAndView(fixUpTask);
+
+		} catch (final Throwable e) {
+
+			result = new ModelAndView("redirect:/fixUpTask/customer/list.do");
+			if (fixUpTask == null)
+				redirectAttrs.addFlashAttribute("message", "fixUpTask.error.unexist");
+		}
+
 		return result;
 	}
 
@@ -121,13 +129,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 			Assert.isTrue(fixUpTask.getCustomer().equals(c));
 
-			final Collection<Warranty> warranties = this.warrantyService.findAll();
-			final Collection<Category> categories = this.categoryService.findAll();
-
-			result = new ModelAndView("fixUpTask/edit");
-			result.addObject("fixUpTask", fixUpTask);
-			result.addObject("warranties", warranties);
-			result.addObject("categories", categories);
+			result = this.createAndEditModelAndView(fixUpTask);
 
 		} catch (final Throwable e) {
 
@@ -142,11 +144,11 @@ public class FixUpTaskCustomerController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveEdit(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
+	public ModelAndView save(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.editModelAndView(fixUpTask, "commit.error");
+			result = this.createAndEditModelAndView(fixUpTask);
 		else
 			try {
 				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
@@ -156,18 +158,18 @@ public class FixUpTaskCustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/fixUpTask/customer/list.do");
 			} catch (final Throwable oops) {
 
-				result = this.editModelAndView(fixUpTask, "commit.error");
+				result = this.createAndEditModelAndView(fixUpTask, "commit.error");
 			}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView deleteEdit(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
+	public ModelAndView delete(@Valid final FixUpTask fixUpTask, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.editModelAndView(fixUpTask, "commit.error");
+			result = this.createAndEditModelAndView(fixUpTask);
 		else
 			try {
 				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
@@ -177,7 +179,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 				result = new ModelAndView("redirect:/fixUpTask/customer/list.do");
 			} catch (final Throwable oops) {
 
-				result = this.editModelAndView(fixUpTask, "commit.error");
+				result = this.createAndEditModelAndView(fixUpTask, "commit.error");
 			}
 
 		return result;
@@ -185,36 +187,14 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 	// AUXILIARY METHODS
 
-	protected ModelAndView createModelAndView(final FixUpTask fixUpTask) {
+	protected ModelAndView createAndEditModelAndView(final FixUpTask fixUpTask) {
 		ModelAndView result;
-		result = this.createModelAndView(fixUpTask, null);
+		result = this.createAndEditModelAndView(fixUpTask, null);
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final FixUpTask fixUpTask, final String message) {
+	protected ModelAndView createAndEditModelAndView(final FixUpTask fixUpTask, final String message) {
 		final ModelAndView result;
-
-		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
-		final Collection<Category> categories = this.categoryService.findAll();
-
-		result = new ModelAndView("fixUpTask/create");
-		result.addObject("message", message);
-		result.addObject("requestURI", "fixUpTask/customer/create.do");
-		result.addObject("fixUpTask", fixUpTask);
-		result.addObject("warranties", warranties);
-		result.addObject("categories", categories);
-
-		return result;
-	}
-
-	protected ModelAndView editModelAndView(final FixUpTask fixUpTask) {
-		ModelAndView result;
-		result = this.editModelAndView(fixUpTask, null);
-		return result;
-	}
-
-	protected ModelAndView editModelAndView(final FixUpTask fixUpTask, final String message) {
-		ModelAndView result;
 
 		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final Collection<Category> categories = this.categoryService.findAll();
@@ -225,6 +205,30 @@ public class FixUpTaskCustomerController extends AbstractController {
 		result.addObject("fixUpTask", fixUpTask);
 		result.addObject("warranties", warranties);
 		result.addObject("categories", categories);
+		result.addObject("isRead", false);
+
+		return result;
+	}
+
+	protected ModelAndView ShowModelAndView(final FixUpTask fixUpTask) {
+		ModelAndView result;
+		result = this.ShowModelAndView(fixUpTask, null);
+		return result;
+	}
+
+	protected ModelAndView ShowModelAndView(final FixUpTask fixUpTask, final String message) {
+		final ModelAndView result;
+
+		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
+		final Collection<Category> categories = this.categoryService.findAll();
+
+		result = new ModelAndView("fixUpTask/edit");
+		result.addObject("message", message);
+		result.addObject("requestURI", "fixUpTask/customer/show.do");
+		result.addObject("fixUpTask", fixUpTask);
+		result.addObject("warranties", warranties);
+		result.addObject("categories", categories);
+		result.addObject("isRead", true);
 
 		return result;
 	}

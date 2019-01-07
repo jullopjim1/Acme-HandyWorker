@@ -28,23 +28,25 @@
 	<display:column titleKey="fixuptask.category">
 		<jstl:forEach var="entry" items="${row.category.name}">
 			<jstl:if test="${lang==entry.key}">
-				<jstl:out value="${entry.value}" />
+				${entry.value}
 			</jstl:if>
 		</jstl:forEach>
 	</display:column>
-	<display:column property="ticker.ticker" titleKey="fixuptask.ticker" />
-	<display:column property="description" titleKey="fixuptask.description" />
-	<display:column property="warranty.title" titleKey="fixuptask.warranty" />
-	<display:column property="maxPrice" titleKey="fixuptask.maxPrice" />
-	<display:column property="moment" titleKey="fixuptask.moment" />
-	<display:column property="deadline" titleKey="fixuptask.deadline" />
-	<display:column property="adress" titleKey="fixuptask.address" />
+
+	<display:column titleKey="fixuptask.details">
+		<a href="fixUpTask/customer/show.do?fixUpTaskId=${row.id}"> <spring:message
+				code="fixuptask.show" />
+		</a>
+	</display:column>
+
+
+
 
 	<security:authorize access="hasRole('CUSTOMER')">
 
 		<jstl:if
-			test="${customerId==row.customer.id and complaintBol == false and complaint.null}">
-			<display:column>
+			test="${complaintService.findComplaintByTaskId(row.id) == null}">
+			<display:column title="complaint.create">
 				<a href="complaint/customer/create.do?fixUpTaskId=${row.id}"> <spring:message
 						code="complaint.create" />
 				</a>
@@ -53,14 +55,15 @@
 	</security:authorize>
 
 
-	<jstl:if test="${complaintBol == true}">
-		<display:column titleKey="complaint.details">
+	<jstl:if
+		test="${complaintService.findComplaintByTaskId(row.id) != null}">
+		<display:column titleKey="complaint.show">
+
 			<a href="complaint/showComplaint.do?fixUpTaskId=${row.id}"> <spring:message
 					code="complaint.show" />
 			</a>
 		</display:column>
 	</jstl:if>
-
 </display:table>
 
 <br />

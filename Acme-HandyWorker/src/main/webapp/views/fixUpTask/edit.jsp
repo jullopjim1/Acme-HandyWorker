@@ -10,8 +10,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="fixUpTask/customer/edit.do"
-	modelAttribute="fixUpTask">
+<form:form action="${requestURI}" modelAttribute="fixUpTask">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -22,28 +21,28 @@
 	<form:label path="description">
 		<spring:message code="fixuptask.description" />:
 	</form:label>
-	<form:input path="description" />
+	<form:input path="description" readonly="${isRead}" />
 	<form:errors cssClass="error" path="description" />
 	<br />
 
 	<form:label path="adress">
 		<spring:message code="fixuptask.address" />:
 	</form:label>
-	<form:input path="adress" />
+	<form:input path="adress" readonly="${isRead}" />
 	<form:errors cssClass="error" path="adress" />
 	<br />
 
 	<form:label path="maxPrice">
 		<spring:message code="fixuptask.maxPrice" />:
 	</form:label>
-	<form:input path="maxPrice" />
+	<form:input path="maxPrice" readonly="${isRead}" />
 	<form:errors cssClass="error" path="maxPrice" />
 	<br />
 
 	<form:label path="deadline">
 		<spring:message code="fixuptask.deadlineWith" />:
 	</form:label>
-	<form:input path="deadline" />
+	<form:input path="deadline" readonly="${isRead}" />
 	<form:errors cssClass="error" path="deadline" />
 	<br />
 
@@ -66,7 +65,7 @@
 	<form:errors cssClass="error" path="warranty" />
 	<br />
 
-	
+	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="fixuptask.save" />" />
 
@@ -78,5 +77,16 @@
 			value="<spring:message code="fixuptask.cancel" />"
 			onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
 		<br />
+
+	</jstl:if>
+
+	<jstl:if test="${isRead == true}">
+
+		<input type="button" name="back"
+			value="<spring:message code="fixuptask.back" />"
+			onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
+		<br />
+
+	</jstl:if>
 
 </form:form>
