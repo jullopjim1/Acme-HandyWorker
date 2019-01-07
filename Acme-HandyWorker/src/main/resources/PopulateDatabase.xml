@@ -901,7 +901,7 @@
 		<property name="report" ref="report2" />
 	</bean>
 
-	
+
 
 
 
@@ -1093,7 +1093,7 @@
 		<property name="isFinal" value="false" />
 	</bean>
 
-	
+
 
 
 
@@ -1117,7 +1117,7 @@
 		<property name="title" value="title3" />
 		<property name="terms" value="terms3" />
 		<property name="laws" value="law2" />
-		<property name="isFinal" value="true" />
+		<property name="isFinal" value="false" />
 	</bean>
 
 	<bean id="warranty4" class="domain.Warranty">
@@ -1345,7 +1345,7 @@
 		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
-	
+
 	<bean id="category10" class="domain.Category">
 		<property name="name">
 			<map>
@@ -1411,7 +1411,7 @@
 		<property name="adress" value="adress2" />
 		<property name="maxPrice" value="30.0" />
 		<property name="deadline" value="2019/10/28 12:00" />
-		<property name="warranty" ref="warranty2" />
+		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="category1" />
 		<property name="customer" ref="customer2" />
 	</bean>
@@ -1423,7 +1423,7 @@
 		<property name="adress" value="adress3" />
 		<property name="maxPrice" value="40.0" />
 		<property name="deadline" value="2019/11/28 13:00" />
-		<property name="warranty" ref="warranty3" />
+		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="category2" />
 		<property name="customer" ref="customer3" />
 	</bean>
@@ -1435,7 +1435,7 @@
 		<property name="adress" value="adress4" />
 		<property name="maxPrice" value="43.0" />
 		<property name="deadline" value="2019/12/11 14:00" />
-		<property name="warranty" ref="warranty4" />
+		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="category3" />
 		<property name="customer" ref="customer3" />
 	</bean>

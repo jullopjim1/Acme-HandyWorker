@@ -25,23 +25,23 @@
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('CUSTOMER')">
-		<jstl:if
-			test="${customerId==row.customer.id and complaintBol == false }">
-			<display:column>
+
+		<display:column>
+			<jstl:if
+				test="${customerId==row.customer.id and row.isFinal == true }">
 				<a href="complaint/customer/edit.do?complaintId=${row.id}"> <spring:message
 						code="complaint.edit" />
 				</a>
-			</display:column>
-		</jstl:if>
+			</jstl:if>
+		</display:column>
+
 	</security:authorize>
 
-	<jstl:if test="${ complaintBol == true }">
-		<display:column titleKey="complaint.details">
-			<a href="complaint/show.do?complaintId=${row.id}"> <spring:message
-					code="complaint.show" />
-			</a>
-		</display:column>
-	</jstl:if>
+	<display:column titleKey="complaint.details">
+		<a href="complaint/show.do?complaintId=${row.id}"> <spring:message
+				code="complaint.show" />
+		</a>
+	</display:column>
 
 	<display:column property="customer.name" titleKey="complaint.customer" />
 
