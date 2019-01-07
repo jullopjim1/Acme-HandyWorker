@@ -21,35 +21,34 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="complaint/customer/edit.do"
-	modelAttribute="complaint" readonly="${isRead }">
+<form:form action="${requestURI}" modelAttribute="complaint">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="ticker" />
 	<form:hidden path="moment" />
-	<form:hidden path="fixUpTask"/>
-	<form:hidden path="customer"/>
-	
+	<form:hidden path="fixUpTask" />
+	<form:hidden path="customer" />
+
 
 	<form:label path="description">
 		<spring:message code="complaint.description" />
 	</form:label>
-	<form:input path="description" />
+	<form:input path="description" readonly="${isRead}" />
 	<form:errors cssClass="error" path="description" />
 	<br />
 
 	<form:label path="attachments">
 		<spring:message code="complaint.attachments" />
 	</form:label>
-	<form:textarea path="attachments" />
+	<form:textarea path="attachments" readonly="${isRead}" />
 	<form:errors cssClass="error" path="attachments" />
 	<br />
-	<br/>
+	<br />
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="complaint.save" />" />
-	
+
 		<jstl:if test="${complaint.id != 0}">
 			<input type="submit" name="delete"
 				value="<spring:message code="complaint.delete" />"
