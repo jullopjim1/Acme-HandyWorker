@@ -24,10 +24,11 @@ public class Report extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private Date moment;
-	private String description;
-	private String attachments;
-	private boolean isFinal;
+	private Date	moment;
+	private String	description;
+	private String	attachments;
+	private boolean	isFinal;
+
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -68,9 +69,11 @@ public class Report extends DomainEntity {
 		this.isFinal = isFinal;
 	}
 
+
 	// Relationships ---------------------------------------------------------
-	private Complaint complaint;
-	private Referee referee;
+	private Complaint	complaint;
+	private Referee		referee;
+
 
 	@NotNull
 	@Valid
