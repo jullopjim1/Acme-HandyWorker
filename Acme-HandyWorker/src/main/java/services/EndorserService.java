@@ -71,13 +71,18 @@ public class EndorserService {
 
 	public Endorser updateEndorser(final Endorser endorser) {
 
+		final Endorser saved = this.endorserRepository.save(this.updateScore(endorser));
+
+		return saved;
+
+	}
+	public Endorser updateScore(final Endorser endorser) {
+
 		final double totalScore = this.endorsementService.calculateScoreByEndorser(endorser.getId());
 
 		endorser.setScore(totalScore);
 
-		final Endorser saved = this.endorserRepository.save(endorser);
-
-		return saved;
+		return endorser;
 
 	}
 
@@ -85,7 +90,7 @@ public class EndorserService {
 		final Collection<Endorser> endorsers = new LinkedList<>();
 
 		for (final Endorser endorser : this.findAll())
-			endorsers.add(this.updateEndorser(endorser));
+			endorsers.add(this.updateScore(endorser));
 
 		this.endorserRepository.save(endorsers);
 

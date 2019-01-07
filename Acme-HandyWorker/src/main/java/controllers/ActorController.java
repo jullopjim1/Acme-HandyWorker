@@ -100,7 +100,7 @@ public class ActorController extends AbstractController {
 		modelAndView.addObject("handyWorkerId", handyWorkerId);
 		modelAndView.addObject("requestURI", "/actor/showProfileTutorial.do?tutorialId=" + tutorial.getId());
 		final Endorser e = this.endorserService.findOne(actor1.getId());
-		modelAndView.addObject("score", "Score: " + e.getScore());
+		modelAndView.addObject("score", e.getScore());
 
 		return modelAndView;
 	}

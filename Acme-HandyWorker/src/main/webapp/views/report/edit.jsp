@@ -26,6 +26,8 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
+	<form:hidden path="complaint"/>
+	<form:hidden path="referee"/>
 
 	<form:label path="description">
 		<spring:message code="report.description" />
@@ -40,10 +42,17 @@
 	<form:textarea path="attachments" readonly="${isRead }"/>
 	<form:errors ccsClass="error" path="attachments" />
 	<br />
+	<form:label path="isFinal">
+		<spring:message code="report.isFinal" />
+	</form:label>
+	<form:checkbox path="isFinal" />
+	<form:errors path="isFinal" cssClass="error" />
+	<br />
+	
 
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
-			value="<spring:message code="report.save" />" />; 
+			value="<spring:message code="report.save" />" />
 	
 		<jstl:if test="${report.id != 0}">
 			<input type="submit" name="delete"
