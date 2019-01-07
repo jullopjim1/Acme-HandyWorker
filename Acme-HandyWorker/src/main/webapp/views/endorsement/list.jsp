@@ -45,7 +45,7 @@
 </display:table>
 
 <a href="endorsement/create.do"> <spring:message
-		code="message.create" /></a>
+		code="endorsement.create" /></a>
 
 
 

@@ -28,11 +28,12 @@ public class EndorsementAdministratorController extends AbstractController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		final ModelAndView result;
+		ModelAndView result = new ModelAndView();
 
 		try {
 			result = this.listCalculateModelAndView();
 		} catch (final Exception e) {
+
 			result.setViewName("welcome/index.do");
 			result.addObject("message", "message.commit.error");
 		}
@@ -44,7 +45,8 @@ public class EndorsementAdministratorController extends AbstractController {
 	public ModelAndView edit(@RequestParam final int endorsementId) {
 		ModelAndView modelAndView;
 		try {
-			// llamar a calcular score
+			// llamar a calcular scoreç
+			this.endorserService.updateScoreEndorsers();
 			modelAndView = this.listCalculateModelAndView("endorsement.commit.ok");
 		} catch (final Exception e) {
 			modelAndView = this.listCalculateModelAndView("message.commit.error");
