@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import controllers.AbstractController;
 import domain.Category;
-import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Warranty;
@@ -74,15 +73,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		result.addObject("customerId", c.getId());
 
 		//Ver si una fixUptask tiene complaint o no
-
-		Boolean complaintBol = false;
-		for (final FixUpTask fixUpTask : fixUpTasks) {
-			final Complaint complaint = this.complaintService.findComplaintByTaskId(fixUpTask.getId());
-			if (complaint != null)
-				complaintBol = true;
-
-		}
-		result.addObject("complaintBol", complaintBol);
+		//TODO: Has Complaint??
 
 		return result;
 	}
@@ -237,4 +228,5 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		return result;
 	}
+
 }

@@ -43,7 +43,7 @@
 	<security:authorize access="hasRole('CUSTOMER')">
 
 		<jstl:if
-			test="${customerId==row.customer.id and complaintBol == false}">
+			test="${customerId==row.customer.id and complaintBol == false and complaint.null}">
 			<display:column>
 				<a href="complaint/customer/create.do?fixUpTaskId=${row.id}"> <spring:message
 						code="complaint.create" />
