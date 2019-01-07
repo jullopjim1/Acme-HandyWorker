@@ -12,4 +12,7 @@ public interface RefereeRepository extends JpaRepository<Referee, Integer> {
 
 	@Query("select h from Referee h where h.userAccount.id = ?1")
 	public Referee findRefereeByUserAccount(int userAccountId);
+
+	@Query("select r from Referee r where r.userAccount.username=?1")
+	Referee findRefereeByUsername(String username);
 }

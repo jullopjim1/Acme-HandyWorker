@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.Customer;
 import repositories.CustomerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
-import domain.Customer;
 
 @Service
 @Transactional
@@ -111,6 +111,10 @@ public class CustomerService {
 
 		return this.customerRepository.findCustomerByUserAccount(customerId);
 
+	}
+
+	public Customer findCustomerByUsername(final String username) {
+		return this.customerRepository.findCustomerByUsername(username);
 	}
 
 }
