@@ -54,7 +54,7 @@
 	
 	<jstl:if test="${complaintBol == true}">
 		<display:column titleKey="complaint.details">
-			<a href="complaint/show.do?complaintId=${compalintId}"> <spring:message
+			<a href="complaint/show.do?complaintId=${complaintId}"> <spring:message
 					code="complaint.show" />
 			</a>
 		</display:column>

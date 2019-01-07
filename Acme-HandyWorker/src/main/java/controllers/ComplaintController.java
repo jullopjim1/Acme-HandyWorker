@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Complaint;
 import services.ComplaintService;
+import services.ReportService;
+import domain.Complaint;
 
 @Controller
 @RequestMapping("/complaint")
@@ -20,7 +21,10 @@ public class ComplaintController extends AbstractController {
 	//Service---------------------------------------------------------
 
 	@Autowired
-	private ComplaintService complaintService;
+	private ComplaintService	complaintService;
+
+	@Autowired
+	private ReportService		reportService;
 
 
 	//Constructor-----------------------------------------------------
@@ -38,12 +42,12 @@ public class ComplaintController extends AbstractController {
 
 		modelAndView = new ModelAndView("complaint/list");
 		modelAndView.addObject("complaints", complaints);
+
 		modelAndView.addObject("requestURI", "complaint/list.do");
 
 		return modelAndView;
 
 	}
-
 	//Show------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
