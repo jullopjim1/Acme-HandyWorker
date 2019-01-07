@@ -10,6 +10,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Actor;
+import domain.Administrator;
+import domain.Customer;
 import domain.Endorser;
+import domain.HandyWorker;
+import domain.Referee;
+import domain.Sponsor;
 import domain.Tutorial;
+import security.Authority;
 import security.LoginService;
 import services.ActorService;
+import services.AdministratorService;
+import services.CustomerService;
 import services.EndorserService;
+import services.HandyWorkerService;
+import services.RefereeService;
+import services.SponsorService;
 import services.TutorialService;
 
 @Controller
@@ -34,13 +47,28 @@ import services.TutorialService;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private TutorialService	tutorialService;
+	private HandyWorkerService		handyWorkerService;
 
 	@Autowired
-	private EndorserService	endorserService;
+	private CustomerService			customerService;
+
+	@Autowired
+	private SponsorService			sponsorService;
+
+	@Autowired
+	private RefereeService			refereeService;
+
+	@Autowired
+	private AdministratorService	administratorService;
+
+	@Autowired
+	private TutorialService			tutorialService;
+
+	@Autowired
+	private EndorserService			endorserService;
 
 
 	// Edit ---------------------------------------------------------------
@@ -81,13 +109,30 @@ public class ActorController extends AbstractController {
 	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
 
 		ModelAndView result;
+		final Collection<Authority> authorities = actor.getUserAccount().getAuthorities();
 
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(actor);
 		else
 			try {
-				this.actorService.save(actor);
-				result = new ModelAndView("redirect:welcome/index.do");
+				if (authorities.equals(Authority.HANDY)) {
+					final HandyWorker handyWorker = this.handyWorkerService.findOne(actor.getId());
+					this.handyWorkerService.save(handyWorker);
+				} else if (authorities.equals(Authority.CUSTOMER)) {
+					final Customer customer = this.customerService.findOne(actor.getId());
+					this.customerService.save(customer);
+				} else if (authorities.equals(Authority.REFEREE)) {
+					final Referee referee = this.refereeService.findOne(actor.getId());
+					this.refereeService.save(referee);
+				} else if (authorities.equals(Authority.SPONSOR)) {
+					final Sponsor sponsor = this.sponsorService.findOne(actor.getId());
+					this.sponsorService.save(sponsor);
+				} else if (authorities.equals(Authority.ADMIN)) {
+					final Administrator administrator = this.administratorService.findOne(actor.getId());
+					this.administratorService.save(administrator);
+				}
+
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "actor.commit.error");
 

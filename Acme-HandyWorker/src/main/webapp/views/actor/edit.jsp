@@ -66,10 +66,10 @@
 	<br />
 
 	<form:label path="phone">
-		<spring:message code="actor.phone" />
+		<spring:message code="personalRecord.phone" />
 	</form:label>
-	<form:input path="phone" readonly="${isRead}" />
-	<form:errors cssClass="error" path="phone" />
+	<form:input path="phone" id="tlf" readonly="${isRead}" />
+	<form:errors path="phone" cssClass="error" />
 	<br />
 
 	<form:label path="address">
@@ -78,6 +78,19 @@
 	<form:input path="address" readonly="${isRead}" />
 	<form:errors cssClass="error" path="address" />
 	<br />
+	
+	<script type="text/javascript">
+		function isValid() {
+			var phoneRe = /^(((\+[1-9][0-9]{0,2}) \(([1-9][0-9]{0,2})\) (\d\d\d\d+))|((\+[1-9][0-9]{0,2}) (\d\d\d\d+))|((\d\d\d\d+)))$/;
+			var digits = document.getElementById('tlf').value;
+			var res = phoneRe.test(digits);
+			if (res) {
+				return true;
+			} else {
+				return confirm('<spring:message code="phone.confirm" />');
+			}
+		}
+	</script>
 	
 	<jstl:if test="${isRead == true}">
 		<h3>${score}</h3>
