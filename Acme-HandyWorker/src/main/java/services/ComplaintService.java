@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Ticker;
+import repositories.ComplaintRepository;
 
 @Service
 @Transactional
@@ -93,6 +93,9 @@ public class ComplaintService {
 	}
 	public ArrayList<Customer> queryB4() {
 		return this.complaintRepository.queryB4();
+	}
+	public Complaint findComplaintByTaskId(final int fixUpTaskId) {
+		return this.complaintRepository.findComplaintByTaskId(fixUpTaskId);
 	}
 
 }

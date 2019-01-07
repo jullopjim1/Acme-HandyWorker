@@ -39,18 +39,27 @@
 	<display:column property="moment" titleKey="fixuptask.moment" />
 	<display:column property="deadline" titleKey="fixuptask.deadline" />
 	<display:column property="adress" titleKey="fixuptask.address" />
-	
+
 	<security:authorize access="hasRole('CUSTOMER')">
 
-		<display:column>
-			<jstl:if test="${customerId==row.customer.id}">
+		<jstl:if test="${customerId==row.customer.id & complaintBol == false}">
+			<display:column>
 				<a href="complaint/customer/create.do?fixUpTaskId=${row.id}"> <spring:message
 						code="complaint.create" />
 				</a>
-			</jstl:if>
-		</display:column>
-
+			</display:column>
+		</jstl:if>
 	</security:authorize>
+	
+	
+	<jstl:if test="${complaintBol == true}">
+		<display:column titleKey="complaint.details">
+			<a href="complaint/show.do?complaintId=${compalintId}"> <spring:message
+					code="complaint.show" />
+			</a>
+		</display:column>
+	</jstl:if>
+
 </display:table>
 
 <br />

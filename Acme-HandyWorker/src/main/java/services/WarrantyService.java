@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.WarrantyRepository;
 import domain.Warranty;
+import repositories.WarrantyRepository;
 
 @Service
 @Transactional
@@ -19,10 +20,10 @@ public class WarrantyService {
 	//Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private WarrantyRepository	warrantyRepository;
-
+	private WarrantyRepository warrantyRepository;
 
 	//Services---------------------------------------------------------------------------
+
 
 	//Constructor------------------------------------------------------------------------
 
@@ -57,5 +58,10 @@ public class WarrantyService {
 		this.warrantyRepository.delete(entity);
 	}
 
+	public Collection<Warranty> warrantiesFinalMode() {
+		return this.warrantyRepository.warrantiesFinalMode();
+	}
+
 	//Other Methods---------------------------------------------------------------------------
+
 }

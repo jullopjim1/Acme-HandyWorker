@@ -25,8 +25,8 @@
 	modelAttribute="warranty" readonly="${isRead }">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="isFinal"/>
-	
+	<form:hidden path="isFinal" />
+
 	<form:label path="title">
 		<spring:message code="warranty.title" />
 	</form:label>
@@ -47,12 +47,19 @@
 	<form:input path="laws" />
 	<form:errors cssClass="error" path="laws" />
 	<br />
-	<br/>
+	<br />
+
+	<form:label path="isFinal">
+		<spring:message code="warranty.isFinal" />
+	</form:label>
+	<form:checkbox path="isFinal" />
+	<form:errors path="isFinal" cssClass="error" />
+
 
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="warranty.save" />" />
-	
+
 		<jstl:if test="${warranty.id != 0}">
 			<input type="submit" name="delete"
 				value="<spring:message code="warranty.delete" />"

@@ -14,16 +14,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
-import services.CategoryService;
-import services.CustomerService;
-import services.FixUpTaskService;
-import services.WarrantyService;
 import controllers.AbstractController;
 import domain.Category;
+import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Warranty;
+import security.LoginService;
+import services.CategoryService;
+import services.ComplaintService;
+import services.CustomerService;
+import services.FixUpTaskService;
+import services.WarrantyService;
 
 @Controller
 @RequestMapping("/fixUpTask/customer")
@@ -43,6 +45,9 @@ public class FixUpTaskCustomerController extends AbstractController {
 	@Autowired
 	private CategoryService		categoryService;
 
+	@Autowired
+	private ComplaintService	complaintService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -58,10 +63,25 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		fixuptasks = this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId());
+
 		result = new ModelAndView("fixUpTask/list");
 		result.addObject("fixUpTasks", fixuptasks);
 		result.addObject("requestURI", "fixUpTask/customer/list.do");
 		result.addObject("customerId", c.getId());
+
+		//Ver si una fixUptask tiene complaint o no
+
+		Boolean complaintBol = false;
+		for (final FixUpTask fixUpTask : fixuptasks) {
+			final Complaint complaint = this.complaintService.findComplaintByTaskId(fixUpTask.getId());
+			if (complaint != null) {
+				complaintBol = true;
+				result.addObject("complaintId", complaint.getId());
+			}
+
+		}
+		result.addObject("complaintBol", complaintBol);
+
 		return result;
 	}
 
@@ -203,7 +223,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 	protected ModelAndView editModelAndView(final FixUpTask fixUpTask, final String message) {
 		ModelAndView result;
 
-		final Collection<Warranty> warranties = this.warrantyService.findAll();
+		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final Collection<Category> categories = this.categoryService.findAll();
 
 		result = new ModelAndView("fixUpTask/edit");
