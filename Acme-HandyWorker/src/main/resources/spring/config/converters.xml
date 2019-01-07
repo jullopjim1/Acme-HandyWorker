@@ -89,6 +89,9 @@
 		
 		<bean class="converters.ComplaintToStringConverter" />
 		<bean class="converters.StringToComplaintConverter" />
+		
+		<bean class="converters.RefereeToStringConverter" />
+		<bean class="converters.StringToRefereeConverter" />
 
 	</util:list>
 
