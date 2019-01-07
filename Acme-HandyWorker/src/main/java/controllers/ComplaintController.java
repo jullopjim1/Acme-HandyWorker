@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ComplaintService;
 import services.ReportService;
 import domain.Complaint;
+import domain.Report;
 
 @Controller
 @RequestMapping("/complaint")
@@ -42,7 +43,17 @@ public class ComplaintController extends AbstractController {
 
 		modelAndView = new ModelAndView("complaint/list");
 		modelAndView.addObject("complaints", complaints);
+		//Vemos si el report es nulo
+		Boolean reportNull = false;
+		for (final Complaint c : complaints) {
+			final Report report = this.reportService.findReportByComplaintId(c.getId());
+			if (report == null) {
+				reportNull = true;
+				modelAndView.addObject("complaintId", c.getId());
+			}
 
+		}
+		modelAndView.addObject("reportNull", reportNull);
 		modelAndView.addObject("requestURI", "complaint/list.do");
 
 		return modelAndView;
