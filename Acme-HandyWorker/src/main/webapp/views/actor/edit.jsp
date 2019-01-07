@@ -80,7 +80,7 @@
 	<br />
 	
 	<jstl:if test="${isRead == true}">
-		<h3>${score}</h3>
+		<h3><spring:message code="actor.score" />: <jstl:out value="${score}"/></h3>
 	</jstl:if>
 	
 	<jstl:if test="${isRead == true}">

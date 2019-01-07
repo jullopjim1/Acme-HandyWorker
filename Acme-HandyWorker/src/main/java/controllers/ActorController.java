@@ -1,8 +1,8 @@
 /*
  * ProfileController.java
- *
+ * 
  * Copyright (C) 2018 Universidad de Sevilla
- *
+ * 
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Actor;
-import domain.Endorser;
-import domain.Tutorial;
 import security.LoginService;
 import services.ActorService;
 import services.EndorserService;
 import services.TutorialService;
+import domain.Actor;
+import domain.Endorser;
+import domain.Tutorial;
 
 @Controller
 @RequestMapping("/actor")
@@ -72,7 +72,7 @@ public class ActorController extends AbstractController {
 		modelAndView.addObject("handyWorkerId", handyWorkerId);
 		modelAndView.addObject("requestURI", "/actor/showProfileTutorial.do?tutorialId=" + tutorial.getId());
 		final Endorser e = this.endorserService.findOne(actor1.getId());
-		modelAndView.addObject("score", "Score: " + e.getScore());
+		modelAndView.addObject("score", e.getScore());
 
 		return modelAndView;
 	}

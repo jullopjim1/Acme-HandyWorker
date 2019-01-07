@@ -15,5 +15,10 @@
 		<put-attribute name="title" value="Panel de Control" />
 		<put-attribute name="body" value="/views/administrator/dashboard.jsp" />
 	</definition>
+	
+	<definition name="administrator/endorser/list" extends="master.page">
+		<put-attribute name="title" value="Lista de endosados" />
+		<put-attribute name="body" value="/views/administrator/listEndorser.jsp" />
+	</definition>
 
 </tiles-definitions>

@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.EndorsementService;
 import services.EndorserService;
 import controllers.AbstractController;
 import domain.Endorser;
@@ -20,10 +18,7 @@ import domain.Endorser;
 public class EndorsementAdministratorController extends AbstractController {
 
 	@Autowired
-	private EndorsementService	endorsementService;
-
-	@Autowired
-	private EndorserService		endorserService;
+	private EndorserService	endorserService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -42,10 +37,10 @@ public class EndorsementAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/calculateScore", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int endorsementId) {
+	public ModelAndView edit() {
 		ModelAndView modelAndView;
 		try {
-			// llamar a calcular scoreç
+			// llamar a calcular score
 			this.endorserService.updateScoreEndorsers();
 			modelAndView = this.listCalculateModelAndView("endorsement.commit.ok");
 		} catch (final Exception e) {
@@ -69,7 +64,7 @@ public class EndorsementAdministratorController extends AbstractController {
 
 		final Collection<Endorser> endorser = this.endorserService.findAll();
 
-		result = new ModelAndView("endorsement/administrator/listEndorser");
+		result = new ModelAndView("administrator/endorser/list");
 		result.addObject("endorser", endorser);
 		result.addObject("message", message);
 		return result;

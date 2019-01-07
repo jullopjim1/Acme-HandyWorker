@@ -13,7 +13,7 @@ import domain.Endorsement;
 public interface EndorsementRepository extends JpaRepository<Endorsement, Integer> {
 
 	@Query("select sum(e.score) from Endorsement e where e.endorsee.id=?1")
-	double calculateScoreByEndorser(int endorserId);
+	Double calculateScoreByEndorser(int endorserId);
 
 	@Query("select e from Endorsement e where e.endorser.id = ?1")
 	Collection<Endorsement> findByEndorserId(int endorserId);

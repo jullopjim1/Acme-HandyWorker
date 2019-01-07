@@ -146,9 +146,11 @@ public class EndorsementService {
 	}
 
 	public double calculateScoreByEndorser(final int endorserId) {
-		return this.endorsementRepository.calculateScoreByEndorser(endorserId);
+		Double score = this.endorsementRepository.calculateScoreByEndorser(endorserId);
+		if (score == null)
+			score = 0.0;
+		return score;
 	}
-
 	public Collection<Endorsement> findByEndorser(final Endorser endorser) {
 		this.checkPrincipal();
 		Assert.notNull(endorser, "findByEndorser - endorser no puede ser nulo");

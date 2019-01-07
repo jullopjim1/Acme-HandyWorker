@@ -203,6 +203,10 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/endorsement/create.do"
 			access="permitAll" />
+		<security:intercept-url pattern="/endorsement/administrator/list.do"
+			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/endorsement/administrator/calculateScore.do"
+			access="hasRole('ADMIN')" />
 
 
 
