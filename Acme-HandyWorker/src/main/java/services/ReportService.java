@@ -81,6 +81,10 @@ public class ReportService {
 		return this.reportRepository.findReportByComplaintId(complaintId);
 	}
 
+	public Report findReportFinal(final int complaintId) {
+		return this.reportRepository.findReportFinal(complaintId);
+
+	}
 	public Double queryB2AVG() {
 		return this.reportRepository.queryB2AVG();
 	}

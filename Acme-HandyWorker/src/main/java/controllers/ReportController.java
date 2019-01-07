@@ -32,7 +32,7 @@ public class ReportController extends AbstractController {
 		ModelAndView result;
 		Report report;
 
-		report = this.reportService.findReportByComplaintId(complaintId);
+		report = this.reportService.findReportFinal(complaintId);
 
 		result = new ModelAndView("report/list");
 		result.addObject("report", report);
