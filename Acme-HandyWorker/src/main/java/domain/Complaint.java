@@ -91,7 +91,7 @@ public class Complaint extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@ManyToOne(optional = false)
+	@OneToOne(optional = true)
 	public FixUpTask getFixUpTask() {
 		return this.fixUpTask;
 	}

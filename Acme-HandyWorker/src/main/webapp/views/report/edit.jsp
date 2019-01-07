@@ -21,8 +21,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="report/referee/edit.do" modelAttribute="report"
-	readonly="${isRead }">
+<form:form action="${requestURI}"  modelAttribute="report">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -31,14 +30,14 @@
 	<form:label path="description">
 		<spring:message code="report.description" />
 	</form:label>
-	<form:input path="description" />
+	<form:input path="description" readonly="${isRead }"/>
 	<form:errors ccsClass="error" path="description" />
 	<br />
 
 	<form:label path="attachments">
 		<spring:message code="report.attachments" />
 	</form:label>
-	<form:textarea path="attachments" />
+	<form:textarea path="attachments" readonly="${isRead }"/>
 	<form:errors ccsClass="error" path="attachments" />
 	<br />
 
@@ -60,6 +59,6 @@
 	<jstl:if test="${isRead == true}">
 		<input type="button" name="cancel"
 			value="<spring:message code="report.back" />"
-			onclick="javascript: relativeRedir('report/referee/list.do');" />
+			onclick="javascript: relativeRedir('complaint/list.do');" />
 	</jstl:if>
 </form:form>

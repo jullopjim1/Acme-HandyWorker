@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ComplaintRepository;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Ticker;
+import repositories.ComplaintRepository;
 
 @Service
 @Transactional
@@ -72,23 +72,30 @@ public class ComplaintService {
 	public Complaint save(final Complaint complaint) {
 		Assert.notNull(complaint);
 		final Complaint saved = this.complaintRepository.save(complaint);
-		//		saved.setIsFinal(true);
-		//		Assert.isTrue(saved.getIsFinal().equals(true));
+
 		return saved;
 	}
 
-	public void delete(final Complaint entity) {
-		this.complaintRepository.delete(entity);
+	public void delete(final Complaint complaint) {
+		this.complaintRepository.delete(complaint);
 
 	}
 	// Other Methods--------------------------------------------
 
-	Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
+	public Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
 		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
+		return complaints;
+	}
+
+	public Collection<Complaint> findComplaintsByRefereeId(final int refereeId) {
+		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByRefereeId(refereeId);
 		return complaints;
 	}
 	public ArrayList<Customer> queryB4() {
 		return this.complaintRepository.queryB4();
+	}
+	public Complaint findComplaintByTaskId(final int fixUpTaskId) {
+		return this.complaintRepository.findComplaintByTaskId(fixUpTaskId);
 	}
 
 }

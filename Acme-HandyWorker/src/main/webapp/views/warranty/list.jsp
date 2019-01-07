@@ -21,19 +21,27 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="warranties" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+<security:authorize access="hasRole('ADMIN')">
+	<display:table name="warranties" id="row" requestURI="${requestURI}"
+		pagesize="5" class="displaytag">
 
-	<display:column property="title" titleKey="warranty.title" />
-	<display:column property="terms" titleKey="warranty.terms" />
-	<display:column property="laws" titleKey="warranty.laws" />
+		<display:column property="title" titleKey="warranty.title" />
+		<display:column property="terms" titleKey="warranty.terms" />
+		<display:column property="laws" titleKey="warranty.laws" />
 
-	<security:authorize access="hasRole('ADMIN')">
-		<display:column>
-			<a href="warranty/administrator/edit.do?warrantyId=${warranty.id}">
-				<spring:message code="warranty.edit" />
-			</a>
-		</display:column>
-	</security:authorize>
+		<security:authorize access="hasRole('ADMIN')">
+			<display:column>
+				<jstl:if test="${row.isFinal == false}">
+					<a href="warranty/administrator/edit.do?warrantyId=${row.id}">
+						<spring:message code="warranty.edit" />
+					</a>
+				</jstl:if>
+			</display:column>
+		</security:authorize>
 
-</display:table>
+	</display:table>
+
+	<a href="warranty/administrator/create.do"> <spring:message
+			code="warranty.create" />
+	</a>
+</security:authorize>

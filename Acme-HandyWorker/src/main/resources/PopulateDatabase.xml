@@ -880,15 +880,6 @@
 		<property name="referee" ref="referee2" />
 	</bean>
 
-	<bean id="report3" class="domain.Report">
-		<property name="moment" value="2018/01/02 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments3.com" />
-		<property name="isFinal" value="true" />
-		<property name="complaint" ref="complaint3" />
-		<property name="referee" ref="referee3" />
-	</bean>
-
 
 	<!-- NOTE -->
 	<bean id="note1" class="domain.Note">
@@ -910,14 +901,7 @@
 		<property name="report" ref="report2" />
 	</bean>
 
-	<bean id="note3" class="domain.Note">
-		<property name="moment" value="2018/01/02 12:12" />
-		<property name="mandatoryCommentReferee" value="mandatory3" />
-		<property name="mandatoryCommentCustomer" value="mandatory3" />
-		<property name="mandatoryCommentHandyWorker" value="mandatory3" />
-		<property name="isFinal" value="true" />
-		<property name="report" ref="report3" />
-	</bean>
+
 
 
 
@@ -1109,35 +1093,9 @@
 		<property name="isFinal" value="false" />
 	</bean>
 
-	<bean id="complaint3" class="domain.Complaint">
-		<property name="ticker" ref="ticker6" />
-		<property name="moment" value="2015/01/02 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments3.com" />
-		<property name="customer" ref="customer3" />
-		<property name="fixUpTask" ref="fixuptask3" />
-		<property name="isFinal" value="true" />
-	</bean>
 
-	<bean id="complaint4" class="domain.Complaint">
-		<property name="ticker" ref="ticker7" />
-		<property name="moment" value="2015/01/10 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments3.com" />
-		<property name="customer" ref="customer3" />
-		<property name="fixUpTask" ref="fixuptask1" />
-		<property name="isFinal" value="false" />
-	</bean>
 
-	<bean id="complaint5" class="domain.Complaint">
-		<property name="ticker" ref="ticker8" />
-		<property name="moment" value="2015/01/15 12:12" />
-		<property name="description" value="description1" />
-		<property name="attachments" value="http://www.attachments3.com" />
-		<property name="customer" ref="customer3" />
-		<property name="fixUpTask" ref="fixuptask2" />
-		<property name="isFinal" value="true" />
-	</bean>
+
 
 	<!-- WARRANTY -->
 
@@ -1159,7 +1117,7 @@
 		<property name="title" value="title3" />
 		<property name="terms" value="terms3" />
 		<property name="laws" value="law2" />
-		<property name="isFinal" value="true" />
+		<property name="isFinal" value="false" />
 	</bean>
 
 	<bean id="warranty4" class="domain.Warranty">
@@ -1226,16 +1184,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category1" />
-				<ref bean="category2" />
-				<ref bean="category3" />
-				<ref bean="category4" />
-				<ref bean="category5" />
-				<ref bean="category7" />
-			</list>
-		</property>
 	</bean>
 
 	<bean id="category1" class="domain.Category">
@@ -1254,11 +1202,6 @@
 					<value>Carpinteria</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category6" />
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1280,10 +1223,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-			</list>
-		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
 
@@ -1303,10 +1242,6 @@
 					<value>Limpieza</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1328,11 +1263,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-
-			</list>
-		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
 
@@ -1352,10 +1282,6 @@
 					<value>Puertas</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1377,10 +1303,6 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-			</list>
-		</property>
 		<property name="rootcategory" ref="category1" />
 	</bean>
 
@@ -1400,12 +1322,6 @@
 					<value>Instalaciones</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category8" />
-				<ref bean="category9" />
-			</list>
 		</property>
 		<property name="rootcategory" ref="rootCategory" />
 	</bean>
@@ -1427,13 +1343,9 @@
 				</entry>
 			</map>
 		</property>
-		<property name="subcategories">
-			<list>
-				<ref bean="category10" />
-			</list>
-		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
+
 	<bean id="category10" class="domain.Category">
 		<property name="name">
 			<map>
@@ -1450,10 +1362,6 @@
 					<value>Vitrocerámica</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="category8" />
 	</bean>
@@ -1475,10 +1383,6 @@
 					<value>Aire acondicionado</value>
 				</entry>
 			</map>
-		</property>
-		<property name="subcategories">
-			<list>
-			</list>
 		</property>
 		<property name="rootcategory" ref="category7" />
 	</bean>
@@ -1507,7 +1411,7 @@
 		<property name="adress" value="adress2" />
 		<property name="maxPrice" value="30.0" />
 		<property name="deadline" value="2019/10/28 12:00" />
-		<property name="warranty" ref="warranty2" />
+		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="category1" />
 		<property name="customer" ref="customer2" />
 	</bean>
@@ -1519,7 +1423,7 @@
 		<property name="adress" value="adress3" />
 		<property name="maxPrice" value="40.0" />
 		<property name="deadline" value="2019/11/28 13:00" />
-		<property name="warranty" ref="warranty3" />
+		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="category2" />
 		<property name="customer" ref="customer3" />
 	</bean>
@@ -1531,7 +1435,7 @@
 		<property name="adress" value="adress4" />
 		<property name="maxPrice" value="43.0" />
 		<property name="deadline" value="2019/12/11 14:00" />
-		<property name="warranty" ref="warranty4" />
+		<property name="warranty" ref="warranty1" />
 		<property name="category" ref="category3" />
 		<property name="customer" ref="customer3" />
 	</bean>

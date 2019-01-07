@@ -21,36 +21,45 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="complaint/customer/edit.do"
-	modelAttribute="complaint" readonly="${isRead }">
-
+<form:form action="warranty/administrator/edit.do"
+	modelAttribute="warranty" readonly="${isRead }">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+
+
 	<form:label path="title">
 		<spring:message code="warranty.title" />
 	</form:label>
 	<form:input path="title" />
-	<form:errors ccsClass="error" path="title" />
+	<form:errors cssClass="error" path="title" />
 	<br />
 
 	<form:label path="terms">
 		<spring:message code="warranty.terms" />
 	</form:label>
 	<form:input path="terms" />
-	<form:errors ccsClass="error" path="terms" />
+	<form:errors cssClass="error" path="terms" />
 	<br />
 
 	<form:label path="laws">
 		<spring:message code="warranty.laws" />
 	</form:label>
 	<form:input path="laws" />
-	<form:errors ccsClass="error" path="laws" />
+	<form:errors cssClass="error" path="laws" />
 	<br />
+	<br />
+
+	<form:label path="isFinal">
+		<spring:message code="warranty.isFinal" />
+	</form:label>
+	<form:checkbox path="isFinal" />
+	<form:errors path="isFinal" cssClass="error" />
+
 
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
-			value="<spring:message code="warranty.save" />" />; 
-	
+			value="<spring:message code="warranty.save" />" />
+
 		<jstl:if test="${warranty.id != 0}">
 			<input type="submit" name="delete"
 				value="<spring:message code="warranty.delete" />"

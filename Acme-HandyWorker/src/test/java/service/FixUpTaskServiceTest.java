@@ -13,7 +13,6 @@ import org.springframework.util.Assert;
 
 import services.ApplicationService;
 import services.CategoryService;
-import services.CustomerService;
 import services.FixUpTaskService;
 import services.PhaseService;
 import services.WarrantyService;
@@ -34,9 +33,6 @@ public class FixUpTaskServiceTest extends AbstractTest {
 	private CategoryService categoryService;
 
 	@Autowired
-	private CustomerService customerService;
-
-	@Autowired
 	private WarrantyService warrantyService;
 
 	@Autowired
@@ -53,16 +49,15 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		authenticate("customer1");
 
 		// CREO FIXUPTASK Y SETEO VALORES
-		final FixUpTask fixUpTask = fixUpTaskService.create();
+		final int customerId = this.getEntityId("customer1");
+		final FixUpTask fixUpTask = fixUpTaskService.create(customerId);
 		fixUpTask.setAdress("adress");
 		fixUpTask.setDescription("description");
 		fixUpTask.setMaxPrice(25);
 		fixUpTask.setDeadline(new Date());
 		final int categoryId = this.getEntityId("category1");
-		final int customerId = this.getEntityId("customer1");
 		final int warrantyId = this.getEntityId("warranty1");
 		fixUpTask.setCategory(categoryService.findOne(categoryId));
-		fixUpTask.setCustomer(customerService.findOne(customerId));
 		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
 
 		// GUARDO FIXUPTASK
@@ -105,16 +100,15 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		authenticate("customer1");
 
 		// CREO FIXUPTASK Y SETEO VALORES
-		final FixUpTask fixUpTask = fixUpTaskService.create();
+		final int customerId = this.getEntityId("customer1");
+		final FixUpTask fixUpTask = fixUpTaskService.create(customerId);
 		fixUpTask.setAdress("adress");
 		fixUpTask.setDescription("description");
 		fixUpTask.setMaxPrice(25);
 		fixUpTask.setDeadline(new Date());
 		final int categoryId = this.getEntityId("category1");
-		final int customerId = this.getEntityId("customer1");
 		final int warrantyId = this.getEntityId("warranty1");
 		fixUpTask.setCategory(categoryService.findOne(categoryId));
-		fixUpTask.setCustomer(customerService.findOne(customerId));
 		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
 	}
 
@@ -124,16 +118,15 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		authenticate("customer1");
 
 		// CREO FIXUPTASK Y SETEO VALORES
-		final FixUpTask fixUpTask = fixUpTaskService.create();
+		final int customerId = this.getEntityId("customer1");
+		final FixUpTask fixUpTask = fixUpTaskService.create(customerId);
 		fixUpTask.setAdress("adress");
 		fixUpTask.setDescription("description");
 		fixUpTask.setMaxPrice(25);
 		fixUpTask.setDeadline(new Date());
 		final int categoryId = this.getEntityId("category1");
-		final int customerId = this.getEntityId("customer1");
 		final int warrantyId = this.getEntityId("warranty1");
 		fixUpTask.setCategory(categoryService.findOne(categoryId));
-		fixUpTask.setCustomer(customerService.findOne(customerId));
 		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
 
 		// GUARDO FIXUPTASK
@@ -146,16 +139,15 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		authenticate("customer1");
 
 		// CREO FIXUPTASK Y SETEO VALORES
-		final FixUpTask fixUpTask = fixUpTaskService.create();
+		final int customerId = this.getEntityId("customer1");
+		final FixUpTask fixUpTask = fixUpTaskService.create(customerId);
 		fixUpTask.setAdress("adress");
 		fixUpTask.setDescription("description");
 		fixUpTask.setMaxPrice(25);
 		fixUpTask.setDeadline(new Date());
 		final int categoryId = this.getEntityId("category1");
-		final int customerId = this.getEntityId("customer1");
 		final int warrantyId = this.getEntityId("warranty1");
 		fixUpTask.setCategory(categoryService.findOne(categoryId));
-		fixUpTask.setCustomer(customerService.findOne(customerId));
 		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
 
 		// GUARDO FIXUPTASK
@@ -174,16 +166,15 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		authenticate("customer1");
 
 		// CREO FIXUPTASK Y SETEO VALORES
-		final FixUpTask fixUpTask = fixUpTaskService.create();
+		final int customerId = this.getEntityId("customer1");
+		final FixUpTask fixUpTask = fixUpTaskService.create(customerId);
 		fixUpTask.setAdress("adress");
 		fixUpTask.setDescription("description");
 		fixUpTask.setMaxPrice(25);
 		fixUpTask.setDeadline(new Date());
 		final int categoryId = this.getEntityId("category1");
-		final int customerId = this.getEntityId("customer1");
 		final int warrantyId = this.getEntityId("warranty1");
 		fixUpTask.setCategory(categoryService.findOne(categoryId));
-		fixUpTask.setCustomer(customerService.findOne(customerId));
 		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
 
 		// GUARDO FIXUPTASK
@@ -207,16 +198,15 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		authenticate("customer1");
 
 		// CREO FIXUPTASK Y SETEO VALORES
-		final FixUpTask fixUpTask = fixUpTaskService.create();
+		final int customerId = this.getEntityId("customer1");
+		final FixUpTask fixUpTask = fixUpTaskService.create(customerId);
 		fixUpTask.setAdress("adress");
 		fixUpTask.setDescription("description");
 		fixUpTask.setMaxPrice(25);
 		fixUpTask.setDeadline(new Date());
 		final int categoryId = this.getEntityId("category1");
-		final int customerId = this.getEntityId("customer1");
 		final int warrantyId = this.getEntityId("warranty1");
 		fixUpTask.setCategory(categoryService.findOne(categoryId));
-		fixUpTask.setCustomer(customerService.findOne(customerId));
 		fixUpTask.setWarranty(warrantyService.findOne(warrantyId));
 
 		// GUARDO FIXUPTASK

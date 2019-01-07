@@ -21,23 +21,25 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<display:table name="reports" id="row" requestURI="${requestURI}"
+<display:table name="report" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('REFEREE')">
+	<jstl:if test="${refereeId==row.referee.id}">
 		<display:column>
-			<jstl:if test="${refereeId==row.referee.id}">
+			
 			<a href="report/referee/edit.do?reportId=${report.id}"> <spring:message
 					code="report.edit" />
 			</a>
-			</jstl:if>
+			
 		</display:column>
+		</jstl:if>
 	</security:authorize>
 
 
 	<display:column property="moment" titleKey="report.moment" />
-	<display:column property="description" titleKey="report.decription" />
-	<display:column property="attachaments" titleKey="report.attachments" />
+	<display:column property="description" titleKey="report.description" />
+	<display:column property="attachments" titleKey="report.attachments" />
 
 	<display:column titleKey="report.notes">
 		<a href="note/list.do?reportId=${report.id}"> <spring:message
@@ -45,7 +47,11 @@
 		</a>
 	</display:column>
 
-	
+<security:authorize access="hasRole('REFEREE')">
+<a href="report/referee/create.do"> <spring:message
+		code="report.create" />
+</a>
+</security:authorize>
 
 
 

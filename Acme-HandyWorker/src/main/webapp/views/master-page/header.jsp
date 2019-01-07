@@ -28,9 +28,11 @@
 			<li><a href="dashboard/administrator/dashboard.do"><spring:message
 						code="master.page.administrator.dashboard" /></a></li>
 			<li><a class="fNiv" href="category/administrator/list.do"><spring:message
-						code="master.page.categories"/></a></li>
+						code="master.page.categories" /></a></li>
 			<li><a href="actor/administrator/list.do"><spring:message
 						code="master.page.administrator.actors" /></a></li>
+			<li><a href="warranty/administrator/list.do"><spring:message
+						code="master.page.administrator.warranty" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
@@ -43,12 +45,43 @@
 				</ul></li>
 
 			<li><a class="fNiv" href="fixUpTask/customer/list.do"><spring:message
-						code="master.page.fixuptasks"/></a></li>
+						code="master.page.fixuptasks" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('SPONSOR')">
 			<li><a class="fNiv" href="sponsorship/sponsor/list.do"><spring:message
 						code="master.page.sponsorship" /></a></li>
+		</security:authorize>
+
+		<security:authorize access="hasRole('CUSTOMER')">
+			<li><a class="fNiv" href="complaint/list.do"><spring:message
+						code="master.page.complaint" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="complaint/customer/list.do"><spring:message
+								code="master.page.myComplaint" /></a></li>
+				</ul></li>
+		</security:authorize>
+
+		<security:authorize access="hasRole('HANDY')">
+			<li><a class="fNiv" href="complaint/list.do"><spring:message
+						code="master.page.complaint" /></a></li>
+		</security:authorize>
+
+		<security:authorize access="hasRole('REFEREE')">
+			<li><a class="fNiv" href="report/referee/list.do"><spring:message
+						code="master.page.report" /></a></li>
+		</security:authorize>
+
+		<security:authorize access="hasRole('REFEREE')">
+			<li><a class="fNiv" href="complaint/list.do"><spring:message
+						code="master.page.complaint" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="complaint/referee/list.do"><spring:message
+								code="master.page.myComplaint" /></a></li>
+				</ul></li>
+
 		</security:authorize>
 
 		<security:authorize access="hasRole('HANDY')">
@@ -101,9 +134,8 @@
 					<li><a href="j_spring_security_logout"><spring:message
 								code="master.page.logout" /> </a></li>
 				</ul></li>
-			
-			<li><a href="report/referee/list.do"><spring:message
-								code="master.page.report" /></a></li>
+
+
 		</security:authorize>
 	</ul>
 </div>

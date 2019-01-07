@@ -1,5 +1,5 @@
 
-package controllers.customer;
+package controllers.Customer;
 
 import java.util.Collection;
 
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import services.ComplaintService;
-import services.CustomerService;
 import controllers.AbstractController;
 import domain.Complaint;
 import domain.Customer;
+import security.LoginService;
+import services.ComplaintService;
+import services.CustomerService;
 
 @Controller
 @RequestMapping("/complaint/customer")
@@ -44,42 +44,31 @@ public class ComplaintCustomerController extends AbstractController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView modelAndView;
-		final Collection<Complaint> complaints = this.complaintService.findAll();
+		final ModelAndView result;
+		Collection<Complaint> complaints;
 
-		modelAndView = new ModelAndView("complaint/list");
-		modelAndView.addObject("complaints", complaints);
-		modelAndView.addObject("requestURI", "/complaint/customer/list.do");
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+		complaints = this.complaintService.findComplaintsByCustomerId(c.getId());
 
-		return modelAndView;
+		result = new ModelAndView("complaint/list");
+		result.addObject("complaints", complaints);
+		result.addObject("customerId", c.getId());
+		result.addObject("requestURI", "/list.do?customerId=?" + c.getId());
 
-	}
-
-	//Show------------------------------------------------------------
-
-	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int complaintId) {
-		final ModelAndView modelAndView = new ModelAndView("complaint/edit");
-
-		final Complaint complaint = this.complaintService.findOne(complaintId);
-
-		modelAndView.addObject("complaint", complaint);
-		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/complaint/customer/show.do?actorId=" + complaintId);
-
-		return modelAndView;
+		return result;
 
 	}
 
-	//Create-----------------------------------------------------------------------
+	//Create (Se crea desde el listado de fixUpTask)-----------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(final int customerId, final int fixUpTaskId) {
+	public ModelAndView create(@RequestParam final int fixUpTaskId) {
 		ModelAndView result;
 		final Complaint complaint;
 
-		complaint = this.complaintService.create(customerId, fixUpTaskId);
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+		complaint = this.complaintService.create(c.getId(), fixUpTaskId);
 		result = this.createEditModelAndView(complaint);
-
+		result.addObject("customerId", c.getId());
 		return result;
 	}
 
@@ -100,13 +89,14 @@ public class ComplaintCustomerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Complaint complaint, final BindingResult binding) {
 		ModelAndView result;
-		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+		final Customer a = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(complaint);
 		else
 			try {
 				this.complaintService.save(complaint);
-				result = new ModelAndView("redirect:complaint/customer/list.do?customerId=" + a.getId());
+				result = new ModelAndView("redirect:/complaint/customer/list.do?customerId=" + a.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(complaint, "complaint.commit.error");
 			}
@@ -117,10 +107,10 @@ public class ComplaintCustomerController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Complaint complaint, final BindingResult binding) {
 		ModelAndView result;
-		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+		final Customer a = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.complaintService.delete(complaint);
-			result = new ModelAndView("redirect:complaint/customer/list.do?customerId=" + a.getId());
+			result = new ModelAndView("redirect:/complaint/customer/list.do?customerId=" + a.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(complaint, "complaint.commit.error");
 		}
@@ -138,15 +128,13 @@ public class ComplaintCustomerController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Complaint complaint, final String message) {
 		ModelAndView result;
-		Collection<Complaint> complaints;
 
-		complaints = this.complaintService.findAll();
-		final Customer a = this.customerService.findByUseraccount(LoginService.getPrincipal().getId());
+		final Customer a = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		result = new ModelAndView("complaint/edit");
 		result.addObject("complaint", complaint);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("administratorId", a.getId());
+		result.addObject("customerId", a.getId());
 		result.addObject("requestURI", "complaint/customer/edit.do");
 
 		return result;

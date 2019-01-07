@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -10,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.ReportRepository;
 import domain.Complaint;
 import domain.Referee;
 import domain.Report;
-import repositories.ReportRepository;
 
 @Service
 @Transactional
@@ -77,7 +78,18 @@ public class ReportService {
 		this.reportRepository.delete(report);
 	}
 	// Other Methods--------------------------------------------
+	public Report findReportByComplaintId(final int complaintId) {
+		return this.reportRepository.findReportByComplaintId(complaintId);
+	}
 
+	public Collection<Report> findReportByRefereeId(final int refereeId) {
+		return this.reportRepository.findReportByRefereeId(refereeId);
+	}
+
+	public Report findReportFinal(final int complaintId) {
+		return this.reportRepository.findReportFinal(complaintId);
+
+	}
 	public Double queryB2AVG() {
 		return this.reportRepository.queryB2AVG();
 	}
