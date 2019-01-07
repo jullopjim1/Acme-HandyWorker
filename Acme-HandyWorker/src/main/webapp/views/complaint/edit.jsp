@@ -44,7 +44,13 @@
 	<form:textarea path="attachments" readonly="${isRead}" />
 	<form:errors cssClass="error" path="attachments" />
 	<br />
+	<form:label path="isFinal">
+		<spring:message code="warranty.isFinal" />
+	</form:label>
+	<form:checkbox path="isFinal" />
+	<form:errors path="isFinal" cssClass="error" />
 	<br />
+
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="complaint.save" />" />
