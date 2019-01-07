@@ -49,13 +49,15 @@
 
 
 	<security:authorize access="hasRole('REFEREE')">
-		<display:column>
-			<jstl:if test="${reportNull==true}">
+		<jstl:if test="${reportNull==true}">
+			<display:column>
+
 				<a href="report/referee/create.do?complaintId=${row.id}"> <spring:message
 						code="complaint.create" />
 				</a>
-			</jstl:if>
-		</display:column>
+
+			</display:column>
+		</jstl:if>
 	</security:authorize>
 
 	<display:column titleKey="complaint.report">

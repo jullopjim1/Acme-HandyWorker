@@ -113,13 +113,13 @@ public class ReportRefereeController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Report report, final BindingResult binding) {
 		ModelAndView result;
-		//final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
+		final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(report);
 		else
 			try {
 				this.reportService.save(report);
-				result = new ModelAndView("redirect:report/referee/list.do");//?refereeId=" + a.getId()
+				result = new ModelAndView("redirect:list.do?refereeId=" + a.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(report, "report.commit.error");
 			}
@@ -130,10 +130,10 @@ public class ReportRefereeController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(@Valid final Report report, final BindingResult binding) {
 		ModelAndView result;
-		//final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
+		final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
 		try {
 			this.reportService.delete(report);
-			result = new ModelAndView("redirect:report/referee/list.do");//?refereeId=" + a.getId()
+			result = new ModelAndView("redirect:list.do?refereeId=" + a.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(report, "report.commit.error");
 		}

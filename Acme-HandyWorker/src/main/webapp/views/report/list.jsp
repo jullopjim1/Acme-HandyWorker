@@ -25,7 +25,7 @@
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('REFEREE')">
-		<jstl:if test="${refereeId==row.referee.id}">
+		<jstl:if test="${refereeId==row.referee.id and row.isFinal == false }">
 			<display:column>
 
 				<a href="report/referee/edit.do?reportId=${row.id}"> <spring:message
