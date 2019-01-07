@@ -54,7 +54,7 @@ public class ReportRefereeController extends AbstractController {
 		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final int refereeId = a.getId();
 
-		final Collection<Report> reports = this.reportService.findAll();
+		final Collection<Report> reports = this.reportService.findReportByRefereeId(refereeId);
 
 		result = new ModelAndView("report/list");
 		result.addObject("reports", reports);

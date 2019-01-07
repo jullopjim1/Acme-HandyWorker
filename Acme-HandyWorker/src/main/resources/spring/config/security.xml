@@ -59,7 +59,7 @@
 			access="permitAll" />
 
 		<security:intercept-url pattern="/report/list.do"
-			access="permitAll" />
+			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
 
 		<!-- HandyWorker -->
 
@@ -230,6 +230,8 @@
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/complaint/referee/list.do"
 			access="hasRole('REFEREE')" />
+		<security:intercept-url pattern="/report/referee/list.do"
+			access="hasRole('REFEREE')" />
 		
 		
 
@@ -293,9 +295,9 @@
 		<security:intercept-url pattern="/complaint/customer/create.do"
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/complaint/list.do"
-			access="isAuthenticated()" />
+			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
 		<security:intercept-url pattern="/complaint/show.do"
-			access="isAuthenticated()" />
+			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
 
 
 		<security:intercept-url pattern="/**"

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -79,6 +80,10 @@ public class ReportService {
 	// Other Methods--------------------------------------------
 	public Report findReportByComplaintId(final int complaintId) {
 		return this.reportRepository.findReportByComplaintId(complaintId);
+	}
+
+	public Collection<Report> findReportByRefereeId(final int refereeId) {
+		return this.reportRepository.findReportByRefereeId(refereeId);
 	}
 
 	public Report findReportFinal(final int complaintId) {
