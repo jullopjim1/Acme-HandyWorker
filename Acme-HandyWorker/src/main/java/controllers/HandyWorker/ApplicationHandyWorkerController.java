@@ -3,15 +3,10 @@ package controllers.HandyWorker;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -20,8 +15,6 @@ import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.Application;
 import domain.HandyWorker;
-import domain.Sponsorship;
-import domain.Tutorial;
 
 @Controller
 @RequestMapping("/application/handyworker")
@@ -58,83 +51,32 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Tutorial tutorial;
+		Application app;
 
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		tutorial = this.tutorialService.create(a.getId());
-		result = this.createEditModelAndView(tutorial);
+		app = this.applicationService.create(a.getId());
+		result = this.createEditModelAndView(app);
 		result.addObject("handyWorkerId", a.getId());
 
 		return result;
 	}
 
-	//Edit
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int tutorialId) {
+	protected ModelAndView createEditModelAndView(final Application application) {
 		ModelAndView result;
-		Tutorial tutorial;
 
-		tutorial = this.tutorialService.findOne(tutorialId);
-		Assert.notNull(tutorial);
-		result = this.createEditModelAndView(tutorial);
+		result = this.createEditModelAndView(application, null);
 
 		return result;
 	}
 
-	//Save
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Tutorial tutorial, final BindingResult binding) {
-
-		ModelAndView result;
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(tutorial);
-		else
-			try {
-				this.tutorialService.save(tutorial);
-				result = new ModelAndView("redirect:/tutorial/handyworker/list.do?=" + a.getId());
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
-
-			}
-		return result;
-	}
-
-	//DELETE
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Tutorial tutorial, final BindingResult binding) {
-
-		ModelAndView result;
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		try {
-			this.tutorialService.delete(tutorial);
-			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
-		}
-		return result;
-	}
-	protected ModelAndView createEditModelAndView(final Tutorial tutorial) {
+	protected ModelAndView createEditModelAndView(final Application application, final String message) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(tutorial, null);
-
-		return result;
-	}
-
-	protected ModelAndView createEditModelAndView(final Tutorial tutorial, final String message) {
-		ModelAndView result;
-		Collection<Sponsorship> sponsorships;
-
-		sponsorships = this.sponsorshipService.findAll();
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		result = new ModelAndView("tutorial/edit");
-		result.addObject("tutorial", tutorial);
+		result = new ModelAndView("application/edit");
+		result.addObject("application", application);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("handyWorkerId", a.getId());
-		result.addObject("sponsorships", sponsorships);
-		result.addObject("requestURI", "tutorial/handyworker/edit.do");
+		result.addObject("requestURI", "application/handyworker/edit.do");
 
 		return result;
 	}
