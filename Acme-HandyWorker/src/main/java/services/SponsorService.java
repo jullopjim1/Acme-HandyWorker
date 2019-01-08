@@ -97,4 +97,8 @@ public class SponsorService {
 
 	}
 
+	public Sponsor findSponsorByUsername(final String username) {
+		return this.sponsorRepository.findSponsorByUsername(username);
+	}
+
 }

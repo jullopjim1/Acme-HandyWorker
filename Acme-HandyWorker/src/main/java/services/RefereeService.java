@@ -20,6 +20,11 @@ import security.UserAccount;
 @Transactional
 public class RefereeService {
 
+	public Referee findRefereeByUsername(final String username) {
+		return this.refereeRepository.findRefereeByUsername(username);
+	}
+
+
 	// Repository-----------------------------------------------
 	@Autowired
 	private RefereeRepository refereeRepository;
@@ -82,4 +87,5 @@ public class RefereeService {
 		return this.refereeRepository.findRefereeByUserAccount(userAccount.getId());
 
 	}
+
 }

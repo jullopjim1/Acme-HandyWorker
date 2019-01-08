@@ -17,6 +17,7 @@ import domain.Customer;
 import domain.FixUpTask;
 import domain.Ticker;
 import repositories.ComplaintRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -44,9 +45,9 @@ public class ComplaintService {
 	}
 	// Simple CRUD----------------------------------------------
 
-	public Complaint create(final int customerId, final int fixUpTaskId) {
+	public Complaint create(final int fixUpTaskId) {
 		final Complaint complaint = new Complaint();
-		final Customer customer = this.customerService.findOne(customerId);
+		final Customer customer = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 
 		//Ticker Unico

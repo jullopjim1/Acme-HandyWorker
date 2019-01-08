@@ -21,10 +21,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-
-
-
-<form:form action="${requestURI}" modelAttribute="actor">
+<form:form action="${requestURI}" modelAttribute="customer">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="isSuspicious" />
@@ -91,30 +88,14 @@
 			}
 		}
 	</script>
-	
+	<br />
 	<jstl:if test="${isRead == true}">
-		<h3><spring:message code="actor.score" />: <jstl:out value="${score}"/></h3>
-	</jstl:if>
-	
-	<jstl:if test="${isRead == true}">
-		<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
-				code="profile.viewTutorials" />
+		<a href="handyWorker/fixUpTasksCustomer.do?customerId=${customer.id}"> <spring:message
+				code="profile.viewFixUpTasks" />
 		</a>
 		<br />
 		<br />
 
-	</jstl:if>
-
-
-	<jstl:if test="${isRead == false}">
-		<br/>
-		<input type="submit" name="save"
-			value="<spring:message code="actor.save" />" />
-
-		<input type="button" name="cancel"
-			value="<spring:message code="fixuptask.cancel" />"
-			onclick="javascript: relativeRedir('welcome/index.do');" />
-		<br />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">

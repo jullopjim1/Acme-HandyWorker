@@ -72,7 +72,7 @@ public class ActorController extends AbstractController {
 		modelAndView.addObject("handyWorkerId", handyWorkerId);
 		modelAndView.addObject("requestURI", "/actor/showProfileTutorial.do?tutorialId=" + tutorial.getId());
 		final Endorser e = this.endorserService.findOne(actor1.getId());
-		modelAndView.addObject("score", "Score: " + e.getScore());
+		modelAndView.addObject("score", e.getScore());
 
 		return modelAndView;
 	}
@@ -86,8 +86,8 @@ public class ActorController extends AbstractController {
 			result = this.createEditModelAndView(actor);
 		else
 			try {
-				this.actorService.save(actor);
-				result = new ModelAndView("redirect:welcome/index.do");
+				this.actorService.update(actor);
+				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "actor.commit.error");
 

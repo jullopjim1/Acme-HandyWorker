@@ -1,14 +1,3 @@
-<%--
- * edit.jsp
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -25,21 +14,13 @@
 <display:table name="applications" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<security:authorize access="hasRole('HANDY')">
+	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
-			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
-				<a href="application/handyworker/edit.do?applicationId=${row.id}">
+			<jstl:if test="${customerId==row.fixUpTask.customer.id}">
+				<a href="application/customer/edit.do?applicationId=${row.id}">
 					<spring:message code="application.edit" />
 				</a>
 			</jstl:if>
-		</display:column>
-	</security:authorize>
-
-	<security:authorize access="hasRole('CUSTOMER')">
-		<display:column>
-			<a href="application/customer/edit.do?applicationId=${row.id}"> <spring:message
-					code="application.edit" />
-			</a>
 		</display:column>
 	</security:authorize>
 
@@ -55,9 +36,3 @@
 
 
 </display:table>
-
-<security:authorize access="hasRole('HANDY')">
-	<a href="application/handyworker/create.do"> <spring:message
-			code="application.create" />
-	</a>
-</security:authorize>

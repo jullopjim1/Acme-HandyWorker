@@ -11,15 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.AdministratorRepository;
-import security.Authority;
-import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
+import repositories.AdministratorRepository;
+import security.Authority;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -136,6 +136,10 @@ public class AdministratorService {
 
 		return this.administratorRepository.findAdministratorByUserAccount(userAccount.getId());
 
+	}
+
+	public Administrator findAdminByUsername(final String username) {
+		return this.administratorRepository.findAdminByUsername(username);
 	}
 
 }

@@ -130,4 +130,8 @@ public class HandyWorkerService {
 		return res;
 	}
 
+	public HandyWorker findHandyByUsername(final String username) {
+		return this.handyWorkerRepository.findHandyByUsername(username);
+	}
+
 }

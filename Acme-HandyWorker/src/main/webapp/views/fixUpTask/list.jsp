@@ -28,38 +28,47 @@
 	<display:column titleKey="fixuptask.category">
 		<jstl:forEach var="entry" items="${row.category.name}">
 			<jstl:if test="${lang==entry.key}">
-				<jstl:out value="${entry.value}" />
+				${entry.value}
 			</jstl:if>
 		</jstl:forEach>
 	</display:column>
-	<display:column property="ticker.ticker" titleKey="fixuptask.ticker" />
-	<display:column property="description" titleKey="fixuptask.description" />
-	<display:column property="warranty.title" titleKey="fixuptask.warranty" />
-	<display:column property="maxPrice" titleKey="fixuptask.maxPrice" />
-	<display:column property="moment" titleKey="fixuptask.moment" />
-	<display:column property="deadline" titleKey="fixuptask.deadline" />
-	<display:column property="adress" titleKey="fixuptask.address" />
+
+	<display:column titleKey="fixuptask.details">
+		<a href="fixUpTask/customer/show.do?fixUpTaskId=${row.id}"> <spring:message
+				code="fixuptask.show" />
+		</a>
+	</display:column>
+
+
+
 
 	<security:authorize access="hasRole('CUSTOMER')">
+		<display:column titleKey="complaint.create">
+			<jstl:if
+				test="${complaintService.findComplaintByTaskId(row.id) == null}">
 
-		<jstl:if
-			test="${customerId==row.customer.id and complaintBol == false and complaint.null}">
-			<display:column>
 				<a href="complaint/customer/create.do?fixUpTaskId=${row.id}"> <spring:message
-						code="complaint.create" />
+						code="curriculum.create" />
 				</a>
-			</display:column>
-		</jstl:if>
+			</jstl:if>
+			<jstl:if
+				test="${complaintService.findComplaintByTaskId(row.id) != null and complaintService.findComplaintByTaskId(row.id).isFinal == true}">
+
+				<a href="complaint/showComplaint.do?fixUpTaskId=${row.id}"> <spring:message
+						code="complaint.show" />
+				</a>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 
-
-	<jstl:if test="${complaintBol == true}">
-		<display:column titleKey="complaint.details">
-			<a href="complaint/showComplaint.do?fixUpTaskId=${row.id}"> <spring:message
-					code="complaint.show" />
+	<security:authorize access="hasRole('HANDY')">
+		<display:column titleKey="fixUpTask.customer">
+			<a href="handyWorker/viewProfileCustomer.do?customerId=${row.customer.id}">
+				<spring:message code="fixUpTask.viewProfile" />
 			</a>
 		</display:column>
-	</jstl:if>
+	</security:authorize>
+
 
 </display:table>
 
