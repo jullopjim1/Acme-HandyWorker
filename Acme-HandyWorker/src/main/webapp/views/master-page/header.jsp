@@ -85,6 +85,11 @@
 			<li><a class="fNiv" href="report/referee/list.do"><spring:message
 						code="master.page.report" /></a></li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('REFEREE')">
+			<li><a class="fNiv" href="note/referee/list.do"><spring:message
+						code="master.page.note" /></a></li>
+		</security:authorize>
 
 		<security:authorize access="hasRole('REFEREE')">
 			<li><a class="fNiv" href="complaint/list.do"><spring:message
