@@ -21,13 +21,11 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="configuration">
+<form:form action="${requestURI}" modelAttribute="configurationForm">
 
-	<form:hidden path="id" />
-	<form:hidden path="version" />
 
 	<jstl:if test="${isRead==true}">
-		<img src="${configuration.banner}" height="250px" width="350px" />
+		<img src="${configurationForm.banner}" height="250px" width="350px" />
 		<br />
 	</jstl:if>
 
@@ -36,6 +34,13 @@
 	</form:label>
 	<form:input path="varTax" readonly="${isRead}" />
 	<form:errors cssClass="error" path="varTax" />
+	<br />
+
+	<form:label path="countryCode">
+		<spring:message code="configuration.countryCode" />
+	</form:label>
+	<form:input path="countryCode" readonly="${isRead}" />
+	<form:errors cssClass="error" path="countryCode" />
 	<br />
 
 	<jstl:if test="${isRead==false}">
@@ -60,32 +65,60 @@
 	<form:errors cssClass="error" path="finderMaxResults" />
 	<br />
 
-	<form:label path="welcomeMessage">
-		<spring:message code="configuration.welcomeMessage" />
+	<form:label path="welcomeMessageES">
+		<spring:message code="configuration.welcomeMessageES" />
 	</form:label>
-	<form:input path="welcomeMessage" readonly="${isRead}" />
-	<form:errors cssClass="error" path="welcomeMessage" />
+	<form:input path="welcomeMessageES" readonly="${isRead}" />
+	<form:errors cssClass="error" path="welcomeMessageES" />
 	<br />
 
-	<form:label path="spamWords">
-		<spring:message code="configuration.spam" />
+	<form:label path="welcomeMessageEN">
+		<spring:message code="configuration.welcomeMessageEN" />
 	</form:label>
-	<form:input path="spamWords" readonly="${isRead}" />
-	<form:errors cssClass="error" path="spamWords" />
+	<form:input path="welcomeMessageEN" readonly="${isRead}" />
+	<form:errors cssClass="error" path="welcomeMessageEN" />
 	<br />
 
-	<form:label path="negativeWords">
-		<spring:message code="configuration.negative" />
+	<form:label path="spamWordsES">
+		<spring:message code="configuration.spamES" />
 	</form:label>
-	<form:input path="negativeWords" readonly="${isRead}" />
-	<form:errors cssClass="error" path="negativeWords" />
+	<form:input path="spamWordsES" readonly="${isRead}" />
+	<form:errors cssClass="error" path="spamWordsES" />
 	<br />
 
-	<form:label path="positiveWords">
-		<spring:message code="configuration.positive" />
+	<form:label path="spamWordsEN">
+		<spring:message code="configuration.spamEN" />
 	</form:label>
-	<form:input path="positiveWords" readonly="${isRead}" />
-	<form:errors cssClass="error" path="positiveWords" />
+	<form:input path="spamWordsEN" readonly="${isRead}" />
+	<form:errors cssClass="error" path="spamWordsEN" />
+	<br />
+
+	<form:label path="negativeWordsES">
+		<spring:message code="configuration.negativeES" />
+	</form:label>
+	<form:input path="negativeWordsES" readonly="${isRead}" />
+	<form:errors cssClass="error" path="negativeWordsES" />
+	<br />
+
+	<form:label path="negativeWordsEN">
+		<spring:message code="configuration.negativeEN" />
+	</form:label>
+	<form:input path="negativeWordsEN" readonly="${isRead}" />
+	<form:errors cssClass="error" path="negativeWordsEN" />
+	<br />
+
+	<form:label path="positiveWordsES">
+		<spring:message code="configuration.positiveES" />
+	</form:label>
+	<form:input path="positiveWordsES" readonly="${isRead}" />
+	<form:errors cssClass="error" path="positiveWordsES" />
+	<br />
+
+	<form:label path="positiveWordsEN">
+		<spring:message code="configuration.positiveEN" />
+	</form:label>
+	<form:input path="positiveWordsEN" readonly="${isRead}" />
+	<form:errors cssClass="error" path="positiveWordsEN" />
 	<br />
 
 
