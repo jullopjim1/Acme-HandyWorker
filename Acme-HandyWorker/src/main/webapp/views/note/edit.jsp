@@ -25,6 +25,7 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
+	<form:hidden path="report"/>
 
 
 	<security:authorize access="hasRole('REFEREE')">

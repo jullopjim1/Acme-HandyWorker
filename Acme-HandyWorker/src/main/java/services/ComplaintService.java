@@ -100,7 +100,7 @@ public class ComplaintService {
 	}
 
 	public Collection<Complaint> findComplaintsByHandyWorkerId(final int handyId) {
-		return this.complaintRepository.findComplaintByHandyWorkerId(handyId);
+		return this.complaintRepository.findComplaintsByHandyWorkerId(handyId);
 	}
 
 }

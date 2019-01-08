@@ -48,25 +48,25 @@
 	<display:column property="moment" titleKey="complaint.moment" />
 
 
-	<security:authorize access="hasRole('REFEREE')">
-		<jstl:if test="${reportNull==true}">
-			<display:column>
+	<display:column titleKey="complaint.report">
+		<jstl:if test="${reportService.findReportFinal(row.id) != null}">
+			<a href="report/list.do?complaintId=${row.id}"> <spring:message
+					code="complaint.show.report" />
+			</a>
+		</jstl:if>
+		<security:authorize access="hasRole('REFEREE')">
+			<jstl:if
+				test="${reportService.findReportByComplaintId(row.id) == null}">
 
 				<a href="report/referee/create.do?complaintId=${row.id}"> <spring:message
-						code="complaint.create" />
+						code="report.create" />
 				</a>
 
-			</display:column>
-		</jstl:if>
-	</security:authorize>
-
-	<display:column titleKey="complaint.report">
-
-		<a href="report/list.do?complaintId=${row.id}"> <spring:message
-				code="complaint.show" />
-		</a>
-
+			</jstl:if>
+		</security:authorize>
 
 	</display:column>
+
+
 </display:table>
 <br />

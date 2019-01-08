@@ -87,21 +87,6 @@ public class NoteController extends AbstractController {
 		return result;
 	}
 
-	//Delete
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Note note, final BindingResult binding) {
-
-		ModelAndView result;
-
-		try {
-			this.noteService.delete(note);
-			result = new ModelAndView("redirect:/note/list.do?reportId=" + note.getReport().getId());
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(note, "note.commit.error");
-		}
-		return result;
-	}
-
 	protected ModelAndView createEditModelAndView(final Note note) {
 		ModelAndView result;
 
@@ -117,7 +102,6 @@ public class NoteController extends AbstractController {
 		result.addObject("note", note);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("reportId", note.getReport().getId());
 
 		result.addObject("requestURI", "note/edit.do");
 
