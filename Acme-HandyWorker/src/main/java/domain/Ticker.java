@@ -3,6 +3,7 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.Pattern;
 
@@ -17,6 +18,7 @@ public class Ticker extends DomainEntity {
 	private String ticker;
 
 
+	@Column(unique = true)
 	@NotBlank
 	@Pattern(regexp = "^\\d{6}-(\\d?\\w){6}$")
 	public String getTicker() {

@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ComplaintRepository;
-import security.LoginService;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Ticker;
+import repositories.ComplaintRepository;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -51,7 +51,7 @@ public class ComplaintService {
 		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 
 		//Ticker Unico
-		final Ticker ticker = this.tickerService.isUniqueTicker();
+		final Ticker ticker = this.tickerService.create();
 		final Ticker saved = this.tickerService.save(ticker);
 
 		complaint.setFixUpTask(fixUpTask);
