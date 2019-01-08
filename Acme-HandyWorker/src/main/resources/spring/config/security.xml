@@ -257,9 +257,9 @@
 			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
 		<security:intercept-url pattern="/note/save.do"
 			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
-		<security:intercept-url pattern="/note/delete.do"
+		<security:intercept-url pattern="/note/referee/delete.do"
 			access="hasRole('REFEREE')" />
-		<security:intercept-url pattern="/note/create.do"
+		<security:intercept-url pattern="/note/referee/create.do"
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/report/referee/create.do"
 			access="hasRole('REFEREE')" />
