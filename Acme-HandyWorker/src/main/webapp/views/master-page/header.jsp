@@ -64,6 +64,8 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('HANDY')">
+			<li><a class="fNiv" href="fixUpTask/handyWorker/list.do"><spring:message
+						code="master.page.fixuptasks2" /></a></li>
 			<li><a class="fNiv" href="complaint/list.do"><spring:message
 						code="master.page.complaint" /></a></li>
 		</security:authorize>

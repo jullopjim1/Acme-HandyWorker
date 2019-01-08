@@ -36,5 +36,10 @@
 		<put-attribute name="title" value="Register as a sponsor" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
+	
+	<definition name="actor/showCustomer" extends="master.page">
+		<put-attribute name="title" value="Customer Profile" />
+		<put-attribute name="body" value="/views/actor/showCustomer.jsp" />
+	</definition>
 
 </tiles-definitions>

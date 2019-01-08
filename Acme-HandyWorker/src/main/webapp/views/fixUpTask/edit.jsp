@@ -84,7 +84,7 @@
 
 		<input type="button" name="back"
 			value="<spring:message code="fixuptask.back" />"
-			onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
+			onclick="javascript: relativeRedir('/');" />
 		<br />
 
 	</jstl:if>
