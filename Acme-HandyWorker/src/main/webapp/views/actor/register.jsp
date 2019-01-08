@@ -25,6 +25,7 @@
 	<form:hidden path="isSuspicious" />
 	<form:hidden path="isBanned" />
 	<form:hidden path="userAccount.authorities" />
+	<form:hidden path="userAccount.enabled" />
 
 
 	<form:label path="userAccount.username">
@@ -48,12 +49,6 @@
 	<form:errors cssClass="error" path="name" />
 	<br />
 
-	<form:label path="name">
-		<spring:message code="actor.name" />:
-	</form:label>
-	<form:input path="name" />
-	<form:errors cssClass="error" path="name" />
-	<br />
 
 	<form:label path="middleName">
 		<spring:message code="actor.middleName" />:
@@ -77,18 +72,18 @@
 	<form:errors cssClass="error" path="photo" />
 	<br />
 
+	<form:label path="email">
+		<spring:message code="actor.email" />
+	</form:label>
+	<form:input path="email" readonly="${isRead}" />
+	<form:errors cssClass="error" path="email" />
+	<br />
+
 	<form:label path="phone">
 		<spring:message code="actor.phone" />:
 	</form:label>
 	<form:input path="phone" />
 	<form:errors cssClass="error" path="phone" />
-	<br />
-
-	<form:label path="phone">
-		<spring:message code="personalRecord.phone" />
-	</form:label>
-	<form:input path="phone" id="tlf" readonly="${isRead}" />
-	<form:errors path="phone" cssClass="error" />
 	<br />
 
 	<form:label path="address">
@@ -110,14 +105,6 @@
 			}
 		}
 	</script>
-
-
-	<form:label path="address">
-		<spring:message code="actor.address" />:
-	</form:label>
-	<form:input path="address" />
-	<form:errors cssClass="error" path="address" />
-	<br />
 
 	<input type="submit" name="save"
 		value="<spring:message code="actor.save" />" />&nbsp; 

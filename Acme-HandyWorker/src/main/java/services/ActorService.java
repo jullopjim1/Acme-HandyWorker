@@ -132,9 +132,10 @@ public class ActorService {
 			HandyWorker handyWorker = null;
 			if (actor.getId() != 0)
 				handyWorker = this.handyWorkerService.findOne(actor.getId());
-			else
+			else {
 				handyWorker = this.handyWorkerService.create();
-
+				handyWorker.setUserAccount(actor.getUserAccount());
+			}
 			handyWorker.setAddress(actor.getAddress());
 			handyWorker.setEmail(actor.getEmail());
 			handyWorker.setIsBanned(actor.getIsBanned());
@@ -143,6 +144,7 @@ public class ActorService {
 			handyWorker.setName(actor.getName());
 			handyWorker.setPhone(actor.getPhone());
 			handyWorker.setPhoto(actor.getPhoto());
+			handyWorker.setSurname(actor.getSurname());
 
 			this.handyWorkerService.save(handyWorker);
 			final Actor actor1 = this.handyWorkerService.save(handyWorker);
@@ -151,8 +153,10 @@ public class ActorService {
 			Customer customer = null;
 			if (actor.getId() != 0)
 				customer = this.customerService.findOne(actor.getId());
-			else
+			else {
 				customer = this.customerService.create();
+				customer.setUserAccount(actor.getUserAccount());
+			}
 
 			customer.setAddress(actor.getAddress());
 			customer.setEmail(actor.getEmail());
@@ -162,6 +166,7 @@ public class ActorService {
 			customer.setName(actor.getName());
 			customer.setPhone(actor.getPhone());
 			customer.setPhoto(actor.getPhoto());
+			customer.setSurname(actor.getSurname());
 
 			this.customerService.save(customer);
 			final Actor actor1 = this.customerService.save(customer);
@@ -170,9 +175,10 @@ public class ActorService {
 			Referee referee = null;
 			if (actor.getId() != 0)
 				referee = this.refereeService.findOne(actor.getId());
-			else
+			else {
 				referee = this.refereeService.create();
-
+				referee.setUserAccount(actor.getUserAccount());
+			}
 			referee.setAddress(actor.getAddress());
 			referee.setEmail(actor.getEmail());
 			referee.setIsBanned(actor.getIsBanned());
@@ -181,6 +187,7 @@ public class ActorService {
 			referee.setName(actor.getName());
 			referee.setPhone(actor.getPhone());
 			referee.setPhoto(actor.getPhoto());
+			referee.setSurname(actor.getSurname());
 
 			this.refereeService.save(referee);
 			final Actor actor1 = this.refereeService.save(referee);
@@ -191,9 +198,10 @@ public class ActorService {
 			Sponsor sponsor = null;
 			if (actor.getId() != 0)
 				sponsor = this.sponsorService.findOne(actor.getId());
-			else
+			else {
 				sponsor = this.sponsorService.create();
-
+				sponsor.setUserAccount(actor.getUserAccount());
+			}
 			sponsor.setAddress(actor.getAddress());
 			sponsor.setEmail(actor.getEmail());
 			sponsor.setIsBanned(actor.getIsBanned());
@@ -202,6 +210,7 @@ public class ActorService {
 			sponsor.setName(actor.getName());
 			sponsor.setPhone(actor.getPhone());
 			sponsor.setPhoto(actor.getPhoto());
+			sponsor.setSurname(actor.getSurname());
 
 			final Actor actor1 = this.sponsorService.save(sponsor);
 			this.boxService.addSystemBox(actor1);
@@ -210,9 +219,12 @@ public class ActorService {
 			Administrator administrator = null;
 			if (actor.getId() != 0)
 				administrator = this.administratorService.findOne(actor.getId());
-			else
+			else {
 				administrator = this.administratorService.create();
+				administrator.setUserAccount(actor.getUserAccount());
+			}
 
+			administrator.setSurname(actor.getSurname());
 			administrator.setAddress(actor.getAddress());
 			administrator.setEmail(actor.getEmail());
 			administrator.setIsBanned(actor.getIsBanned());

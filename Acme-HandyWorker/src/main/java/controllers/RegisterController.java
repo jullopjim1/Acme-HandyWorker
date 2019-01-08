@@ -1,9 +1,12 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
+import security.UserAccount;
 import services.ActorService;
 import services.CustomerService;
 import services.HandyWorkerService;
@@ -44,13 +48,13 @@ public class RegisterController extends AbstractController {
 			// Faltan actores
 			switch (authority) {
 			case "HANDY":
-				actor = this.actorService.create(Authority.HANDY);
+				actor = this.actorService.create("HANDY");
 				break;
 			case "CUSTOMER":
-				actor = this.actorService.create(Authority.CUSTOMER);
+				actor = this.actorService.create("CUSTOMER");
 				break;
 			case "SPONSOR":
-				actor = this.actorService.create(Authority.SPONSOR);
+				actor = this.actorService.create("SPONSOR");
 				break;
 			default:
 				throw new NullPointerException();
@@ -59,7 +63,7 @@ public class RegisterController extends AbstractController {
 			modelAndView = this.createEditModelAndView(actor);
 
 		} catch (final Exception e) {
-			modelAndView = new ModelAndView("welcome/index.do");
+			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 			modelAndView.addObject("message", "message.commit.error");
 		}
 
@@ -76,6 +80,12 @@ public class RegisterController extends AbstractController {
 			result = this.createEditModelAndView(actor);
 		else
 			try {
+				final UserAccount userAccount = actor.getUserAccount();
+
+				final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+				userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
+
+				actor.setUserAccount(userAccount);
 				this.actorService.update(actor);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
@@ -96,21 +106,28 @@ public class RegisterController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Actor actor, final String message) {
 		ModelAndView result = null;
-		final String authority = actor.getUserAccount().getAuthorities().iterator().next().getAuthority();
+
 		//TODO faltan actores
-		switch (authority) {
-		case "HANDY":
+		final Collection<Authority> authorities = actor.getUserAccount().getAuthorities();
+		final Authority handy = new Authority();
+		handy.setAuthority("HANDY");
+		final Authority cust = new Authority();
+		cust.setAuthority("CUSTOMER");
+		final Authority refer = new Authority();
+		refer.setAuthority("REFEREE");
+		final Authority spon = new Authority();
+		spon.setAuthority("SPONSOR");
+		final Authority admin = new Authority();
+		admin.setAuthority("ADMIN");
+
+		if (authorities.contains(handy))
 			result = new ModelAndView("register/handyWorker");
-			break;
-		case "CUSTOMER":
+		else if (authorities.contains(cust))
 			result = new ModelAndView("register/customer");
-			break;
-		case "SPONSOR":
+		else if (authorities.contains(spon))
 			result = new ModelAndView("register/sponsor");
-			break;
-		default:
+		else
 			throw new NullPointerException();
-		}
 
 		result.addObject("actor", actor);
 		result.addObject("message", message);

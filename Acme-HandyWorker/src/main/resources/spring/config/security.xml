@@ -203,6 +203,9 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/actor/register.do"
 			access="permitAll" />
+			
+		<security:intercept-url pattern="/register/actor.do"
+			access="permitAll" />
 
 		<!-- Endorsements -->
 		<security:intercept-url pattern="/endorsement/list.do"
