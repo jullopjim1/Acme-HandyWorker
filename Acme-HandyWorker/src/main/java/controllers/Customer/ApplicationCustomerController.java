@@ -16,12 +16,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.ApplicationService;
+import services.CreditCardService;
 import services.CustomerService;
 import services.FixUpTaskService;
 import controllers.AbstractController;
 import domain.Application;
+import domain.CreditCard;
 import domain.Customer;
 import domain.FixUpTask;
+import forms.ApplicationForm;
 
 @Controller
 @RequestMapping("/application/customer")
@@ -37,6 +40,9 @@ public class ApplicationCustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService customerService;
+
+	@Autowired
+	private CreditCardService creditCardService;
 
 	// Constructor---------------------------------------------------------
 
@@ -73,13 +79,32 @@ public class ApplicationCustomerController extends AbstractController {
 		final Customer c = this.customerService.findByUserAccount(LoginService
 				.getPrincipal().getId());
 		Application application = null;
-
+		ApplicationForm applicationForm = new ApplicationForm();
 		try {
 			application = this.applicationService.findOne(applicationId);
-
 			Assert.isTrue(application.getFixUpTask().getCustomer().equals(c));
+			Assert.isTrue(application.getStatus().equals("PENDING"));
 
-			result = this.createAndEditModelAndView(application);
+			applicationForm.setId(application.getId());
+			applicationForm.setStatus(application.getStatus());
+			applicationForm.setComments(application.getComments());
+
+			if (application.getCreditCard() != null) {
+				applicationForm.setBrandName(application.getCreditCard()
+						.getBrandName());
+				applicationForm.setCVVCode(application.getCreditCard()
+						.getCVVCode());
+				applicationForm.setExpirationMonth(application.getCreditCard()
+						.getExpirationMonth());
+				applicationForm.setExpirationYear(application.getCreditCard()
+						.getExpirationYear());
+				applicationForm.setHolderName(application.getCreditCard()
+						.getHolderName());
+				applicationForm.setNumber(application.getCreditCard()
+						.getNumber());
+			}
+
+			result = this.createAndEditModelAndView(applicationForm);
 
 		} catch (final Throwable e) {
 
@@ -90,47 +115,77 @@ public class ApplicationCustomerController extends AbstractController {
 			else if (!application.getFixUpTask().getCustomer().equals(c))
 				redirectAttrs.addFlashAttribute("message",
 						"application.error.noCustomer");
+			else if (application.getStatus() != "PENDING") {
+				redirectAttrs.addFlashAttribute("message",
+						"application.error.statusNoPending");
+			} else {
+				result = this.createAndEditModelAndView(applicationForm,
+						"commit.error");
+			}
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Application application,
+	public ModelAndView save(@Valid final ApplicationForm applicationForm,
 			final BindingResult binding) {
-		ModelAndView result;
+		ModelAndView result = null;
+		CreditCard creditCardSaved = null;
 
 		if (binding.hasErrors())
-			result = this.createAndEditModelAndView(application);
+			result = this.createAndEditModelAndView(applicationForm,
+					"commit.error");
 		else
 			try {
 				final Customer c = this.customerService
 						.findByUserAccount(LoginService.getPrincipal().getId());
-				Assert.isTrue(application.getFixUpTask().getCustomer()
-						.equals(c));
-				this.applicationService.save(application);
+				Application a = applicationService.findOne(applicationForm
+						.getId());
+				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
+				CreditCard cc = creditCardService.create();
+
+				if (applicationForm.getStatus().equals("ACCEPTED")) {
+					cc.setBrandName(applicationForm.getBrandName());
+					cc.setCVVCode(applicationForm.getCVVCode());
+					cc.setExpirationMonth(applicationForm.getExpirationMonth());
+					cc.setExpirationYear(applicationForm.getExpirationYear());
+					cc.setHolderName(applicationForm.getHolderName());
+					cc.setNumber(applicationForm.getNumber());
+					creditCardSaved = creditCardService.save(cc);
+				}
+
+				a.setComments(applicationForm.getComments());
+				a.setStatus(applicationForm.getStatus());
+				a.setCreditCard(creditCardSaved);
+				this.applicationService.save(a);
 
 				result = new ModelAndView(
-						"redirect:/fixUpTask/customer/list.do");
+						"redirect:/application/customer/list.do");
+
 			} catch (final Throwable oops) {
-
-				result = this.createAndEditModelAndView(application,
-						"commit.error");
+				if (creditCardSaved == null
+						&& applicationForm.getComments() != "") {
+					result = this.createAndEditModelAndView(applicationForm,
+							"application.invalidCreditCard");
+				} else {
+					result = this.createAndEditModelAndView(applicationForm,
+							"commit.error");
+				}
 			}
-
 		return result;
 	}
 
 	// METHODS
 	protected ModelAndView createAndEditModelAndView(
-			final Application application) {
+			final ApplicationForm applicationForm) {
 		ModelAndView result;
-		result = this.createAndEditModelAndView(application, null);
+		result = this.createAndEditModelAndView(applicationForm, null);
 		return result;
 	}
 
 	protected ModelAndView createAndEditModelAndView(
-			final Application application, final String message) {
+			final ApplicationForm applicationForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("application/edit");
@@ -138,10 +193,10 @@ public class ApplicationCustomerController extends AbstractController {
 		result.addObject(
 				"requestURI",
 				"application/customer/edit.do?applicationId="
-						+ application.getId());
-		result.addObject("application", application);
+						+ applicationForm.getId());
+		result.addObject("applicationForm", applicationForm);
 		result.addObject("isRead", false);
-		
+
 		Collection<String> statuses = new HashSet<String>();
 		statuses.add("PENDING");
 		statuses.add("ACCEPTED");

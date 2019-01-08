@@ -16,10 +16,12 @@
 
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
-			<jstl:if test="${customerId==row.fixUpTask.customer.id}">
-				<a href="application/customer/edit.do?applicationId=${row.id}">
-					<spring:message code="application.edit" />
-				</a>
+			<jstl:if test="${row.status == 'PENDING' }">
+				<jstl:if test="${customerId==row.fixUpTask.customer.id}">
+					<a href="application/customer/edit.do?applicationId=${row.id}">
+						<spring:message code="application.edit" />
+					</a>
+				</jstl:if>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
