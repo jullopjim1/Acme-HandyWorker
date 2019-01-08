@@ -34,17 +34,15 @@
 	<form:label path="startMoment">
 		<spring:message code="educationRecord.startMoment" />:
 	</form:label>
-	<form:input path="startMoment" />
+	<form:input path="startMoment" placeholder="yyyy/mm/dd" />
 	<form:errors cssClass="error" path="startMoment" />
-	dd/mm/yyyy
 	<br />
 
 	<form:label path="endMoment">
 		<spring:message code="educationRecord.endMoment" />:
 	</form:label>
-	<form:input path="endMoment" />
+	<form:input path="endMoment" placeholder="yyyy/mm/dd" />
 	<form:errors cssClass="error" path="endMoment" />
-	dd/mm/yyyy
 	<br />
 
 	<form:label path="institution">
@@ -53,7 +51,7 @@
 	<form:input path="institution" />
 	<form:errors cssClass="error" path="institution" />
 	<br />
-	
+
 	<form:label path="link">
 		<spring:message code="educationRecord.link" />:
 	</form:label>

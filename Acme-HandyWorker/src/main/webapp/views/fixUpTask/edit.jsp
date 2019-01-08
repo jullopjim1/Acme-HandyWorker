@@ -42,7 +42,8 @@
 	<form:label path="deadline">
 		<spring:message code="fixuptask.deadlineWith" />:
 	</form:label>
-	<form:input path="deadline" readonly="${isRead}" />
+	<form:input path="deadline" readonly="${isRead}"
+		placeholder="yyyy/mm/dd 00:00" />
 	<form:errors cssClass="error" path="deadline" />
 	<br />
 

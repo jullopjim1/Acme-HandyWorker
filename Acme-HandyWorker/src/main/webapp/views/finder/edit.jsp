@@ -54,14 +54,14 @@
 	<form:label path="dateMin">
 		<spring:message code="finder.dateMin" />
 	</form:label>
-	<form:input path="dateMin" />
+	<form:input path="dateMin" placeholder="yyyy/mm/dd" />
 	<form:errors ccsClass="error" path="dateMin" />
 	<br />
 
 	<form:label path="dateMax">
 		<spring:message code="finder.dateMax" />
 	</form:label>
-	<form:input path="dateMax" />
+	<form:input path="dateMax" placeholder="yyyy/mm/dd" />
 	<form:errors ccsClass="error" path="dateMax" />
 	<br />
 
@@ -70,7 +70,7 @@
 	</form:label>
 	<form:select id="categories" path="namecategory">
 		<form:option value="" label="------" />
-		<form:options items="${categories}"  />
+		<form:options items="${categories}" />
 	</form:select>
 
 	<form:label path="namewarranty">

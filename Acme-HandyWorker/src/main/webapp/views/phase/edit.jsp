@@ -44,14 +44,14 @@
 	<form:label path="startMoment">
 		<spring:message code="phase.start" />
 	</form:label>
-	<form:textarea path="startMoment" />
+	<form:textarea path="startMoment" placeholder="yyyy/mm/dd 00:00" />
 	<form:errors ccsClass="error" path="startMoment" />
 	<br />
 
 	<form:label path="endMoment">
 		<spring:message code="phase.end" />
 	</form:label>
-	<form:textarea path="endMoment" />
+	<form:textarea path="endMoment" placeholder="yyyy/mm/dd 00:00" />
 	<form:errors ccsClass="error" path="endMoment" />
 	<br />
 
