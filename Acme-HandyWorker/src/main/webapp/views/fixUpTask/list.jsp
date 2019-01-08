@@ -52,7 +52,7 @@
 				</a>
 			</jstl:if>
 			<jstl:if
-				test="${complaintService.findComplaintByTaskId(row.id) != null and complaintService.findComplaintByTaskId(row.id).isFinal == true}">
+				test="${complaintService.findComplaintFinalByTaskId(row.id)}">
 
 				<a href="complaint/showComplaint.do?fixUpTaskId=${row.id}"> <spring:message
 						code="complaint.show" />
@@ -63,7 +63,8 @@
 
 	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="fixUpTask.customer">
-			<a href="handyWorker/viewProfileCustomer.do?customerId=${row.customer.id}">
+			<a
+				href="handyWorker/viewProfileCustomer.do?customerId=${row.customer.id}">
 				<spring:message code="fixUpTask.viewProfile" />
 			</a>
 		</display:column>
