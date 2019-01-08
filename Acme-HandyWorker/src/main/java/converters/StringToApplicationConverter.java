@@ -15,25 +15,29 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.FixUpTask;
-import repositories.FixUpTaskRepository;
+import domain.Application;
+import repositories.ApplicationRepository;
 
 @Component
 @Transactional
-public class StringToFixUpTaskConverter implements Converter<String, FixUpTask> {
+public class StringToApplicationConverter implements Converter<String, Application> {
 
 	@Autowired
-	FixUpTaskRepository fixUpTaskRepository;
+	ApplicationRepository applicationRepository;
 
 
 	@Override
-	public FixUpTask convert(final String text) {
-		FixUpTask result;
+	public Application convert(final String text) {
+		Application result;
 		int id;
 
 		try {
-			id = Integer.valueOf(text);
-			result = this.fixUpTaskRepository.findOne(id);
+			if (text == "")
+				result = null;
+			else {
+				id = Integer.valueOf(text);
+				result = this.applicationRepository.findOne(id);
+			}
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}
