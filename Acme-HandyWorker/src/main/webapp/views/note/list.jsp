@@ -25,7 +25,7 @@
 <display:table name="notes" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 	
-	<security:authorize access="hasRole('HANDY||REFEREE||CUSTOMER')">
+	<security:authorize access="hasAnyRole('CUSTOMER','HANDY','REFEREE')">
 		<display:column>
 			<jstl:if test="${row.isFinal==false}">
 				<a href="note/edit.do?noteId=${row.id}"> <spring:message
@@ -49,6 +49,7 @@
 
 
 </display:table>
+<br/>
 <security:authorize access="hasRole('REFEREE')">
 <a href="note/create.do"> <spring:message
 		code="note.create" />

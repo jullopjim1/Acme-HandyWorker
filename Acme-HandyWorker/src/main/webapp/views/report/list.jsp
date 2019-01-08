@@ -42,13 +42,13 @@
 	<display:column property="attachments" titleKey="report.attachments" />
 
 	<display:column titleKey="report.notes">
-		<a href="note/list.do?reportId=${report.id}"> <spring:message
+		<a href="note/list.do?reportId=${row.id}"> <spring:message
 				code="report.show" />
 		</a>
 	</display:column>
 
 	<security:authorize access="hasRole('REFEREE')">
-		<a href="report/referee/create.do"> <spring:message
+		<a href="note/referee/create.do?reportId=${row.id}"> <spring:message
 				code="report.create" />
 		</a>
 	</security:authorize>
