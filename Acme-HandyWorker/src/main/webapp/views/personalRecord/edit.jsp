@@ -20,6 +20,10 @@
 	<form:hidden path="version" />
 	<form:hidden path="curriculum" />
 
+	<jstl:if test="${isRead==true}">
+		<img src="${personalRecord.photo}" height="250px" width="350px" />
+		<br />
+	</jstl:if>
 
 
 	<form:label path="fullName">
@@ -36,19 +40,28 @@
 	<form:errors cssClass="error" path="email" />
 	<br />
 
-	<form:label path="photo">
-		<spring:message code="personalRecord.picture" />:
+	<jstl:if test="${isRead == false}">
+		<form:label path="photo">
+			<spring:message code="personalRecord.picture" />:
 	</form:label>
-	<form:input path="photo" readonly="${isRead}" />
-	<form:errors cssClass="error" path="photo" />
-	<br />
+		<form:input path="photo" />
+		<form:errors cssClass="error" path="photo" />
+		<br />
+	</jstl:if>
 
-	<form:label path="link">
-		<spring:message code="personalRecord.link" />:
+	<jstl:if test="${isRead == false }">
+		<form:label path="link">
+			<spring:message code="personalRecord.link" />:
 	</form:label>
-	<form:input path="link" readonly="${isRead}" />
-	<form:errors cssClass="error" path="link" />
-	<br />
+		<form:input path="link" readonly="${isRead}" />
+		<form:errors cssClass="error" path="link" />
+		<br />
+	</jstl:if>
+
+	<jstl:if test="${isRead == true}">
+		<a href="${personalRecord.link}">${personalRecord.link}</a>
+		<br />
+	</jstl:if>
 
 	<form:label path="phone">
 		<spring:message code="personalRecord.phone" />

@@ -29,8 +29,9 @@
 	</security:authorize>
 
 	<display:column property="title" titleKey="miscellaneousRecord.title" />
-	<display:column property="link"
-		titleKey="miscellaneousRecord.link" />
+	<display:column titleKey="miscellaneousRecord.link">
+		<a href="${row.link}">${row.link}</a>
+	</display:column>
 	<display:column property="comments"
 		titleKey="miscellaneousRecord.comments" />
 	<security:authorize access="hasRole('HANDY')">

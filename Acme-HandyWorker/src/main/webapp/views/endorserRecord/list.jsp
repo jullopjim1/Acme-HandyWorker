@@ -31,7 +31,9 @@
 	<display:column property="fullName" titleKey="endorserRecord.fullName" />
 	<display:column property="email" titleKey="endorserRecord.email" />
 	<display:column property="phone" titleKey="endorserRecord.phone" />
-	<display:column property="link" titleKey="endorserRecord.link" />
+	<display:column titleKey="endorserRecord.link">
+		<a href="${row.link}">${row.link}</a>
+	</display:column>
 	<display:column property="comments" titleKey="endorserRecord.comment" />
 	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="endorserRecord.delete">

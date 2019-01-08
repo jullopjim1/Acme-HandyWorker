@@ -53,7 +53,7 @@
 	<form:input path="institution" />
 	<form:errors cssClass="error" path="institution" />
 	<br />
-
+	
 	<form:label path="link">
 		<spring:message code="educationRecord.link" />:
 	</form:label>

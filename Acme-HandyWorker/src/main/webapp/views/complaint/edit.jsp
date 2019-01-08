@@ -38,12 +38,21 @@
 	<form:errors cssClass="error" path="description" />
 	<br />
 
-	<form:label path="attachments">
-		<spring:message code="complaint.attachments" />
-	</form:label>
-	<form:textarea path="attachments" readonly="${isRead}" />
-	<form:errors cssClass="error" path="attachments" />
-	<br />
+	<jstl:if test="${isRead== false}">
+		<form:label path="attachments">
+			<spring:message code="complaint.attachments" />
+		</form:label>
+		<form:textarea path="attachments" />
+		<form:errors cssClass="error" path="attachments" />
+		<br />
+	</jstl:if>
+
+	<jstl:if test="${isRead== true}">
+		<a href="${complaint.attachments}">${complaint.attachments}</a>
+		<br />
+
+	</jstl:if>
+
 	<form:label path="isFinal">
 		<spring:message code="warranty.isFinal" />
 	</form:label>

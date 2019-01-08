@@ -26,6 +26,10 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 
+	<jstl:if test="${isRead==true}">
+		<img src="${configuration.banner}" height="250px" width="350px" />
+		<br />
+	</jstl:if>
 
 	<form:label path="varTax">
 		<spring:message code="configuration.varTax" />
@@ -34,13 +38,14 @@
 	<form:errors cssClass="error" path="varTax" />
 	<br />
 
-	<form:label path="banner">
-		<spring:message code="configuration.banner" />
-	</form:label>
-	<form:input path="banner" readonly="${isRead}" />
-	<form:errors cssClass="error" path="banner" />
-	<br />
-
+	<jstl:if test="${isRead==false}">
+		<form:label path="banner">
+			<spring:message code="configuration.banner" />
+		</form:label>
+		<form:input path="banner" />
+		<form:errors cssClass="error" path="banner" />
+		<br />
+	</jstl:if>
 	<form:label path="finderCacheTime">
 		<spring:message code="configuration.cache" />
 	</form:label>
