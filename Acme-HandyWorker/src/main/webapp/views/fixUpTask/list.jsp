@@ -52,7 +52,7 @@
 				</a>
 			</jstl:if>
 			<jstl:if
-				test="${complaintService.findComplaintFinalByTaskId(row.id)}">
+				test="${complaintService.findComplaintFinalByTaskId(row.id) != null}">
 
 				<a href="complaint/showComplaint.do?fixUpTaskId=${row.id}"> <spring:message
 						code="complaint.show" />
