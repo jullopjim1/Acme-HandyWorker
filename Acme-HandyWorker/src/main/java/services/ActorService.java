@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -9,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.ActorRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Customer;
 import domain.HandyWorker;
 import domain.Referee;
 import domain.Sponsor;
-import repositories.ActorRepository;
-import security.Authority;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -43,6 +44,25 @@ public class ActorService {
 	@Autowired
 	private AdministratorService	administratorService;
 
+	@Autowired
+	private BoxService				boxService;
+
+
+	public Actor create(final String authority) {
+		final Actor actor = new Actor();
+		final UserAccount userAccount = new UserAccount();
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+
+		final Authority a = new Authority();
+		a.setAuthority(authority);
+		authorities.add(a);
+		userAccount.setAuthorities(authorities);
+		userAccount.setEnabled(true);
+		actor.setUserAccount(userAccount);
+		actor.setIsBanned(false);
+		actor.setIsSuspicious(false);
+		return actor;
+	}
 
 	public Actor findOne(final int ActorId) {
 		return this.actorRepository.findOne(ActorId);
@@ -109,7 +129,11 @@ public class ActorService {
 		admin.setAuthority("ADMIN");
 
 		if (authorities.contains(handy)) {
-			final HandyWorker handyWorker = this.handyWorkerService.findOne(actor.getId());
+			HandyWorker handyWorker = null;
+			if (actor.getId() != 0)
+				handyWorker = this.handyWorkerService.findOne(actor.getId());
+			else
+				handyWorker = this.handyWorkerService.create();
 
 			handyWorker.setAddress(actor.getAddress());
 			handyWorker.setEmail(actor.getEmail());
@@ -121,8 +145,14 @@ public class ActorService {
 			handyWorker.setPhoto(actor.getPhoto());
 
 			this.handyWorkerService.save(handyWorker);
+			final Actor actor1 = this.handyWorkerService.save(handyWorker);
+			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(cust)) {
-			final Customer customer = this.customerService.findOne(actor.getId());
+			Customer customer = null;
+			if (actor.getId() != 0)
+				customer = this.customerService.findOne(actor.getId());
+			else
+				customer = this.customerService.create();
 
 			customer.setAddress(actor.getAddress());
 			customer.setEmail(actor.getEmail());
@@ -134,8 +164,14 @@ public class ActorService {
 			customer.setPhoto(actor.getPhoto());
 
 			this.customerService.save(customer);
+			final Actor actor1 = this.customerService.save(customer);
+			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(refer)) {
-			final Referee referee = this.refereeService.findOne(actor.getId());
+			Referee referee = null;
+			if (actor.getId() != 0)
+				referee = this.refereeService.findOne(actor.getId());
+			else
+				referee = this.refereeService.create();
 
 			referee.setAddress(actor.getAddress());
 			referee.setEmail(actor.getEmail());
@@ -147,8 +183,16 @@ public class ActorService {
 			referee.setPhoto(actor.getPhoto());
 
 			this.refereeService.save(referee);
+			final Actor actor1 = this.refereeService.save(referee);
+			this.boxService.addSystemBox(actor1);
+
 		} else if (authorities.contains(spon)) {
-			final Sponsor sponsor = this.sponsorService.findOne(actor.getId());
+
+			Sponsor sponsor = null;
+			if (actor.getId() != 0)
+				sponsor = this.sponsorService.findOne(actor.getId());
+			else
+				sponsor = this.sponsorService.create();
 
 			sponsor.setAddress(actor.getAddress());
 			sponsor.setEmail(actor.getEmail());
@@ -159,9 +203,15 @@ public class ActorService {
 			sponsor.setPhone(actor.getPhone());
 			sponsor.setPhoto(actor.getPhoto());
 
-			this.sponsorService.save(sponsor);
+			final Actor actor1 = this.sponsorService.save(sponsor);
+			this.boxService.addSystemBox(actor1);
+
 		} else if (authorities.contains(admin)) {
-			final Administrator administrator = this.administratorService.findOne(actor.getId());
+			Administrator administrator = null;
+			if (actor.getId() != 0)
+				administrator = this.administratorService.findOne(actor.getId());
+			else
+				administrator = this.administratorService.create();
 
 			administrator.setAddress(actor.getAddress());
 			administrator.setEmail(actor.getEmail());
@@ -172,7 +222,8 @@ public class ActorService {
 			administrator.setPhone(actor.getPhone());
 			administrator.setPhoto(actor.getPhoto());
 
-			this.administratorService.save(administrator);
+			final Actor actor1 = this.administratorService.save(administrator);
+			this.boxService.addSystemBox(actor1);
 		}
 
 	}

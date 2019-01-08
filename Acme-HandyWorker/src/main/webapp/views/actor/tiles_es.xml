@@ -20,23 +20,21 @@
 		<put-attribute name="body" value="/views/actor/list.jsp" />
 	</definition>
 
-	<definition name="actor/registerCustomer" extends="master.page">
-		<put-attribute name="title" value="Registrar como un cliente" />
+	<definition name="register/customer" extends="master.page">
+		<put-attribute name="title" value="Register as a customer" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
 
 
-	<definition name="actor/registerHandyWorker" extends="master.page">
-		<put-attribute name="title" value="Registrar como un manitas" />
+	<definition name="register/handyWorker" extends="master.page">
+		<put-attribute name="title" value="Register as a handy worker" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
 
-
-	<definition name="actor/registerSponsor" extends="master.page">
-		<put-attribute name="title" value="Registrar como un patrocinador" />
+	<definition name="register/sponsor" extends="master.page">
+		<put-attribute name="title" value="Register as a sponsor" />
 		<put-attribute name="body" value="/views/actor/register.jsp" />
 	</definition>
-	
 	<definition name="actor/showCustomer" extends="master.page">
 		<put-attribute name="title" value="Perfil de cliente" />
 		<put-attribute name="body" value="/views/actor/showCustomer.jsp" />
