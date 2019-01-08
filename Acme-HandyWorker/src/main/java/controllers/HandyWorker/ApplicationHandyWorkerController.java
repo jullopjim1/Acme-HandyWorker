@@ -5,8 +5,10 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
@@ -57,6 +59,19 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		app = this.applicationService.create(a.getId());
 		result = this.createEditModelAndView(app);
 		result.addObject("handyWorkerId", a.getId());
+
+		return result;
+	}
+
+	//Edit
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int appId) {
+		ModelAndView result;
+		Application app;
+
+		app = this.applicationService.findOne(appId);
+		Assert.notNull(app);
+		result = this.createEditModelAndView(app);
 
 		return result;
 	}
