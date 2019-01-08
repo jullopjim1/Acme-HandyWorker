@@ -42,7 +42,7 @@ public class ComplaintHandyWorkerController extends AbstractController {
 		final ModelAndView result;
 		final Collection<Complaint> complaints;
 
-		final HandyWorker h = this.handyWorkerService.findHandyByUsername(LoginService.getPrincipal().getUsername());
+		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final int handyId = h.getId();
 		complaints = this.complaintService.findComplaintsByHandyWorkerId(handyId);
 
