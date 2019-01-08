@@ -99,7 +99,7 @@ public class ComplaintService {
 		return this.complaintRepository.findComplaintByTaskId(fixUpTaskId);
 	}
 
-	public Complaint findComplaintByHandyWorkerId(final int handyId) {
+	public Collection<Complaint> findComplaintsByHandyWorkerId(final int handyId) {
 		return this.complaintRepository.findComplaintByHandyWorkerId(handyId);
 	}
 
