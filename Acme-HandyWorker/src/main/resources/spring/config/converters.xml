@@ -103,7 +103,7 @@
 		<bean class="converters.StringToAdminConverter" />
 
 		<bean class="converters.ApplicationToStringConverter" />
-		<bean class="converters.StringTApplicationConverter" />
+		<bean class="converters.StringToApplicationConverter" />
 
 
 	</util:list>
