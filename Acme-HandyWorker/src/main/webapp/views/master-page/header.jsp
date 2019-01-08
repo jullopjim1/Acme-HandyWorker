@@ -46,6 +46,9 @@
 
 			<li><a class="fNiv" href="fixUpTask/customer/list.do"><spring:message
 						code="master.page.fixuptasks" /></a></li>
+
+			<li><a class="fNiv" href="application/customer/list.do"><spring:message
+						code="master.page.application" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('SPONSOR')">

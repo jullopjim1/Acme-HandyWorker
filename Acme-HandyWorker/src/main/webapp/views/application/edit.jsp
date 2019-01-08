@@ -1,14 +1,3 @@
-<%--
- * edit.jsp
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
-
 <%@page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -26,15 +15,10 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="moment" />
-	<form:hidden path="status" />
-
-
-	<form:label path="price">
-		<spring:message code="application.price" />
-	</form:label>
-	<form:input path="price" />
-	<form:errors ccsClass="error" path="price" />
-	<br />
+	<form:hidden path="price" />
+	<form:hidden path="handyWorker" />
+	<form:hidden path="fixUpTask" />
+	<form:hidden path="creditCard" />
 
 	<form:label path="comments">
 		<spring:message code="application.comments" />
@@ -50,14 +34,14 @@
 				<spring:message code="application.status"></spring:message>
 			</form:label>
 			<form:select id="statuses" path="status">
-				<form:options items="${status}" />
+				<form:options items="${statuses}" />
 			</form:select>
 			<br />
 		</jstl:if>
 
 	</security:authorize>
 
-	<jstl:if
+	<%-- <jstl:if
 		test="${application.id !=0 && application.status == 'ACCEPTED'}">
 		<fieldset>
 			<legend>
@@ -107,19 +91,16 @@
 			<br>
 
 		</fieldset>
-	</jstl:if>
-
-
+	</jstl:if> --%>
 
 	<input type="submit" name="save"
-		value="<spring:message code="tutorial.save"/>" />
+		value="<spring:message code="application.save"/>" />
 
 
 	<input type="button" name="cancel"
-		value="<spring:message code="tutorial.cancel" />"
-		onclick="javascript: relativeRedir('tutorial/handyworker/list.do');" />
+		value="<spring:message code="application.cancel" />"
+		onclick="javascript: relativeRedir('application/customer/list.do');" />
 
 	<br />
-
 
 </form:form>
