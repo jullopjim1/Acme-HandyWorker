@@ -43,21 +43,33 @@
 	<form:errors ccsClass="error" path="summary" />
 	<br />
 
-	<form:label path="pictures">
-		<spring:message code="tutorial.pictures" />
-	</form:label>
-	<form:input path="pictures" readonly="${isRead }" />
-	<form:errors ccsClass="error" path="pictures" />
-	<br />
+	<jstl:if test="${isRead == false}">
+		<form:label path="pictures">
+			<spring:message code="tutorial.pictures" />
+		</form:label>
+		<form:input path="pictures" />
+		<form:errors ccsClass="error" path="pictures" />
+		<br />
+	</jstl:if>
 
-	<form:label path="sponsorship">
-		<spring:message code="tutorial.sponsorship" />
-	</form:label>
-	<form:select id="sponsorships" path="sponsorship" readonly="${isRead }">
-		<form:options items="${sponsorships}" itemLabel="banner"
-			itemValue="id" />
-	</form:select>
-	<br />
+	<jstl:if test="${isRead == true}">
+		<jstl:forEach var="pic" items="${tutorial.pictures}">
+			<img src="${pic}" height="100px" width="100px" />
+		</jstl:forEach>
+		<br />
+	</jstl:if>
+
+	<jstl:if test="${isRead == false}">
+		<form:label path="sponsorship">
+			<spring:message code="tutorial.sponsorship" />
+		</form:label>
+		<form:select id="sponsorships" path="sponsorship"
+			readonly="${isRead }">
+			<form:options items="${sponsorships}" itemLabel="banner"
+				itemValue="id" />
+		</form:select>
+		<br />
+	</jstl:if>
 
 	<jstl:if test="${isRead==false }">
 		<input type="submit" name="save"

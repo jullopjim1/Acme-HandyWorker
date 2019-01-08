@@ -443,10 +443,11 @@
 
 	<!-- SPONSOR -->
 	<bean id="sponsor1" class="domain.Sponsor">
-		<property name="name" value="name6" />
+		<property name="name" value="RedBull" />
 		<property name="middleName" value="middleName5" />
 		<property name="surname" value="surname5" />
-		<property name="photo" value="http://www.photo5.com" />
+		<property name="photo"
+			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
 		<property name="email" value="emailSponsor1@gmail.com" />
 		<property name="phone" value="650190444" />
 		<property name="address" value="adress5" />
@@ -456,10 +457,11 @@
 	</bean>
 
 	<bean id="sponsor2" class="domain.Sponsor">
-		<property name="name" value="name7" />
+		<property name="name" value="CocaCola" />
 		<property name="middleName" value="middleName6" />
 		<property name="surname" value="surname5" />
-		<property name="photo" value="http://www.photo6.com" />
+		<property name="photo"
+			value="https://lettersystems.com.ar/files/thumbs/clienteVer/clientes/2015/10/01/5970d19a38334-cocacola.jpg" />
 		<property name="email" value="emailSponsor2@gmail.com" />
 		<property name="phone" value="650190487" />
 		<property name="address" value="adress6" />
@@ -469,10 +471,11 @@
 	</bean>
 
 	<bean id="sponsor3" class="domain.Sponsor">
-		<property name="name" value="name10" />
+		<property name="name" value="Cruzcampo" />
 		<property name="middleName" value="middleName10" />
 		<property name="surname" value="surname10" />
-		<property name="photo" value="http://www.photo7.com" />
+		<property name="photo"
+			value="http://rotudec.com/imagenes/clientecruzcampo.svg" />
 		<property name="email" value="emailSponsor3@gmail.com" />
 		<property name="phone" value="650190409" />
 		<property name="address" value="adress7" />
@@ -482,10 +485,11 @@
 	</bean>
 
 	<bean id="sponsor4" class="domain.Sponsor">
-		<property name="name" value="name11" />
+		<property name="name" value="Pepsi" />
 		<property name="middleName" value="middleName11" />
 		<property name="surname" value="surname11" />
-		<property name="photo" value="http://www.photo8.com" />
+		<property name="photo"
+			value="http://tiyc.blogia.com/upload/20140601232111-logo-pepsi.jpg" />
 		<property name="email" value="emailSponsor4@gmail.com" />
 		<property name="phone" value="650190403" />
 		<property name="address" value="adress8" />
@@ -749,29 +753,33 @@
 
 	<!-- SPONSORSHIPS -->
 	<bean id="sponsorship1" class="domain.Sponsorship">
-		<property name="banner" value="http://banner1.com" />
+		<property name="banner"
+			value="https://upload.wikimedia.org/wikipedia/en/thumb/f/f5/RedBullEnergyDrink.svg/1200px-RedBullEnergyDrink.svg.png" />
 		<property name="link" value="http://sponsorship1.com" />
 		<property name="sponsor" ref="sponsor1" />
 		<property name="creditCard" ref="creditcard1" />
 	</bean>
 
 	<bean id="sponsorship2" class="domain.Sponsorship">
-		<property name="banner" value="http://banner2.com" />
+		<property name="banner"
+			value="https://lettersystems.com.ar/files/thumbs/clienteVer/clientes/2015/10/01/5970d19a38334-cocacola.jpg" />
 		<property name="link" value="http://sponsorship2.com" />
 		<property name="sponsor" ref="sponsor2" />
 		<property name="creditCard" ref="creditcard2" />
 	</bean>
 
 	<bean id="sponsorship3" class="domain.Sponsorship">
-		<property name="banner" value="http://banner3.com" />
-		<property name="link" value="http://sponsorship3.com" />
+		<property name="banner"
+			value="https://i5.walmartimages.com/asr/c5c0c18c-2c15-4b64-8ec6-6ac388635f14_1.cc600c48d70486a9371b3d11975088f4.jpeg" />
+		<property name="link" value="https://www.pepsi.com/" />
 		<property name="sponsor" ref="sponsor4" />
 		<property name="creditCard" ref="creditcard3" />
 	</bean>
 
 	<bean id="sponsorship4" class="domain.Sponsorship">
-		<property name="banner" value="http://banner4.com" />
-		<property name="link" value="http://sponsorship4.com" />
+		<property name="banner"
+			value="http://tiyc.blogia.com/upload/20140601232111-logo-pepsi.jpg" />
+		<property name="link" value="https://www.pepsi.com/" />
 		<property name="sponsor" ref="sponsor4" />
 		<property name="creditCard" ref="creditcard3" />
 	</bean>
@@ -811,7 +819,7 @@
 		<property name="title" value="title1" />
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="summary" value="summary1" />
-		<property name="pictures" value="http://pictures3.com" />
+		<property name="pictures" value="http://pictures3" />
 		<property name="sponsorship" ref="sponsorship1" />
 		<property name="handyWorker" ref="handyWorker1" />
 	</bean>
