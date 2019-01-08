@@ -28,6 +28,6 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Integer> {
 	@Query("select c from Complaint c where c.fixUpTask.id=?1 and c.isFinal = true")
 	Complaint findComplaintByTaskId(int fixUpTaskId);
 
-	@Query("select c from Complaint c where c.fixUpTask.id=(a.fixUpTask.id from Application a where a.handyWorker.id=?1 and a.status='ACCEPTED')")
+	@Query("select c from Complaint c where c.fixUpTask.id=(select a.fixUpTask.id from Application a where a.handyWorker.id=?1 and a.status='ACCEPTED')")
 	Complaint findComplaintByHandyWorkerId(int handyWorkerId);
 }
