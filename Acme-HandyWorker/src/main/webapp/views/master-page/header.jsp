@@ -114,6 +114,11 @@
 				</ul></li>
 		</security:authorize>
 
+		<security:authorize access="hasRole('HANDY')">
+			<li><a href="application/handyWorker/list.do"><spring:message
+						code="master.page.handy.application.list" /></a></li>
+		</security:authorize>
+
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
