@@ -866,7 +866,7 @@
 		<property name="moment" value="2017/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments1.com" />
-		<property name="isFinal" value="true" />
+		<property name="isFinal" value="false" />
 		<property name="complaint" ref="complaint1" />
 		<property name="referee" ref="referee1" />
 	</bean>
@@ -878,7 +878,7 @@
 		<property name="mandatoryCommentReferee" value="" />
 		<property name="mandatoryCommentCustomer" value="mandatory1" />
 		<property name="mandatoryCommentHandyWorker" value="" />
-		<property name="isFinal" value="true" />
+		<property name="isFinal" value="false" />
 		<property name="report" ref="report1" />
 	</bean>
 

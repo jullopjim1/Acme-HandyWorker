@@ -73,6 +73,10 @@ public class NoteService {
 		return this.noteRepository.findNoteReportById(reportId);
 	}
 
+	public Collection<Note> findNoteByRefereeId(final int refereeId) {
+		return this.noteRepository.findNoteByRefereeId(refereeId);
+	}
+
 	public void delete(final Note note) {
 		this.noteRepository.delete(note);
 	}

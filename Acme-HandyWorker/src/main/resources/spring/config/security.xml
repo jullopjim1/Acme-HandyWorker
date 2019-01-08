@@ -268,7 +268,8 @@
 
 		<security:intercept-url pattern="/note/referee/delete.do"
 			access="hasRole('REFEREE')" />
-
+		<security:intercept-url pattern="/note/referee/list.do"
+			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/note/referee/create.do"
 			access="hasRole('REFEREE')" />
 

@@ -1,6 +1,8 @@
 
 package controllers.Referee;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ActorService;
 import services.NoteService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Note;
 
 @Controller
@@ -22,7 +27,10 @@ public class NoteRefereeController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private NoteService	noteService;
+	private NoteService		noteService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	//Constructor---------------------------------------------------------
@@ -31,6 +39,23 @@ public class NoteRefereeController extends AbstractController {
 		super();
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final int refereeId = a.getId();
+
+		final Collection<Note> note = this.noteService.findNoteByRefereeId(a.getId());
+
+		result = new ModelAndView("note/list");
+		result.addObject("note", note);
+		result.addObject("refereeId", refereeId);
+		result.addObject("requestURI", "note/referee/list.do");
+
+		return result;
+
+	}
 	//Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int reportId) {
