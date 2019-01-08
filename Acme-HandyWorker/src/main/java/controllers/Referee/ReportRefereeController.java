@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ActorService;
+import services.NoteService;
 import services.RefereeService;
 import services.ReportService;
 import controllers.AbstractController;
@@ -38,6 +39,9 @@ public class ReportRefereeController extends AbstractController {
 	@Autowired
 	private ActorService	actorService;
 
+	@Autowired
+	private NoteService		noteService;
+
 
 	//Constructor-----------------------------------------------------
 
@@ -59,6 +63,7 @@ public class ReportRefereeController extends AbstractController {
 		result = new ModelAndView("report/list");
 		result.addObject("reports", reports);
 		result.addObject("refereeId", refereeId);
+		result.addObject("noteService", this.noteService);
 		result.addObject("requestURI", "report/referee/list.do");
 
 		return result;

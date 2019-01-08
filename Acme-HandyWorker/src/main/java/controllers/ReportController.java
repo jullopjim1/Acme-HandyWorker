@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.NoteService;
 import services.ReportService;
 import domain.Report;
 
@@ -19,6 +20,9 @@ public class ReportController extends AbstractController {
 
 	@Autowired
 	private ReportService	reportService;
+
+	@Autowired
+	private NoteService		noteService;
 
 
 	//Constructor---------------------------------------------------------
@@ -37,7 +41,7 @@ public class ReportController extends AbstractController {
 		result = new ModelAndView("report/list");
 		result.addObject("reports", reports);
 		result.addObject("requestURI", "report/list.do");
-
+		result.addObject("noteService", this.noteService);
 		return result;
 	}
 

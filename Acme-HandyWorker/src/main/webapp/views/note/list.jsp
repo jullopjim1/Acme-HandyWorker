@@ -22,37 +22,38 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="notes" id="row" requestURI="${requestURI}"
+<display:table name="note" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
-	
+
 	<security:authorize access="hasAnyRole('CUSTOMER','HANDY','REFEREE')">
+	<jstl:if test="${row.isFinal==false}">
 		<display:column>
-			<jstl:if test="${row.isFinal==false}">
+			
 				<a href="note/edit.do?noteId=${row.id}"> <spring:message
 						code="note.edit" />
 				</a>
-			</jstl:if>
+			
 		</display:column>
+		</jstl:if>
 	</security:authorize>
-	
+
 	<display:column property="moment" titleKey="note.moment" />
 
-	<display:column property="mandatoryCommentReferee" titleKey="note.commentReferee" />
+	<display:column property="mandatoryCommentReferee"
+		titleKey="note.commentReferee" />
 
 
-	<display:column property="mandatoryCommentCustomer" titleKey="note.commentCustomer" />
+	<display:column property="mandatoryCommentCustomer"
+		titleKey="note.commentCustomer" />
 
 
-	<display:column property="mandatoryCommentHandyWorker" titleKey="note.commentHandyworker" />
+	<display:column property="mandatoryCommentHandyWorker"
+		titleKey="note.commentHandyworker" />
 
-	
+
 
 
 </display:table>
-<br/>
-<security:authorize access="hasRole('REFEREE')">
-<a href="note/create.do"> <spring:message
-		code="note.create" />
-</a>
-</security:authorize>
+<br />
+
 

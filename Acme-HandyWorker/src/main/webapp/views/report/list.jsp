@@ -41,17 +41,31 @@
 	<display:column property="description" titleKey="report.description" />
 	<display:column property="attachments" titleKey="report.attachments" />
 
-	<display:column titleKey="report.notes">
-		<a href="note/list.do?reportId=${row.id}"> <spring:message
-				code="report.show" />
-		</a>
-	</display:column>
+	<jstl:if test="${noteService.findNoteReportById(row.id) != null}">
+		<display:column titleKey="report.notes">
+			<a href="note/list.do?reportId=${row.id}"> <spring:message
+					code="report.show" />
+			</a>
+		</display:column>
+	</jstl:if>
 
 	<security:authorize access="hasRole('REFEREE')">
-		<a href="note/referee/create.do?reportId=${row.id}"> <spring:message
-				code="report.create" />
-		</a>
+		<jstl:if test="${noteService.findNoteReportById(row.id) == null && row.isFinal==true}">
+			<display:column>
+
+				<a href="note/referee/create.do?reportId=${row.id}"> <spring:message
+						code="note.create" />
+				</a>
+		<jstl:if test="${noteService.findNoteReportById(row.id) != null}">
+			<a href="note/list.do?reportId=${row.id}"> <spring:message
+					code="note.show" />
+			</a>
+		</jstl:if>
+
+			</display:column>
+		</jstl:if>
 	</security:authorize>
+
 
 
 

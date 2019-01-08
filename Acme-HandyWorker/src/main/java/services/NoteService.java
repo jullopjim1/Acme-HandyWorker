@@ -66,7 +66,6 @@ public class NoteService {
 
 		result = this.noteRepository.save(note);
 
-		Assert.isTrue(result.getIsFinal().equals(true));
 		return result;
 	}
 
