@@ -99,11 +99,11 @@
 		<bean class="converters.PhaseToStringConverter" />
 		<bean class="converters.StringToPhaseConverter" />
 
-		<bean class="converters.AdministratorToStringConverter" />
-		<bean class="converters.StringToAdministratorConverter" />
+		<bean class="converters.AdminToStringConverter" />
+		<bean class="converters.StringToAdminConverter" />
 
 		<bean class="converters.ApplicationToStringConverter" />
-		<bean class="converters.StringTApplicationConverter" />
+		<bean class="converters.StringToApplicationConverter" />
 
 
 	</util:list>
