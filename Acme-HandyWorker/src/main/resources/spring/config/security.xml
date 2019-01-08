@@ -152,43 +152,63 @@
 
 		<security:intercept-url pattern="/handyWorker/fixUpTasksCustomer.do"
 			access="hasRole('HANDY')" />
+
 		<security:intercept-url pattern="/handyWorker/viewProfileCustomer.do"
 			access="hasRole('HANDY')" />
+
 		<security:intercept-url pattern="/fixUpTask/handyWorker/list.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/complaint/handyWorker/list.do"
 			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/application/customer/edit.do"
 			access="hasRole('CUSTOMER')" />
+
 		<security:intercept-url pattern="/application/customer/list.do"
 			access="hasRole('CUSTOMER')" />
+
 		<security:intercept-url pattern="/fixUpTask/customer/list.do"
 			access="hasRole('CUSTOMER')" />
+
 		<security:intercept-url pattern="/fixUpTask/customer/create.do"
 			access="hasRole('CUSTOMER')" />
+
 		<security:intercept-url pattern="/fixUpTask/customer/edit.do"
 			access="hasRole('CUSTOMER')" />
+
 		<security:intercept-url pattern="/fixUpTask/customer/show.do"
 			access="isAuthenticated()" />
+
 		<!-- Message -->
 		<security:intercept-url pattern="/message/actor/exchangeMessage.do"
 			access="isAuthenticated()" />
+
 		<security:intercept-url pattern="/message/administrator/broadcastMessage.do"
 			access="hasRole('ADMIN')" />
+
 		<security:intercept-url pattern="/message/actor/list.do"
 			access="isAuthenticated()" />
+
 		<security:intercept-url pattern="/message/actor/show.do"
 			access="isAuthenticated()" />
+
 		<security:intercept-url pattern="/message/actor/move.do"
 			access="isAuthenticated()" />
+
 		<security:intercept-url pattern="/message/actor/edit.do"
 			access="isAuthenticated()" />
+
 		<!-- Box -->
 		<security:intercept-url pattern="/box/actor/list.do"
 			access="isAuthenticated()" />
+
 		<security:intercept-url pattern="/box/actor/edit.do"
 			access="isAuthenticated()" />
+
 		<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
+
 
 
 
@@ -203,7 +223,7 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/actor/register.do"
 			access="permitAll" />
-			
+
 		<security:intercept-url pattern="/register/actor.do"
 			access="permitAll" />
 
