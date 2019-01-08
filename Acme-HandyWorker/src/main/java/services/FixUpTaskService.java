@@ -58,7 +58,7 @@ public class FixUpTaskService {
 		final FixUpTask fixUpTask = new FixUpTask();
 
 		//Ticker Unico
-		final Ticker ticker = this.tickerService.isUniqueTicker();
+		final Ticker ticker = this.tickerService.create();
 		final Ticker saved = this.tickerService.save(ticker);
 
 		fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
@@ -83,7 +83,7 @@ public class FixUpTaskService {
 
 		//CHECK DEADLINE
 		Assert.isTrue(fixUpTask.getDeadline().after(fixUpTask.getMoment()), "FECHA LIMITE TIENE QUE SER POSTERIOR A FECHA DE CREACIÓN");
-		
+
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
