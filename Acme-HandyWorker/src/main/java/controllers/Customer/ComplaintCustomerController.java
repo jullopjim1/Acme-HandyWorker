@@ -131,7 +131,7 @@ public class ComplaintCustomerController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		result.addObject("customerId", complaint.getCustomer().getId());
-		result.addObject("requestURI", "complaint/customer/edit.do");
+		result.addObject("requestURI", "complaint/customer/edit.do?fixUpTask=" + complaint.getFixUpTask().getId());
 
 		return result;
 	}

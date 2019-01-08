@@ -43,27 +43,25 @@
 
 
 	<security:authorize access="hasRole('CUSTOMER')">
+		<display:column titleKey="complaint.create">
+			<jstl:if
+				test="${complaintService.findComplaintByTaskId(row.id) == null}">
 
-		<jstl:if
-			test="${complaintService.findComplaintByTaskId(row.id) == null}">
-			<display:column title="complaint.create">
 				<a href="complaint/customer/create.do?fixUpTaskId=${row.id}"> <spring:message
-						code="complaint.create" />
+						code="curriculum.create" />
 				</a>
-			</display:column>
-		</jstl:if>
+			</jstl:if>
+			<jstl:if
+				test="${complaintService.findComplaintByTaskId(row.id) != null and complaintService.findComplaintByTaskId(row.id).isFinal == true}">
+
+				<a href="complaint/showComplaint.do?fixUpTaskId=${row.id}"> <spring:message
+						code="complaint.show" />
+				</a>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
 
 
-	<jstl:if
-		test="${complaintService.findComplaintByTaskId(row.id) != null}">
-		<display:column titleKey="complaint.show">
-
-			<a href="complaint/showComplaint.do?fixUpTaskId=${row.id}"> <spring:message
-					code="complaint.show" />
-			</a>
-		</display:column>
-	</jstl:if>
 </display:table>
 
 <br />
