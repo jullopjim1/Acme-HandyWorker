@@ -43,9 +43,8 @@
 		</a>
 	</display:column>
 
-	<display:column property="sponsorship.banner"
-		titleKey="tutorial.sponsorship">
-		<img src="${row.sponsorship.banner}" />
+	<display:column titleKey="tutorial.sponsorship">
+		<img src="${row.sponsorship.banner}" height="100px" width="100px" />
 	</display:column>
 
 	<display:column titleKey="tutorial.section">

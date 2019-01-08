@@ -40,7 +40,9 @@
 	<display:column property="text" titleKey="section.text" />
 
 
-	<display:column property="pictures" titleKey="section.pictures" />
+	<display:column titleKey="section.pictures">
+		<img src="${row.pictures}" height="100px" width="100px" />
+	</display:column>
 
 	<display:column property="position" titleKey="section.position"
 		sortable="true" />
