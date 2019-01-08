@@ -96,6 +96,9 @@
 		<bean class="converters.AuthorityToStringConverter" />
 		<bean class="converters.StringToAuthorityConverter" />
 
+		<bean class="converters.PhaseToStringConverter" />
+		<bean class="converters.StringToPhaseConverter" />
+
 
 	</util:list>
 
