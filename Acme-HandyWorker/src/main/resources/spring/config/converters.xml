@@ -99,6 +99,9 @@
 		<bean class="converters.PhaseToStringConverter" />
 		<bean class="converters.StringToPhaseConverter" />
 
+		<bean class="converters.AdministratorToStringConverter" />
+		<bean class="converters.StringToAdministratorConverter" />
+
 
 	</util:list>
 
