@@ -26,15 +26,16 @@
 
 	<security:authorize access="hasRole('CUSTOMER')">
 
-		<jstl:if
-			test="${customerId==row.customer.id and row.isFinal == false }">
-			<display:column>
 
+		<display:column titleKey="complaint.edit">
+			<jstl:if
+				test="${customerId==row.customer.id and row.isFinal == false }">
 				<a href="complaint/customer/edit.do?complaintId=${row.id}"> <spring:message
 						code="complaint.edit" />
 				</a>
-			</display:column>
-		</jstl:if>
+			</jstl:if>
+		</display:column>
+
 	</security:authorize>
 
 	<display:column titleKey="complaint.details">
