@@ -1059,7 +1059,7 @@
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments1.com" />
 		<property name="customer" ref="customer1" />
-		<property name="fixUpTask" ref="fixuptask1" />
+		<property name="fixUpTask" ref="fixuptask4" />
 		<property name="isFinal" value="true" />
 	</bean>
 
