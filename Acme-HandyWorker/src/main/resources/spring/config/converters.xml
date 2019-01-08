@@ -77,21 +77,25 @@
 
 		<bean class="converters.WarrantyToStringConverter" />
 		<bean class="converters.StringToWarrantyConverter" />
-		
+
 		<bean class="converters.TickerToStringConverter" />
 		<bean class="converters.StringToTickerConverter" />
-		
+
 		<bean class="converters.NoteToStringConverter" />
 		<bean class="converters.StringToNoteConverter" />
-		
+
 		<bean class="converters.ReportToStringConverter" />
 		<bean class="converters.StringToReportConverter" />
-		
+
 		<bean class="converters.ComplaintToStringConverter" />
 		<bean class="converters.StringToComplaintConverter" />
-		
+
 		<bean class="converters.RefereeToStringConverter" />
 		<bean class="converters.StringToRefereeConverter" />
+
+		<bean class="converters.AuthorityToStringConverter" />
+		<bean class="converters.StringToAuthorityConverter" />
+
 
 	</util:list>
 
