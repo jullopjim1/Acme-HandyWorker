@@ -151,7 +151,8 @@
 			access="hasRole('HANDY')" />
 
 
-
+		<security:intercept-url pattern="/fixUpTask/handyWorker/list.do"
+			access="hasRole('HANDY')" />
 		<security:intercept-url pattern="/fixUpTask/customer/list.do"
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/fixUpTask/customer/create.do"

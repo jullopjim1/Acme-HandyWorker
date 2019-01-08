@@ -61,6 +61,14 @@
 		</display:column>
 	</security:authorize>
 
+	<security:authorize access="hasRole('HANDY')">
+		<display:column titleKey="fixUpTask.customer">
+			<a href="handyWorker/viewProfileCustomer.do?customerId=${row.customer.id}">
+				<spring:message code="fixUpTask.viewProfile" />
+			</a>
+		</display:column>
+	</security:authorize>
+
 
 </display:table>
 
