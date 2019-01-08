@@ -20,7 +20,6 @@ import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.Application;
 import domain.HandyWorker;
-import domain.Tutorial;
 
 @Controller
 @RequestMapping("/application/handyworker")
@@ -117,15 +116,15 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	//DELETE
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Tutorial tutorial, final BindingResult binding) {
+	public ModelAndView delete(@Valid final Application application, final BindingResult binding) {
 
 		ModelAndView result;
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
-			this.tutorialService.delete(tutorial);
+			this.applicationService.delete(application);
 			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
+			result = this.createEditModelAndView(application, "application.commit.error");
 		}
 		return result;
 	}
