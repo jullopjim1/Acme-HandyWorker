@@ -105,6 +105,9 @@
 		<bean class="converters.ApplicationToStringConverter" />
 		<bean class="converters.StringToApplicationConverter" />
 
+		<bean class="converters.ConfigurationToStringConverter" />
+		<bean class="converters.StringToConfigurationConverter" />
+
 
 	</util:list>
 

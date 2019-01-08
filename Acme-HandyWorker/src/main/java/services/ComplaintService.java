@@ -99,12 +99,11 @@ public class ComplaintService {
 		return this.complaintRepository.findComplaintByTaskId(fixUpTaskId);
 	}
 
-	public Complaint findComplaintFinalByTaskId(final int fixUpTaskId) {
-		return this.complaintRepository.findComplaintFinalByTaskId(fixUpTaskId);
-	}
-
 	public Collection<Complaint> findComplaintsByHandyWorkerId(final int handyId) {
 		return this.complaintRepository.findComplaintsByHandyWorkerId(handyId);
+	}
+	public Complaint findComplaintFinalByTaskId(final int fixUpTaskId) {
+		return this.complaintRepository.findComplaintFinalByTaskId(fixUpTaskId);
 	}
 
 }

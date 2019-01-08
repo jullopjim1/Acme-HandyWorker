@@ -43,11 +43,11 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
-		final Collection<Application> apps;
+		final Collection<Application> applications;
 
-		apps = this.applicationService.findAll();
-		result = new ModelAndView("tutorial/list");
-		result.addObject("applications", apps);
+		applications = this.applicationService.findAll();
+		result = new ModelAndView("application/list");
+		result.addObject("applications", applications);
 		result.addObject("requestURI", "/list.do");
 		return result;
 	}
@@ -56,15 +56,15 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
 	public ModelAndView show(@RequestParam final int applicationId) {
-		final ModelAndView modelAndView;
+		final ModelAndView result;
 
-		final Application app = this.applicationService.findOne(applicationId);
+		final Application applications = this.applicationService.findOne(applicationId);
 
-		modelAndView = this.createEditModelAndView(app);
-		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI", "/show.do?applicationId=" + applicationId);
+		result = this.createEditModelAndView(applications);
+		result.addObject("isRead", true);
+		result.addObject("requestURI", "/show.do?applicationId=" + applicationId);
 
-		return modelAndView;
+		return result;
 
 	}
 
@@ -72,11 +72,11 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Application app;
+		Application applications;
 
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		app = this.applicationService.create(a.getId());
-		result = this.createEditModelAndView(app);
+		applications = this.applicationService.create(a.getId());
+		result = this.createEditModelAndView(applications);
 		result.addObject("handyWorkerId", a.getId());
 
 		return result;
@@ -84,31 +84,31 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Edit
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int appId) {
+	public ModelAndView edit(@RequestParam final int applicationId) {
 		ModelAndView result;
-		Application app;
+		Application applications;
 
-		app = this.applicationService.findOne(appId);
-		Assert.notNull(app);
-		result = this.createEditModelAndView(app);
+		applications = this.applicationService.findOne(applicationId);
+		Assert.notNull(applications);
+		result = this.createEditModelAndView(applications);
 
 		return result;
 	}
 
 	//Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Application application, final BindingResult binding) {
+	public ModelAndView save(@Valid final Application applications, final BindingResult binding) {
 
 		ModelAndView result;
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(application);
+			result = this.createEditModelAndView(applications);
 		else
 			try {
-				this.applicationService.save(application);
+				this.applicationService.save(applications);
 				result = new ModelAndView("redirect:/application/handyworker/list.do?=" + a.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(application, "application.commit.error");
+				result = this.createEditModelAndView(applications, "application.commit.error");
 
 			}
 		return result;
@@ -116,15 +116,15 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	//DELETE
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Application application, final BindingResult binding) {
+	public ModelAndView delete(@Valid final Application applications, final BindingResult binding) {
 
 		ModelAndView result;
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
-			this.applicationService.delete(application);
+			this.applicationService.delete(applications);
 			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(application, "application.commit.error");
+			result = this.createEditModelAndView(applications, "application.commit.error");
 		}
 		return result;
 	}

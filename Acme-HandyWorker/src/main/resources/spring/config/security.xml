@@ -337,6 +337,8 @@
 			access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/category/administrator/create.do"
 			access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/configuration/administrator/**"
+			access="hasRole('ADMIN')" />
 
 		<!-- Customer -->
 		<security:intercept-url pattern="/customer/action-1.do"
