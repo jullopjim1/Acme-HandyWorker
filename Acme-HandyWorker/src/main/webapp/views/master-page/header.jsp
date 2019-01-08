@@ -27,6 +27,8 @@
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a href="dashboard/administrator/dashboard.do"><spring:message
 						code="master.page.administrator.dashboard" /></a></li>
+			<li><a href="configuration/administrator/list.do"><spring:message
+						code="master.page.administrator.configuration" /></a></li>
 			<li><a class="fNiv" href="category/administrator/list.do"><spring:message
 						code="master.page.categories" /></a></li>
 			<li><a href="actor/administrator/list.do"><spring:message
@@ -85,7 +87,7 @@
 			<li><a class="fNiv" href="report/referee/list.do"><spring:message
 						code="master.page.report" /></a></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('REFEREE')">
 			<li><a class="fNiv" href="note/referee/list.do"><spring:message
 						code="master.page.note" /></a></li>
