@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.HandyWorker;
 import repositories.HandyWorkerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -133,5 +133,4 @@ public class HandyWorkerService {
 	public HandyWorker findHandyByUsername(final String username) {
 		return this.handyWorkerRepository.findHandyByUsername(username);
 	}
-
 }
