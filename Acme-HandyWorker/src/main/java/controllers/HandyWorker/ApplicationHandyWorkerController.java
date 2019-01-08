@@ -3,9 +3,12 @@ package controllers.HandyWorker;
 
 import java.util.Collection;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +20,7 @@ import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.Application;
 import domain.HandyWorker;
+import domain.Tutorial;
 
 @Controller
 @RequestMapping("/application/handyworker")
@@ -89,6 +93,40 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		Assert.notNull(app);
 		result = this.createEditModelAndView(app);
 
+		return result;
+	}
+
+	//Save
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(@Valid final Application application, final BindingResult binding) {
+
+		ModelAndView result;
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(application);
+		else
+			try {
+				this.applicationService.save(application);
+				result = new ModelAndView("redirect:/application/handyworker/list.do?=" + a.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(application, "application.commit.error");
+
+			}
+		return result;
+	}
+
+	//DELETE
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Tutorial tutorial, final BindingResult binding) {
+
+		ModelAndView result;
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		try {
+			this.tutorialService.delete(tutorial);
+			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
+		}
 		return result;
 	}
 
