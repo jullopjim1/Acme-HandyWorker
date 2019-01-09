@@ -191,4 +191,8 @@ public class ApplicationService {
 		return this.applicationRepository.queryC9();
 	}
 
+	public Application findApplicationByHandyWorkerIdAndTaskId(final int handyWorkerId, final int fixUpTaskId) {
+		return this.applicationRepository.findApplicationByHandyWorkerIdAndTaskId(handyWorkerId, fixUpTaskId);
+	}
+
 }
