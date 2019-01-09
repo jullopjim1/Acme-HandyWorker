@@ -108,7 +108,8 @@
 		<bean class="converters.ConfigurationToStringConverter" />
 		<bean class="converters.StringToConfigurationConverter" />
 
-
+		<bean class="converters.ProfileToStringConverter" />
+		<bean class="converters.StringToProfileConverter" />
 	</util:list>
 
 </beans>

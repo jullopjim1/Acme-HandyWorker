@@ -1,3 +1,4 @@
+
 package controllers.Customer;
 
 import java.util.Collection;
@@ -14,11 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
-import services.ApplicationService;
-import services.CreditCardService;
-import services.CustomerService;
-import services.FixUpTaskService;
 import controllers.AbstractController;
 import domain.Application;
 import domain.CreditCard;
@@ -34,16 +30,17 @@ public class ApplicationCustomerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private ApplicationService applicationService;
+	private ApplicationService	applicationService;
 
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	private CreditCardService creditCardService;
+	private CreditCardService	creditCardService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -55,14 +52,10 @@ public class ApplicationCustomerController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
-		Collection<Application> applications = new HashSet<Application>();
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
-		for (FixUpTask f : fixUpTaskService
-				.findFixUpTaskByCustomerId(c.getId())) {
-			applications.addAll(applicationService
-					.findApplicationsByFixUpTeaskId(f.getId()));
-		}
+		final Collection<Application> applications = new HashSet<Application>();
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+		for (final FixUpTask f : this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId()))
+			applications.addAll(this.applicationService.findApplicationsByFixUpTeaskId(f.getId()));
 
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applications);
@@ -74,13 +67,11 @@ public class ApplicationCustomerController extends AbstractController {
 	// EDIT
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(final int applicationId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(final int applicationId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		Application application = null;
-		ApplicationForm applicationForm = new ApplicationForm();
+		final ApplicationForm applicationForm = new ApplicationForm();
 		try {
 			application = this.applicationService.findOne(applicationId);
 			Assert.isTrue(application.getFixUpTask().getCustomer().equals(c));
@@ -160,8 +151,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 			result = new ModelAndView("redirect:/application/customer/list.do");
 			if (application == null)
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.unexist");
+				redirectAttrs.addFlashAttribute("message", "application.error.unexist");
 			else if (!application.getFixUpTask().getCustomer().equals(c))
 				redirectAttrs.addFlashAttribute("message",
 						"application.error.noCustomer");
@@ -183,14 +173,11 @@ public class ApplicationCustomerController extends AbstractController {
 		ModelAndView result = null;
 
 		if (binding.hasErrors())
-			result = this.createAndEditModelAndView(applicationForm,
-					"commit.error");
+			result = this.createAndEditModelAndView(applicationForm, "commit.error");
 		else
 			try {
-				final Customer c = this.customerService
-						.findByUserAccount(LoginService.getPrincipal().getId());
-				Application a = applicationService.findOne(applicationForm
-						.getId());
+				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+				final Application a = this.applicationService.findOne(applicationForm.getId());
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
 
 				a.setStatus("REJECTED");
@@ -285,8 +272,7 @@ public class ApplicationCustomerController extends AbstractController {
 				a.setCreditCard(creditCardSaved);
 				this.applicationService.save(a);
 
-				result = new ModelAndView(
-						"redirect:/application/customer/list.do");
+				result = new ModelAndView("redirect:/application/customer/list.do");
 
 			} catch (final Throwable oops) {
 
@@ -297,23 +283,18 @@ public class ApplicationCustomerController extends AbstractController {
 	}
 
 	// METHODS
-	protected ModelAndView createAndEditModelAndView(
-			final ApplicationForm applicationForm) {
+	protected ModelAndView createAndEditModelAndView(final ApplicationForm applicationForm) {
 		ModelAndView result;
 		result = this.createAndEditModelAndView(applicationForm, null);
 		return result;
 	}
 
-	protected ModelAndView createAndEditModelAndView(
-			final ApplicationForm applicationForm, final String message) {
+	protected ModelAndView createAndEditModelAndView(final ApplicationForm applicationForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("application/editForm");
 		result.addObject("message", message);
-		result.addObject(
-				"requestURI",
-				"application/customer/edit.do?applicationId="
-						+ applicationForm.getId());
+		result.addObject("requestURI", "application/customer/edit.do?applicationId=" + applicationForm.getId());
 		result.addObject("applicationForm", applicationForm);
 
 		return result;

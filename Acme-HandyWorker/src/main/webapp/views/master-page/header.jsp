@@ -61,12 +61,10 @@
 				</ul></li>
 		</security:authorize>
 
+
 		<security:authorize access="hasRole('HANDY')">
 			<li><a class="fNiv" href="fixUpTask/handyWorker/list.do"><spring:message
 						code="master.page.fixuptasks2" /></a></li>
-		</security:authorize>
-
-		<security:authorize access="hasRole('HANDY')">
 			<li><a class="fNiv" href="complaint/list.do"><spring:message
 						code="master.page.complaint" /></a>
 				<ul>
@@ -75,7 +73,7 @@
 								code="master.page.myComplaint" /></a></li>
 				</ul></li>
 
-			<li><a href="application/handyWorker/list.do"><spring:message
+			<li><a href="application/handyworker/list.do"><spring:message
 						code="master.page.handy.application.list" /></a></li>
 
 			<li><a href="curriculum/handyworker/list.do"><spring:message
@@ -151,6 +149,8 @@
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="profile/list.do"><spring:message
+						code="master.page.profile.social" /></a></li>
 
 			<li><a class="fNiv"> <spring:message
 						code="master.page.profile" /> (<security:authentication
