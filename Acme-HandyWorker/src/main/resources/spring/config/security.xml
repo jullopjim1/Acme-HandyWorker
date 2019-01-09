@@ -239,6 +239,9 @@
 		<security:intercept-url pattern="/profile/show.do"
 			access="isAuthenticated()" />
 
+		<security:intercept-url pattern="/profile/create.do"
+			access="isAuthenticated()" />
+			
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />
 

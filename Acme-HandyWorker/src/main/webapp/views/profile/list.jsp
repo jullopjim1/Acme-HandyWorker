@@ -35,3 +35,7 @@
 	
 	
 </display:table>
+
+<a href="profile/create.do"> <spring:message
+			code="profile.create" />
+	</a>

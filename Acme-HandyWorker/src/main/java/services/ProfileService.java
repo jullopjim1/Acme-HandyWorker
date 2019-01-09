@@ -33,9 +33,9 @@ public class ProfileService {
 	}
 
 	// Simple CRUD methods -------------------------------------------------------------------
-	public Profile create(final int ActorId) {
+	public Profile create(final int actorId) {
 		final Profile profile = new Profile();
-		profile.setActor(this.actorRepository.findOne(ActorId));
+		profile.setActor(this.actorRepository.findOne(actorId));
 		return profile;
 	}
 
