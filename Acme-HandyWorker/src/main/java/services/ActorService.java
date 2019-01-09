@@ -68,7 +68,7 @@ public class ActorService {
 		return this.actorRepository.findOne(ActorId);
 	}
 
-	Actor findActorByUsername(final String username) {
+	public Actor findActorByUsername(final String username) {
 		final Actor actor = this.actorRepository.findActorByUsername(username);
 		return actor;
 	}
@@ -118,15 +118,15 @@ public class ActorService {
 
 		final Collection<Authority> authorities = actor.getUserAccount().getAuthorities();
 		final Authority handy = new Authority();
-		handy.setAuthority("HANDY");
+		handy.setAuthority(Authority.HANDY);
 		final Authority cust = new Authority();
-		cust.setAuthority("CUSTOMER");
+		cust.setAuthority(Authority.CUSTOMER);
 		final Authority refer = new Authority();
-		refer.setAuthority("REFEREE");
+		refer.setAuthority(Authority.REFEREE);
 		final Authority spon = new Authority();
-		spon.setAuthority("SPONSOR");
+		spon.setAuthority(Authority.SPONSOR);
 		final Authority admin = new Authority();
-		admin.setAuthority("ADMIN");
+		admin.setAuthority(Authority.ADMIN);
 
 		if (authorities.contains(handy)) {
 			HandyWorker handyWorker = null;
@@ -147,7 +147,6 @@ public class ActorService {
 			handyWorker.setPhoto(actor.getPhoto());
 			handyWorker.setSurname(actor.getSurname());
 
-			this.handyWorkerService.save(handyWorker);
 			final Actor actor1 = this.handyWorkerService.save(handyWorker);
 			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(cust)) {
@@ -169,7 +168,6 @@ public class ActorService {
 			customer.setPhoto(actor.getPhoto());
 			customer.setSurname(actor.getSurname());
 
-			this.customerService.save(customer);
 			final Actor actor1 = this.customerService.save(customer);
 			this.boxService.addSystemBox(actor1);
 		} else if (authorities.contains(refer)) {
