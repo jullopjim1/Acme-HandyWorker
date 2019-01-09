@@ -45,13 +45,14 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		ModelAndView result;
 		final Collection<Application> applications;
 
-		applications = this.applicationService.findAll();
+		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final int handyWorkerId = h.getId();
+		applications = this.applicationService.findApplicationByHandyWorkerId(handyWorkerId);
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applications);
 		result.addObject("requestURI", "/list.do");
 		return result;
 	}
-
 	//Show------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
