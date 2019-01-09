@@ -72,20 +72,21 @@ public class ApplicationService {
 		final Authority handy = new Authority();
 		handy.setAuthority("HANDY");
 		final Authority cust = new Authority();
-		handy.setAuthority("CUSTOMER");
+		cust.setAuthority("CUSTOMER");
 
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
-		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
+		Assert.notNull(actorActual.getId() == application.getHandyWorker().getId(), "NO HAY ACTOR DETECTADO");
+		final Collection<Authority> authorities = actorActual.getUserAccount().getAuthorities();
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (actorActual.getUserAccount().getAuthorities().contains(cust)) {
+		if (authorities.contains(cust)) {
 			final boolean restriccion = (application.getId() != 0) && (application.getFixUpTask().getCustomer().getId() == (actorActual.getId()));
 			final boolean restriccion2 = (application.getFixUpTask().getCustomer().getId() == actorActual.getId());
 			Assert.isTrue(restriccion, "CUSTOMER NO PUEDE CREAR APPLICATION");
 			Assert.isTrue(restriccion2, "CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
-		} else if (actorActual.getUserAccount().getAuthorities().contains(handy)) {
-			final boolean restriccion = (application.getId() == 0) && (application.getHandyWorker().getId() == (actorActual.getId()));
+		} else if (authorities.contains(handy)) {
+			final boolean restriccion = (application.getHandyWorker().getId() != (actorActual.getId()));
 			Assert.isTrue(restriccion, "HANDY NO PUEDE MODIFICAR APPLICATION");
 		} else
 			Assert.notNull(null, "PARA CREAR APPLICATION -> HANDY, PARA MODIFICAR APPLICATION -> CUSTOMER");
@@ -94,7 +95,6 @@ public class ApplicationService {
 		if (application.getStatus() == "ACCEPTED")
 			Assert.isTrue(application.getCreditCard() != null, "SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
 
-		// SOLO CAMBIAR FECHA SI ES NUEVO
 		if (application.getId() == 0)
 			application.setMoment(new Date(System.currentTimeMillis() - 1000));
 		// GUARDO APPLICATION

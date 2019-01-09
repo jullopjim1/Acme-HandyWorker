@@ -15,10 +15,9 @@
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="handyWorker" />
+	<form:hidden path="moment" />
+	<form:hidden path="fixUpTask" />
 
-	<security:authorize access="hasRole('HANDY')">
-		<form:hidden path="status" />
-	</security:authorize>
 
 	<form:label path="comments">
 		<spring:message code="application.comments" />

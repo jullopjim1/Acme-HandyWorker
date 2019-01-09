@@ -16,7 +16,13 @@
 	<form:hidden path="version" />
 	<form:hidden path="handyWorker" />
 	<form:hidden path="moment" />
-	<form:hidden path="status" />
+	<form:hidden path="fixUpTask" />
+
+	<security:authorize access="hasRole('HANDY')">
+		<form:hidden path="status" />
+	</security:authorize>
+
+
 
 	<form:label path="price">
 		<spring:message code="application.price" />
