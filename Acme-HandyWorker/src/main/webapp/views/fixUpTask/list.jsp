@@ -24,7 +24,10 @@
 		</display:column>
 
 	</security:authorize>
-
+	
+	<display:column property="ticker.ticker"
+		titleKey="fixuptask.ticker" />
+	
 	<display:column titleKey="fixuptask.category">
 		<jstl:forEach var="entry" items="${row.category.name}">
 			<jstl:if test="${lang==entry.key}">

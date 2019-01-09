@@ -50,8 +50,8 @@
 	<form:label path="category">
 		<spring:message code="fixuptask.category" />:
 	</form:label>
-	<form:select path="category.name" readonly="${isRead}">
-		<form:options items="${catLangs}" />
+	<form:select path="category" readonly="${isRead}">
+		<form:options items="${categories}" itemValue="id" itemLabel="name" />
 	</form:select>
 	<form:errors cssClass="error" path="category" />
 
