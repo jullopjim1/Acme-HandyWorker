@@ -100,7 +100,8 @@
 			
 		<jstl:if test="${application.id != 0}">
 			<input type="submit" name="delete"
-				value="<spring:message code="application.delete"/>" />
+				value="<spring:message code="application.delete"/>"
+				onclick="javascript: return confirm('<spring:message code="application.confirmDelete" />')" />
 		</jstl:if>
 	</jstl:if>
 
