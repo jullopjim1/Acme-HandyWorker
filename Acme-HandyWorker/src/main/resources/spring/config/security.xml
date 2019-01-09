@@ -57,9 +57,9 @@
 
 		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
-			
-		
-		
+
+
+
 
 		<security:intercept-url pattern="/report/list.do"
 			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
@@ -165,13 +165,13 @@
 		<security:intercept-url pattern="/complaint/handyWorker/list.do"
 			access="hasRole('HANDY')" />
 
-		<security:intercept-url pattern="/application/handyWorker/list.do"
+		<security:intercept-url pattern="/application/handyworker/list.do"
 			access="hasRole('HANDY')" />
 
-		<security:intercept-url pattern="/application/handyWorker/edit.do"
+		<security:intercept-url pattern="/application/handyworker/edit.do"
 			access="hasRole('HANDY')" />
-			
-		<security:intercept-url pattern="/application/handyWorker/show.do"
+
+		<security:intercept-url pattern="/application/handyworker/show.do"
 			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/application/customer/edit.do"
@@ -223,10 +223,10 @@
 
 		<security:intercept-url pattern="/profile/edit.do"
 			access="isAuthenticated()" />
-		
+
 		<security:intercept-url pattern="/profile/list.do"
 			access="isAuthenticated()" />
-		
+
 		<security:intercept-url pattern="/profile/show.do"
 			access="isAuthenticated()" />
 

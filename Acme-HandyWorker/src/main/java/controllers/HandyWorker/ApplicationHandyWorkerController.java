@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import security.LoginService;
-import services.ApplicationService;
-import services.HandyWorkerService;
 import controllers.AbstractController;
 import domain.Application;
 import domain.HandyWorker;
+import security.LoginService;
+import services.ApplicationService;
+import services.HandyWorkerService;
 
 @Controller
-@RequestMapping("/application/handyWorker")
+@RequestMapping("/application/handyworker")
 public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Services-----------------------------------------------------------
