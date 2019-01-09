@@ -124,6 +124,10 @@ public class ApplicationService {
 		return this.applicationRepository.findApplicationsByFixUpTaskId(fixUpTaskId);
 	}
 
+	public Collection<Application> findApplicationByHandyWorkerId(final int handyWorkerId) {
+		return this.applicationRepository.findApplicationByHandyWorkerId(handyWorkerId);
+	}
+
 	public Double queryC2AVG() {
 		return this.applicationRepository.queryC2AVG();
 	}
