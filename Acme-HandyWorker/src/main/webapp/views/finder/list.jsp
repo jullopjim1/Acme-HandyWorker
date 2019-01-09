@@ -28,7 +28,7 @@
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<display:column property="ticker" titleKey="finder.fix.ticker" />
+	<display:column property="ticker.ticker" titleKey="finder.fix.ticker" />
 	
 	<display:column property="description"
 		titleKey="finder.fix.description" />

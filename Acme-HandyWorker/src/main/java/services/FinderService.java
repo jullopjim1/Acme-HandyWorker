@@ -98,7 +98,12 @@ public class FinderService {
 		finder = this.updateFinder(finder);
 
 		final Finder saved = this.finderRepository.save(this.updateFinder(finder));
-
+		if (finder.getId() == 0) {
+			final UserAccount userAccount = LoginService.getPrincipal();
+			final HandyWorker handy = this.handyWorkerService.findHandyWorkerByUserAccount(userAccount.getId());
+			handy.setFinder(saved);
+			this.handyWorkerService.save(handy);
+		}
 		return saved;
 	}
 	/**
@@ -199,7 +204,8 @@ public class FinderService {
 		final Finder finder = this.findFinderByHandyWorkerId(actor.getId());
 
 		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los handyWorker tiene finder");
-		Assert.isTrue(f.equals(finder), "Un finder solo puede ser modificado por su dueño");
+
+		Assert.isTrue(f.equals(finder) || (f.getId() == 0 && finder == null), "Un finder solo puede ser modificado por su dueño");
 
 	}
 
@@ -210,7 +216,7 @@ public class FinderService {
 		Finder finder = this.findFinderByHandyWorkerId(handyWorker.getId());
 
 		if (finder == null)
-			finder = this.create();
+			finder = this.save(this.create());
 
 		return finder;
 
