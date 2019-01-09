@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.MessageRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Box;
 import domain.Configuration;
 import domain.Message;
+import repositories.MessageRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -61,7 +61,6 @@ public class MessageService {
 
 		final String subject = "";
 		final String body = "";
-		final Date moment = new Date();
 		final String priority = "LOW";
 		final String tags = "";
 
@@ -71,7 +70,7 @@ public class MessageService {
 
 		message.setSubject(subject);
 		message.setBody(body);
-		message.setMoment(moment);
+		message.setMoment(new Date(System.currentTimeMillis() - 1000));
 		message.setPriority(priority);
 		message.setTags(tags);
 		message.setBox(box);

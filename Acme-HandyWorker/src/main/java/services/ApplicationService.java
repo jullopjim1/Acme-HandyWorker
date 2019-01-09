@@ -17,6 +17,7 @@ import domain.Application;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
+import domain.Message;
 import repositories.ApplicationRepository;
 import security.Authority;
 import security.LoginService;
@@ -38,6 +39,9 @@ public class ApplicationService {
 
 	@Autowired
 	private FixUpTaskService		fixUpTaskService;
+
+	@Autowired
+	private MessageService			messageService;
 
 
 	// Constructor----------------------------------------------
@@ -93,6 +97,22 @@ public class ApplicationService {
 
 		application.setMoment(new Date(System.currentTimeMillis() - 1000));
 		// GUARDO APPLICATION
+
+		//Enviar Mensaje
+		final Message message = this.messageService.create();
+		message.setSender(actorActual);
+		message.setRecipient(application.getHandyWorker());
+		message.setPriority("HIGH");
+		if (application.getStatus() == "ACCEPTED") {
+			message.setBody("Application has been " + application.getStatus());
+			message.setSubject("Application of " + actorActual.getUserAccount().getUsername());
+			this.messageService.save(message);
+		} else if (application.getStatus() == "REJECTED") {
+			message.setBody("Application has been " + application.getStatus());
+			message.setSubject("Application of " + actorActual.getUserAccount().getUsername());
+			this.messageService.save(message);
+		}
+
 		final Application saved = this.applicationRepository.save(application);
 		return saved;
 	}
