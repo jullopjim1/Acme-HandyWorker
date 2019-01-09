@@ -22,7 +22,7 @@ import domain.Application;
 import domain.HandyWorker;
 
 @Controller
-@RequestMapping("/application/handyworker")
+@RequestMapping("/application/handyWorker")
 public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Services-----------------------------------------------------------
