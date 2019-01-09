@@ -14,6 +14,13 @@
 
 	<form:hidden path="id" />
 	
+		<form:label path="price">
+		<spring:message code="application.price" />
+	</form:label>
+	<form:input path="price" />
+	<form:errors ccsClass="error" path="price" />
+	<br />
+	
 	<form:label path="comments">
 		<spring:message code="application.comments" />
 	</form:label>
