@@ -84,12 +84,13 @@ public class RegisterController extends AbstractController {
 
 				final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 				userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
-
+				userAccount.setEnabled(true);
 				actor.setUserAccount(userAccount);
 				this.actorService.update(actor);
 
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
+				System.out.println("=======" + oops.getMessage() + "=======");
 				result = this.createEditModelAndView(actor, "message.commit.error");
 			}
 		return result;
