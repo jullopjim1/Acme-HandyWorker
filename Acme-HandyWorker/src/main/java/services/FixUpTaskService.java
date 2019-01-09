@@ -45,7 +45,7 @@ public class FixUpTaskService {
 
 	@Autowired
 	private TickerService tickerService;
-	
+
 	@Autowired
 	private ComplaintService complaintService;
 
@@ -133,14 +133,14 @@ public class FixUpTaskService {
 				.findApplicationsByFixUpTeaskId(fixUpTask.getId());
 		for (final Application a : applications)
 			this.applicationService.deleteByFixUpTask(a);
-		
-		// BORRO SUS COMPLAINT
-				final Collection<Complaint> complaints = this.complaintService.findComplaintsByTaskId(fixUpTask.getId());
-				for (final Complaint a : complaints)
-					this.complaintService.delete(a);
+
+		// BORRO SU COMPLAINT
+		final Complaint complaint = this.complaintService
+				.findComplaintByTaskId(fixUpTask.getId());
+		complaintService.delete(complaint);
 
 		// BORRO LA FIXUPTASK
-		 this.fixUpTaskRepository.delete(fixUpTask);
+		this.fixUpTaskRepository.delete(fixUpTask);
 
 	}
 

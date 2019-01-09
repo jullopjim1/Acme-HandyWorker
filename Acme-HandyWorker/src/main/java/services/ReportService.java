@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.Collection;
@@ -13,6 +12,7 @@ import org.springframework.util.Assert;
 
 import repositories.ReportRepository;
 import domain.Complaint;
+import domain.Note;
 import domain.Referee;
 import domain.Report;
 
@@ -22,14 +22,16 @@ public class ReportService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private ReportRepository	reportRepository;
+	private ReportRepository reportRepository;
 	// Services-------------------------------------------------
 	@Autowired
-	private ComplaintService	complaintService;
+	private ComplaintService complaintService;
 
 	@Autowired
-	private RefereeService		refereeService;
+	private RefereeService refereeService;
 
+	@Autowired
+	private NoteService noteService;
 
 	// Constructor----------------------------------------------
 	public ReportService() {
@@ -68,18 +70,21 @@ public class ReportService {
 	}
 
 	public void delete(final Report report) {
-		// TODO METODO PARA BORRAR LAS NOTE (A TESTEAR)
-		// if (!report.getNote().isEmpty()) {
-		// for (Note n : report.getNote()) {
-		// noteService.delete(n);
-		// }
-		// }
+		Note n = noteService.findNoteReportById(report.getId());
+		if (n != null) {
+			noteService.delete(n);
+		}
 
 		this.reportRepository.delete(report);
 	}
+
 	// Other Methods--------------------------------------------
 	public Report findReportByComplaintId(final int complaintId) {
 		return this.reportRepository.findReportByComplaintId(complaintId);
+	}
+
+	public Collection<Report> findReportsByComplaintId(int complaintId) {
+		return this.reportRepository.findReportsByComplaintId(complaintId);
 	}
 
 	public Collection<Report> findReportByRefereeId(final int refereeId) {
@@ -90,6 +95,7 @@ public class ReportService {
 		return this.reportRepository.findReportFinal(complaintId);
 
 	}
+
 	public Double queryB2AVG() {
 		return this.reportRepository.queryB2AVG();
 	}

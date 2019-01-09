@@ -33,5 +33,8 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 
 	@Query("select stddev(1.0 * (select count(f) from Note f where f.report.id = c.id)) from Report c")
 	Double queryB2STDDEV();
+	
+	@Query("select r from Report r where r.complaint.id = ?1")
+	public Collection<Report> findReportsByComplaintId(int complaintId);
 
 }
