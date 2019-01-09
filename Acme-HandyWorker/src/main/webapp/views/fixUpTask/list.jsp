@@ -24,10 +24,9 @@
 		</display:column>
 
 	</security:authorize>
-	
-	<display:column property="ticker.ticker"
-		titleKey="fixuptask.ticker" />
-	
+
+	<display:column property="ticker.ticker" titleKey="fixuptask.ticker" />
+
 	<display:column titleKey="fixuptask.category">
 		<jstl:forEach var="entry" items="${row.category.name}">
 			<jstl:if test="${lang==entry.key}">
@@ -73,7 +72,7 @@
 		</display:column>
 
 		<display:column titleKey="fixUpTask.application.create">
-			<a href="application/handyWorker/create.do"><spring:message
+			<a href="application/handyworker/create.do?fixUpTaskId=${row.id}"><spring:message
 					code="fixUpTask.application.create" /></a>
 		</display:column>
 	</security:authorize>
