@@ -97,7 +97,9 @@
 
 	<input type="submit" name="save"
 		value="<spring:message code="application.save"/>" />
-
+		
+	<input type="submit" name="delete"
+		value="<spring:message code="application.delete"/>" />
 
 	<input type="button" name="cancel"
 		value="<spring:message code="application.cancel" />"
