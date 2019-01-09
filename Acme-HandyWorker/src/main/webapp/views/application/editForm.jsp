@@ -13,19 +13,18 @@
 <form:form action="${requestURI}" modelAttribute="applicationForm">
 
 	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="handyWorker" />
+
+	<security:authorize access="hasRole('HANDY')">
+		<form:hidden path="status" />
+	</security:authorize>
 
 	<form:label path="comments">
 		<spring:message code="application.comments" />
 	</form:label>
-<<<<<<< HEAD
 	<form:input path="comments" />
 	<form:errors cssClass="error" path="comments" />
-=======
-	<form:textarea path="comments" />
-	<form:errors ccsClass="error" path="comments" />
->>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
-	<br />
-<<<<<<< HEAD
 
 	<security:authorize access="hasRole('CUSTOMER')">
 		<jstl:if test="${application.id != 0 }">

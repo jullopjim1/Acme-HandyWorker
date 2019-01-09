@@ -103,9 +103,6 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 		ModelAndView result;
 
-		if (applications.getStatus() == "REJECTED")
-			applications.setStatus("PENDING");
-
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(applications);
