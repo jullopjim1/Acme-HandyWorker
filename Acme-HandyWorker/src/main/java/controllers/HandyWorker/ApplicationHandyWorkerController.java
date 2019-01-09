@@ -22,7 +22,7 @@ import services.ApplicationService;
 import services.HandyWorkerService;
 
 @Controller
-@RequestMapping("/application/handyWorker")
+@RequestMapping("/application/handyworker")
 public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Services-----------------------------------------------------------
@@ -79,6 +79,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		applications = this.applicationService.create(a.getId());
 		result = this.createEditModelAndView(applications);
+		result.addObject("requestURI", "application/handyworker/create.do");
 		result.addObject("handyWorkerId", a.getId());
 
 		return result;
@@ -146,7 +147,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		result.addObject("application", application);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("requestURI", "application/handyWorker/edit.do");
+		result.addObject("requestURI", "application/handyworker/edit.do");
 
 		return result;
 	}
