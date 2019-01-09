@@ -107,7 +107,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.applicationService.save(applications);
-				result = new ModelAndView("redirect:/application/handyworker/list.do?=" + a.getId());
+				result = new ModelAndView("redirect:/application/handyworker/list.do?handyWorkerId=" + a.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(applications, "application.commit.error");
 
@@ -123,7 +123,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.applicationService.delete(applications);
-			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
+			result = new ModelAndView("redirect:/application/handyworker/list.do?handyWorkerId=" + a.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(applications, "application.commit.error");
 		}
