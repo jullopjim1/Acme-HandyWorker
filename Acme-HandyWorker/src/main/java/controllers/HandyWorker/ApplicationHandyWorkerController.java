@@ -22,7 +22,7 @@ import services.ApplicationService;
 import services.HandyWorkerService;
 
 @Controller
-@RequestMapping("/application/handyworker")
+@RequestMapping("/application/handyWorker")
 public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Services-----------------------------------------------------------
@@ -128,7 +128,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.applicationService.delete(applications);
-			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
+			result = new ModelAndView("redirect:/application/handyworker/list.do?handyWorkerId=" + a.getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(applications, "application.commit.error");
 		}
@@ -149,7 +149,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		result.addObject("application", application);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("requestURI", "application/handyworker/edit.do");
+		result.addObject("requestURI", "application/handyWorker/edit.do");
 
 		return result;
 	}

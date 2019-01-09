@@ -171,8 +171,17 @@
 		<security:intercept-url pattern="/application/handyworker/edit.do"
 			access="hasRole('HANDY')" />
 
-		<security:intercept-url pattern="/application/handyworker/show.do"
+		<security:intercept-url pattern="/application/handyWorker/show.do"
 			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/application/handyWorker/create.do"
+			access="hasRole('HANDY')" />
+
+		<security:intercept-url pattern="/application/customer/reject.do"
+			access="hasRole('CUSTOMER')" />
+
+		<security:intercept-url pattern="/application/customer/accept.do"
+			access="hasRole('CUSTOMER')" />
 
 		<security:intercept-url pattern="/application/customer/edit.do"
 			access="hasRole('CUSTOMER')" />

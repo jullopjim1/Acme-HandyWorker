@@ -17,9 +17,15 @@
 	<form:label path="comments">
 		<spring:message code="application.comments" />
 	</form:label>
+<<<<<<< HEAD
 	<form:input path="comments" />
 	<form:errors cssClass="error" path="comments" />
+=======
+	<form:textarea path="comments" />
+	<form:errors ccsClass="error" path="comments" />
+>>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
 	<br />
+<<<<<<< HEAD
 
 	<security:authorize access="hasRole('CUSTOMER')">
 		<jstl:if test="${application.id != 0 }">
@@ -85,6 +91,8 @@
 			<spring:message code="application.warningCreditcard" />
 		</legend>
 	</fieldset>
+=======
+>>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
 
 	<input type="submit" name="save"
 		value="<spring:message code="application.save"/>" />
