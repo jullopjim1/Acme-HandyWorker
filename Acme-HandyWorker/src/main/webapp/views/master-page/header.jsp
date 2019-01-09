@@ -117,7 +117,8 @@
 
 
 		<security:authorize access="isAuthenticated()">
-
+			<li><a class="fNiv" href="box/actor/list.do"><spring:message
+						code="master.page.box" /></a></li>
 		</security:authorize>
 
 
