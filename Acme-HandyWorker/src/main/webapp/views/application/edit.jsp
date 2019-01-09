@@ -29,7 +29,7 @@
 	</form:label>
 	<form:input path="price" />
 	<spring:message code="application.euro" />
-	<form:errors cssClass="error" path="price" />
+	<form:errors cssClass="error" path="price" />(${varTax}%)
 	<br />
 
 	<form:label path="comments">

@@ -36,7 +36,7 @@
 		<spring:message code="fixuptask.maxPrice" />:
 	</form:label>
 	<form:input path="maxPrice" readonly="${isRead}" />
-	<form:errors cssClass="error" path="maxPrice" />
+	<form:errors cssClass="error" path="maxPrice" /> (${varTax}%)
 	<br />
 
 	<form:label path="deadline">
