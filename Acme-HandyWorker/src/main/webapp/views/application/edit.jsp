@@ -101,7 +101,7 @@
 
 	<input type="button" name="cancel"
 		value="<spring:message code="application.cancel" />"
-		onclick="javascript: relativeRedir('application/customer/list.do');" />
+		onclick="javascript: relativeRedir('application/handyWorker/list.do');" />
 
 	<br />
 
