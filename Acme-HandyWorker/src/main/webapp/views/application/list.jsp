@@ -14,6 +14,37 @@
 <display:table name="applications" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
+	<display:column property="moment" titleKey="application.moment" />
+
+	<display:column property="status" titleKey="application.status" />
+
+	<display:column property="fixUpTask.ticker.ticker"
+		titleKey="application.fixUpTask" />
+
+	<security:authorize access="hasRole('HANDY')">
+		<display:column titleKey="application.edit">
+			<jstl:if test="${row.status != 'ACCEPTED' }">
+				<a href="application/handyworker/edit.do?applicationId=${row.id}">
+					<spring:message code="application.edit.link" />
+				</a>
+			</jstl:if>
+		</display:column>
+
+
+		<display:column titleKey="application.show">
+			<a href="application/handyworker/show.do?applicationId=${row.id}">
+				<spring:message code="application.show.link" />
+			</a>
+		</display:column>
+
+		<display:column titleKey="application.phase">
+			<jstl:if test="${row.status == 'ACCEPTED' }">
+				<a href="phase/handyworker/create.do"><spring:message
+						code="application.phase.link" /> </a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column>
 			<jstl:if test="${customerId==row.fixUpTask.customer.id}">
@@ -22,17 +53,24 @@
 				</a>
 			</jstl:if>
 		</display:column>
+		<display:column>
+			<jstl:if test="${row.status == 'PENDING' }">
+				<jstl:if test="${customerId==row.fixUpTask.customer.id}">
+					<a href="application/customer/accept.do?applicationId=${row.id}">
+						<spring:message code="application.accept" />
+					</a>
+				</jstl:if>
+			</jstl:if>
+		</display:column>
+		<display:column>
+			<jstl:if test="${row.status == 'PENDING' }">
+				<jstl:if test="${customerId==row.fixUpTask.customer.id}">
+					<a href="application/customer/reject.do?applicationId=${row.id}">
+						<spring:message code="application.reject" />
+					</a>
+				</jstl:if>
+			</jstl:if>
+		</display:column>
 	</security:authorize>
-
-	<display:column property="moment" titleKey="application.moment" />
-
-
-	<display:column property="price" titleKey="application.price" />
-
-
-	<display:column property="comments" titleKey="application.comments" />
-
-	<display:column property="status" titleKey="application.status" />
-
 
 </display:table>

@@ -1,15 +1,23 @@
 
 package controllers.Referee;
 
+import java.util.Collection;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ActorService;
 import services.NoteService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.Note;
 
 @Controller
@@ -19,7 +27,10 @@ public class NoteRefereeController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private NoteService	noteService;
+	private NoteService		noteService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	//Constructor---------------------------------------------------------
@@ -28,6 +39,23 @@ public class NoteRefereeController extends AbstractController {
 		super();
 	}
 
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final int refereeId = a.getId();
+
+		final Collection<Note> note = this.noteService.findNoteByRefereeId(a.getId());
+
+		result = new ModelAndView("note/list");
+		result.addObject("note", note);
+		result.addObject("refereeId", refereeId);
+		result.addObject("requestURI", "note/referee/list.do");
+
+		return result;
+
+	}
 	//Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int reportId) {
@@ -37,6 +65,21 @@ public class NoteRefereeController extends AbstractController {
 		note = this.noteService.create(reportId);
 		result = this.createEditModelAndView(note);
 
+		return result;
+	}
+
+	//Delete
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Note note, final BindingResult binding) {
+
+		ModelAndView result;
+
+		try {
+			this.noteService.delete(note);
+			result = new ModelAndView("redirect:/note/list.do?reportId=" + note.getReport().getId());
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(note, "note.commit.error");
+		}
 		return result;
 	}
 

@@ -13,12 +13,14 @@
 <form:form action="${requestURI}" modelAttribute="application">
 
 	<form:hidden path="id" />
-	<form:hidden path="version" />
-	<form:hidden path="moment" />
-	<form:hidden path="price" />
-	<form:hidden path="handyWorker" />
-	<form:hidden path="fixUpTask" />
-	<form:hidden path="creditCard" />
+
+	<form:label path="price">
+		<spring:message code="application.price" />
+	</form:label>
+	<form:input path="price" />
+	<spring:message code="application.euro" />
+	<form:errors ccsClass="error" path="price" />
+	<br />
 
 	<form:label path="comments">
 		<spring:message code="application.comments" />
@@ -39,10 +41,8 @@
 			<br />
 		</jstl:if>
 
-	</security:authorize>
 
-	<%-- <jstl:if
-		test="${application.id !=0 && application.status == 'ACCEPTED'}">
+
 		<fieldset>
 			<legend>
 				<spring:message code="application.creditcard" />
@@ -72,35 +72,43 @@
 			<form:label path="creditCard.expirationMonth">
 				<spring:message code="creditCard.expirationMonth" />:
       		</form:label>
-			<form:input path="creditCard.monthExpiration" />
+			<form:input path="creditCard.expirationMonth" />
 			<form:errors cssClass="error" path="creditCard.expirationMonth" />
 			<br>
 
 			<form:label path="creditCard.expirationYear">
 				<spring:message code="creditCard.expirationYear" />:
      		</form:label>
-			<form:input path="creditCard.yearExpiration" />
+			<form:input path="creditCard.expirationYear" />
 			<form:errors cssClass="error" path="creditCard.expirationYear" />
 			<br>
 
 			<form:label path="creditCard.CVVCode">
 				<spring:message code="creditCard.cvvCode" />:
       		</form:label>
-			<form:input path="creditCard.cvv" />
+			<form:input path="creditCard.CVVCode" />
 			<form:errors cssClass="error" path="creditCard.CVVCode" />
-			<br>
-
+			<br> <br>
+			<legend>
+				<spring:message code="application.warningCreditcard" />
+			</legend>
 		</fieldset>
-	</jstl:if> --%>
+	</security:authorize>
 
-	<input type="submit" name="save"
-		value="<spring:message code="application.save"/>" />
+	<jstl:if test="${isRead == false}">
+		<input type="submit" name="save"
+			value="<spring:message code="application.save"/>" />
 
+		<jstl:if test="${application.id != 0}">
+			<input type="submit" name="delete"
+				value="<spring:message code="application.delete"/>"
+				onclick="javascript: return confirm('<spring:message code="application.confirmDelete" />')" />
+		</jstl:if>
+	</jstl:if>
 
 	<input type="button" name="cancel"
 		value="<spring:message code="application.cancel" />"
-		onclick="javascript: relativeRedir('application/customer/list.do');" />
+		onclick="javascript: relativeRedir('application/handyworker/list.do');" />
 
 	<br />
-
 </form:form>

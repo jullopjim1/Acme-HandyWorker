@@ -69,7 +69,7 @@ public class CurriculumService {
 		final Curriculum curriculum = new Curriculum();
 
 		//Ticker Unico
-		final Ticker ticker = this.tickerService.isUniqueTicker();
+		final Ticker ticker = this.tickerService.create();
 		final Ticker saved = this.tickerService.save(ticker);
 
 		curriculum.setTicker(saved);

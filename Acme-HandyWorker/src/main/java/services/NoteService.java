@@ -66,12 +66,15 @@ public class NoteService {
 
 		result = this.noteRepository.save(note);
 
-		Assert.isTrue(result.getIsFinal().equals(true));
 		return result;
 	}
 
 	public Note findNoteReportById(final int reportId) {
 		return this.noteRepository.findNoteReportById(reportId);
+	}
+
+	public Collection<Note> findNoteByRefereeId(final int refereeId) {
+		return this.noteRepository.findNoteByRefereeId(refereeId);
 	}
 
 	public void delete(final Note note) {

@@ -34,7 +34,9 @@
 	<display:column property="endMoment"
 		titleKey="professionalRecord.endMoment" />
 	<display:column property="role" titleKey="professionalRecord.role" />
-	<display:column property="link" titleKey="professionalRecord.link" />
+	<display:column titleKey="professionalRecord.link">
+		<a href="${row.link}">${row.link}</a>
+	</display:column>
 	<display:column property="comments"
 		titleKey="professionalRecord.comments" />
 	<security:authorize access="hasRole('HANDY')">

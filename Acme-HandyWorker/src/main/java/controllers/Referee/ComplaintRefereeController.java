@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.ComplaintService;
 import services.RefereeService;
+import services.ReportService;
 import controllers.AbstractController;
 import domain.Complaint;
 import domain.Referee;
@@ -27,6 +28,9 @@ public class ComplaintRefereeController extends AbstractController {
 
 	@Autowired
 	private RefereeService		refereeService;
+
+	@Autowired
+	private ReportService		reportService;
 
 
 	//Constructor-----------------------------------------------------
@@ -49,6 +53,7 @@ public class ComplaintRefereeController extends AbstractController {
 		result = new ModelAndView("complaint/list");
 		result.addObject("complaints", complaints);
 		result.addObject("refereeId", refereeId);
+		result.addObject("reportService", this.reportService);
 		result.addObject("requestURI", "complaint/referee/list.do?refereeId=?" + refereeId);
 
 		return result;

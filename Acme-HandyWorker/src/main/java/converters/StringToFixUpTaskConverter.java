@@ -1,8 +1,8 @@
 /*
  * StringToCurriculaConverter.java
- * 
+ *
  * Copyright (C) 2016 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -15,25 +15,25 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import repositories.FinderRepository;
-import domain.Finder;
+import domain.FixUpTask;
+import repositories.FixUpTaskRepository;
 
 @Component
 @Transactional
-public class StringToFixUpTaskConverter implements Converter<String, Finder> {
+public class StringToFixUpTaskConverter implements Converter<String, FixUpTask> {
 
 	@Autowired
-	FinderRepository	finderRepository;
+	FixUpTaskRepository fixUpTaskRepository;
 
 
 	@Override
-	public Finder convert(final String text) {
-		Finder result;
+	public FixUpTask convert(final String text) {
+		FixUpTask result;
 		int id;
 
 		try {
 			id = Integer.valueOf(text);
-			result = this.finderRepository.findOne(id);
+			result = this.fixUpTaskRepository.findOne(id);
 		} catch (final Exception oops) {
 			throw new IllegalArgumentException(oops);
 		}

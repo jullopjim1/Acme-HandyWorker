@@ -30,6 +30,12 @@
 	<form:hidden path="isSuspicious" />
 	<form:hidden path="userAccount" />
 
+
+	<jstl:if test="${isRead==true}">
+		<img src="${actor.photo}" height="200px" width="200px" />
+		<br />
+	</jstl:if>
+
 	<form:label path="name">
 		<spring:message code="actor.name" />
 	</form:label>
@@ -51,18 +57,27 @@
 	<form:errors cssClass="error" path="surname" />
 	<br />
 
-	<form:label path="photo">
-		<spring:message code="actor.photo" />
-	</form:label>
-	<form:input path="photo" readonly="${isRead}" />
-	<form:errors cssClass="error" path="photo" />
-	<br />
+	<jstl:if test="${isRead == false}">
+		<form:label path="photo">
+			<spring:message code="actor.photo" />
+		</form:label>
+		<form:input path="photo" />
+		<form:errors cssClass="error" path="photo" />
+		<br />
+	</jstl:if>
 
 	<form:label path="email">
 		<spring:message code="actor.email" />
 	</form:label>
 	<form:input path="email" readonly="${isRead}" />
 	<form:errors cssClass="error" path="email" />
+	<br />
+
+	<form:label path="address">
+		<spring:message code="actor.address" />
+	</form:label>
+	<form:input path="address" readonly="${isRead}" />
+	<form:errors cssClass="error" path="address" />
 	<br />
 
 	<form:label path="phone">
@@ -72,13 +87,6 @@
 	<form:errors path="phone" cssClass="error" />
 	<br />
 
-	<form:label path="address">
-		<spring:message code="actor.address" />
-	</form:label>
-	<form:input path="address" readonly="${isRead}" />
-	<form:errors cssClass="error" path="address" />
-	<br />
-	
 	<script type="text/javascript">
 		function isValid() {
 			var phoneRe = /^(((\+[1-9][0-9]{0,2}) \(([1-9][0-9]{0,2})\) (\d\d\d\d+))|((\+[1-9][0-9]{0,2}) (\d\d\d\d+))|((\d\d\d\d+)))$/;
@@ -91,11 +99,15 @@
 			}
 		}
 	</script>
-	
+
 	<jstl:if test="${isRead == true}">
-		<h3><spring:message code="actor.score" />: <jstl:out value="${score}"/></h3>
+		<h3>
+			<spring:message code="actor.score" />
+			:
+			<jstl:out value="${score}" />
+		</h3>
 	</jstl:if>
-	
+
 	<jstl:if test="${isRead == true}">
 		<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
 				code="profile.viewTutorials" />
@@ -107,7 +119,7 @@
 
 
 	<jstl:if test="${isRead == false}">
-		<br/>
+		<br />
 		<input type="submit" name="save"
 			value="<spring:message code="actor.save" />" />
 

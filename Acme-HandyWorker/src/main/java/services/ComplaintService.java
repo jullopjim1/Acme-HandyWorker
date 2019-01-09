@@ -51,7 +51,7 @@ public class ComplaintService {
 		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 
 		//Ticker Unico
-		final Ticker ticker = this.tickerService.isUniqueTicker();
+		final Ticker ticker = this.tickerService.create();
 		final Ticker saved = this.tickerService.save(ticker);
 
 		complaint.setFixUpTask(fixUpTask);
@@ -97,6 +97,13 @@ public class ComplaintService {
 	}
 	public Complaint findComplaintByTaskId(final int fixUpTaskId) {
 		return this.complaintRepository.findComplaintByTaskId(fixUpTaskId);
+	}
+
+	public Collection<Complaint> findComplaintsByHandyWorkerId(final int handyId) {
+		return this.complaintRepository.findComplaintsByHandyWorkerId(handyId);
+	}
+	public Complaint findComplaintFinalByTaskId(final int fixUpTaskId) {
+		return this.complaintRepository.findComplaintFinalByTaskId(fixUpTaskId);
 	}
 
 }

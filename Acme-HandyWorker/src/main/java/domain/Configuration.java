@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -19,15 +20,16 @@ public class Configuration extends DomainEntity {
 
 	// Identification ---------------------------------------------------------
 	// ATRIBUTOS
-	private int varTax;
-	private int countryCode;
-	private Map<String, String> welcomeMessage;
-	private String banner;
-	private Map<String, Collection<String>> spamWords;
-	private int finderCacheTime;
-	private int finderMaxResults;
-	private Map<String, Collection<String>> negativeWords;
-	private Map<String, Collection<String>> positiveWords;
+	private int								varTax;
+	private int								countryCode;
+	private Map<String, String>				welcomeMessage;
+	private String							banner;
+	private Map<String, Collection<String>>	spamWords;
+	private int								finderCacheTime;
+	private int								finderMaxResults;
+	private Map<String, Collection<String>>	negativeWords;
+	private Map<String, Collection<String>>	positiveWords;
+
 
 	public void setFinderMaxResults(final Integer finderMaxResults) {
 		this.finderMaxResults = finderMaxResults;
@@ -80,42 +82,42 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotEmpty
-	@ElementCollection(targetClass = String.class)
+	@ElementCollection
 	public Map<String, String> getWelcomeMessage() {
-		return welcomeMessage;
+		return this.welcomeMessage;
 	}
 
-	public void setWelcomeMessage(Map<String, String> welcomeMessage) {
+	public void setWelcomeMessage(final Map<String, String> welcomeMessage) {
 		this.welcomeMessage = welcomeMessage;
 	}
 
 	@NotEmpty
 	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
 	public Map<String, Collection<String>> getNegativeWords() {
-		return negativeWords;
+		return this.negativeWords;
 	}
 
-	public void setNegativeWords(Map<String, Collection<String>> negativeWords) {
+	public void setNegativeWords(final Map<String, Collection<String>> negativeWords) {
 		this.negativeWords = negativeWords;
 	}
 
 	@NotEmpty
 	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
 	public Map<String, Collection<String>> getPositiveWords() {
-		return positiveWords;
+		return this.positiveWords;
 	}
 
-	public void setPositiveWords(Map<String, Collection<String>> positiveWords) {
+	public void setPositiveWords(final Map<String, Collection<String>> positiveWords) {
 		this.positiveWords = positiveWords;
 	}
 
 	@NotEmpty
 	@ElementCollection(targetClass = org.hibernate.mapping.Collection.class)
 	public Map<String, Collection<String>> getSpamWords() {
-		return spamWords;
+		return this.spamWords;
 	}
 
-	public void setSpamWords(Map<String, Collection<String>> spamWords) {
+	public void setSpamWords(final Map<String, Collection<String>> spamWords) {
 		this.spamWords = spamWords;
 	}
 

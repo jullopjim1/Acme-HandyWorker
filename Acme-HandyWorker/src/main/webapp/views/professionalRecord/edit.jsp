@@ -34,16 +34,15 @@
 	<form:label path="startMoment">
 		<spring:message code="professionalRecord.startMoment" />:
 	</form:label>
-	<form:input path="startMoment" />
+	<form:input path="startMoment" placeholder="yyyy/mm/dd" />
 	<form:errors cssClass="error" path="startMoment" />
 	<br />
 
 	<form:label path="endMoment">
 		<spring:message code="professionalRecord.endMoment" />:
 	</form:label>
-	<form:input path="endMoment" />
+	<form:input path="endMoment" placeholder="yyyy/mm/dd" />
 	<form:errors cssClass="error" path="endMoment" />
-	dd/mm/yyyy
 	<br />
 
 	<form:label path="role">

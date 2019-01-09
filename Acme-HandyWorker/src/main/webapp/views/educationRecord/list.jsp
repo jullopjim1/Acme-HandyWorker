@@ -35,7 +35,9 @@
 		titleKey="educationRecord.endMoment" />
 	<display:column property="institution"
 		titleKey="educationRecord.institution" />
-	<display:column property="link" titleKey="educationRecord.link" />
+	<display:column titleKey="educationRecord.link">
+		<a href="${row.link}">${row.link}</a>
+	</display:column>
 	<display:column property="comments" titleKey="educationRecord.comments" />
 	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="educationRecord.delete">

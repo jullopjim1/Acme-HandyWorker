@@ -27,6 +27,8 @@
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a href="dashboard/administrator/dashboard.do"><spring:message
 						code="master.page.administrator.dashboard" /></a></li>
+			<li><a href="configuration/administrator/list.do"><spring:message
+						code="master.page.administrator.configuration" /></a></li>
 			<li><a class="fNiv" href="category/administrator/list.do"><spring:message
 						code="master.page.categories" /></a></li>
 			<li><a href="actor/administrator/list.do"><spring:message
@@ -36,13 +38,6 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.customer" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="customer/action-1.do"><spring:message
-								code="master.page.customer.action.1" /></a></li>
-				</ul></li>
 
 			<li><a class="fNiv" href="fixUpTask/customer/list.do"><spring:message
 						code="master.page.fixuptasks" /></a></li>
@@ -66,30 +61,21 @@
 				</ul></li>
 		</security:authorize>
 
+
 		<security:authorize access="hasRole('HANDY')">
 			<li><a class="fNiv" href="fixUpTask/handyWorker/list.do"><spring:message
 						code="master.page.fixuptasks2" /></a></li>
 			<li><a class="fNiv" href="complaint/list.do"><spring:message
-						code="master.page.complaint" /></a></li>
-		</security:authorize>
-
-		<security:authorize access="hasRole('REFEREE')">
-			<li><a class="fNiv" href="report/referee/list.do"><spring:message
-						code="master.page.report" /></a></li>
-		</security:authorize>
-
-		<security:authorize access="hasRole('REFEREE')">
-			<li><a class="fNiv" href="complaint/list.do"><spring:message
 						code="master.page.complaint" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="complaint/referee/list.do"><spring:message
+					<li><a href="complaint/handyWorker/list.do"><spring:message
 								code="master.page.myComplaint" /></a></li>
 				</ul></li>
 
-		</security:authorize>
+			<li><a href="application/handyworker/list.do"><spring:message
+						code="master.page.handy.application.list" /></a></li>
 
-		<security:authorize access="hasRole('HANDY')">
 			<li><a href="curriculum/handyworker/list.do"><spring:message
 						code="master.page.handy.curriculum.list" /></a></li>
 
@@ -106,10 +92,46 @@
 				</ul></li>
 		</security:authorize>
 
+		<security:authorize access="hasRole('REFEREE')">
+			<li><a class="fNiv" href="report/referee/list.do"><spring:message
+						code="master.page.report" /></a></li>
+		</security:authorize>
+
+		<security:authorize access="hasRole('REFEREE')">
+			<li><a class="fNiv" href="note/referee/list.do"><spring:message
+						code="master.page.note" /></a></li>
+		</security:authorize>
+
+		<security:authorize access="hasRole('REFEREE')">
+			<li><a class="fNiv" href="complaint/list.do"><spring:message
+						code="master.page.complaint" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="complaint/referee/list.do"><spring:message
+								code="master.page.myComplaint" /></a></li>
+				</ul></li>
+
+		</security:authorize>
+
+
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="box/actor/list.do"><spring:message
+						code="master.page.box" /></a></li>
+		</security:authorize>
+
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/registerCustomer.do"><spring:message
+								code="master.page.register.customer" /></a></li>
+					<li><a href="actor/registerCustomer.do"><spring:message
+								code="master.page.register.handy" /></a></li>
+				</ul></li>
 
 		</security:authorize>
 
@@ -127,6 +149,8 @@
 		</security:authorize>
 
 		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="profile/list.do"><spring:message
+						code="master.page.profile.social" /></a></li>
 
 			<li><a class="fNiv"> <spring:message
 						code="master.page.profile" /> (<security:authentication

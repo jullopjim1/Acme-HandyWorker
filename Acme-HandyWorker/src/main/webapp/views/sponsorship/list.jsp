@@ -34,16 +34,16 @@
 			</jstl:if>
 		</display:column>
 
-		<display:column property="banner"
-			titleKey="sponsorship.banner">
-			<img src="${row.banner}" />
+		<display:column titleKey="sponsorship.banner">
+			<img src="${row.banner}" height="100px" width="100px" />
 		</display:column>
 
-		<display:column property="link" titleKey="sponsorship.link" />
+		<display:column titleKey="sponsorship.link">
+			<a href="${row.link}">${row.link}</a>
+		</display:column>
 
 
-		<display:column property="sponsor.name"
-			titleKey="sponsorship.sponsor" />
+		<display:column property="sponsor.name" titleKey="sponsorship.sponsor" />
 
 
 	</display:table>

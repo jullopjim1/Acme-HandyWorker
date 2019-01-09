@@ -51,6 +51,7 @@ public class Application extends DomainEntity {
 	public void setStatus(final String status) {
 		this.status = status;
 	}
+	
 	@Min(0)
 	public double getPrice() {
 		return this.price;

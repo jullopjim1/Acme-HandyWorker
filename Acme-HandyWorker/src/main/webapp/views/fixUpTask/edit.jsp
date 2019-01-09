@@ -42,15 +42,16 @@
 	<form:label path="deadline">
 		<spring:message code="fixuptask.deadlineWith" />:
 	</form:label>
-	<form:input path="deadline" readonly="${isRead}" />
+	<form:input path="deadline" readonly="${isRead}"
+		placeholder="yyyy/mm/dd 00:00" />
 	<form:errors cssClass="error" path="deadline" />
 	<br />
 
 	<form:label path="category">
 		<spring:message code="fixuptask.category" />:
 	</form:label>
-	<form:select id="categories" path="category" readonly="${isRead }">
-		<form:options items="${categories}" itemValue="id" itemLabel="name" />
+	<form:select path="category.name" readonly="${isRead}">
+		<form:options items="${catLangs}" />
 	</form:select>
 	<form:errors cssClass="error" path="category" />
 
