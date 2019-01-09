@@ -69,7 +69,7 @@
 			</a>
 		</display:column>
 
-		<display:column titleKey="fixUpTask.application">
+		<display:column titleKey="fixUpTask.application.create">
 			<a href="application/handyWorker/create.do"><spring:message
 					code="fixUpTask.application.create" /></a>
 		</display:column>
