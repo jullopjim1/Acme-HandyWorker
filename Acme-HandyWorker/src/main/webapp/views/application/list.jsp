@@ -28,13 +28,6 @@
 
 	<display:column property="moment" titleKey="application.moment" />
 
-
-	<!--<display:column property="price" titleKey="application.price" />
-
-
-	<display:column property="comments" titleKey="application.comments" />
-	-->
-
 	<display:column property="status" titleKey="application.status" />
 
 	<security:authorize access="hasRole('HANDY')">
