@@ -22,7 +22,7 @@ import services.ApplicationService;
 import services.HandyWorkerService;
 
 @Controller
-@RequestMapping("/application/handyworker")
+@RequestMapping("/application/handyWorker")
 public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Services-----------------------------------------------------------
@@ -50,6 +50,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		applications = this.applicationService.findApplicationByHandyWorkerId(handyWorkerId);
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applications);
+		result.addObject("handyId", handyWorkerId);
 		result.addObject("requestURI", "/list.do");
 		return result;
 	}
@@ -101,13 +102,17 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	public ModelAndView save(@Valid final Application applications, final BindingResult binding) {
 
 		ModelAndView result;
+
+		if (applications.getStatus() == "REJECTED")
+			applications.setStatus("PENDING");
+
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(applications);
 		else
 			try {
 				this.applicationService.save(applications);
-				result = new ModelAndView("redirect:/application/handyworker/list.do?handyWorkerId=" + a.getId());
+				result = new ModelAndView("redirect:/application/handyworker/list.do?=" + a.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(applications, "application.commit.error");
 
@@ -144,7 +149,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		result.addObject("application", application);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("requestURI", "application/handyworker/edit.do");
+		result.addObject("requestURI", "application/handyWorker/edit.do");
 
 		return result;
 	}

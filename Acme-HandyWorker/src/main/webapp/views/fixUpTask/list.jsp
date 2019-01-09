@@ -71,6 +71,11 @@
 				<spring:message code="fixUpTask.viewProfile" />
 			</a>
 		</display:column>
+
+		<display:column titleKey="fixUpTask.application.create">
+			<a href="application/handyWorker/create.do"><spring:message
+					code="fixUpTask.application.create" /></a>
+		</display:column>
 	</security:authorize>
 
 

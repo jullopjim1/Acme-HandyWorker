@@ -23,7 +23,8 @@
 
 	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="application.edit">
-			<jstl:if test="${row.status != 'ACCEPTED' }">
+			<jstl:if
+				test="${row.status != 'ACCEPTED' and row.handyWorker.id == handyId}">
 				<a href="application/handyworker/edit.do?applicationId=${row.id}">
 					<spring:message code="application.edit.link" />
 				</a>
