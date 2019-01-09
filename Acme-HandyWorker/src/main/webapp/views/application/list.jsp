@@ -39,30 +39,23 @@
 	<security:authorize access="hasRole('HANDY')">
 		<display:column titleKey="application.edit">
 			<jstl:if test="${row.status != 'ACCEPTED' }">
-				<jstl:if test="${handyWorkerId==row.handyWorker.id}">
-					<a href="application/handyWorker/edit.do?applicationId=${row.id}">
-						<spring:message code="application.edit.link" />
-					</a>
-				</jstl:if>
-			</jstl:if>
-		</display:column>
-
-
-		<display:column  titleKey="application.show">
-			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
-				<a href="application/handyWorker/show.do?applicationId=${row.id}">
-					<spring:message code="application.show.link" />
+				<a href="application/handyWorker/edit.do?applicationId=${row.id}">
+					<spring:message code="application.edit.link" />
 				</a>
 			</jstl:if>
 		</display:column>
 
-		<display:column  titleKey="application.phase">
+
+		<display:column titleKey="application.show">
+			<a href="application/handyWorker/show.do?applicationId=${row.id}">
+				<spring:message code="application.show.link" />
+			</a>
+		</display:column>
+
+		<display:column titleKey="application.phase">
 			<jstl:if test="${row.status == 'ACCEPTED' }">
-				<jstl:if test="${handyWorkerId==row.handyWorker.id}">
-					<a href="phase/handyWorker/create.do">joder tio<spring:message
-							code="application.phase.link" />
-					</a>
-				</jstl:if>
+				<a href="phase/handyWorker/create.do"><spring:message
+						code="application.phase.link" /> </a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
