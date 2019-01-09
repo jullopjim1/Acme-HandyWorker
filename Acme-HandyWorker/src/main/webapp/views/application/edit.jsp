@@ -18,6 +18,7 @@
 		<spring:message code="application.price" />
 	</form:label>
 	<form:input path="price" />
+	<spring:message code="application.euro"/>
 	<form:errors ccsClass="error" path="price" />
 	<br />
 	
