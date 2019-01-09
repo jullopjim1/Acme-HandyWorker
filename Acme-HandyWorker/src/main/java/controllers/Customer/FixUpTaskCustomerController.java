@@ -120,13 +120,14 @@ public class FixUpTaskCustomerController extends AbstractController {
 	public ModelAndView edit(final int fixUpTaskId,
 			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
+					
 		final Customer c = this.customerService.findByUserAccount(LoginService
 				.getPrincipal().getId());
 		FixUpTask fixUpTask = null;
 
 		try {
 			fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-
+			Assert.notNull(fixUpTask);
 			Assert.isTrue(fixUpTask.getCustomer().equals(c));
 
 			result = this.createAndEditModelAndView(fixUpTask);
@@ -162,7 +163,8 @@ public class FixUpTaskCustomerController extends AbstractController {
 				result = new ModelAndView(
 						"redirect:/fixUpTask/customer/list.do");
 			} catch (final Throwable oops) {
-				if (fixUpTask.getDeadline().before(fixUpTask.getMoment()) && fixUpTask.getDeadline()!=null) {
+				if (fixUpTask.getDeadline().before(fixUpTask.getMoment())
+						&& fixUpTask.getDeadline() != null) {
 					result = this.createAndEditModelAndView(fixUpTask,
 							"fixuptask.error.deadlineError");
 				} else {
@@ -249,5 +251,13 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		return result;
 	}
-
+	
+	private static boolean isNumeric(String cadena){
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
+	}
 }
