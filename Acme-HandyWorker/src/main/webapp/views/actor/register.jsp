@@ -38,7 +38,7 @@
 	<form:label path="userAccount.password">
 		<spring:message code="actor.userAccount.password" />:
 	</form:label>
-	<form:input path="userAccount.password" />
+	<form:password path="userAccount.password" />
 	<form:errors cssClass="error" path="userAccount.password" />
 	<br />
 

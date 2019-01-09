@@ -135,6 +135,7 @@ public class ActorService {
 			else {
 				handyWorker = this.handyWorkerService.create();
 				handyWorker.setUserAccount(actor.getUserAccount());
+				handyWorker.setMake(actor.getMiddleName()); // TODO adaptar a requisitos
 			}
 			handyWorker.setAddress(actor.getAddress());
 			handyWorker.setEmail(actor.getEmail());
