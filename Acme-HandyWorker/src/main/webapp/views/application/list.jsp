@@ -40,7 +40,7 @@
 
 		<display:column titleKey="application.phase">
 			<jstl:if test="${row.status == 'ACCEPTED' }">
-				<a href="phase/handyworker/create.do"><spring:message
+				<a href="phase/handyworker/list.do"><spring:message
 						code="application.phase.link" /> </a>
 			</jstl:if>
 		</display:column>

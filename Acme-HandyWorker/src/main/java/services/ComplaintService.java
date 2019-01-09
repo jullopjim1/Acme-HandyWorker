@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -12,12 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.ComplaintRepository;
+import security.LoginService;
 import domain.Complaint;
 import domain.Customer;
 import domain.FixUpTask;
+import domain.Report;
 import domain.Ticker;
-import repositories.ComplaintRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -25,32 +25,36 @@ public class ComplaintService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private ComplaintRepository	complaintRepository;
+	private ComplaintRepository complaintRepository;
 
 	// Services-------------------------------------------------
 
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService customerService;
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService fixUpTaskService;
 
 	@Autowired
-	private TickerService		tickerService;
+	private TickerService tickerService;
 
+	@Autowired
+	private ReportService reportService;
 
 	// Constructor----------------------------------------------
 	public ComplaintService() {
 		super();
 	}
+
 	// Simple CRUD----------------------------------------------
 
 	public Complaint create(final int fixUpTaskId) {
 		final Complaint complaint = new Complaint();
-		final Customer customer = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+		final Customer customer = this.customerService
+				.findByUserAccount(LoginService.getPrincipal().getId());
 		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
 
-		//Ticker Unico
+		// Ticker Unico
 		final Ticker ticker = this.tickerService.create();
 		final Ticker saved = this.tickerService.save(ticker);
 
@@ -78,30 +82,37 @@ public class ComplaintService {
 	}
 
 	public void delete(final Complaint complaint) {
+		// BORRO SU REPORT
+		Report report = reportService
+				.findReportByComplaintId(complaint.getId());
+		reportService.delete(report);
+
 		this.complaintRepository.delete(complaint);
 
 	}
+
 	// Other Methods--------------------------------------------
 
 	public Collection<Complaint> findComplaintsByCustomerId(final int customerId) {
-		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByCustomerId(customerId);
+		final Collection<Complaint> complaints = this.complaintRepository
+				.findComplaintsByCustomerId(customerId);
 		return complaints;
 	}
 
 	public Collection<Complaint> findComplaintsByRefereeId(final int refereeId) {
-		final Collection<Complaint> complaints = this.complaintRepository.findComplaintsByRefereeId(refereeId);
+		final Collection<Complaint> complaints = this.complaintRepository
+				.findComplaintsByRefereeId(refereeId);
 		return complaints;
 	}
+
 	public ArrayList<Customer> queryB4() {
 		return this.complaintRepository.queryB4();
 	}
+
 	public Complaint findComplaintByTaskId(final int fixUpTaskId) {
 		return this.complaintRepository.findComplaintByTaskId(fixUpTaskId);
 	}
 
-	public Collection<Complaint> findComplaintsByHandyWorkerId(final int handyId) {
-		return this.complaintRepository.findComplaintsByHandyWorkerId(handyId);
-	}
 	public Complaint findComplaintFinalByTaskId(final int fixUpTaskId) {
 		return this.complaintRepository.findComplaintFinalByTaskId(fixUpTaskId);
 	}
