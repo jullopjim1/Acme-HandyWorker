@@ -93,9 +93,12 @@ public class SponsorshipSponsorController extends AbstractController {
 		else
 			try {
 				this.sponsorshipService.save(sponsorship);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
+				if (oops.getMessage().equals("errorCredit"))
+					result = this.createEditModelAndView(sponsorship, "sponsorship.commit.errorCredit");
+				else
+					result = this.createEditModelAndView(sponsorship, "sponsorship.commit.error");
 
 			}
 		return result;
@@ -109,7 +112,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		try {
 			this.sponsorshipService.delete(sponsorship);
-			result = new ModelAndView("redirect:list.do");
+			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 		} catch (final Throwable oops) {
 			if (oops.getMessage().contains("could not execute statement"))
 				result = this.createEditModelAndView(sponsorship, "sponsorship.asigned");
