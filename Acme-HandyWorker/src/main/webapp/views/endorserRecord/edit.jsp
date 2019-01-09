@@ -71,9 +71,11 @@
 			}
 		}
 	</script>
+	
 	<input type="submit" name="save"
-		value='<spring:message code="endorserRecord.save"/>'
-		onclick=" javascript: return isValid();">
+			value='<spring:message code="endorserRecord.save"/>'
+			onclick=" javascript: return isValid();">
+	
 
 
 	<input type="button" name="cancel"
