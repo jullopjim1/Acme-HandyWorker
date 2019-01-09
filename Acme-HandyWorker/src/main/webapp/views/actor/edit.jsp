@@ -121,7 +121,9 @@
 	<jstl:if test="${isRead == false}">
 		<br />
 		<input type="submit" name="save"
-			value="<spring:message code="actor.save" />" />
+			value='<spring:message code="actor.save"/>'
+			onclick=" javascript: return isValid();">
+		
 
 		<input type="button" name="cancel"
 			value="<spring:message code="fixuptask.cancel" />"

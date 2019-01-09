@@ -52,6 +52,8 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		result.addObject("applications", applications);
 		result.addObject("handyId", handyWorkerId);
 		result.addObject("requestURI", "/list.do");
+		result.addObject("applicationService", this.applicationService);
+
 		return result;
 	}
 	//Show------------------------------------------------------------
@@ -72,14 +74,13 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	//Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int fixUpTaskId) {
 		ModelAndView result;
 		Application applications;
 
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		applications = this.applicationService.create(a.getId());
+		applications = this.applicationService.create(fixUpTaskId);
 		result = this.createEditModelAndView(applications);
-		result.addObject("requestURI", "application/handyworker/create.do");
 		result.addObject("handyWorkerId", a.getId());
 
 		return result;

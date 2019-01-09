@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="register/actor.do" modelAttribute="actor">
+<form:form action="register/administrator/newActor.do" modelAttribute="actor">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -79,20 +79,20 @@
 	<form:errors cssClass="error" path="email" />
 	<br />
 
+	<form:label path="phone">
+		<spring:message code="actor.phone" />:
+	</form:label>
+	<form:input path="phone" />
+	<form:errors cssClass="error" path="phone" />
+	<br />
+
 	<form:label path="address">
 		<spring:message code="actor.address" />
 	</form:label>
 	<form:input path="address" readonly="${isRead}" />
 	<form:errors cssClass="error" path="address" />
 	<br />
-	
-	<form:label path="phone">
-		<spring:message code="actor.phone" />
-	</form:label>
-	<form:input path="phone" id="tlf" readonly="${isRead}" />
-	<form:errors path="phone" cssClass="error" />
-	<br />
-	
+
 	<script type="text/javascript">
 		function isValid() {
 			var phoneRe = /^(((\+[1-9][0-9]{0,2}) \(([1-9][0-9]{0,2})\) (\d\d\d\d+))|((\+[1-9][0-9]{0,2}) (\d\d\d\d+))|((\d\d\d\d+)))$/;
@@ -105,11 +105,10 @@
 			}
 		}
 	</script>
-	
+
 	<input type="submit" name="save"
-			value='<spring:message code="actor.save"/>'
-			onclick=" javascript: return isValid();">
-	
+		value="<spring:message code="actor.save" />" />&nbsp; 
+
 	<input type="button" name="cancel"
 		value="<spring:message code="message.cancel" />"
 		onclick="javascript: relativeRedir('welcome/index.do');" />

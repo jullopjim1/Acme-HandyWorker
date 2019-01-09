@@ -16,6 +16,7 @@ import domain.Application;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
+import domain.Message;
 import repositories.ApplicationRepository;
 import security.Authority;
 import security.LoginService;
@@ -36,7 +37,11 @@ public class ApplicationService {
 	private HandyWorkerService handyWorkerService;
 
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
+
+	@Autowired
+	private MessageService			messageService;
+
 
 	// Constructor----------------------------------------------
 	public ApplicationService() {
@@ -101,6 +106,22 @@ public class ApplicationService {
 
 		application.setMoment(new Date(System.currentTimeMillis() - 1000));
 		// GUARDO APPLICATION
+
+		//Enviar Mensaje
+		final Message message = this.messageService.create();
+		message.setSender(actorActual);
+		message.setRecipient(application.getHandyWorker());
+		message.setPriority("HIGH");
+		if (application.getStatus() == "ACCEPTED") {
+			message.setBody("Application has been " + application.getStatus());
+			message.setSubject("Application of " + actorActual.getUserAccount().getUsername());
+			this.messageService.save(message);
+		} else if (application.getStatus() == "REJECTED") {
+			message.setBody("Application has been " + application.getStatus());
+			message.setSubject("Application of " + actorActual.getUserAccount().getUsername());
+			this.messageService.save(message);
+		}
+
 		final Application saved = this.applicationRepository.save(application);
 		return saved;
 	}
@@ -190,6 +211,10 @@ public class ApplicationService {
 
 	public ArrayList<Customer> queryC9() {
 		return this.applicationRepository.queryC9();
+	}
+
+	public Application findApplicationByHandyWorkerIdAndTaskId(final int handyWorkerId, final int fixUpTaskId) {
+		return this.applicationRepository.findApplicationByHandyWorkerIdAndTaskId(handyWorkerId, fixUpTaskId);
 	}
 
 }

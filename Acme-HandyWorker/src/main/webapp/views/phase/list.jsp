@@ -32,15 +32,15 @@
 	<display:column property="startMoment" titleKey="phase.startMoment" />
 	<display:column property="endMoment" titleKey="phase.endMoment"/>
 
-	<display:column titleKey="phase.fixUpTask">
-		<a href="fixUpTask/list.do?phaseId=${phase.id}"> <spring:message
+	<display:column titleKey="phase.show">
+		<a href="phase/handyWorker/show.do?phaseId=${row.id}"> <spring:message
 				code="phase.show" />
 		</a>
 	</display:column>
 
 	<security:authorize access="hasRole('HANDY')">
 		<display:column>
-			<a href="phase/handyWorker/edit.do?phaseId=${phase.id}"> <spring:message
+			<a href="phase/handyWorker/edit.do?phaseId=${row.id}"> <spring:message
 					code="phase.edit" />
 			</a>
 		</display:column>

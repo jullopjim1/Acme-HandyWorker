@@ -38,13 +38,6 @@
 	<form:errors cssClass="error" path="email" />
 	<br />
 
-	<form:label path="phone">
-		<spring:message code="endorserRecord.phone" />:
-	</form:label>
-	<form:input path="phone" />
-	<form:errors cssClass="error" path="phone" />
-	<br />
-
 	<form:label path="link">
 		<spring:message code="endorserRecord.link" />:
 	</form:label>
@@ -58,9 +51,32 @@
 	<form:input path="comments" />
 	<form:errors cssClass="error" path="comments" />
 	<br />
+	
+	<form:label path="phone">
+		<spring:message code="endorserRecord.phone" />
+	</form:label>
+	<form:input path="phone" id="tlf" readonly="${isRead}" />
+	<form:errors path="phone" cssClass="error" />
+	<br />
 
+	<script type="text/javascript">
+		function isValid() {
+			var phoneRe = /^(((\+[1-9][0-9]{0,2}) \(([1-9][0-9]{0,2})\) (\d\d\d\d+))|((\+[1-9][0-9]{0,2}) (\d\d\d\d+))|((\d\d\d\d+)))$/;
+			var digits = document.getElementById('tlf').value;
+			var res = phoneRe.test(digits);
+			if (res) {
+				return true;
+			} else {
+				return confirm('<spring:message code="phone.confirm" />');
+			}
+		}
+	</script>
+	
 	<input type="submit" name="save"
-		value="<spring:message code="endorserRecord.save" />" />
+			value='<spring:message code="endorserRecord.save"/>'
+			onclick=" javascript: return isValid();">
+	
+
 
 	<input type="button" name="cancel"
 		value="<spring:message code="endorserRecord.cancel" />"
