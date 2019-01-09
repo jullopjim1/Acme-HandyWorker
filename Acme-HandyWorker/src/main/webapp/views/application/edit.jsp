@@ -10,7 +10,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="applicationForm">
+<form:form action="${requestURI}" modelAttribute="application">
 
 	<form:hidden path="id" />
 
