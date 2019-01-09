@@ -1,8 +1,8 @@
 /*
  * ProfileController.java
- * 
+ *
  * Copyright (C) 2018 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Actor;
+import domain.Profile;
 import security.LoginService;
 import services.ActorService;
 import services.ProfileService;
-import domain.Actor;
-import domain.Profile;
 
 @Controller
 @RequestMapping("/profile")
@@ -46,10 +46,12 @@ public class ProfileController extends AbstractController {
 		ModelAndView modelAndView;
 
 		final Collection<Profile> profiles = this.profileService.findAll();
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
 		modelAndView = new ModelAndView("profile/list");
 		modelAndView.addObject("profiles", profiles);
 		modelAndView.addObject("requestURI", "/profile/list.do");
+		modelAndView.addObject("username", a.getUserAccount().getUsername());
 
 		return modelAndView;
 
@@ -130,12 +132,11 @@ public class ProfileController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Profile profile, final String message) {
 		final ModelAndView result;
 
-		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		result = new ModelAndView("profile/edit");
 		result.addObject("profile", profile);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("username", a.getUserAccount().getUsername());
+
 		result.addObject("requestURI", "profile/edit.do");
 
 		return result;
