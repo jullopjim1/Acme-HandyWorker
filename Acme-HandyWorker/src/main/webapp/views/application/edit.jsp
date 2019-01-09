@@ -93,13 +93,15 @@
 			<spring:message code="application.warningCreditcard" />
 		</legend>
 	</fieldset>
-	
+
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="application.save"/>" />
-
-		<input type="submit" name="delete"
-			value="<spring:message code="application.delete"/>" />
+			
+		<jstl:if test="${application.id != 0}">
+			<input type="submit" name="delete"
+				value="<spring:message code="application.delete"/>" />
+		</jstl:if>
 	</jstl:if>
 
 	<input type="button" name="cancel"
