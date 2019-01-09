@@ -10,7 +10,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="fixUpTask/handyWorker/addFilter.do" modelAttribute="finder">
+<form:form action="fixUpTask/handyWorker/addFilter.do"
+	modelAttribute="finder">
 
 	<form:label path="keyword">
 		<spring:message code="finder.keyword" />
@@ -132,7 +133,7 @@
 
 		<display:column titleKey="fixUpTask.application.create">
 			<jstl:if
-				test="${applicationService.findApplicationByHandyWorkerIdAndTaskId(handyId, row.id) == null }">
+				test="${applicationService.findApplicationByHandyWorkerIdAndTaskId(handyId, row.id) == null and applicationService.findApplicationAcceptedByFixUpTaskId(row.id) == null}">
 				<a href="application/handyworker/create.do?fixUpTaskId=${row.id}"><spring:message
 						code="fixUpTask.application.create" /></a>
 			</jstl:if>

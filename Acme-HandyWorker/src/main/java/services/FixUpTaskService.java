@@ -118,8 +118,7 @@ public class FixUpTaskService {
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
 		if (!(actorActual.getId() == fixUpTask.getCustomer().getId()))
-			if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
-				Assert.notNull(null, "SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
+			Assert.notNull(null, "SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
 
 		// BORRO SUS PHASES
 		final Collection<Phase> phases = this.phaseService.findPhasesByFixUpTaskIdActive(fixUpTask.getId());

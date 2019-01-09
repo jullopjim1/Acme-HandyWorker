@@ -206,4 +206,8 @@ public class ApplicationService {
 		return this.applicationRepository.findApplicationByHandyWorkerIdAndTaskId(handyWorkerId, fixUpTaskId);
 	}
 
+	public Application findApplicationAcceptedByFixUpTaskId(final int fixUpTaskId) {
+		return this.applicationRepository.findApplicationAcceptedByFixUpTaskId(fixUpTaskId);
+	}
+
 }
