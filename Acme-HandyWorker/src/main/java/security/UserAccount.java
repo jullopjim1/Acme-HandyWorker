@@ -54,6 +54,14 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	private Boolean					enabled;
 
 
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
 	@Override
@@ -119,14 +127,11 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
-
+	
+	@Transient
 	@Override
 	public boolean isEnabled() {
-		return this.enabled;
-	}
-
-	public void setEnabled(final Boolean enabled) {
-		this.enabled = enabled;
+		return true;
 	}
 
 }

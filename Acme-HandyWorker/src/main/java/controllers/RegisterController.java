@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.util.Collection;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
 import security.UserAccount;
+import security.UserAccountRepository;
 import services.ActorService;
 import services.CustomerService;
 import services.HandyWorkerService;
@@ -27,21 +27,24 @@ import domain.Actor;
 public class RegisterController extends AbstractController {
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService handyWorkerService;
 
 	@Autowired
-	private CustomerService		customerService;
+	private CustomerService customerService;
 
 	@Autowired
-	private SponsorService		sponsorService;
+	private SponsorService sponsorService;
 
+	@Autowired
+	private UserAccountRepository userAccountRepository;
 
-	//Register handyWorker
+	// Register handyWorker
 	@RequestMapping(value = "/actor", method = RequestMethod.GET)
-	public ModelAndView createHandyWorker(@RequestParam(required = false, defaultValue = "default") final String authority) {
+	public ModelAndView createHandyWorker(
+			@RequestParam(required = false, defaultValue = "default") final String authority) {
 		ModelAndView modelAndView;
 		try {
 			Actor actor = null;
@@ -69,9 +72,10 @@ public class RegisterController extends AbstractController {
 		return modelAndView;
 	}
 
-	//Save
+	// Save
 	@RequestMapping(value = "/actor", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
+	public ModelAndView save(@Valid final Actor actor,
+			final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -79,23 +83,31 @@ public class RegisterController extends AbstractController {
 			result = this.createEditModelAndView(actor);
 		else
 			try {
-				final UserAccount userAccount = actor.getUserAccount();
-
 				final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-				userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
-				userAccount.setEnabled(true);
-				actor.setUserAccount(userAccount);
+				actor.getUserAccount().setPassword(
+						encoder.encodePassword(actor.getUserAccount()
+								.getPassword(), null));
+				actor.getUserAccount().setEnabled(true);
 				this.actorService.update(actor);
 
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				System.out.println("=======" + oops.getMessage() + "=======");
-				result = this.createEditModelAndView(actor, "message.commit.error");
+				Actor test = actorService.findActorByUsername(actor
+						.getUserAccount().getUsername());
+				
+				if (test != null) {
+					result = this.createEditModelAndView(actor,
+							"actor.userExists");
+				} else {
+					result = this.createEditModelAndView(actor,
+							"message.commit.error");
+				}
 			}
 		return result;
 	}
 
-	//CreateModelAndView
+	// CreateModelAndView
 	protected ModelAndView createEditModelAndView(final Actor actor) {
 		ModelAndView result;
 
@@ -105,11 +117,13 @@ public class RegisterController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Actor actor, final String message) {
+	protected ModelAndView createEditModelAndView(final Actor actor,
+			final String message) {
 		ModelAndView result = null;
 
-		//TODO faltan actores
-		final Collection<Authority> authorities = actor.getUserAccount().getAuthorities();
+		// TODO faltan actores
+		final Collection<Authority> authorities = actor.getUserAccount()
+				.getAuthorities();
 		final Authority handy = new Authority();
 		handy.setAuthority("HANDY");
 		final Authority cust = new Authority();

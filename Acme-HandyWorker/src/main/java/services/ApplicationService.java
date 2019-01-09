@@ -76,7 +76,7 @@ public class ApplicationService {
 
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
-		Assert.notNull(actorActual.getId() == application.getHandyWorker().getId(), "NO HAY ACTOR DETECTADO");
+		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 		final Collection<Authority> authorities = actorActual.getUserAccount().getAuthorities();
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
@@ -85,36 +85,30 @@ public class ApplicationService {
 			final boolean restriccion2 = (application.getFixUpTask().getCustomer().getId() == actorActual.getId());
 			Assert.isTrue(restriccion, "CUSTOMER NO PUEDE CREAR APPLICATION");
 			Assert.isTrue(restriccion2, "CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
-		} else if (authorities.contains(handy)) {
-			final boolean restriccion = (application.getHandyWorker().getId() != (actorActual.getId()));
-			Assert.isTrue(restriccion, "HANDY NO PUEDE MODIFICAR APPLICATION");
-		} else
-			Assert.notNull(null, "PARA CREAR APPLICATION -> HANDY, PARA MODIFICAR APPLICATION -> CUSTOMER");
+		}
 
 		// TARJETA DE CREDITO NECESARIA SI STATUS = ACCPETED
 		if (application.getStatus() == "ACCEPTED")
 			Assert.isTrue(application.getCreditCard() != null, "SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
 
-		if (application.getId() == 0)
-			application.setMoment(new Date(System.currentTimeMillis() - 1000));
+		application.setMoment(new Date(System.currentTimeMillis() - 1000));
 		// GUARDO APPLICATION
 		final Application saved = this.applicationRepository.save(application);
 		return saved;
 	}
 
 	public void delete(final Application application) {
-		Assert.notNull(application, "APPLICATION A BORRAR NO PUEDE SER NULL");
+		final Authority handy = new Authority();
+		handy.setAuthority("HANDY");
 
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
-
-		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
-			Assert.notNull(null, "SOLO ADMIN PUEDE BORRAR APPLICATION");
+		final Collection<Authority> authorities = actorActual.getUserAccount().getAuthorities();
 
 		// BORRO APPLICATION
-		this.applicationRepository.delete(application);
+		if (authorities.contains(handy))
+			this.applicationRepository.delete(application);
 
 	}
 
