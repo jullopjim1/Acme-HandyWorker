@@ -12,13 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ApplicationRepository;
-import security.LoginService;
 import domain.Actor;
 import domain.Application;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
+import repositories.ApplicationRepository;
+import security.Authority;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -68,18 +69,22 @@ public class ApplicationService {
 
 	public Application save(final Application application) {
 		Assert.notNull(application, "APPLICATION A CREAR/EDITAR NO PUEDE SER NULL");
+		final Authority handy = new Authority();
+		handy.setAuthority("HANDY");
+		final Authority cust = new Authority();
+		handy.setAuthority("CUSTOMER");
 
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER")) {
+		if (actorActual.getUserAccount().getAuthorities().contains(cust)) {
 			final boolean restriccion = (application.getId() != 0) && (application.getFixUpTask().getCustomer().getId() == (actorActual.getId()));
 			final boolean restriccion2 = (application.getFixUpTask().getCustomer().getId() == actorActual.getId());
 			Assert.isTrue(restriccion, "CUSTOMER NO PUEDE CREAR APPLICATION");
 			Assert.isTrue(restriccion2, "CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
-		} else if (actorActual.getUserAccount().getAuthorities().toString().contains("HANDY")) {
+		} else if (actorActual.getUserAccount().getAuthorities().contains(handy)) {
 			final boolean restriccion = (application.getId() == 0) && (application.getHandyWorker().getId() == (actorActual.getId()));
 			Assert.isTrue(restriccion, "HANDY NO PUEDE MODIFICAR APPLICATION");
 		} else

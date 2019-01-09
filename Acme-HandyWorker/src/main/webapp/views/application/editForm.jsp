@@ -18,7 +18,7 @@
 		<spring:message code="application.comments" />
 	</form:label>
 	<form:input path="comments" />
-	<form:errors ccsClass="error" path="comments" />
+	<form:errors cssClass="error" path="comments" />
 	<br />
 
 	<security:authorize access="hasRole('CUSTOMER')">
@@ -80,8 +80,7 @@
       		</form:label>
 		<form:input path="CVVCode" />
 		<form:errors cssClass="error" path="CVVCode" />
-		<br>
-		<br>
+		<br> <br>
 		<legend>
 			<spring:message code="application.warningCreditcard" />
 		</legend>
