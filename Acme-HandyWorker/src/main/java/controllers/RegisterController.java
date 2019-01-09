@@ -41,7 +41,7 @@ public class RegisterController extends AbstractController {
 
 	//Register handyWorker
 	@RequestMapping(value = "/actor", method = RequestMethod.GET)
-	public ModelAndView createHandyWorker(@RequestParam final String authority) {
+	public ModelAndView createHandyWorker(@RequestParam(required = false, defaultValue = "default") final String authority) {
 		ModelAndView modelAndView;
 		try {
 			Actor actor = null;
@@ -64,7 +64,6 @@ public class RegisterController extends AbstractController {
 
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
-			modelAndView.addObject("message", "message.commit.error");
 		}
 
 		return modelAndView;
@@ -84,12 +83,13 @@ public class RegisterController extends AbstractController {
 
 				final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 				userAccount.setPassword(encoder.encodePassword(userAccount.getPassword(), null));
-
+				userAccount.setEnabled(true);
 				actor.setUserAccount(userAccount);
 				this.actorService.update(actor);
 
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
+				System.out.println("=======" + oops.getMessage() + "=======");
 				result = this.createEditModelAndView(actor, "message.commit.error");
 			}
 		return result;
