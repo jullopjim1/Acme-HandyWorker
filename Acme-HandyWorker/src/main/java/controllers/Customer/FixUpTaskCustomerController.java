@@ -15,18 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
-import services.CategoryService;
-import services.ComplaintService;
-import services.ConfigurationService;
-import services.CustomerService;
-import services.FixUpTaskService;
-import services.WarrantyService;
 import controllers.AbstractController;
 import domain.Category;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.Warranty;
+import security.LoginService;
+import services.CategoryService;
+import services.ComplaintService;
+import services.CustomerService;
+import services.FixUpTaskService;
+import services.WarrantyService;
 
 @Controller
 @RequestMapping("/fixUpTask/customer")
@@ -35,22 +34,19 @@ public class FixUpTaskCustomerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private FixUpTaskService		fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
 
 	@Autowired
-	private CustomerService			customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	private WarrantyService			warrantyService;
+	private WarrantyService		warrantyService;
 
 	@Autowired
-	private CategoryService			categoryService;
+	private CategoryService		categoryService;
 
 	@Autowired
-	private ComplaintService		complaintService;
-
-	@Autowired
-	private ConfigurationService	configurationService;
+	private ComplaintService	complaintService;
 
 
 	// Constructor---------------------------------------------------------
@@ -199,7 +195,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final Collection<Category> categories = this.categoryService.findAll();
 
-		result = new ModelAndView("fixUpTask/edit");
+		result = new ModelAndView("fixUpTask/editForm");
 		result.addObject("message", message);
 		result.addObject("requestURI", "fixUpTask/customer/edit.do");
 		result.addObject("fixUpTask", fixUpTask);
@@ -218,11 +214,10 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 	protected ModelAndView ShowModelAndView(final FixUpTask fixUpTask, final String message) {
 		final ModelAndView result;
-
 		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final Collection<Category> categories = this.categoryService.findAll();
 
-		result = new ModelAndView("fixUpTask/edit");
+		result = new ModelAndView("fixUpTask/editForm");
 		result.addObject("message", message);
 		result.addObject("requestURI", "fixUpTask/customer/show.do");
 		result.addObject("fixUpTask", fixUpTask);

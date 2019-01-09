@@ -74,6 +74,24 @@
 					<li><a href="complaint/handyWorker/list.do"><spring:message
 								code="master.page.myComplaint" /></a></li>
 				</ul></li>
+
+			<li><a href="application/handyWorker/list.do"><spring:message
+						code="master.page.handy.application.list" /></a></li>
+
+			<li><a href="curriculum/handyworker/list.do"><spring:message
+						code="master.page.handy.curriculum.list" /></a></li>
+
+
+			<li><a class="fNiv"><spring:message
+						code="master.page.finder" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="finder/handy/update.do"><spring:message
+								code="master.page.finder.update" /></a></li>
+					<li><a href="finder/handy/listFixUpTasks.do"><spring:message
+								code="master.page.finder.result" /></a></li>
+
+				</ul></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('REFEREE')">
@@ -97,32 +115,25 @@
 
 		</security:authorize>
 
-		<security:authorize access="hasRole('HANDY')">
-			<li><a href="curriculum/handyworker/list.do"><spring:message
-						code="master.page.handy.curriculum.list" /></a></li>
 
-
-			<li><a class="fNiv"><spring:message
-						code="master.page.finder" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="finder/handy/update.do"><spring:message
-								code="master.page.finder.update" /></a></li>
-					<li><a href="finder/handy/listFixUpTasks.do"><spring:message
-								code="master.page.finder.result" /></a></li>
-
-				</ul></li>
-		</security:authorize>
-
-		<security:authorize access="hasRole('HANDY')">
-			<li><a href="application/handyWorker/list.do"><spring:message
-						code="master.page.handy.application.list" /></a></li>
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="box/actor/list.do"><spring:message
+						code="master.page.box" /></a></li>
 		</security:authorize>
 
 
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/registerCustomer.do"><spring:message
+								code="master.page.register.customer" /></a></li>
+					<li><a href="actor/registerCustomer.do"><spring:message
+								code="master.page.register.handy" /></a></li>
+				</ul></li>
 
 		</security:authorize>
 

@@ -10,17 +10,9 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="${requestURI}" modelAttribute="application">
+<form:form action="${requestURI}" modelAttribute="applicationForm">
 
 	<form:hidden path="id" />
-
-	<form:label path="price">
-		<spring:message code="application.price" />
-	</form:label>
-	<form:input path="price" />
-	<spring:message code="application.euro" />
-	<form:errors ccsClass="error" path="price" />
-	<br />
 
 	<form:label path="comments">
 		<spring:message code="application.comments" />
@@ -48,66 +40,61 @@
 			<spring:message code="application.creditcard" />
 		</legend>
 
-		<form:label path="creditCard.holderName">
+		<form:label path="holderName">
 			<spring:message code="creditCard.holderName" />:
      		 </form:label>
-		<form:input path="creditCard.holderName" />
-		<form:errors cssClass="error" path="creditCard.holderName" />
+		<form:input path="holderName" />
+		<form:errors cssClass="error" path="holderName" />
 		<br>
 
-		<form:label path="creditCard.brandName">
+		<form:label path="brandName">
 			<spring:message code="creditCard.brandName" />:
       		</form:label>
-		<form:input path="creditCard.brandName" />
-		<form:errors cssClass="error" path="creditCard.brandName" />
+		<form:input path="brandName" />
+		<form:errors cssClass="error" path="brandName" />
 		<br>
 
-		<form:label path="creditCard.number">
+		<form:label path="number">
 			<spring:message code="creditCard.number" />:
      		 </form:label>
-		<form:input path="creditCard.number" />
-		<form:errors cssClass="error" path="creditCard.number" />
+		<form:input path="number" />
+		<form:errors cssClass="error" path="number" />
 		<br>
 
-		<form:label path="creditCard.expirationMonth">
+		<form:label path="expirationMonth">
 			<spring:message code="creditCard.expirationMonth" />:
       		</form:label>
-		<form:input path="creditCard.expirationMonth" />
-		<form:errors cssClass="error" path="creditCard.expirationMonth" />
+		<form:input path="expirationMonth" />
+		<form:errors cssClass="error" path="expirationMonth" />
 		<br>
 
-		<form:label path="creditCard.expirationYear">
+		<form:label path="expirationYear">
 			<spring:message code="creditCard.expirationYear" />:
      		</form:label>
-		<form:input path="creditCard.expirationYear" />
-		<form:errors cssClass="error" path="creditCard.expirationYear" />
+		<form:input path="expirationYear" />
+		<form:errors cssClass="error" path="expirationYear" />
 		<br>
 
-		<form:label path="creditCard.CVVCode">
+		<form:label path="CVVCode">
 			<spring:message code="creditCard.cvvCode" />:
       		</form:label>
-		<form:input path="creditCard.CVVCode" />
-		<form:errors cssClass="error" path="creditCard.CVVCode" />
-		<br> <br>
+		<form:input path="CVVCode" />
+		<form:errors cssClass="error" path="CVVCode" />
+		<br>
+		<br>
 		<legend>
 			<spring:message code="application.warningCreditcard" />
 		</legend>
 	</fieldset>
 
-	<jstl:if test="${isRead == false}">
-		<input type="submit" name="save"
-			value="<spring:message code="application.save"/>" />
-			
-		<jstl:if test="${application.id != 0}">
-			<input type="submit" name="delete"
-				value="<spring:message code="application.delete"/>"
-				onclick="javascript: return confirm('<spring:message code="application.confirmDelete" />')" />
-		</jstl:if>
-	</jstl:if>
+	<input type="submit" name="save"
+		value="<spring:message code="application.save"/>" />
+
 
 	<input type="button" name="cancel"
 		value="<spring:message code="application.cancel" />"
-		onclick="javascript: relativeRedir('application/handyWorker/list.do');" />
+		onclick="javascript: relativeRedir('application/customer/list.do');" />
 
 	<br />
+
 </form:form>
