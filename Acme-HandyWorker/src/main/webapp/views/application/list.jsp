@@ -35,6 +35,12 @@
 	<display:column property="comments" titleKey="application.comments" />
 
 	<display:column property="status" titleKey="application.status" />
+	
+	<display:column property="edit" titleKey="application.edit" />
+	
+	<display:column property="show" titleKey="application.show" />
+	
+	<display:column property="phase" titleKey="application.phase" />
 
 
 </display:table>
