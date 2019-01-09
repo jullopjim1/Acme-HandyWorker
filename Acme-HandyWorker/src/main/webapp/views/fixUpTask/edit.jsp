@@ -81,11 +81,21 @@
 
 	</jstl:if>
 
+
 	<jstl:if test="${isRead == true}">
 
-		<input type="button" name="back"
-			value="<spring:message code="fixuptask.back" />"
-			onclick="javascript: relativeRedir('/');" />
+		<security:authorize access="hasRole('CUSTOMER')">
+			<input type="button" name="back"
+				value="<spring:message code="fixuptask.back" />"
+				onclick="javascript: relativeRedir('/fixUpTask/customer/list.do');" />
+		</security:authorize>
+
+		<security:authorize access="hasRole('HANDY')">
+			<input type="button" name="back"
+				value="<spring:message code="fixuptask.back" />"
+				onclick="javascript: relativeRedir('/fixUpTask/handyWorker/list.do');" />
+		</security:authorize>
+
 		<br />
 
 	</jstl:if>
