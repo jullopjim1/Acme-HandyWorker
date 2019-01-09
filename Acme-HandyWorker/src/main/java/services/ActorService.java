@@ -188,7 +188,6 @@ public class ActorService {
 			referee.setPhoto(actor.getPhoto());
 			referee.setSurname(actor.getSurname());
 
-			this.refereeService.save(referee);
 			final Actor actor1 = this.refereeService.save(referee);
 			this.boxService.addSystemBox(actor1);
 

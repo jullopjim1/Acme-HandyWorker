@@ -127,13 +127,35 @@
 						code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/registerCustomer.do"><spring:message
+					<li><a href="register/actor.do?authority=CUSTOMER"><spring:message
 								code="master.page.register.customer" /></a></li>
-					<li><a href="actor/registerCustomer.do"><spring:message
+
+					<li><a href="register/actor.do?authority=HANDY"><spring:message
 								code="master.page.register.handy" /></a></li>
+					<li><a href="register/actor.do?authority=SPONSOR"><spring:message
+								code="master.page.register.sponsor" /></a></li>
+
+
 				</ul></li>
 
 		</security:authorize>
+
+		<security:authorize access="hasRole('ADMIN')">
+			<li><a class="fNiv" href="security/login.do"><spring:message
+						code="master.page.login" /></a></li>
+			<li><a class="fNiv"><spring:message
+						code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a
+						href="<jstl:url value="register/administrator/newActor.do?authority=REFEREE"/>"><spring:message
+								code="master.page.register.referee" /></a></li>
+					<li><a
+						href="<jstl:url value="register/administrator/newActor.do?authority=ADMIN"/>"><spring:message
+								code="master.page.register.admin" /></a></li>
+				</ul></li>
+		</security:authorize>
+		
 
 		<security:authorize access="permitAll()">
 			<li><a class="fNiv" href="tutorial/list.do"><spring:message

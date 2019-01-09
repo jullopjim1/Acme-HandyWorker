@@ -17,9 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.UserAccount;
 import services.ActorService;
-import services.CustomerService;
-import services.HandyWorkerService;
-import services.SponsorService;
 import controllers.AbstractController;
 import domain.Actor;
 
@@ -28,31 +25,23 @@ import domain.Actor;
 public class RegisterAdministratorController extends AbstractController {
 
 	@Autowired
-	private ActorService		actorService;
-
-	@Autowired
-	private HandyWorkerService	handyWorkerService;
-
-	@Autowired
-	private CustomerService		customerService;
-
-	@Autowired
-	private SponsorService		sponsorService;
+	private ActorService	actorService;
 
 
 	//Register handyWorker
 	@RequestMapping(value = "/newActor", method = RequestMethod.GET)
 	public ModelAndView createHandyWorker(@RequestParam(required = false, defaultValue = "default") final String authority) {
 		ModelAndView modelAndView;
+		System.out.println("=====================  " + authority);
 		try {
 			Actor actor = null;
 			// Faltan actores
 			switch (authority) {
 			case "ADMIN":
-				actor = this.actorService.create("HANDY");
+				actor = this.actorService.create("ADMIN");
 				break;
 			case "REFEREE":
-				actor = this.actorService.create("CUSTOMER");
+				actor = this.actorService.create("REFEREE");
 				break;
 			default:
 				throw new NullPointerException();
@@ -88,7 +77,11 @@ public class RegisterAdministratorController extends AbstractController {
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				System.out.println("=======" + oops.getMessage() + "=======");
-				result = this.createEditModelAndView(actor, "message.commit.error");
+				final Actor test = this.actorService.findActorByUsername(actor.getUserAccount().getUsername());
+				if (test != null)
+					result = this.createEditModelAndView(actor, "actor.userExists");
+				else
+					result = this.createEditModelAndView(actor, "message.commit.error");
 			}
 		return result;
 	}
@@ -114,9 +107,9 @@ public class RegisterAdministratorController extends AbstractController {
 		admin.setAuthority("ADMIN");
 
 		if (authorities.contains(refer))
-			result = new ModelAndView("register/administrator/referee");
+			result = new ModelAndView("administrator/referee");
 		else if (authorities.contains(admin))
-			result = new ModelAndView("register/administrator/admin");
+			result = new ModelAndView("administrator/admin");
 		else
 			throw new NullPointerException();
 
