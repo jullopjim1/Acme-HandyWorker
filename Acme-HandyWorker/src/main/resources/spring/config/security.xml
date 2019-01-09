@@ -57,6 +57,9 @@
 
 		<security:intercept-url pattern="/tutorial/view.do"
 			access="permitAll" />
+			
+		
+		
 
 		<security:intercept-url pattern="/report/list.do"
 			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
@@ -215,8 +218,14 @@
 		<security:intercept-url pattern="/box/actor/create.do"
 			access="isAuthenticated()" />
 
-
-
+		<security:intercept-url pattern="/profile/edit.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/profile/list.do"
+			access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/profile/show.do"
+			access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/actor/edit.do"
 			access="isAuthenticated()" />

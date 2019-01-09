@@ -47,10 +47,10 @@ public class ProfileService {
 
 		return profiles;
 	}
-	public Profile findOne(final int ProfileID) {
+	public Profile findOne(final int profileId) {
 		Profile profile;
-		profile = this.ProfileRepository.findOne(ProfileID);
-		Assert.notNull(ProfileID);
+		profile = this.ProfileRepository.findOne(profileId);
+		Assert.notNull(profileId);
 
 		return profile;
 	}

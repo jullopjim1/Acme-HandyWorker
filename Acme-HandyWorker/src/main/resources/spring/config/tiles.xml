@@ -42,6 +42,7 @@
 		<value>/views/report/tiles.xml</value>
 		<value>/views/warranty/tiles.xml</value>
 		<value>/views/configuration/tiles.xml</value>
+		<value>/views/profile/tiles.xml</value>
 	</util:list>
 
 </beans>
