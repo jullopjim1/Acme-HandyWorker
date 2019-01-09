@@ -41,7 +41,7 @@
 			<br />
 		</jstl:if>
 
-	</security:authorize>
+	
 
 	<fieldset>
 		<legend>
@@ -93,6 +93,7 @@
 			<spring:message code="application.warningCreditcard" />
 		</legend>
 	</fieldset>
+	</security:authorize>
 
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
