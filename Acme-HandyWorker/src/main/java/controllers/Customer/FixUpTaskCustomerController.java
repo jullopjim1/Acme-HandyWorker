@@ -240,13 +240,4 @@ public class FixUpTaskCustomerController extends AbstractController {
 
 		return result;
 	}
-
-	private static boolean isNumeric(final String cadena) {
-		try {
-			Integer.parseInt(cadena);
-			return true;
-		} catch (final NumberFormatException nfe) {
-			return false;
-		}
-	}
 }
