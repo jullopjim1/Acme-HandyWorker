@@ -87,6 +87,7 @@ public class RegisterController extends AbstractController {
 
 				actor.setUserAccount(userAccount);
 				this.actorService.update(actor);
+
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(actor, "message.commit.error");
