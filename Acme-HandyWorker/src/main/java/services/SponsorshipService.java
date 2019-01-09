@@ -10,9 +10,9 @@ import org.springframework.util.Assert;
 
 import repositories.SponsorshipRepository;
 import security.LoginService;
+import domain.CreditCard;
 import domain.Sponsor;
 import domain.Sponsorship;
-import domain.Tutorial;
 
 @Service
 @Transactional
@@ -26,7 +26,7 @@ public class SponsorshipService {
 	private SponsorService			sponsorService;
 
 	@Autowired
-	private TutorialService			tutorialService;
+	private CreditCardService		creditCardService;
 
 
 	//Constructor----------------------------------------------------------------------------
@@ -63,8 +63,9 @@ public class SponsorshipService {
 	public Sponsorship save(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
 		this.checkPrincipal(sponsorship);
-		Sponsorship result;
-
+		Sponsorship result = sponsorship;
+		final CreditCard c = this.creditCardService.save(sponsorship.getCreditCard());
+		result.setCreditCard(c);
 		result = this.sponsorshipRepository.save(sponsorship);
 
 		return result;

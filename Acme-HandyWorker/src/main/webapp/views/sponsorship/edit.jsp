@@ -41,57 +41,60 @@
 		<form:errors cssClass="error" path="link" />
 		<br />
 
-		<jstl:if
-			test="${application.id !=0 && application.status == 'ACCEPTED'}">
-			<fieldset>
-				<legend>
-					<spring:message code="sponsorship.creditcard" />
-				</legend>
 
-				<form:label path="creditCard.holderName">
-					<spring:message code="creditCard.holderName" />:
+		<fieldset>
+			<legend>
+				<spring:message code="sponsorship.creditcard" />
+			</legend>
+
+			<form:label path="creditCard.holderName">
+				<spring:message code="creditCard.holderName" />:
      		 </form:label>
-				<form:input path="creditCard.holderName" />
-				<form:errors cssClass="error" path="creditCard.holderName" />
-				<br>
+			<form:input path="creditCard.holderName" />
+			<form:errors cssClass="error" path="creditCard.holderName" />
+			<br>
 
-				<form:label path="creditCard.brandName">
-					<spring:message code="creditCard.brandName" />:
-      		</form:label>
-				<form:input path="creditCard.brandName" />
-				<form:errors cssClass="error" path="creditCard.brandName" />
-				<br>
-
-				<form:label path="creditCard.number">
-					<spring:message code="creditCard.number" />:
+			<form:label path="creditCard.brandName">
+				<spring:message code="creditCard.brandName" />:
+	        </form:label>
+			<form:select path="creditCard.brandName" readonly="${isRead}">
+				<form:option value="VISA"/>
+				<form:option value="MASTER"/>
+				<form:option value="DINNERS"/>
+				<form:option value="AMEX"/>
+			</form:select>
+			<form:errors cssClass="error" path="creditCard.brandName" />
+			<br>
+			<form:label path="creditCard.number">
+				<spring:message code="creditCard.number" />:
      		 </form:label>
-				<form:input path="creditCard.number" />
-				<form:errors cssClass="error" path="creditCard.number" />
-				<br>
+			<form:input path="creditCard.number" />
+			<form:errors cssClass="error" path="creditCard.number" />
+			<br>
 
-				<form:label path="creditCard.expirationMonth">
-					<spring:message code="creditCard.expirationMonth" />:
+			<form:label path="creditCard.expirationMonth">
+				<spring:message code="creditCard.expirationMonth" />:
       		</form:label>
-				<form:input path="creditCard.monthExpiration" />
-				<form:errors cssClass="error" path="creditCard.expirationMonth" />
-				<br>
+			<form:input path="creditCard.expirationMonth" />
+			<form:errors cssClass="error" path="creditCard.expirationMonth" />
+			<br>
 
-				<form:label path="creditCard.expirationYear">
-					<spring:message code="creditCard.expirationYear" />:
+			<form:label path="creditCard.expirationYear">
+				<spring:message code="creditCard.expirationYear" />:
      		</form:label>
-				<form:input path="creditCard.yearExpiration" />
-				<form:errors cssClass="error" path="creditCard.expirationYear" />
-				<br>
+			<form:input path="creditCard.expirationYear" />
+			<form:errors cssClass="error" path="creditCard.expirationYear" />
+			<br>
 
-				<form:label path="creditCard.CVVCode">
-					<spring:message code="creditCard.cvvCode" />:
+			<form:label path="creditCard.CVVCode">
+				<spring:message code="creditCard.cvvCode" />:
       		</form:label>
-				<form:input path="creditCard.cvv" />
-				<form:errors cssClass="error" path="creditCard.CVVCode" />
-				<br>
+			<form:input path="creditCard.CVVCode" />
+			<form:errors cssClass="error" path="creditCard.CVVCode" />
+			<br>
 
-			</fieldset>
-		</jstl:if>
+		</fieldset>
+
 
 
 		<jstl:if test="${isRead == false}">

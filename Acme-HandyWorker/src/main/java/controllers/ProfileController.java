@@ -135,7 +135,7 @@ public class ProfileController extends AbstractController {
 		result.addObject("profile", profile);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("actorId", a.getId());
+		result.addObject("username", a.getUserAccount().getUsername());
 		result.addObject("requestURI", "profile/edit.do");
 
 		return result;

@@ -256,6 +256,9 @@
 
 		<security:intercept-url pattern="/register/actor.do"
 			access="permitAll" />
+			
+		<security:intercept-url pattern="/register/administrator/newActor.do"
+			access="hasRole('ADMIN')" />
 
 		<!-- Endorsements -->
 		<security:intercept-url pattern="/endorsement/list.do"
