@@ -13,14 +13,11 @@
 <form:form action="${requestURI}" modelAttribute="applicationForm">
 
 	<form:hidden path="id" />
+	<form:hidden path="comments" />
 
-	<form:label path="comments">
-		<spring:message code="application.comments" />
-	</form:label>
-	<form:textarea path="comments" />
-	<form:errors ccsClass="error" path="comments" />
+	<spring:message code="application.warningDecline" />
 	<br />
-
+	<br />
 	<input type="submit" name="save"
 		value="<spring:message code="application.save"/>" />
 

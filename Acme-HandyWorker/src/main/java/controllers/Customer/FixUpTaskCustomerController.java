@@ -148,7 +148,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createAndEditModelAndView(fixUpTask);
+			result = this.createAndEditModelAndView(fixUpTask, "commit.error");
 		else
 			try {
 				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
