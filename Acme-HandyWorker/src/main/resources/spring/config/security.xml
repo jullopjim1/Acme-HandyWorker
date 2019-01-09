@@ -163,10 +163,10 @@
 			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/application/handyWorker/list.do"
-			access="hasRole('Handy')" />
+			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/application/handyWorker/edit.do"
-			access="hasRole('Handy')" />
+			access="hasRole('HANDY')" />
 
 		<security:intercept-url pattern="/application/customer/edit.do"
 			access="hasRole('CUSTOMER')" />

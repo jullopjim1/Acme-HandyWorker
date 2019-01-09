@@ -128,7 +128,6 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		}
 		return result;
 	}
-
 	protected ModelAndView createEditModelAndView(final Application application) {
 		ModelAndView result;
 
