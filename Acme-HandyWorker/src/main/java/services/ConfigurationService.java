@@ -1,6 +1,7 @@
 
 package services;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -98,5 +99,19 @@ public class ConfigurationService {
 		final String res = words.get(laungage.toUpperCase());
 
 		return res;
+	}
+
+	public double calculate(final double price) {
+		double res = 0.0;
+		final DecimalFormat df = new DecimalFormat("0.00");
+		final int varTax = this.findOne().getVarTax();
+
+		res = price + (price * varTax / 100);
+		final String string = df.format(res);
+
+		res = Double.valueOf(string);
+
+		return res;
+
 	}
 }
