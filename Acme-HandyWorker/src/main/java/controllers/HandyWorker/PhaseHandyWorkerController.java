@@ -143,12 +143,10 @@ public class PhaseHandyWorkerController extends AbstractController {
 		Collection<Phase> phases;
 
 		phases = this.phaseService.findAll();
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		result = new ModelAndView("phase/edit");
-		result.addObject("phase", phase);
+		result.addObject("phases", phases);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("handyWorker", a.getId());
 		result.addObject("requestURI", "phase/handyWorker/edit.do");
 
 		return result;
