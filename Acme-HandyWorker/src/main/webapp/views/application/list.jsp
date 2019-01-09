@@ -36,8 +36,8 @@
 
 	<display:column property="status" titleKey="application.status" />
 
-	<security:authorize access="hasRole('HANDY)">
-		<display:column property="edit" titleKey="application.edit">
+	<security:authorize access="hasRole('HANDY')">
+		<display:column>
 			<jstl:if test="${row.status != 'ACCEPTED' }">
 				<jstl:if test="${handyWorkerId==row.handyWorker.id}">
 					<a href="application/handyWorker/edit.do?applicationId=${row.id}">
@@ -48,7 +48,7 @@
 		</display:column>
 
 
-		<display:column property="show" titleKey="application.show">
+		<display:column>
 			<jstl:if test="${handyWorkerId==row.handyWorker.id}">
 				<a href="application/handyWorker/show.do?applicationId=${row.id}">
 					<spring:message code="application.show.link" />
@@ -56,10 +56,10 @@
 			</jstl:if>
 		</display:column>
 
-		<display:column property="phase" titleKey="application.phase">
+		<display:column>
 			<jstl:if test="${row.status == 'ACCEPTED' }">
 				<jstl:if test="${handyWorkerId==row.handyWorker.id}">
-					<a href="phase/handyWorker/create.do"> <spring:message
+					<a href="phase/handyWorker/create.do"><spring:message
 							code="application.phase.link" />
 					</a>
 				</jstl:if>
