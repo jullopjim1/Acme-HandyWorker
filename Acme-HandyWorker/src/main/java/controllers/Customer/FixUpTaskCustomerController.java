@@ -195,7 +195,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final Collection<Category> categories = this.categoryService.findAll();
 
-		result = new ModelAndView("fixUpTask/editForm");
+		result = new ModelAndView("fixUpTask/edit");
 		result.addObject("message", message);
 		result.addObject("requestURI", "fixUpTask/customer/edit.do");
 		result.addObject("fixUpTask", fixUpTask);
@@ -217,7 +217,7 @@ public class FixUpTaskCustomerController extends AbstractController {
 		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final Collection<Category> categories = this.categoryService.findAll();
 
-		result = new ModelAndView("fixUpTask/editForm");
+		result = new ModelAndView("fixUpTask/edit");
 		result.addObject("message", message);
 		result.addObject("requestURI", "fixUpTask/customer/show.do");
 		result.addObject("fixUpTask", fixUpTask);
