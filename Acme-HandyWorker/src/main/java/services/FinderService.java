@@ -15,16 +15,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.FinderRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
-import utilities.internal.SchemaPrinter;
 import domain.Actor;
 import domain.Configuration;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
+import repositories.FinderRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -111,7 +110,7 @@ public class FinderService {
 	 * No se puede borrar un finder
 	 */
 	//	public void delete(final Finder entity) {
-	//		
+	//
 	//	}
 
 	//Other Methods---------------------------------------------------------------------------
@@ -175,10 +174,6 @@ public class FinderService {
 		final String nameCategory = f.getNamecategory();
 		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 		final Finder finder = this.checkPrincipal(f);
-
-		System.out.println("\n\n\n\n===========================\n");
-		SchemaPrinter.print(finder);
-		System.out.println("\n===========================\n\n\n\n");
 
 		Page<FixUpTask> p;
 		if (nameCategory == null || nameCategory.equals(""))
