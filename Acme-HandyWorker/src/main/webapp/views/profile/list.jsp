@@ -26,7 +26,7 @@
 	
 	
 	<display:column>
-		<jstl:if test="${actorId==row.actor.userAccount}">
+		<jstl:if test="${actorId==row.actor.id}">
 		<a href="profile/edit.do?profileId=${row.id}"> <spring:message
 				code="profile.edit" />
 		</a>
