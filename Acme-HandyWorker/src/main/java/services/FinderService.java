@@ -19,6 +19,7 @@ import repositories.FinderRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import utilities.internal.SchemaPrinter;
 import domain.Actor;
 import domain.Configuration;
 import domain.Finder;
@@ -68,7 +69,7 @@ public class FinderService {
 		finder.setKeyword("");
 		finder.setNamecategory("");
 		finder.setNamewarranty("");
-		finder.setPriceMax(999999999999999999.9);
+		finder.setPriceMax(9999999.9);
 		finder.setPriceMin(0.0);
 
 		finder.setLastUpdate(lastUpdate);
@@ -173,17 +174,17 @@ public class FinderService {
 		List<FixUpTask> result = new ArrayList<>();
 		final String nameCategory = f.getNamecategory();
 		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+		final Finder finder = this.checkPrincipal(f);
 
-		//		System.out.println("\n\n\n\n===========================\n");
-		//		SchemaPrinter.print(f);
-		//		System.out.println(f.getNamecategory());
-		//		System.out.println("\n===========================\n\n\n\n");
+		System.out.println("\n\n\n\n===========================\n");
+		SchemaPrinter.print(finder);
+		System.out.println("\n===========================\n\n\n\n");
 
 		Page<FixUpTask> p;
 		if (nameCategory == null || nameCategory.equals(""))
-			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), f.getNamewarranty(), new PageRequest(0, maxResult));
+			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), finder.getPriceMin(), finder.getPriceMax(), finder.getNamewarranty(), new PageRequest(0, maxResult));
 		else
-			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), langCategory, nameCategory, f.getNamewarranty(), new PageRequest(0, maxResult));
+			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), finder.getPriceMin(), finder.getPriceMax(), langCategory, nameCategory, finder.getNamewarranty(), new PageRequest(0, maxResult));
 
 		if (p.getContent() != null)
 			result = new ArrayList<>(p.getContent());

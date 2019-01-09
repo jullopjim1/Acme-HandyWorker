@@ -28,35 +28,35 @@
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<display:column property="ticker.ticker" titleKey="finder.fix.ticker" />
-	
-	<display:column property="description"
-		titleKey="finder.fix.description" />
-	
-	<display:column property="adress" titleKey="finder.fix.adress" />
+	<display:column property="ticker.ticker" titleKey="fixuptask.ticker" />
 
-	<display:column property="maxPrice" titleKey="finder.fix.maxPrice" />
-	
-	<display:column property="moment" titleKey="finder.fix.moment" />
-	
-	<display:column property="deadline" titleKey="finder.fix.deadline" />
-
-	<display:column titleKey="finder.fix.category" >
-		<jstl:forEach var="entry" items="${row.category.name}">	
-  				<jstl:if test="${lang==entry.key}">
-  					<jstl:out value="${entry.value}" />
-  				</jstl:if>
+	<display:column titleKey="fixuptask.category">
+		<jstl:forEach var="entry" items="${row.category.name}">
+			<jstl:if test="${lang==entry.key}">
+				${entry.value}
+			</jstl:if>
 		</jstl:forEach>
 	</display:column>
-	
-	<display:column property="warranty.title" titleKey="finder.fix.warranty" />
-	
 
-<%-- 	<display:column>
-		<a href="fixUpTasks/handyworker/show.do?fixUpTaskId=${row.id}"> <spring:message
-				code="finder.fix.show" />
+	<display:column titleKey="fixuptask.details">
+		<a href="fixUpTask/customer/show.do?fixUpTaskId=${row.id}"> <spring:message
+				code="fixuptask.show" />
 		</a>
-	</display:column> --%>
+	</display:column>
+<display:column titleKey="fixUpTask.customer">
+			<a
+				href="handyWorker/viewProfileCustomer.do?customerId=${row.customer.id}">
+				<spring:message code="fixUpTask.viewProfile" />
+			</a>
+		</display:column>
+
+		<display:column titleKey="fixUpTask.application.create">
+			<jstl:if
+				test="${applicationService.findApplicationByHandyWorkerIdAndTaskId(handyId, row.id) == null }">
+				<a href="application/handyworker/create.do?fixUpTaskId=${row.id}"><spring:message
+						code="fixUpTask.application.create" /></a>
+			</jstl:if>
+		</display:column>
 
 
 </display:table>

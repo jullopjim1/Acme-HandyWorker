@@ -161,6 +161,9 @@
 
 		<security:intercept-url pattern="/fixUpTask/handyWorker/list.do"
 			access="hasRole('HANDY')" />
+		<security:intercept-url pattern="/fixUpTask/handyWorker/addFilter.do"
+			access="hasRole('HANDY')" />
+		
 
 		<security:intercept-url pattern="/complaint/handyWorker/list.do"
 			access="hasRole('HANDY')" />
