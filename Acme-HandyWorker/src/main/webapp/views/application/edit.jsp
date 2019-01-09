@@ -13,15 +13,15 @@
 <form:form action="${requestURI}" modelAttribute="application">
 
 	<form:hidden path="id" />
-	
-		<form:label path="price">
+
+	<form:label path="price">
 		<spring:message code="application.price" />
 	</form:label>
 	<form:input path="price" />
-	<spring:message code="application.euro"/>
+	<spring:message code="application.euro" />
 	<form:errors ccsClass="error" path="price" />
 	<br />
-	
+
 	<form:label path="comments">
 		<spring:message code="application.comments" />
 	</form:label>
@@ -88,23 +88,23 @@
       		</form:label>
 		<form:input path="creditCard.CVVCode" />
 		<form:errors cssClass="error" path="creditCard.CVVCode" />
-		<br>
-		<br>
+		<br> <br>
 		<legend>
 			<spring:message code="application.warningCreditcard" />
 		</legend>
 	</fieldset>
+	
+	<jstl:if test="${isRead == false}">
+		<input type="submit" name="save"
+			value="<spring:message code="application.save"/>" />
 
-	<input type="submit" name="save"
-		value="<spring:message code="application.save"/>" />
-		
-	<input type="submit" name="delete"
-		value="<spring:message code="application.delete"/>" />
+		<input type="submit" name="delete"
+			value="<spring:message code="application.delete"/>" />
+	</jstl:if>
 
 	<input type="button" name="cancel"
 		value="<spring:message code="application.cancel" />"
 		onclick="javascript: relativeRedir('application/handyWorker/list.do');" />
 
 	<br />
-
 </form:form>
