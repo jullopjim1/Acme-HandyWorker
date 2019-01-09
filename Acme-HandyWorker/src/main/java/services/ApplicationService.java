@@ -98,18 +98,17 @@ public class ApplicationService {
 	}
 
 	public void delete(final Application application) {
-		Assert.notNull(application, "APPLICATION A BORRAR NO PUEDE SER NULL");
+		final Authority handy = new Authority();
+		handy.setAuthority("HANDY");
 
 		// COJO ACTOR ACTUAL
 		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
-
-		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
-			Assert.notNull(null, "SOLO ADMIN PUEDE BORRAR APPLICATION");
+		final Collection<Authority> authorities = actorActual.getUserAccount().getAuthorities();
 
 		// BORRO APPLICATION
-		this.applicationRepository.delete(application);
+		if (authorities.contains(handy))
+			this.applicationRepository.delete(application);
 
 	}
 
