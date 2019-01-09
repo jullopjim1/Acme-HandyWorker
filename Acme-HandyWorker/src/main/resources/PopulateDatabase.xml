@@ -1806,7 +1806,7 @@
 		<property name="rootbox">
 			<null />
 		</property>
-		<property name="actor" ref="customer2" />
+		<property name="actor" ref="customer3" />
 	</bean>
 
 	<bean id="inBoxC4" class="domain.Box">
@@ -1819,7 +1819,7 @@
 		<property name="rootbox">
 			<null />
 		</property>
-		<property name="actor" ref="customer2" />
+		<property name="actor" ref="customer4" />
 	</bean>
 
 	<bean id="inBoxH1" class="domain.Box">
