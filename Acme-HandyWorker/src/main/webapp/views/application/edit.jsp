@@ -12,21 +12,25 @@
 
 <form:form action="${requestURI}" modelAttribute="application">
 
-	<form:hidden path="id" />
+	<form:hidden path="id" />.
+	<form:hidden path="version" />
+	<form:hidden path="handyWorker" />
+	<form:hidden path="moment" />
+	<form:hidden path="status" />
 
 	<form:label path="price">
 		<spring:message code="application.price" />
 	</form:label>
 	<form:input path="price" />
 	<spring:message code="application.euro" />
-	<form:errors ccsClass="error" path="price" />
+	<form:errors cssClass="error" path="price" />
 	<br />
 
 	<form:label path="comments">
 		<spring:message code="application.comments" />
 	</form:label>
 	<form:input path="comments" />
-	<form:errors ccsClass="error" path="comments" />
+	<form:errors cssClass="error" path="comments" />
 	<br />
 
 	<security:authorize access="hasRole('CUSTOMER')">

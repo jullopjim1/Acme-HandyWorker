@@ -50,6 +50,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		applications = this.applicationService.findApplicationByHandyWorkerId(handyWorkerId);
 		result = new ModelAndView("application/list");
 		result.addObject("applications", applications);
+		result.addObject("handyId", handyWorkerId);
 		result.addObject("requestURI", "/list.do");
 		return result;
 	}
@@ -78,6 +79,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		applications = this.applicationService.create(a.getId());
 		result = this.createEditModelAndView(applications);
+		result.addObject("requestURI", "application/handyworker/create.do");
 		result.addObject("handyWorkerId", a.getId());
 
 		return result;
@@ -101,13 +103,14 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	public ModelAndView save(@Valid final Application applications, final BindingResult binding) {
 
 		ModelAndView result;
+
 		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(applications);
 		else
 			try {
 				this.applicationService.save(applications);
-				result = new ModelAndView("redirect:/application/handyworker/list.do?handyWorkerId=" + a.getId());
+				result = new ModelAndView("redirect:/application/handyworker/list.do?=" + a.getId());
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(applications, "application.commit.error");
 

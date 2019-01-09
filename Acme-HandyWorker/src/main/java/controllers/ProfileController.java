@@ -55,6 +55,18 @@ public class ProfileController extends AbstractController {
 
 	}
 
+	//Create
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		ModelAndView result;
+		Profile profile;
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		profile = this.profileService.create(a.getId());
+		result = this.createEditModelAndView(profile);
+
+		return result;
+	}
+
 	//Show------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)

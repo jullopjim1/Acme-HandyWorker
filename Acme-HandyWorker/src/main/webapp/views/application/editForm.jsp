@@ -13,13 +13,85 @@
 <form:form action="${requestURI}" modelAttribute="applicationForm">
 
 	<form:hidden path="id" />
+	<form:hidden path="version" />
+	<form:hidden path="handyWorker" />
+
+	<security:authorize access="hasRole('HANDY')">
+		<form:hidden path="status" />
+	</security:authorize>
 
 	<form:label path="comments">
 		<spring:message code="application.comments" />
 	</form:label>
-	<form:textarea path="comments" />
-	<form:errors ccsClass="error" path="comments" />
-	<br />
+	<form:input path="comments" />
+	<form:errors cssClass="error" path="comments" />
+
+	<security:authorize access="hasRole('CUSTOMER')">
+		<jstl:if test="${application.id != 0 }">
+
+			<form:label path="status">
+				<spring:message code="application.status"></spring:message>
+			</form:label>
+			<form:select id="statuses" path="status">
+				<form:options items="${statuses}" />
+			</form:select>
+			<br />
+		</jstl:if>
+
+	</security:authorize>
+
+	<fieldset>
+		<legend>
+			<spring:message code="application.creditcard" />
+		</legend>
+
+		<form:label path="holderName">
+			<spring:message code="creditCard.holderName" />:
+     		 </form:label>
+		<form:input path="holderName" />
+		<form:errors cssClass="error" path="holderName" />
+		<br>
+
+		<form:label path="brandName">
+			<spring:message code="creditCard.brandName" />:
+      		</form:label>
+		<form:input path="brandName" />
+		<form:errors cssClass="error" path="brandName" />
+		<br>
+
+		<form:label path="number">
+			<spring:message code="creditCard.number" />:
+     		 </form:label>
+		<form:input path="number" />
+		<form:errors cssClass="error" path="number" />
+		<br>
+
+		<form:label path="expirationMonth">
+			<spring:message code="creditCard.expirationMonth" />:
+      		</form:label>
+		<form:input path="expirationMonth" />
+		<form:errors cssClass="error" path="expirationMonth" />
+		<br>
+
+		<form:label path="expirationYear">
+			<spring:message code="creditCard.expirationYear" />:
+     		</form:label>
+		<form:input path="expirationYear" />
+		<form:errors cssClass="error" path="expirationYear" />
+		<br>
+
+		<form:label path="CVVCode">
+			<spring:message code="creditCard.cvvCode" />:
+      		</form:label>
+		<form:input path="CVVCode" />
+		<form:errors cssClass="error" path="CVVCode" />
+		<br> <br>
+		<legend>
+			<spring:message code="application.warningCreditcard" />
+		</legend>
+	</fieldset>
+=======
+>>>>>>> branch 'master' of https://github.com/jullopjim1/Acme-HandyWorker.git
 
 	<input type="submit" name="save"
 		value="<spring:message code="application.save"/>" />
