@@ -23,12 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-
 import services.CategoryService;
 import services.FinderService;
 import services.HandyWorkerService;
 import services.WarrantyService;
+import controllers.AbstractController;
 import domain.Category;
 import domain.Finder;
 import domain.FixUpTask;
@@ -68,7 +67,7 @@ public class FinderHandyWorkerController extends AbstractController {
 		//TODO Arreglar categoryTreeToPlain
 		//categories = this.categoryService.categoryTreeToPlain();
 		categories = this.categoryService.findAll();
-		final Collection<Warranty> warranties = this.warrantyService.findAll();
+		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
 		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 		final Collection<String> nameCategories = new ArrayList<>();
 		for (final Category category : categories)
@@ -117,7 +116,7 @@ public class FinderHandyWorkerController extends AbstractController {
 		result = new ModelAndView("finder/handy/listFixUpTasks");
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("lang", lang);
-		result.addObject("requestURI","finder/handy/listFixUpTasks");
+		result.addObject("requestURI", "finder/handy/listFixUpTasks");
 		return result;
 	}
 
