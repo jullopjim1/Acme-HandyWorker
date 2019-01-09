@@ -20,4 +20,9 @@
 		<put-attribute name="body" value="/views/application/edit.jsp" />
 	</definition>
 
+	<definition name="application/editForm" extends="master.page">
+		<put-attribute name="title" value="Editar Solicitud" />
+		<put-attribute name="body" value="/views/application/editForm.jsp" />
+	</definition>
+
 </tiles-definitions>
