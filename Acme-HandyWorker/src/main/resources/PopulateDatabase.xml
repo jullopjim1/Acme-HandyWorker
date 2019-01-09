@@ -1561,98 +1561,6 @@
 		<property name="actor" ref="customer1" />
 	</bean>
 
-	<bean id="inBoxC1" class="domain.Box">
-		<property name="name" value="in box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="customer1" />
-	</bean>
-
-	<bean id="outBoxC1" class="domain.Box">
-		<property name="name" value="out box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="customer1" />
-	</bean>
-
-	<bean id="spamBoxC1" class="domain.Box">
-		<property name="name" value="spam box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="customer1" />
-	</bean>
-
-	<bean id="trashBoxAdmin" class="domain.Box">
-		<property name="name" value="trash box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="admin" />
-	</bean>
-
-	<bean id="inBoxAdmin" class="domain.Box">
-		<property name="name" value="in box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="admin" />
-	</bean>
-
-	<bean id="outBoxAdmin" class="domain.Box">
-		<property name="name" value="out box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="admin" />
-	</bean>
-
-	<bean id="spamBoxAdmin" class="domain.Box">
-		<property name="name" value="spam box" />
-		<property name="isSystem" value="true" />
-		<property name="subboxes">
-			<list>
-			</list>
-		</property>
-		<property name="rootbox">
-			<null />
-		</property>
-		<property name="actor" ref="admin" />
-	</bean>
-
-
 	<bean id="trashBoxC2" class="domain.Box">
 		<property name="name" value="trash box" />
 		<property name="isSystem" value="true" />
@@ -1664,6 +1572,215 @@
 			<null />
 		</property>
 		<property name="actor" ref="customer2" />
+	</bean>
+
+	<bean id="trashBoxC3" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer3" />
+	</bean>
+
+	<bean id="trashBoxC4" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer4" />
+	</bean>
+
+	<bean id="trashBoxH1" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+
+	<bean id="trashBoxH2" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+
+	<bean id="trashBoxH3" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+
+	<bean id="trashBoxH4" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker4" />
+	</bean>
+
+	<bean id="trashBoxS1" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="trashBoxS2" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="trashBoxS3" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor3" />
+	</bean>
+
+	<bean id="trashBoxS4" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor4" />
+	</bean>
+
+	<bean id="trashBoxR1" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee1" />
+	</bean>
+
+	<bean id="trashBoxR2" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee2" />
+	</bean>
+
+	<bean id="trashBoxR3" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee3" />
+	</bean>
+
+	<bean id="trashBoxR4" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee4" />
+	</bean>
+
+	<bean id="trashBoxA" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="inBoxC1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer1" />
 	</bean>
 
 	<bean id="inBoxC2" class="domain.Box">
@@ -1679,6 +1796,214 @@
 		<property name="actor" ref="customer2" />
 	</bean>
 
+	<bean id="inBoxC3" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+
+	<bean id="inBoxC4" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+
+	<bean id="inBoxH1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+
+	<bean id="inBoxH2" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+
+	<bean id="inBoxH3" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+
+	<bean id="inBoxH4" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker4" />
+	</bean>
+
+	<bean id="inBoxS1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="inBoxS2" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="inBoxS3" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor3" />
+	</bean>
+
+	<bean id="inBoxS4" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor4" />
+	</bean>
+
+	<bean id="inBoxR1" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee1" />
+	</bean>
+
+	<bean id="inBoxR2" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee2" />
+	</bean>
+
+	<bean id="inBoxR3" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee3" />
+	</bean>
+
+	<bean id="inBoxR4" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee4" />
+	</bean>
+
+	<bean id="inBoxA" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+	<bean id="outBoxC1" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+
 	<bean id="outBoxC2" class="domain.Box">
 		<property name="name" value="out box" />
 		<property name="isSystem" value="true" />
@@ -1692,6 +2017,214 @@
 		<property name="actor" ref="customer2" />
 	</bean>
 
+	<bean id="outBoxC3" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer3" />
+	</bean>
+
+	<bean id="outBoxC4" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer4" />
+	</bean>
+
+	<bean id="outBoxH1" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+
+	<bean id="outBoxH2" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+
+	<bean id="outBoxH3" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+
+	<bean id="outBoxH4" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker4" />
+	</bean>
+
+	<bean id="outBoxS1" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="outBoxS2" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="outBoxS3" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor3" />
+	</bean>
+
+	<bean id="outBoxS4" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor4" />
+	</bean>
+
+	<bean id="outBoxR1" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee1" />
+	</bean>
+
+	<bean id="outBoxR2" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee2" />
+	</bean>
+
+	<bean id="outBoxR3" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee3" />
+	</bean>
+
+	<bean id="outBoxR4" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee4" />
+	</bean>
+
+	<bean id="outBoxA" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+	<bean id="spamBoxC1" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+
 	<bean id="spamBoxC2" class="domain.Box">
 		<property name="name" value="spam box" />
 		<property name="isSystem" value="true" />
@@ -1703,6 +2236,201 @@
 			<null />
 		</property>
 		<property name="actor" ref="customer2" />
+	</bean>
+
+	<bean id="spamBoxC3" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer3" />
+	</bean>
+
+	<bean id="spamBoxC4" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="customer4" />
+	</bean>
+
+	<bean id="spamBoxH1" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker1" />
+	</bean>
+
+	<bean id="spamBoxH2" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker2" />
+	</bean>
+
+	<bean id="spamBoxH3" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker3" />
+	</bean>
+
+	<bean id="spamBoxH4" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="handyWorker4" />
+	</bean>
+
+	<bean id="spamBoxS1" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor1" />
+	</bean>
+
+	<bean id="spamBoxS2" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor2" />
+	</bean>
+
+	<bean id="spamBoxS3" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor3" />
+	</bean>
+
+	<bean id="spamBoxS4" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="sponsor4" />
+	</bean>
+
+	<bean id="spamBoxR1" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee1" />
+	</bean>
+
+	<bean id="spamBoxR2" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee2" />
+	</bean>
+
+	<bean id="spamBoxR3" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee3" />
+	</bean>
+
+	<bean id="spamBoxR4" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="referee4" />
+	</bean>
+
+	<bean id="spamBoxA" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
 	</bean>
 
 	<bean id="box1" class="domain.Box">
