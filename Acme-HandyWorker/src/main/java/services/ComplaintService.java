@@ -105,5 +105,9 @@ public class ComplaintService {
 	public Complaint findComplaintFinalByTaskId(final int fixUpTaskId) {
 		return this.complaintRepository.findComplaintFinalByTaskId(fixUpTaskId);
 	}
+	
+	public Collection<Complaint> findComplaintsByTaskId(final int fixUpTaskId) {
+		return this.complaintRepository.findComplaintsByTaskId(fixUpTaskId);
+	}
 
 }
