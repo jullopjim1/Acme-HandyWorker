@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.FixUpTaskService;
 import controllers.AbstractController;
 import domain.FixUpTask;
+import domain.HandyWorker;
+import security.LoginService;
+import services.ApplicationService;
+import services.FixUpTaskService;
+import services.HandyWorkerService;
 
 @Controller
 @RequestMapping("/fixUpTask/handyWorker")
@@ -23,6 +27,13 @@ public class FixUpTaskHandyWorkerController extends AbstractController {
 	@Autowired
 	private FixUpTaskService	fixUpTaskService;
 
+	@Autowired
+	private ApplicationService	applicationService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
+
 	// Constructor---------------------------------------------------------
 
 	public FixUpTaskHandyWorkerController() {
@@ -30,19 +41,24 @@ public class FixUpTaskHandyWorkerController extends AbstractController {
 	}
 
 	// List ---------------------------------------------------------------
-		@RequestMapping(value = "/list", method = RequestMethod.GET)
-		public ModelAndView list() {
-			ModelAndView result;
-			Collection<FixUpTask> fixUpTasks;
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<FixUpTask> fixUpTasks;
 
-			fixUpTasks = this.fixUpTaskService.findAll();
-			final String language = LocaleContextHolder.getLocale().getLanguage();
+		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final int handyWorkerId = h.getId();
 
-			result = new ModelAndView("fixUpTask/list");
-			result.addObject("fixUpTasks", fixUpTasks);
-			result.addObject("requestURI", "fixUpTask/handyWorker/list.do");
-			result.addObject("lang", language.toUpperCase());
+		fixUpTasks = this.fixUpTaskService.findAll();
+		final String language = LocaleContextHolder.getLocale().getLanguage();
 
-			return result;
-		}
+		result = new ModelAndView("fixUpTask/list");
+		result.addObject("fixUpTasks", fixUpTasks);
+		result.addObject("requestURI", "fixUpTask/handyWorker/list.do");
+		result.addObject("lang", language.toUpperCase());
+		result.addObject("handyId", handyWorkerId);
+		result.addObject("applicationService", this.applicationService);
+
+		return result;
+	}
 }

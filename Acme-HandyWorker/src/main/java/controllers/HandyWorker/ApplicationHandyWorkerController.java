@@ -52,7 +52,6 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		result.addObject("applications", applications);
 		result.addObject("handyId", handyWorkerId);
 		result.addObject("requestURI", "/list.do");
-		result.addObject("applicationService", this.applicationService);
 
 		return result;
 	}
