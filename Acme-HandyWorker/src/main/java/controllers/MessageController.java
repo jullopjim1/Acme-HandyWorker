@@ -38,18 +38,22 @@ public class MessageController extends AbstractController {
 
 	@RequestMapping(value = "/actor/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int boxId) {
-		final ModelAndView result;
+		ModelAndView result;
 
 		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final Box box1 = this.boxService.findOne(boxId);
-		//TODO Añadir try and cast
-		final Box box = this.boxService.findBoxByActorIdAndName(actor.getId(), box1.getName());
 
-		final Collection<Message> messages = this.messageService.findByBox(box);
+		try {
+			this.boxService.checkPrincipal(box1);
+			final Collection<Message> messages = this.messageService.findByBox(box1);
 
-		result = new ModelAndView("message/actor/list");
-		result.addObject("messages", messages);
-		result.addObject("requestURI", "message/actor/list.do");
+			result = new ModelAndView("message/actor/list");
+			result.addObject("messages", messages);
+			result.addObject("requestURI", "message/actor/list.do");
+		} catch (final Exception e) {
+			result = new ModelAndView("redirect:/welcome/index.do");
+		}
+
 		return result;
 	}
 

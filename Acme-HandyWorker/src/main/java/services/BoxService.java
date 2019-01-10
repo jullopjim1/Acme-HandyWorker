@@ -164,6 +164,11 @@ public class BoxService {
 
 		Assert.isTrue(box.getActor().equals(actor), "box.commit.error");
 
+		if (box.getId() == 0) {
+			final Box oldBox = this.findBoxByActorIdAndName(actor.getId(), box.getName());
+			Assert.isTrue(oldBox == null, "box.name.commit.error");
+		}
+
 	}
 
 	public Box findBoxByActorIdAndName(final int actorId, final String nameBox) {

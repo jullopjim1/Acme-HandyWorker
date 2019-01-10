@@ -47,7 +47,7 @@ public class EndorsementController extends AbstractController {
 			result.addObject("endorsementsEndorsee", endorsementsEndorsee);
 			result.addObject("requestURI", "endorsements/list.do");
 		} catch (final Exception e) {
-			result.setViewName("welcome/index.do");
+			result.setViewName("redirect:/welcome/index.do");
 			result.addObject("message", "message.commit.error");
 		}
 
@@ -64,7 +64,7 @@ public class EndorsementController extends AbstractController {
 			modelAndView = this.createEditModelAndView(endorsement);
 
 		} catch (final Exception e) {
-			modelAndView = new ModelAndView("welcome/index.do");
+			modelAndView = new ModelAndView("redirect:/welcome/index.do");
 			modelAndView.addObject("message", "message.commit.error");
 		}
 
