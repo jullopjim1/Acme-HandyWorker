@@ -1,3 +1,4 @@
+
 package controllers.HandyWorker;
 
 import java.util.Collection;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.CustomerService;
+import services.FinderService;
 import services.FixUpTaskService;
 import controllers.AbstractController;
 import domain.Customer;
+import domain.Finder;
 import domain.FixUpTask;
 
 @Controller
@@ -23,10 +26,15 @@ public class CustomerProfileHandyWorkerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
+
+	@Autowired
+	private FinderService		finderService;
+
+
 	// Constructor---------------------------------------------------------
 
 	public CustomerProfileHandyWorkerController() {
@@ -42,8 +50,7 @@ public class CustomerProfileHandyWorkerController extends AbstractController {
 
 		modelAndView = this.createEditModelAndView(c);
 		modelAndView.addObject("isRead", true);
-		modelAndView.addObject("requestURI",
-				"handyWorker/viewProfileCustomer.do?customerId" + customerId);
+		modelAndView.addObject("requestURI", "handyWorker/viewProfileCustomer.do?customerId" + customerId);
 		return modelAndView;
 	}
 
@@ -55,11 +62,12 @@ public class CustomerProfileHandyWorkerController extends AbstractController {
 
 		fixUpTasks = this.fixUpTaskService.findFixUpTaskByCustomerId(customerId);
 		final String language = LocaleContextHolder.getLocale().getLanguage();
-
+		final Finder finder = this.finderService.create();
 		result = new ModelAndView("fixUpTask/list");
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("requestURI", "handyWorker/fixUpTasksCustomer.do?customerId=" + customerId);
 		result.addObject("lang", language.toUpperCase());
+		result.addObject("finder", finder);
 
 		return result;
 	}
@@ -75,18 +83,14 @@ public class CustomerProfileHandyWorkerController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Customer customer,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Customer customer, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/showCustomer");
 		result.addObject("customer", customer);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject(
-				"requestURI",
-				"handyWorker/viewProfileCustomer.do?customerId"
-						+ customer.getId());
+		result.addObject("requestURI", "handyWorker/viewProfileCustomer.do?customerId" + customer.getId());
 
 		return result;
 	}
