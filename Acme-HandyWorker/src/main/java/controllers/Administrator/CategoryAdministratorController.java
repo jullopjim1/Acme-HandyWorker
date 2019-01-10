@@ -1,3 +1,4 @@
+
 package controllers.Administrator;
 
 import java.util.Collection;
@@ -13,6 +14,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,7 +30,8 @@ public class CategoryAdministratorController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private CategoryService categoryService;
+	private CategoryService	categoryService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -38,13 +41,16 @@ public class CategoryAdministratorController extends AbstractController {
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(required = false, defaultValue = "0") final int categoryId) {
 		ModelAndView result;
 		Collection<Category> categories;
-		final String lang = LocaleContextHolder.getLocale().getLanguage()
-				.toUpperCase();
+		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
 
-		categories = categoryService.findAll();
+		if (categoryId == 0)
+			categories = this.categoryService.findSons(this.categoryService.findRootCategory().getId());
+		else
+			categories = this.categoryService.findSons(categoryId);
+
 		result = new ModelAndView("category/list");
 
 		result.addObject("lang", lang);
@@ -57,7 +63,7 @@ public class CategoryAdministratorController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		CategoryForm categoryForm = new CategoryForm();
+		final CategoryForm categoryForm = new CategoryForm();
 
 		result = this.createModelAndView(categoryForm);
 
@@ -65,23 +71,21 @@ public class CategoryAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final CategoryForm categoryForm,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final CategoryForm categoryForm, final BindingResult binding) {
 		ModelAndView result;
 		if (binding.hasErrors())
 			result = this.createModelAndView(categoryForm, "commit.error");
 		else
 			try {
-				Category category = categoryService.create();
-				Map<String, String> map = new HashMap<String, String>();
+				final Category category = this.categoryService.create();
+				final Map<String, String> map = new HashMap<String, String>();
 				map.put("EN", categoryForm.getNameEN());
 				map.put("ES", categoryForm.getNameES());
 				category.setName(map);
 				category.setRootcategory(categoryForm.getRootcategory());
 
 				this.categoryService.save(category);
-				result = new ModelAndView(
-						"redirect:/category/administrator/list.do");
+				result = new ModelAndView("redirect:/category/administrator/list.do");
 			} catch (final Throwable oops) {
 
 				result = this.editModelAndView(categoryForm, "commit.error");
@@ -92,22 +96,18 @@ public class CategoryAdministratorController extends AbstractController {
 	// EDIT
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(final int categoryId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(final int categoryId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Category category = null;
-		CategoryForm categoryForm = new CategoryForm();
+		final CategoryForm categoryForm = new CategoryForm();
 
 		try {
 			category = this.categoryService.findOne(categoryId);
 			Assert.isTrue(category != null);
-			Assert.isTrue(categoryId != categoryService.findRootCategory()
-					.getId());
-			final Collection<Category> categories = this.categoryService
-					.findAll();
-			if (category != null) {
+			Assert.isTrue(categoryId != this.categoryService.findRootCategory().getId());
+			final Collection<Category> categories = this.categoryService.findAll();
+			if (category != null)
 				categories.remove(category);
-			}
 
 			categoryForm.setId(category.getId());
 			categoryForm.setNameEN(category.getName().get("EN"));
@@ -120,39 +120,32 @@ public class CategoryAdministratorController extends AbstractController {
 
 		} catch (final Throwable e) {
 
-			result = new ModelAndView(
-					"redirect:/category/administrator/list.do");
-			if (category == null) {
-				redirectAttrs.addFlashAttribute("message",
-						"category.error.unexist");
-			} else if (categoryId == categoryService.findRootCategory().getId()) {
-				redirectAttrs.addFlashAttribute("message",
-						"category.error.rootCategoryDelete");
-			}
+			result = new ModelAndView("redirect:/category/administrator/list.do");
+			if (category == null)
+				redirectAttrs.addFlashAttribute("message", "category.error.unexist");
+			else if (categoryId == this.categoryService.findRootCategory().getId())
+				redirectAttrs.addFlashAttribute("message", "category.error.rootCategoryDelete");
 		}
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveEdit(@Valid final CategoryForm categoryForm,
-			final BindingResult binding) {
+	public ModelAndView saveEdit(@Valid final CategoryForm categoryForm, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(categoryForm, "commit.error");
 		else
 			try {
-				Category category = categoryService.findOne(categoryForm
-						.getId());
-				Map<String, String> map = new HashMap<String, String>();
+				final Category category = this.categoryService.findOne(categoryForm.getId());
+				final Map<String, String> map = new HashMap<String, String>();
 				map.put("EN", categoryForm.getNameEN());
 				map.put("ES", categoryForm.getNameES());
 				category.setName(map);
 				category.setRootcategory(categoryForm.getRootcategory());
 
 				this.categoryService.save(category);
-				result = new ModelAndView(
-						"redirect:/category/administrator/list.do");
+				result = new ModelAndView("redirect:/category/administrator/list.do");
 			} catch (final Throwable oops) {
 
 				result = this.editModelAndView(categoryForm, "commit.error");
@@ -162,21 +155,18 @@ public class CategoryAdministratorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView deleteEdit(@Valid final CategoryForm categoryForm,
-			final BindingResult binding) {
+	public ModelAndView deleteEdit(@Valid final CategoryForm categoryForm, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
 			result = this.editModelAndView(categoryForm, "commit.error");
 		else
 			try {
-				Category category = categoryService.findOne(categoryForm
-						.getId());
+				final Category category = this.categoryService.findOne(categoryForm.getId());
 				Assert.notNull(category, "CATGEORY A BORRAR ES NULL");
 				this.categoryService.delete(category);
 
-				result = new ModelAndView(
-						"redirect:/category/administrator/list.do");
+				result = new ModelAndView("redirect:/category/administrator/list.do");
 			} catch (final Throwable oops) {
 
 				result = this.editModelAndView(categoryForm, oops.getMessage());
@@ -193,8 +183,7 @@ public class CategoryAdministratorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createModelAndView(final CategoryForm categoryForm,
-			final String message) {
+	protected ModelAndView createModelAndView(final CategoryForm categoryForm, final String message) {
 		ModelAndView result;
 
 		final Collection<Category> categories = this.categoryService.findAll();
@@ -214,15 +203,13 @@ public class CategoryAdministratorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView editModelAndView(final CategoryForm categoryForm,
-			final String message) {
+	protected ModelAndView editModelAndView(final CategoryForm categoryForm, final String message) {
 		ModelAndView result;
 
 		final Collection<Category> categories = this.categoryService.findAll();
-		Category category = categoryService.findOne(categoryForm.getId());
-		if (category != null) {
+		final Category category = this.categoryService.findOne(categoryForm.getId());
+		if (category != null)
 			categories.remove(category);
-		}
 
 		result = new ModelAndView("category/edit");
 		result.addObject("message", message);
