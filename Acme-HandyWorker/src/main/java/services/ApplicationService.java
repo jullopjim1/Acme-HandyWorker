@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ApplicationRepository;
-import security.Authority;
-import security.LoginService;
 import domain.Actor;
 import domain.Application;
 import domain.CreditCard;
@@ -22,6 +19,9 @@ import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Message;
+import repositories.ApplicationRepository;
+import security.Authority;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -123,8 +123,11 @@ public class ApplicationService {
 		final double price = this.configurationService.calculate(application.getPrice());
 		application.setPrice(price);
 
-		final CreditCard c = this.creditCardService.save(application.getCreditCard());
-		application.setCreditCard(c);
+		if (application.getCreditCard() != null) {
+			final CreditCard c = this.creditCardService.save(application.getCreditCard());
+			application.setCreditCard(c);
+		}
+
 		final Application saved = this.applicationRepository.save(application);
 		return saved;
 	}
