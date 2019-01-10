@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.Box;
-import domain.Configuration;
-import domain.Message;
 import repositories.MessageRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.Box;
+import domain.Configuration;
+import domain.Message;
 
 @Service
 @Transactional
@@ -148,9 +149,18 @@ public class MessageService {
 	}
 
 	public void deleteByBox(final Box box) {
-		if (this.messageRepository.findByBoxId(box.getId()) != null || !this.messageRepository.findByBoxId(box.getId()).isEmpty())
-			this.messageRepository.delete(this.messageRepository.findByBoxId(box.getId()));
-
+		final Collection<Message> collection = this.messageRepository.findByBoxId(box.getId());
+		if (collection != null || !collection.isEmpty()) {
+			final Collection<Message> messages = new LinkedList<>();
+			final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+			final Box trash = this.boxService.findBoxByActorIdAndName(actor.getId(), "trash box");
+			for (final Message entity : collection) {
+				Assert.notNull(trash, "Todo actor debe tener un trash box");
+				entity.setBox(trash);
+				messages.add(entity);
+			}
+			this.messageRepository.save(messages);
+		}
 	}
 	//Other Methods---------------------------------------------------------------------------
 

@@ -133,12 +133,17 @@ public class PhaseHandyWorkerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Phase phase, final String message) {
 		ModelAndView result;
 
+
 		result = new ModelAndView("phase/edit");
-		result.addObject("phase", phase);
+		result.addObject("phases", phases);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
+
 		result.addObject("fixUpTaskId", phase.getFixUpTask().getId());
-		result.addObject("requestURI", "phase/handyworker/edit.do");
+
+		result.addObject("requestURI", "phase/handyWorker/edit.do");
+
+
 		return result;
 	}
 }

@@ -10,6 +10,71 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+
+<security:authorize access="hasRole('HANDY')">
+	<form:form action="fixUpTask/handyWorker/addFilter.do"
+		modelAttribute="finder">
+
+
+
+		<form:label path="keyword">
+			<spring:message code="finder.keyword" />
+		</form:label>
+		<form:input path="keyword" />
+		<form:errors ccsClass="error" path="keyword" />
+		<br />
+
+		<form:label path="priceMin">
+			<spring:message code="finder.priceMin" />
+		</form:label>
+		<form:input path="priceMin" />
+		<form:errors ccsClass="error" path="priceMin" />
+		<br />
+
+		<form:label path="priceMax">
+			<spring:message code="finder.priceMax" />
+		</form:label>
+		<form:input path="priceMax" />
+		<form:errors ccsClass="error" path="priceMax" />
+		<br />
+
+		<form:label path="dateMin">
+			<spring:message code="finder.dateMin" />
+		</form:label>
+		<form:input path="dateMin" placeholder="yyyy/mm/dd hh:mm" />
+		<form:errors ccsClass="error" path="dateMin" />
+		<br />
+
+		<form:label path="dateMax">
+			<spring:message code="finder.dateMax" />
+		</form:label>
+		<form:input path="dateMax" placeholder="yyyy/mm/dd hh:mm" />
+		<form:errors ccsClass="error" path="dateMax" />
+		<br />
+
+		<form:label path="namecategory">
+			<spring:message code="finder.namecategory" />
+		</form:label>
+		<form:select id="categories" path="namecategory">
+			<form:option value="" label="------" />
+			<form:options items="${categories}" />
+		</form:select>
+
+		<form:label path="namewarranty">
+			<spring:message code="finder.namewarranty" />
+		</form:label>
+		<form:select id="warranties" path="namewarranty">
+			<form:option value="" label="------" />
+			<form:options items="${warranties}" itemLabel="title"
+				itemValue="title" />
+		</form:select>
+
+		<input type="submit" name="save"
+			value="<spring:message code="finder.save"/>" />
+
+	</form:form>
+</security:authorize>
+
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
@@ -73,7 +138,7 @@
 
 		<display:column titleKey="fixUpTask.application.create">
 			<jstl:if
-				test="${applicationService.findApplicationByHandyWorkerIdAndTaskId(handyId, row.id) == null }">
+				test="${applicationService.findApplicationByHandyWorkerIdAndTaskId(handyId, row.id) == null and applicationService.findApplicationAcceptedByFixUpTaskId(row.id) == null}">
 				<a href="application/handyworker/create.do?fixUpTaskId=${row.id}"><spring:message
 						code="fixUpTask.application.create" /></a>
 			</jstl:if>

@@ -43,7 +43,7 @@
 	</display:column>
 
 </display:table>
-
+<br/>
 <a href="message/actor/exchangeMessage.do"> <spring:message
 		code="message.create" /></a>
 

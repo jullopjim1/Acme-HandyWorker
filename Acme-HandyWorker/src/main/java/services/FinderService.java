@@ -15,15 +15,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.FinderRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Configuration;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
+import repositories.FinderRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -68,7 +68,7 @@ public class FinderService {
 		finder.setKeyword("");
 		finder.setNamecategory("");
 		finder.setNamewarranty("");
-		finder.setPriceMax(999999999999999999.9);
+		finder.setPriceMax(9999999.9);
 		finder.setPriceMin(0.0);
 
 		finder.setLastUpdate(lastUpdate);
@@ -98,14 +98,19 @@ public class FinderService {
 		finder = this.updateFinder(finder);
 
 		final Finder saved = this.finderRepository.save(this.updateFinder(finder));
-
+		if (finder.getId() == 0) {
+			final UserAccount userAccount = LoginService.getPrincipal();
+			final HandyWorker handy = this.handyWorkerService.findHandyWorkerByUserAccount(userAccount.getId());
+			handy.setFinder(saved);
+			this.handyWorkerService.save(handy);
+		}
 		return saved;
 	}
 	/**
 	 * No se puede borrar un finder
 	 */
 	//	public void delete(final Finder entity) {
-	//		
+	//
 	//	}
 
 	//Other Methods---------------------------------------------------------------------------
@@ -168,17 +173,13 @@ public class FinderService {
 		List<FixUpTask> result = new ArrayList<>();
 		final String nameCategory = f.getNamecategory();
 		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
-
-		//		System.out.println("\n\n\n\n===========================\n");
-		//		SchemaPrinter.print(f);
-		//		System.out.println(f.getNamecategory());
-		//		System.out.println("\n===========================\n\n\n\n");
+		final Finder finder = this.checkPrincipal(f);
 
 		Page<FixUpTask> p;
 		if (nameCategory == null || nameCategory.equals(""))
-			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), f.getNamewarranty(), new PageRequest(0, maxResult));
+			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), finder.getPriceMin(), finder.getPriceMax(), finder.getNamewarranty(), new PageRequest(0, maxResult));
 		else
-			p = this.finderRepository.searchFixUpTasks(f.getKeyword(), f.getDateMin(), f.getDateMax(), f.getPriceMin(), f.getPriceMax(), langCategory, nameCategory, f.getNamewarranty(), new PageRequest(0, maxResult));
+			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), finder.getPriceMin(), finder.getPriceMax(), langCategory, nameCategory, finder.getNamewarranty(), new PageRequest(0, maxResult));
 
 		if (p.getContent() != null)
 			result = new ArrayList<>(p.getContent());
@@ -199,7 +200,8 @@ public class FinderService {
 		final Finder finder = this.findFinderByHandyWorkerId(actor.getId());
 
 		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los handyWorker tiene finder");
-		Assert.isTrue(f.equals(finder), "Un finder solo puede ser modificado por su dueño");
+
+		Assert.isTrue(f.equals(finder) || (f.getId() == 0 && finder == null), "Un finder solo puede ser modificado por su dueño");
 
 	}
 
@@ -210,7 +212,7 @@ public class FinderService {
 		Finder finder = this.findFinderByHandyWorkerId(handyWorker.getId());
 
 		if (finder == null)
-			finder = this.create();
+			finder = this.save(this.create());
 
 		return finder;
 

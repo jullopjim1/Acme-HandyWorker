@@ -19,6 +19,7 @@ import domain.Application;
 import domain.HandyWorker;
 import security.LoginService;
 import services.ApplicationService;
+import services.ConfigurationService;
 import services.HandyWorkerService;
 
 @Controller
@@ -28,10 +29,13 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService		applicationService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	//Constructor---------------------------------------------------------
@@ -143,9 +147,12 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Application application, final String message) {
 		ModelAndView result;
 
+		final int varTax = this.configurationService.findOne().getVarTax();
+
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
 		result.addObject("message", message);
+		result.addObject("varTax", varTax);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "application/handyworker/edit.do");
 

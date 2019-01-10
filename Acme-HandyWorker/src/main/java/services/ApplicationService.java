@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -11,15 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ApplicationRepository;
-import security.Authority;
-import security.LoginService;
 import domain.Actor;
 import domain.Application;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Message;
+import repositories.ApplicationRepository;
+import security.Authority;
+import security.LoginService;
 
 @Service
 @Transactional
@@ -27,20 +28,23 @@ public class ApplicationService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private ApplicationRepository applicationRepository;
+	private ApplicationRepository	applicationRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private ActorService actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private HandyWorkerService handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 
 	@Autowired
 	private FixUpTaskService		fixUpTaskService;
 
 	@Autowired
 	private MessageService			messageService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructor----------------------------------------------
@@ -52,9 +56,7 @@ public class ApplicationService {
 
 	public Application create(final int fixUpTaskId) {
 		final FixUpTask fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
-		final HandyWorker handyWorker = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final Application application = new Application();
 		application.setMoment(new Date(System.currentTimeMillis() - 1000));
 		application.setStatus("PENDING");
@@ -73,36 +75,28 @@ public class ApplicationService {
 	}
 
 	public Application save(final Application application) {
-		Assert.notNull(application,
-				"APPLICATION A CREAR/EDITAR NO PUEDE SER NULL");
+		Assert.notNull(application, "APPLICATION A CREAR/EDITAR NO PUEDE SER NULL");
 		final Authority handy = new Authority();
 		handy.setAuthority("HANDY");
 		final Authority cust = new Authority();
 		cust.setAuthority("CUSTOMER");
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService
-				.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
-		final Collection<Authority> authorities = actorActual.getUserAccount()
-				.getAuthorities();
+		final Collection<Authority> authorities = actorActual.getUserAccount().getAuthorities();
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
 		if (authorities.contains(cust)) {
-			final boolean restriccion = (application.getId() != 0)
-					&& (application.getFixUpTask().getCustomer().getId() == (actorActual
-							.getId()));
-			final boolean restriccion2 = (application.getFixUpTask()
-					.getCustomer().getId() == actorActual.getId());
+			final boolean restriccion = (application.getId() != 0) && (application.getFixUpTask().getCustomer().getId() == (actorActual.getId()));
+			final boolean restriccion2 = (application.getFixUpTask().getCustomer().getId() == actorActual.getId());
 			Assert.isTrue(restriccion, "CUSTOMER NO PUEDE CREAR APPLICATION");
-			Assert.isTrue(restriccion2,
-					"CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
+			Assert.isTrue(restriccion2, "CUSTOMER SOLO PUEDE MODIFICAR APPLICATION DE SUS FIXUPTASKS");
 		}
 
 		// TARJETA DE CREDITO NECESARIA SI STATUS = ACCPETED
 		if (application.getStatus() == "ACCEPTED")
-			Assert.isTrue(application.getCreditCard() != null,
-					"SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
+			Assert.isTrue(application.getCreditCard() != null, "SI STATUS = ACCEPTED ES NECESARIA TARJETA DE CREDITO");
 
 		application.setMoment(new Date(System.currentTimeMillis() - 1000));
 		// GUARDO APPLICATION
@@ -122,6 +116,9 @@ public class ApplicationService {
 			this.messageService.save(message);
 		}
 
+		final double price = this.configurationService.calculate(application.getPrice());
+		application.setPrice(price);
+
 		final Application saved = this.applicationRepository.save(application);
 		return saved;
 	}
@@ -131,11 +128,9 @@ public class ApplicationService {
 		handy.setAuthority("HANDY");
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService
-				.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
-		final Collection<Authority> authorities = actorActual.getUserAccount()
-				.getAuthorities();
+		final Collection<Authority> authorities = actorActual.getUserAccount().getAuthorities();
 
 		// BORRO APPLICATION
 		if (authorities.contains(handy))
@@ -150,23 +145,17 @@ public class ApplicationService {
 
 	// Other Methods--------------------------------------------
 
-	Collection<Application> findApplicationsByCreditCardId(
-			final int creditCardId) {
-		final Collection<Application> applications = this.applicationRepository
-				.findApplicationsByCreditCardId(creditCardId);
+	Collection<Application> findApplicationsByCreditCardId(final int creditCardId) {
+		final Collection<Application> applications = this.applicationRepository.findApplicationsByCreditCardId(creditCardId);
 		return applications;
 	}
 
-	public Collection<Application> findApplicationsByFixUpTeaskId(
-			final int fixUpTaskId) {
-		return this.applicationRepository
-				.findApplicationsByFixUpTaskId(fixUpTaskId);
+	public Collection<Application> findApplicationsByFixUpTeaskId(final int fixUpTaskId) {
+		return this.applicationRepository.findApplicationsByFixUpTaskId(fixUpTaskId);
 	}
 
-	public Collection<Application> findApplicationByHandyWorkerId(
-			final int handyWorkerId) {
-		return this.applicationRepository
-				.findApplicationByHandyWorkerId(handyWorkerId);
+	public Collection<Application> findApplicationByHandyWorkerId(final int handyWorkerId) {
+		return this.applicationRepository.findApplicationByHandyWorkerId(handyWorkerId);
 	}
 
 	public Double queryC2AVG() {
@@ -215,6 +204,10 @@ public class ApplicationService {
 
 	public Application findApplicationByHandyWorkerIdAndTaskId(final int handyWorkerId, final int fixUpTaskId) {
 		return this.applicationRepository.findApplicationByHandyWorkerIdAndTaskId(handyWorkerId, fixUpTaskId);
+	}
+
+	public Application findApplicationAcceptedByFixUpTaskId(final int fixUpTaskId) {
+		return this.applicationRepository.findApplicationAcceptedByFixUpTaskId(fixUpTaskId);
 	}
 
 }

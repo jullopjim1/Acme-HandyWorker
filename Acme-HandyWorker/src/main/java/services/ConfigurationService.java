@@ -99,4 +99,14 @@ public class ConfigurationService {
 
 		return res;
 	}
+
+	public double calculate(final double price) {
+		double res = 0.0;
+		final int varTax = this.findOne().getVarTax();
+
+		res = price + (price * varTax / 100);
+
+		return res;
+
+	}
 }
