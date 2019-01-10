@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.NoteService;
 import domain.Note;
+import services.NoteService;
 
 @Controller
 @RequestMapping("/note")
@@ -102,7 +102,6 @@ public class NoteController extends AbstractController {
 		result.addObject("note", note);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-		result.addObject("reportId", attributeValue)
 
 		result.addObject("requestURI", "note/edit.do");
 
