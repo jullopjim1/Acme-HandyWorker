@@ -1,4 +1,3 @@
-
 package controllers;
 
 import java.util.ArrayList;
@@ -25,20 +24,22 @@ import domain.Box;
 public class BoxController extends AbstractController {
 
 	@Autowired
-	private BoxService		boxService;
+	private BoxService boxService;
 
 	@Autowired
-	private ActorService	actorService;
-
+	private ActorService actorService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Box> boxes = new ArrayList<>();
-		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final Actor actor = this.actorService.findByUserAccount(LoginService
+				.getPrincipal());
 
-		final Collection<Box> allBoxes = this.boxService.findBoxesByActorId(actor.getId());
-		final Collection<Box> systemBoxes = this.boxService.findSystemBoxesByActorId(actor.getId());
+		final Collection<Box> allBoxes = this.boxService
+				.findBoxesByActorId(actor.getId());
+		final Collection<Box> systemBoxes = this.boxService
+				.findSystemBoxesByActorId(actor.getId());
 		allBoxes.removeAll(systemBoxes);
 		boxes.addAll(systemBoxes);
 		boxes.addAll(allBoxes);
@@ -49,7 +50,7 @@ public class BoxController extends AbstractController {
 		return result;
 	}
 
-	//Create
+	// Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		final ModelAndView modelAndView;
@@ -76,7 +77,7 @@ public class BoxController extends AbstractController {
 		return modelAndView;
 	}
 
-	//Save
+	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid final Box box, final BindingResult binding) {
 
@@ -89,7 +90,16 @@ public class BoxController extends AbstractController {
 				this.boxService.save(box);
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(box, "box.commit.error");
+				String username = LoginService.getPrincipal().getUsername();
+				Actor a = actorService.findActorByUsername(username);
+				Box boxCompare = boxService.findBoxByActorIdAndName(a.getId(), box.getName());
+				if (boxCompare != null) {
+					result = this.createEditModelAndView(box,
+							"box.commit.error.nameExists");
+				} else {
+					result = this.createEditModelAndView(box,
+							"box.commit.error");
+				}
 			}
 		return result;
 	}
@@ -106,7 +116,8 @@ public class BoxController extends AbstractController {
 		}
 		return result;
 	}
-	//CreateModelAndView
+
+	// CreateModelAndView
 
 	protected ModelAndView createEditModelAndView(final Box box) {
 		ModelAndView result;
@@ -117,13 +128,16 @@ public class BoxController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Box box, final String message) {
+	protected ModelAndView createEditModelAndView(final Box box,
+			final String message) {
 		ModelAndView result;
 
-		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final Actor actor = this.actorService.findByUserAccount(LoginService
+				.getPrincipal());
 		final int actorId = actor.getId();
 
-		final Collection<Box> boxes = this.boxService.findBoxesByActorId(actorId);
+		final Collection<Box> boxes = this.boxService
+				.findBoxesByActorId(actorId);
 		boxes.removeAll(this.boxService.findSystemBoxesByActorId(actorId));
 
 		if (box.getId() != 0)
