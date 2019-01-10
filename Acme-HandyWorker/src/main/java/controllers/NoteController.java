@@ -22,7 +22,7 @@ public class NoteController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private NoteService	noteService;
+	private NoteService noteService;
 
 
 	//Constructor---------------------------------------------------------
@@ -31,7 +31,7 @@ public class NoteController extends AbstractController {
 		super();
 	}
 
-	//List ---------------------------------------------------------------		
+	//List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int reportId) {
 		ModelAndView result;
@@ -102,6 +102,7 @@ public class NoteController extends AbstractController {
 		result.addObject("note", note);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
+		result.addObject("reportId", attributeValue)
 
 		result.addObject("requestURI", "note/edit.do");
 

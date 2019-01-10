@@ -25,15 +25,16 @@
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasRole('REFEREE')">
-		<jstl:if test="${refereeId==row.referee.id and row.isFinal == false }">
-			<display:column>
 
+		<display:column>
+			<jstl:if
+				test="${refereeId==row.referee.id and row.isFinal == false }">
 				<a href="report/referee/edit.do?reportId=${row.id}"> <spring:message
 						code="report.edit" />
 				</a>
+			</jstl:if>
+		</display:column>
 
-			</display:column>
-		</jstl:if>
 	</security:authorize>
 
 
@@ -41,29 +42,25 @@
 	<display:column property="description" titleKey="report.description" />
 	<display:column property="attachments" titleKey="report.attachments" />
 
-	<jstl:if test="${noteService.findNoteReportById(row.id) != null}">
-		<display:column titleKey="report.notes">
-			<a href="note/list.do?reportId=${row.id}"> <spring:message
-					code="report.show" />
-			</a>
-		</display:column>
-	</jstl:if>
 
 	<security:authorize access="hasRole('REFEREE')">
-		<jstl:if test="${noteService.findNoteReportById(row.id) == null && row.isFinal==true}">
-			<display:column>
+
+		<display:column titleKey="report.notes">
+			<jstl:if test="${noteService.findNoteReportById(row.id) != null}">
+				<a href="note/list.do?reportId=${row.id}"> <spring:message
+						code="report.show" />
+				</a>
+			</jstl:if>
+			<jstl:if
+				test="${noteService.findNoteReportById(row.id) == null && row.isFinal==true}">
 
 				<a href="note/referee/create.do?reportId=${row.id}"> <spring:message
 						code="note.create" />
 				</a>
-		<jstl:if test="${noteService.findNoteReportById(row.id) != null}">
-			<a href="note/list.do?reportId=${row.id}"> <spring:message
-					code="note.show" />
-			</a>
-		</jstl:if>
+			</jstl:if>
+		</display:column>
 
-			</display:column>
-		</jstl:if>
+
 	</security:authorize>
 
 
@@ -71,3 +68,4 @@
 
 
 </display:table>
+

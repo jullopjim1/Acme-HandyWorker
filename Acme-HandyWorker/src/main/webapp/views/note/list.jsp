@@ -26,15 +26,15 @@
 	pagesize="5" class="displaytag">
 
 	<security:authorize access="hasAnyRole('CUSTOMER','HANDY','REFEREE')">
-		<jstl:if test="${row.isFinal==false}">
-			<display:column>
 
+		<display:column>
+			<jstl:if test="${row.isFinal==false}">
 				<a href="note/edit.do?noteId=${row.id}"> <spring:message
 						code="note.edit" />
 				</a>
+			</jstl:if>
+		</display:column>
 
-			</display:column>
-		</jstl:if>
 	</security:authorize>
 
 	<display:column property="moment" titleKey="note.moment" />
