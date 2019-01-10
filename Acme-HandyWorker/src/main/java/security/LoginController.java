@@ -31,7 +31,6 @@ public class LoginController extends AbstractController {
 	@Autowired
 	LoginService	service;
 
-
 	// Constructors -----------------------------------------------------------
 
 	public LoginController() {
@@ -59,7 +58,7 @@ public class LoginController extends AbstractController {
 	@RequestMapping("/loginFailure")
 	public ModelAndView failure() {
 		ModelAndView result;
-
+		
 		result = new ModelAndView("redirect:login.do?showError=true");
 
 		return result;
