@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.EndorserService;
 import controllers.AbstractController;
 import domain.Actor;
-import services.ActorService;
+import domain.Endorser;
 
 @Controller
 @RequestMapping("/actor/administrator")
@@ -21,7 +23,10 @@ public class ActorAdministratorController extends AbstractController {
 	//Service---------------------------------------------------------
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService	actorService;
+
+	@Autowired
+	private EndorserService	endorserService;
 
 
 	//Constructor-----------------------------------------------------
@@ -53,9 +58,15 @@ public class ActorAdministratorController extends AbstractController {
 		final ModelAndView modelAndView = new ModelAndView("actor/edit");
 
 		final Actor actor = this.actorService.findOne(actorId);
+		final Endorser endorser = this.endorserService.findOne(actorId);
+		Double score = null;
+		if (endorser != null)
+			score = endorser.getScore();
 
 		modelAndView.addObject("actor", actor);
 		modelAndView.addObject("isRead", true);
+		modelAndView.addObject("isProfile", true);
+		modelAndView.addObject("score", score);
 		modelAndView.addObject("requestURI", "/actor/administrator/show.do?actorId=" + actorId);
 
 		return modelAndView;

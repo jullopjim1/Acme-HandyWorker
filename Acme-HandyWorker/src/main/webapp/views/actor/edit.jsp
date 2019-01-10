@@ -101,20 +101,23 @@
 	</script>
 
 	<jstl:if test="${isRead == true}">
-		<h3>
-			<spring:message code="actor.score" />
-			:
-			<jstl:out value="${score}" />
-		</h3>
+		<jstl:if test="${score != null}">
+			<h3>
+				<spring:message code="actor.score" />
+				:
+				<jstl:out value="${score}" />
+			</h3>
+		</jstl:if>
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
-		<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
-				code="profile.viewTutorials" />
-		</a>
-		<br />
-		<br />
-
+		<jstl:if test="${isProfile != true}">
+			<a href="tutorial/view.do?handyWorkerId=${handyWorkerId}"> <spring:message
+					code="profile.viewTutorials" />
+			</a>
+			<br />
+			<br />
+		</jstl:if>
 	</jstl:if>
 
 
@@ -123,7 +126,7 @@
 		<input type="submit" name="save"
 			value='<spring:message code="actor.save"/>'
 			onclick=" javascript: return isValid();">
-		
+
 
 		<input type="button" name="cancel"
 			value="<spring:message code="fixuptask.cancel" />"
