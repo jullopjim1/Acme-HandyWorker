@@ -1,7 +1,9 @@
 
 package controllers.HandyWorker;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import controllers.AbstractController;
 import domain.Application;
 import domain.HandyWorker;
+import forms.ApplicationColour;
 import security.LoginService;
 import services.ApplicationService;
 import services.ConfigurationService;
@@ -52,8 +55,28 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final int handyWorkerId = h.getId();
 		applications = this.applicationService.findApplicationByHandyWorkerId(handyWorkerId);
+		
+		Date actualDate = new Date();
+		Collection<ApplicationColour> applicationsColour = new ArrayList<ApplicationColour>();
+		for(Application a: applications){
+			ApplicationColour apc = new ApplicationColour();
+			apc.setApplication(a);
+			String color = "PENDING";
+			if(a.getStatus().equals("ACCEPTED")){
+				color = "ACCEPTED";
+			} else if(a.getStatus().equals("REJECTED")){
+				color = "REJECTED";
+			} else if((a.getStatus().equals("PENDING")) && (a.getFixUpTask().getDeadline().before(actualDate))){
+				color = "PENDINGANDPASSED";
+			}
+			apc.setColor(color);
+			applicationsColour.add(apc);
+		}
+
+		
+		
 		result = new ModelAndView("application/list");
-		result.addObject("applications", applications);
+		result.addObject("applications", applicationsColour);
 		result.addObject("handyId", handyWorkerId);
 		result.addObject("requestURI", "/list.do");
 

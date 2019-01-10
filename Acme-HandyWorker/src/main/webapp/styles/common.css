@@ -17,3 +17,19 @@
 	color: red;
 	font-weight: bolder;
 }
+
+.PENDING{
+  background-color: default;
+}
+
+.PENDINGANDPASSED{
+  background-color: grey;
+}
+
+.ACCEPTED{
+  background-color: green;
+}
+
+.REJECTED{
+  background-color: orange;
+}

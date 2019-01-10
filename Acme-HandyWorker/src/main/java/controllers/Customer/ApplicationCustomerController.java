@@ -1,7 +1,9 @@
 
 package controllers.Customer;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 
 import javax.validation.Valid;
@@ -25,6 +27,7 @@ import domain.Application;
 import domain.CreditCard;
 import domain.Customer;
 import domain.FixUpTask;
+import forms.ApplicationColour;
 import forms.ApplicationForm;
 import forms.ApplicationForm2;
 
@@ -61,9 +64,26 @@ public class ApplicationCustomerController extends AbstractController {
 		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		for (final FixUpTask f : this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId()))
 			applications.addAll(this.applicationService.findApplicationsByFixUpTeaskId(f.getId()));
+		
+		Date actualDate = new Date();
+		Collection<ApplicationColour> applicationsColour = new ArrayList<ApplicationColour>();
+		for(Application a: applications){
+			ApplicationColour apc = new ApplicationColour();
+			apc.setApplication(a);
+			String color = "PENDING";
+			if(a.getStatus().equals("ACCEPTED")){
+				color = "ACCEPTED";
+			} else if(a.getStatus().equals("REJECTED")){
+				color = "REJECTED";
+			} else if((a.getStatus().equals("PENDING")) && (a.getFixUpTask().getDeadline().before(actualDate))){
+				color = "PENDINGANDPASSED";
+			}
+			apc.setColor(color);
+			applicationsColour.add(apc);
+		}
 
 		result = new ModelAndView("application/list");
-		result.addObject("applications", applications);
+		result.addObject("applications", applicationsColour);
 		result.addObject("requestURI", "application/customer/list.do");
 		result.addObject("customerId", c.getId());
 		return result;
