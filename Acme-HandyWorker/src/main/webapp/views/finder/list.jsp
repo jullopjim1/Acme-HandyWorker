@@ -23,7 +23,7 @@
 
 <a href="finder/handy/update.do"> <spring:message
 		code="finder.update" />
-</a>
+</a><br/>
 
 <display:table name="fixUpTasks" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
