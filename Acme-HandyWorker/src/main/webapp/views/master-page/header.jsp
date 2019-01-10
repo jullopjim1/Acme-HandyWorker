@@ -92,6 +92,18 @@
 				</ul></li>
 		</security:authorize>
 
+		<security:authorize access="hasAnyRole('CUSTOMER','HANDY')">
+			<li><a class="fNiv"><spring:message
+						code="master.page.endorsement" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="endorsement/list.do"><spring:message
+								code="master.page.endorsement.list" /></a></li>
+					<li><a href="endorsement/create.do"><spring:message
+								code="master.page.endorsement.new" /></a></li>
+				</ul></li>
+		</security:authorize>
+
 		<security:authorize access="hasRole('REFEREE')">
 			<li><a class="fNiv" href="report/referee/list.do"><spring:message
 						code="master.page.report" /></a></li>
@@ -132,6 +144,8 @@
 		</security:authorize>
 
 
+
+
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message
 						code="master.page.login" /></a></li>
@@ -164,6 +178,18 @@
 						href="<jstl:url value="register/administrator/newActor.do?authority=ADMIN"/>"><spring:message
 								code="master.page.register.admin" /></a></li>
 				</ul></li>
+				
+				
+			<li><a class="fNiv"><spring:message
+						code="master.page.endorsement" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="endorsement/administrator/list.do"><spring:message
+								code="master.page.endorsement.list.endorser" /></a></li>
+					<li><a href="endorsement/administrator/calculateScore.do"><spring:message
+								code="master.page.endorsement.calculate" /></a></li>
+				</ul></li>
+				
 		</security:authorize>
 
 
