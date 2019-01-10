@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -29,30 +28,29 @@ public class FixUpTaskService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private FixUpTaskRepository		fixUpTaskRepository;
+	private FixUpTaskRepository fixUpTaskRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private PhaseService			phaseService;
+	private PhaseService phaseService;
 
 	@Autowired
-	private ApplicationService		applicationService;
+	private ApplicationService applicationService;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private CustomerService			customerService;
+	private CustomerService customerService;
 
 	@Autowired
-	private TickerService			tickerService;
+	private TickerService tickerService;
 
 	@Autowired
-	private ComplaintService		complaintService;
+	private ComplaintService complaintService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
-
+	private ConfigurationService configurationService;
 
 	// Constructor----------------------------------------------
 	public FixUpTaskService() {
@@ -89,21 +87,27 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 
 		// CHECK DEADLINE
-		Assert.isTrue(fixUpTask.getDeadline().after(fixUpTask.getMoment()), "FECHA LIMITE TIENE QUE SER POSTERIOR A FECHA DE CREACIÓN");
+		Assert.isTrue(fixUpTask.getDeadline().after(fixUpTask.getMoment()),
+				"FECHA LIMITE TIENE QUE SER POSTERIOR A FECHA DE CREACIÓN");
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService
+				.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// SI ES NUEVA FIXUPTASK
 		if (fixUpTask.getId() == 0) {
 			fixUpTask.setMoment(new Date(System.currentTimeMillis() - 1000));
-			Assert.isTrue(actorActual.getUserAccount().getAuthorities().toString().contains("CUSTOMER"), "SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
-			fixUpTask.setCustomer(this.customerService.findOne(actorActual.getId()));
+			Assert.isTrue(actorActual.getUserAccount().getAuthorities()
+					.toString().contains("CUSTOMER"),
+					"SOLO UN CUSTOMER PUEDE CREAR UNA FIXUPTASK");
+			fixUpTask.setCustomer(this.customerService.findOne(actorActual
+					.getId()));
 		}
 
 		// GUARDO FIXUPTASK
-		final double price = this.configurationService.calculate(fixUpTask.getMaxPrice());
+		final double price = this.configurationService.calculate(fixUpTask
+				.getMaxPrice());
 		fixUpTask.setMaxPrice(price);
 		final FixUpTask saved = this.fixUpTaskRepository.save(fixUpTask);
 		return saved;
@@ -113,41 +117,53 @@ public class FixUpTaskService {
 		Assert.notNull(fixUpTask);
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService
+				.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
 		if (!(actorActual.getId() == fixUpTask.getCustomer().getId()))
-			Assert.notNull(null, "SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
-
-		// BORRO SUS PHASES
-		final Collection<Phase> phases = this.phaseService.findPhasesByFixUpTaskIdActive(fixUpTask.getId());
-		for (final Phase p : phases)
-			this.phaseService.deleteFromFixUpTask(p);
-
-		// BORRO SUS APPLICATIONS
-		final Collection<Application> applications = this.applicationService.findApplicationsByFixUpTeaskId(fixUpTask.getId());
-		for (final Application a : applications)
-			this.applicationService.deleteByFixUpTask(a);
+			Assert.notNull(null,
+					"SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
 
 		// BORRO SU COMPLAINT
-		final Complaint complaint = this.complaintService.findComplaintByTaskId(fixUpTask.getId());
-		this.complaintService.delete(complaint);
+		final Complaint complaint = this.complaintService
+				.findComplaintByTaskId(fixUpTask.getId());
+		if (complaint != null) {
+			this.complaintService.delete(complaint);
+		}
+		
+		// BORRO SUS PHASES
+		final Collection<Phase> phases = this.phaseService
+				.findPhasesByFixUpTaskIdActive(fixUpTask.getId());
+		if (!phases.isEmpty()) {
+			for (final Phase p : phases)
+				this.phaseService.deleteFromFixUpTask(p);
+		}
 
+		// BORRO SUS APPLICATIONS
+		final Collection<Application> applications = this.applicationService
+				.findApplicationsByFixUpTeaskId(fixUpTask.getId());
+		if (!applications.isEmpty()) {
+			for (final Application a : applications)
+				this.applicationService.deleteByFixUpTask(a);
+		}
 		// BORRO LA FIXUPTASK
 		this.fixUpTaskRepository.delete(fixUpTask);
-
 	}
 
 	// Other Methods--------------------------------------------
 
 	public Collection<FixUpTask> findTasksByCategoryId(final int categoryId) {
-		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskRepository.findTasksByCategoryId(categoryId);
+		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskRepository
+				.findTasksByCategoryId(categoryId);
 		return fixUpTasks;
 	}
 
-	public Collection<FixUpTask> findTasksActiveByApplicationAcceptedAndHandyWorkerId(final int handyWorkerId) {
-		return this.fixUpTaskRepository.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId);
+	public Collection<FixUpTask> findTasksActiveByApplicationAcceptedAndHandyWorkerId(
+			final int handyWorkerId) {
+		return this.fixUpTaskRepository
+				.findTasksActiveByApplicationAcceptedAndHandyWorkerId(handyWorkerId);
 	}
 
 	public Collection<FixUpTask> findFixUpTaskByCustomerId(final int customerId) {
@@ -198,8 +214,10 @@ public class FixUpTaskService {
 		return this.fixUpTaskRepository.queryB5();
 	}
 
-	public Collection<FixUpTask> findTasksActiveByApplicationHandyWorkerId(final int handyWorkerId) {
-		return this.fixUpTaskRepository.findTasksActiveByApplicationHandyWorkerId(handyWorkerId);
+	public Collection<FixUpTask> findTasksActiveByApplicationHandyWorkerId(
+			final int handyWorkerId) {
+		return this.fixUpTaskRepository
+				.findTasksActiveByApplicationHandyWorkerId(handyWorkerId);
 	}
 
 }

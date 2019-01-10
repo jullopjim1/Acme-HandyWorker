@@ -70,6 +70,7 @@ public class ReportService {
 	}
 
 	public void delete(final Report report) {
+		// BORRO SU NOTE
 		Note n = noteService.findNoteReportById(report.getId());
 		if (n != null) {
 			noteService.delete(n);

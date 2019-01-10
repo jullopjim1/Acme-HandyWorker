@@ -85,8 +85,10 @@ public class ComplaintService {
 		// BORRO SU REPORT
 		Report report = reportService
 				.findReportByComplaintId(complaint.getId());
-		reportService.delete(report);
-
+		if (report != null) {
+			reportService.delete(report);
+		}
+		
 		this.complaintRepository.delete(complaint);
 
 	}
@@ -116,7 +118,7 @@ public class ComplaintService {
 	public Complaint findComplaintFinalByTaskId(final int fixUpTaskId) {
 		return this.complaintRepository.findComplaintFinalByTaskId(fixUpTaskId);
 	}
-	
+
 	public Collection<Complaint> findComplaintsByHandyWorkerId(final int handyId) {
 		return this.complaintRepository.findComplaintsByHandyWorkerId(handyId);
 	}
