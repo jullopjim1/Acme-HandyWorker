@@ -43,7 +43,7 @@ public class PhaseHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("phase/list");
 		result.addObject("phases", phases);
-		result.addObject("requestURI", "/phase/handyWorker/list.do");
+		result.addObject("requestURI", "/phase/handyworker/list.do");
 
 		return result;
 
@@ -133,16 +133,14 @@ public class PhaseHandyWorkerController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Phase phase, final String message) {
 		ModelAndView result;
 
-
 		result = new ModelAndView("phase/edit");
-		result.addObject("phases", phases);
+		result.addObject("phase", phase);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 
 		result.addObject("fixUpTaskId", phase.getFixUpTask().getId());
 
-		result.addObject("requestURI", "phase/handyWorker/edit.do");
-
+		result.addObject("requestURI", "phase/handyworker/edit.do");
 
 		return result;
 	}
