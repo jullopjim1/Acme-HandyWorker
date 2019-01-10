@@ -193,9 +193,7 @@ public class MessageService {
 		Assert.isTrue(userAccount.getAuthorities().contains(authority), "Solo los administradores pueden realizar mensajes de difusi�n");
 
 		//final Collection<Actor> allActor = this.actorService.findAll();
-		final Collection<Actor> allActor = new ArrayList<>();
-		allActor.add(this.actorService.findOne(2041));
-		allActor.add(this.actorService.findOne(2040));
+		final Collection<Actor> allActor = this.actorService.findAll();
 
 		final Collection<Message> messages = new ArrayList<>();
 

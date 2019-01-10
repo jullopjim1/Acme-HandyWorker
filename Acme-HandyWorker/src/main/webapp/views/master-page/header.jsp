@@ -116,7 +116,19 @@
 
 		<security:authorize access="isAuthenticated()">
 			<li><a class="fNiv" href="box/actor/list.do"><spring:message
-						code="master.page.box" /></a></li>
+						code="master.page.box" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="message/actor/exchangeMessage.do"><spring:message
+								code="master.page.message.exchange" /></a></li>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="message/administrator/broadcastMessage.do"><spring:message
+									code="master.page.message.broadcast" /></a></li>
+					</security:authorize>
+
+				</ul></li>
+
+
 		</security:authorize>
 
 
@@ -153,7 +165,7 @@
 								code="master.page.register.admin" /></a></li>
 				</ul></li>
 		</security:authorize>
-		
+
 
 		<security:authorize access="permitAll()">
 			<li><a class="fNiv" href="tutorial/list.do"><spring:message

@@ -86,6 +86,7 @@ public class MessageController extends AbstractController {
 				this.messageService.broadcastMessage(message);
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
+				System.out.println("==============   " + oops);
 				result = this.createEditModelAndView(message, "message.commit.error");
 				result.setViewName("message/administrator/broadcastMessage");
 			}
