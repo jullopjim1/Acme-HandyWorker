@@ -202,9 +202,10 @@ public class MessageService {
 			final Message message2 = this.copyMessage(message);
 			message2.setRecipient(recipient);
 			Box box;
-			if (this.isSpam(message2))
+			if (this.isSpam(message2)) {
 				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam box");
-			else
+				this.administratorService.isSuspicious(message.getSender());
+			} else
 				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in box");
 			message2.setBox(box);
 			messages.add(message2);
