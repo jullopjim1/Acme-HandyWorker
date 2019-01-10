@@ -245,7 +245,7 @@ public class MessageService {
 		for (final String key : keySet) {
 			final Collection<String> spamList = spamWords.get(key);
 			for (final String spamWord : spamList)
-				if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord)) {
+				if (message.getBody().contains(spamWord) || message.getSubject().contains(spamWord) || message.getTags().contains(spamWord)) {
 					result = true;
 					break;
 				}
