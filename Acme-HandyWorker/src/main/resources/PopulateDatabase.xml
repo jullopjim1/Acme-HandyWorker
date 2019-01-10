@@ -1496,7 +1496,7 @@
 
 	<bean id="application4" class="domain.Application">
 		<property name="moment" value="2018/01/02 11:12" />
-		<property name="status" value="ACCEPTED" />
+		<property name="status" value="PENDING" />
 		<property name="price" value="5.0" />
 		<property name="comments" value="comments4" />
 		<property name="fixUpTask" ref="fixuptask4" />
