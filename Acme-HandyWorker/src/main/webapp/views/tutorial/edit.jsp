@@ -33,14 +33,14 @@
 		<spring:message code="tutorial.title" />
 	</form:label>
 	<form:input path="title" readonly="${isRead }" />
-	<form:errors ccsClass="error" path="title" />
+	<form:errors cssClass="error" path="title" />
 	<br />
 
 	<form:label path="summary">
 		<spring:message code="tutorial.summary" />
 	</form:label>
 	<form:input path="summary" readonly="${isRead }" />
-	<form:errors ccsClass="error" path="summary" />
+	<form:errors cssClass="error" path="summary" />
 	<br />
 
 	<jstl:if test="${isRead == false}">
@@ -48,7 +48,7 @@
 			<spring:message code="tutorial.pictures" />
 		</form:label>
 		<form:input path="pictures" />
-		<form:errors ccsClass="error" path="pictures" />
+		<form:errors cssClass="error" path="pictures" />
 		<br />
 	</jstl:if>
 

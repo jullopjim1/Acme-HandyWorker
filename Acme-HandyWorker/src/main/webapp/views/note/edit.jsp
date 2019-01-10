@@ -33,7 +33,7 @@
 		<spring:message code="note.comment" />
 	</form:label>
 	<form:input path="mandatoryCommentReferee" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="mandatoryCommentReferee" />
+	<form:errors cssClass="error" path="mandatoryCommentReferee" />
 	<br />
 	</security:authorize>
 
@@ -42,7 +42,7 @@
 		<spring:message code="note.comment" />
 	</form:label>
 	<form:input path="mandatoryCommentCustomer" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="mandatoryCommentCustomer" />
+	<form:errors cssClass="error" path="mandatoryCommentCustomer" />
 	<br />
 	</security:authorize>
 	
@@ -51,7 +51,7 @@
 		<spring:message code="note.comment" />
 	</form:label>
 	<form:input path="mandatoryCommentHandyWorker" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="mandatoryCommentHandyWorker" />
+	<form:errors cssClass="error" path="mandatoryCommentHandyWorker" />
 	<br />
 	</security:authorize>
 	
@@ -60,7 +60,7 @@
 			<spring:message code="note.isFinal" />
 		</form:label>
 		<input type="checkbox" value="True" />
-		<form:errors ccsClass="error" path="isFinal" />
+		<form:errors cssClass="error" path="isFinal" />
 		<br />
 	</security:authorize>
 

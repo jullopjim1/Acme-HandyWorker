@@ -12,15 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.ApplicationRepository;
+import security.Authority;
+import security.LoginService;
 import domain.Actor;
 import domain.Application;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Message;
-import repositories.ApplicationRepository;
-import security.Authority;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -208,6 +208,10 @@ public class ApplicationService {
 
 	public Application findApplicationAcceptedByFixUpTaskId(final int fixUpTaskId) {
 		return this.applicationRepository.findApplicationAcceptedByFixUpTaskId(fixUpTaskId);
+	}
+
+	public Application findApplicationByFixUpTaskAndHandy(final int fixUpTaskId, final int handyWorkerId) {
+		return this.applicationRepository.findApplicationByFixUpTaskAndHandy(fixUpTaskId, handyWorkerId);
 	}
 
 }

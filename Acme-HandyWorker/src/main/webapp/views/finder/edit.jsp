@@ -34,35 +34,35 @@
 		<spring:message code="finder.keyword" />
 	</form:label>
 	<form:input path="keyword" />
-	<form:errors ccsClass="error" path="keyword" />
+	<form:errors cssClass="error" path="keyword" />
 	<br />
 
 	<form:label path="priceMin">
 		<spring:message code="finder.priceMin" />
 	</form:label>
 	<form:input path="priceMin" />
-	<form:errors ccsClass="error" path="priceMin" />
+	<form:errors cssClass="error" path="priceMin" />
 	<br />
 
 	<form:label path="priceMax">
 		<spring:message code="finder.priceMax" />
 	</form:label>
 	<form:input path="priceMax" />
-	<form:errors ccsClass="error" path="priceMax" />
+	<form:errors cssClass="error" path="priceMax" />
 	<br />
 
 	<form:label path="dateMin">
 		<spring:message code="finder.dateMin" />
 	</form:label>
 	<form:input path="dateMin" placeholder="yyyy/mm/dd" />
-	<form:errors ccsClass="error" path="dateMin" />
+	<form:errors cssClass="error" path="dateMin" />
 	<br />
 
 	<form:label path="dateMax">
 		<spring:message code="finder.dateMax" />
 	</form:label>
 	<form:input path="dateMax" placeholder="yyyy/mm/dd" />
-	<form:errors ccsClass="error" path="dateMax" />
+	<form:errors cssClass="error" path="dateMax" />
 	<br />
 
 	<form:label path="namecategory">

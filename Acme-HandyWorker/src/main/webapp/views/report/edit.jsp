@@ -33,14 +33,14 @@
 		<spring:message code="report.description" />
 	</form:label>
 	<form:input path="description" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="description" />
+	<form:errors cssClass="error" path="description" />
 	<br />
 
 	<form:label path="attachments">
 		<spring:message code="report.attachments" />
 	</form:label>
 	<form:textarea path="attachments" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="attachments" />
+	<form:errors cssClass="error" path="attachments" />
 	<br />
 	<form:label path="isFinal">
 		<spring:message code="report.isFinal" />

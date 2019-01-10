@@ -32,28 +32,28 @@
 		<spring:message code="section.title" />
 	</form:label>
 	<form:input path="title" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="title" />
+	<form:errors cssClass="error" path="title" />
 	<br />
 
 	<form:label path="text">
 		<spring:message code="section.text" />
 	</form:label>
 	<form:input path="text" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="text" />
+	<form:errors cssClass="error" path="text" />
 	<br />
 
 	<form:label path="pictures">
 		<spring:message code="section.pictures" />
 	</form:label>
 	<form:input path="pictures" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="pictures" />
+	<form:errors cssClass="error" path="pictures" />
 	<br />
 
 	<form:label path="position">
 		<spring:message code="section.position" />
 	</form:label>
 	<form:input path="position" readonly="${isRead }"/>
-	<form:errors ccsClass="error" path="position" />
+	<form:errors cssClass="error" path="position" />
 	<br />
 	<br/>
 

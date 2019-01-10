@@ -15,6 +15,8 @@ import domain.HandyWorker;
 @Repository
 public interface ApplicationRepository extends JpaRepository<Application, Integer> {
 
+	@Query("select a from Application a where a.status='ACCEPTED' and a.fixUpTask.id=?1 and a.handyWorker.id=?2")
+	public Application findApplicationByFixUpTaskAndHandy(int fixUpTaskId, int handyWorkerId);
 	// Queries Level
 	// C---------------------------------------------------------------
 
