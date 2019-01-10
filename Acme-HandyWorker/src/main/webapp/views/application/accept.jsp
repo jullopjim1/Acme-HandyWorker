@@ -25,12 +25,17 @@
 	<form:errors cssClass="error" path="holderName" />
 	<br>
 
-	<form:label path="brandName">
-		<spring:message code="creditCard.brandName" />:
-      		</form:label>
-	<form:input path="brandName" />
-	<form:errors cssClass="error" path="brandName" />
-	<br>
+	<form:label path="creditCard.brandName">
+				<spring:message code="creditCard.brandName" />:
+	        </form:label>
+			<form:select path="creditCard.brandName" readonly="${isRead}">
+				<form:option value="VISA"/>
+				<form:option value="MASTER"/>
+				<form:option value="DINNERS"/>
+				<form:option value="AMEX"/>
+			</form:select>
+			<form:errors cssClass="error" path="creditCard.brandName" />
+			<br>
 
 	<form:label path="number">
 		<spring:message code="creditCard.number" />:

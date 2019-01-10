@@ -17,6 +17,7 @@ import security.Authority;
 import security.LoginService;
 import domain.Actor;
 import domain.Application;
+import domain.CreditCard;
 import domain.Customer;
 import domain.FixUpTask;
 import domain.HandyWorker;
@@ -45,6 +46,9 @@ public class ApplicationService {
 
 	@Autowired
 	private ConfigurationService	configurationService;
+
+	@Autowired
+	private CreditCardService		creditCardService;
 
 
 	// Constructor----------------------------------------------
@@ -119,6 +123,8 @@ public class ApplicationService {
 		final double price = this.configurationService.calculate(application.getPrice());
 		application.setPrice(price);
 
+		final CreditCard c = this.creditCardService.save(application.getCreditCard());
+		application.setCreditCard(c);
 		final Application saved = this.applicationRepository.save(application);
 		return saved;
 	}
