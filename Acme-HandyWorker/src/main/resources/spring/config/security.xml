@@ -390,10 +390,7 @@
 			access="hasRole('ADMIN')" />
 
 		<!-- Customer -->
-		<security:intercept-url pattern="/customer/action-1.do"
-			access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/customer/action-2.do"
-			access="hasRole('CUSTOMER')" />
+		
 		<security:intercept-url pattern="/complaint/customer/list.do"
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/complaint/customer/edit.do"
