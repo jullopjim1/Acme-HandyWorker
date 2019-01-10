@@ -185,6 +185,7 @@ public class MessageService {
 	 */
 	public void broadcastMessage(final Message message) {
 		final UserAccount userAccount = LoginService.getPrincipal();
+
 		Assert.notNull(userAccount, "Debe estar logeado en el sistema para crear una carpeta");
 
 		final Authority authority = new Authority();
@@ -200,9 +201,14 @@ public class MessageService {
 		for (final Actor recipient : allActor) {
 			final Message message2 = this.copyMessage(message);
 			message2.setRecipient(recipient);
-			final Box box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in box");
+			Box box;
+			if (this.isSpam(message2))
+				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "spam box");
+			else
+				box = this.boxService.findBoxByActorIdAndName(recipient.getId(), "in box");
 			message2.setBox(box);
 			messages.add(message2);
+
 		}
 
 		this.messageRepository.save(messages);
