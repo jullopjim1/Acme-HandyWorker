@@ -21,11 +21,14 @@
 	</display:column>
 
 	<display:column titleKey="category.name">
+		<a href="category/administrator/list.do?categoryId=${row.id}"> 
+
 		<jstl:forEach var="entry" items="${row.name}">
 			<jstl:if test="${lang==entry.key}">
 				<jstl:out value="${entry.value}" />
 			</jstl:if>
 		</jstl:forEach>
+		</a>
 	</display:column>
 	
 	<display:column titleKey="category.rootCategory">

@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -21,14 +22,15 @@ public class CategoryService {
 
 	// Repository-----------------------------------------------
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryRepository	categoryRepository;
 
 	// Services-------------------------------------------------
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
+
 
 	// Constructor----------------------------------------------
 	public CategoryService() {
@@ -58,13 +60,11 @@ public class CategoryService {
 			category.setRootcategory(this.categoryRepository.findRootCategory());
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService
-				.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString()
-				.contains("ADMIN"))
+		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
 			Assert.notNull(null, "SOLO PUEDE CREAR/EDITAR CATEGORY ADMIN");
 
 		// GUARDO CATEGORY
@@ -75,30 +75,24 @@ public class CategoryService {
 
 	public void delete(final Category category) {
 		Assert.notNull(category, "CATEGORY A BORRAR NO PUEDE SER NULL");
-		Assert.isTrue(category.getRootcategory() != null,
-				"NO SE PUEDE BORRAR CATEGORY ROOT");
+		Assert.isTrue(category.getRootcategory() != null, "NO SE PUEDE BORRAR CATEGORY ROOT");
 
 		// COJO ACTOR ACTUAL
-		final Actor actorActual = this.actorService
-				.findActorByUsername(LoginService.getPrincipal().getUsername());
+		final Actor actorActual = this.actorService.findActorByUsername(LoginService.getPrincipal().getUsername());
 		Assert.notNull(actorActual, "NO HAY ACTOR DETECTADO");
 
 		// COMPRUEBO RESTRICCIONES DE USUARIOS
-		if (!actorActual.getUserAccount().getAuthorities().toString()
-				.contains("ADMIN"))
+		if (!actorActual.getUserAccount().getAuthorities().toString().contains("ADMIN"))
 			Assert.notNull(null, "SOLO PUEDE BORRAR CATEGORY ADMIN");
 
 		// BORRO CATEGORIES HIJAS
-		Collection<Category> hijos = this.findSons(category.getId());
-		if (!hijos.isEmpty()) {
-			for (Category c : hijos) {
+		final Collection<Category> hijos = this.findSons(category.getId());
+		if (!hijos.isEmpty())
+			for (final Category c : hijos)
 				this.delete(c);
-			}
-		}
 
 		// ASIGNAR CATEGORY PADRE A FIXUPTASK
-		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskService
-				.findTasksByCategoryId(category.getId());
+		final Collection<FixUpTask> fixUpTasks = this.fixUpTaskService.findTasksByCategoryId(category.getId());
 		if (!fixUpTasks.isEmpty())
 			for (final FixUpTask f : fixUpTasks) {
 				f.setCategory(category.getRootcategory());
@@ -122,7 +116,7 @@ public class CategoryService {
 		return this.categoryRepository.findRootCategory();
 	}
 
-	public Collection<Category> findSons(Integer categoryId) {
+	public Collection<Category> findSons(final Integer categoryId) {
 		return this.categoryRepository.findSons(categoryId);
 	}
 }
