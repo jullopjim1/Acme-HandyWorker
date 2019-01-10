@@ -21,32 +21,29 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<security:authorize access="hasRole('HANDY')">
 <display:table name="phases" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	
-
-	
-	<display:column property="title" titleKey="phase.title"/>
-	<display:column property="description" titleKey="phase.decription"/>
-	<display:column property="startMoment" titleKey="phase.startMoment" />
-	<display:column property="endMoment" titleKey="phase.endMoment"/>
-
 	<display:column titleKey="phase.show">
-		<a href="phase/handyWorker/show.do?phaseId=${row.id}"> <spring:message
+		<a href="phase/handyworker/show.do?phaseId=${row.id}"> <spring:message
 				code="phase.show" />
 		</a>
 	</display:column>
 
-	<security:authorize access="hasRole('HANDY')">
+
+	<display:column property="title" titleKey="phase.title" />
+
+	<display:column property="startMoment" titleKey="phase.startMoment"
+		sortable="true" />
+
+		
 		<display:column>
-			<a href="phase/handyWorker/edit.do?phaseId=${row.id}"> <spring:message
+		
+			<a href="phase/handyworker/edit.do?phaseId=${row.id}"> <spring:message
 					code="phase.edit" />
 			</a>
 		</display:column>
-	</security:authorize>
-
-
-
-
+		
 </display:table>
+</security:authorize>

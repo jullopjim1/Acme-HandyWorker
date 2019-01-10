@@ -21,43 +21,45 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="phase/handyWorker/edit.do" modelAttribute="phase"
-	readonly="${isRead }">
+<form:form action="${requestURI}" modelAttribute="phase">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="fixUpTask"/>
 
 	<form:label path="title">
 		<spring:message code="phase.title" />
 	</form:label>
-	<form:input path="title" />
-	<form:errors ccsClass="error" path="title" />
+	<form:input path="title" readonly="${isRead }" />
+	<form:errors cssClass="error" path="title" />
 	<br />
 
 	<form:label path="description">
 		<spring:message code="phase.description" />
 	</form:label>
-	<form:input path="description" />
-	<form:errors ccsClass="error" path="description" />
+	<form:input path="description" readonly="${isRead }" />
+	<form:errors cssClass="error" path="description" />
 	<br />
 
 	<form:label path="startMoment">
 		<spring:message code="phase.start" />
 	</form:label>
-	<form:textarea path="startMoment" placeholder="yyyy/mm/dd 00:00" />
-	<form:errors ccsClass="error" path="startMoment" />
+	<form:input path="startMoment" placeholder="yyyy/mm/dd 00:00"
+		readonly="${isRead }" />
+	<form:errors cssClass="error" path="startMoment" />
 	<br />
 
 	<form:label path="endMoment">
 		<spring:message code="phase.end" />
 	</form:label>
-	<form:textarea path="endMoment" placeholder="yyyy/mm/dd 00:00" />
-	<form:errors ccsClass="error" path="endMoment" />
+	<form:input path="endMoment" placeholder="yyyy/mm/dd 00:00"
+		readonly="${isRead }" />
+	<form:errors cssClass="error" path="endMoment" />
 	<br />
-
+	<br/>
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
-			value="<spring:message code="phase.save" />" />; 
+			value="<spring:message code="phase.save" />" />
 	
 		<jstl:if test="${phase.id != 0}">
 			<input type="submit" name="delete"
@@ -67,12 +69,12 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="phase.cancel" />"
-			onclick="javascript: relativeRedir('phase/handyWorker/list.do');" />
+			onclick="javascript: relativeRedir('phase/handyworker/list.do?fixUpTaskId=${phase.fixUpTask.id}');" />
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
 		<input type="button" name="cancel"
 			value="<spring:message code="phase.back" />"
-			onclick="javascript: relativeRedir('phase/handyWorker/list.do');" />
+			onclick="javascript: relativeRedir('phase/handyworker/list.do?fixUpTaskId=${phase.fixUpTask.id}');" />
 	</jstl:if>
 </form:form>

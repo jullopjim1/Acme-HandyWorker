@@ -78,6 +78,20 @@
 						code="fixUpTask.application.create" /></a>
 			</jstl:if>
 		</display:column>
+
+		<display:column titleKey="fixUpTask.phase">
+			<a
+				href="phase/handyworker/list.do?fixUpTaskId=${row.id}">
+				<spring:message code="fixUpTask.viewPhase" />
+			</a>
+		</display:column>
+		
+		<display:column>
+			<a
+				href="phase/handyworker/create.do?fixUpTaskId=${row.id}">
+				<spring:message code="fixUpTask.createPhase" />
+			</a>
+		</display:column>
 	</security:authorize>
 
 

@@ -43,6 +43,7 @@
 		<value>/views/warranty/tiles.xml</value>
 		<value>/views/configuration/tiles.xml</value>
 		<value>/views/profile/tiles.xml</value>
+		<value>/views/phase/tiles.xml</value>
 	</util:list>
 
 </beans>

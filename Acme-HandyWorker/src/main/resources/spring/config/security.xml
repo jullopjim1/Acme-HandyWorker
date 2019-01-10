@@ -176,6 +176,25 @@
 
 		<security:intercept-url pattern="/application/handyworker/create.do"
 			access="hasRole('HANDY')" />
+		
+		<security:intercept-url pattern="/phase/handyworker/edit.do"
+	      access="hasRole('HANDY')" />
+	      
+		<security:intercept-url pattern="/phase/handyworker/create.do"
+	      access="hasRole('HANDY')" />
+	     
+	     <security:intercept-url pattern="/phase/handyworker/save.do"
+			access="hasRole('HANDY')" />
+		
+		<security:intercept-url pattern="/phase/handyworker/delete.do"
+			access="hasRole('HANDY')" />
+		
+		<security:intercept-url pattern="/phase/handyworker/list.do"
+			access="hasRole('HANDY')" />
+		
+		<security:intercept-url pattern="/phase/handyworker/show.do"
+			access="hasRole('HANDY')" />
+	
 
 		<security:intercept-url pattern="/application/customer/reject.do"
 			access="hasRole('CUSTOMER')" />
