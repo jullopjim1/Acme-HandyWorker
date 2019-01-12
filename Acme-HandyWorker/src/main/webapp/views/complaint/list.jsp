@@ -56,14 +56,16 @@
 			</a>
 		</jstl:if>
 		<security:authorize access="hasRole('REFEREE')">
-			<jstl:if
-				test="${reportService.findReportByComplaintId(row.id) == null}">
+			<display:column titleKey="complaint.report">
+				<jstl:if
+					test="${reportService.findReportByComplaintId(row.id) == null}">
 
-				<a href="report/referee/create.do?complaintId=${row.id}"> <spring:message
-						code="report.create" />
-				</a>
+					<a href="report/referee/create.do?complaintId=${row.id}"> <spring:message
+							code="report.create" />
+					</a>
 
-			</jstl:if>
+				</jstl:if>
+			</display:column>
 		</security:authorize>
 
 	</display:column>

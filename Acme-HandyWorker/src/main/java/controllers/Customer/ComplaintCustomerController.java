@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Complaint;
-import domain.Customer;
 import security.LoginService;
 import services.ComplaintService;
 import services.CustomerService;
+import services.ReportService;
+import controllers.AbstractController;
+import domain.Complaint;
+import domain.Customer;
 
 @Controller
 @RequestMapping("/complaint/customer")
@@ -32,6 +33,9 @@ public class ComplaintCustomerController extends AbstractController {
 
 	@Autowired
 	private CustomerService		customerService;
+
+	@Autowired
+	private ReportService		reportService;
 
 
 	//Constructor-----------------------------------------------------
@@ -53,6 +57,7 @@ public class ComplaintCustomerController extends AbstractController {
 		result = new ModelAndView("complaint/list");
 		result.addObject("complaints", complaints);
 		result.addObject("customerId", c.getId());
+		result.addObject("reportService", this.reportService);
 		result.addObject("requestURI", "/list.do?customerId=?" + c.getId());
 
 		return result;

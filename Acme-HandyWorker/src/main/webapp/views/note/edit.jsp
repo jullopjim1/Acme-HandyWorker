@@ -38,11 +38,11 @@
 		<form:input path="mandatoryCommentReferee" readonly="${isRead }" />
 		<form:errors cssClass="error" path="mandatoryCommentReferee" />
 		<br />
-
+	
 		<form:label path="isFinal">
 			<spring:message code="note.isFinal" />
 		</form:label>
-		<input type="checkbox" />
+		<form:checkbox path="isFinal" />
 		<form:errors cssClass="error" path="isFinal" />
 		<br />
 
@@ -81,7 +81,7 @@
 			onclick="
 			javascript:
 			confirm('<spring:message code="note.confirm.save" />');
-			window.location.href='note/save.do?noteId=${row.id}' ;" />
+			window.location.href='/note/list.do?reportId=${reportId}' ;" />
 
 		<security:authorize access="hasRole('REFEREE')">
 			<jstl:if test="${note.id != 0}">
@@ -95,7 +95,7 @@
 
 		<input type="button" name="cancel"
 			value="<spring:message code="note.cancel" />"
-			onclick="javascript: relativeRedir('note/list.do');" />
+			onclick="javascript: relativeRedir('/note/list.do?reportId=${reportId}');" />
 
 		<br />
 	</jstl:if>
@@ -103,7 +103,7 @@
 	<jstl:if test="${isRead == true }">
 		<input type="button" name="cancel"
 			value="<spring:message code="note.back" />"
-			onclick="javascript: relativeRedir('report/referee/list.do');" />
+			onclick="javascript: relativeRedir('/note/list.do?reportId=${reportId}');" />
 	</jstl:if>
 
 </form:form>

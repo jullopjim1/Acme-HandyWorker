@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Note;
 import services.NoteService;
+import domain.Note;
 
 @Controller
 @RequestMapping("/note")
@@ -22,7 +22,7 @@ public class NoteController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private NoteService noteService;
+	private NoteService	noteService;
 
 
 	//Constructor---------------------------------------------------------
@@ -45,17 +45,6 @@ public class NoteController extends AbstractController {
 		return result;
 	}
 
-	//Create
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int reportId) {
-		ModelAndView result;
-		Note note;
-
-		note = this.noteService.create(reportId);
-		result = this.createEditModelAndView(note);
-
-		return result;
-	}
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int noteId) {
 		ModelAndView result;
@@ -63,6 +52,17 @@ public class NoteController extends AbstractController {
 
 		note = this.noteService.findOne(noteId);
 		Assert.notNull(note);
+		result = this.createEditModelAndView(note);
+
+		return result;
+	}
+	//Create
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam final int reportId) {
+		ModelAndView result;
+		Note note;
+
+		note = this.noteService.create(reportId);
 		result = this.createEditModelAndView(note);
 
 		return result;
@@ -86,6 +86,20 @@ public class NoteController extends AbstractController {
 			}
 		return result;
 	}
+	//Delete
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	public ModelAndView delete(@Valid final Note note, final BindingResult binding) {
+
+		ModelAndView result;
+
+		try {
+			this.noteService.delete(note);
+			result = new ModelAndView("redirect:/note/referee/list.do");
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(note, "note.commit.error");
+		}
+		return result;
+	}
 
 	protected ModelAndView createEditModelAndView(final Note note) {
 		ModelAndView result;
@@ -102,7 +116,7 @@ public class NoteController extends AbstractController {
 		result.addObject("note", note);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
-
+		result.addObject("reportId", note.getReport().getId());
 		result.addObject("requestURI", "note/edit.do");
 
 		return result;
