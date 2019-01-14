@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.NoteService;
-import services.ReportService;
 import domain.Note;
 
 @Controller
@@ -23,10 +22,7 @@ public class NoteController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private NoteService		noteService;
-
-	@Autowired
-	private ReportService	reportService;
+	private NoteService	noteService;
 
 
 	//Constructor---------------------------------------------------------
