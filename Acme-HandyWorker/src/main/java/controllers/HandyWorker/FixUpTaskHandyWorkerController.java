@@ -9,24 +9,27 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
-import services.ApplicationService;
-import services.CategoryService;
-import services.FinderService;
-import services.FixUpTaskService;
-import services.HandyWorkerService;
-import services.WarrantyService;
 import controllers.AbstractController;
 import domain.Category;
 import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Warranty;
+import security.LoginService;
+import services.ApplicationService;
+import services.CategoryService;
+import services.ConfigurationService;
+import services.FinderService;
+import services.FixUpTaskService;
+import services.HandyWorkerService;
+import services.WarrantyService;
 
 @Controller
 @RequestMapping("/fixUpTask/handyWorker")
@@ -35,22 +38,25 @@ public class FixUpTaskHandyWorkerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private FixUpTaskService	fixUpTaskService;
+	private FixUpTaskService		fixUpTaskService;
 
 	@Autowired
-	private ApplicationService	applicationService;
+	private ApplicationService		applicationService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 
 	@Autowired
-	private FinderService		finderService;
+	private FinderService			finderService;
 
 	@Autowired
-	private CategoryService		categoryService;
+	private CategoryService			categoryService;
 
 	@Autowired
-	private WarrantyService		warrantyService;
+	private WarrantyService			warrantyService;
+
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	// Constructor---------------------------------------------------------
@@ -110,6 +116,47 @@ public class FixUpTaskHandyWorkerController extends AbstractController {
 			result.addObject("finder", finder);
 
 		}
+		return result;
+	}
+
+	@RequestMapping(value = "/show", method = RequestMethod.GET)
+	public ModelAndView show(final int fixUpTaskId, final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
+		FixUpTask fixUpTask = null;
+
+		fixUpTask = this.fixUpTaskService.findOne(fixUpTaskId);
+		Assert.notNull(fixUpTask);
+
+		result = this.ShowModelAndView(fixUpTask);
+
+		return result;
+
+	}
+
+	//ShowModelAndView--------------------------------------------------------------------
+
+	protected ModelAndView ShowModelAndView(final FixUpTask fixUpTask) {
+		ModelAndView result;
+		result = this.ShowModelAndView(fixUpTask, null);
+		return result;
+	}
+
+	protected ModelAndView ShowModelAndView(final FixUpTask fixUpTask, final String message) {
+		final ModelAndView result;
+		final Collection<Warranty> warranties = this.warrantyService.warrantiesFinalMode();
+		final Collection<Category> categories = this.categoryService.findAll();
+
+		final int varTax = this.configurationService.findOne().getVarTax();
+
+		result = new ModelAndView("fixUpTask/edit");
+		result.addObject("message", message);
+		result.addObject("requestURI", "fixUpTask/handyworker/show.do?fixUptaskId=" + fixUpTask.getId());
+		result.addObject("fixUpTask", fixUpTask);
+		result.addObject("warranties", warranties);
+		result.addObject("categories", categories);
+		result.addObject("varTax", varTax);
+		result.addObject("isRead", true);
+
 		return result;
 	}
 
