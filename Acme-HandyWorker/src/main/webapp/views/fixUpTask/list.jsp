@@ -100,14 +100,6 @@
 		</jstl:forEach>
 	</display:column>
 
-	<display:column titleKey="fixuptask.details">
-		<a href="fixUpTask/customer/show.do?fixUpTaskId=${row.id}"> <spring:message
-				code="fixuptask.show" />
-		</a>
-	</display:column>
-
-
-
 
 	<security:authorize access="hasRole('CUSTOMER')">
 		<display:column titleKey="complaint.create">
@@ -129,6 +121,12 @@
 	</security:authorize>
 
 	<security:authorize access="hasRole('HANDY')">
+		<display:column titleKey="fixuptask.details">
+			<a href="fixUpTask/handyWorker/show.do?fixUpTaskId=${row.id}"> <spring:message
+					code="fixuptask.show" />
+			</a>
+		</display:column>
+
 		<display:column titleKey="fixUpTask.customer">
 			<a
 				href="handyWorker/viewProfileCustomer.do?customerId=${row.customer.id}">
