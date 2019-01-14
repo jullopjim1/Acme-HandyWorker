@@ -1,4 +1,3 @@
-
 package controllers.HandyWorker;
 
 import java.util.Collection;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import security.LoginService;
 import services.HandyWorkerService;
@@ -27,31 +27,34 @@ import domain.Tutorial;
 @RequestMapping("/tutorial/handyworker")
 public class TutorialHandyWorkerController extends AbstractController {
 
-	//Services-----------------------------------------------------------
+	// Services-----------------------------------------------------------
 
 	@Autowired
-	private TutorialService		tutorialService;
+	private TutorialService tutorialService;
 
 	@Autowired
-	private SponsorshipService	sponsorshipService;
+	private SponsorshipService sponsorshipService;
 
 	@Autowired
-	private HandyWorkerService	handyWorkerService;
+	private HandyWorkerService handyWorkerService;
 
-
-	//Constructor---------------------------------------------------------
+	// Constructor---------------------------------------------------------
 
 	public TutorialHandyWorkerController() {
 		super();
 	}
-	//List ---------------------------------------------------------------
+
+	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Tutorial> tutorials;
 
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
-		tutorials = this.tutorialService.findTutorialsByHandyWorkerId(a.getId());
+		final HandyWorker a = this.handyWorkerService
+				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
+						.getId());
+		tutorials = this.tutorialService
+				.findTutorialsByHandyWorkerId(a.getId());
 
 		result = new ModelAndView("tutorial/list");
 		result.addObject("tutorials", tutorials);
@@ -60,13 +63,15 @@ public class TutorialHandyWorkerController extends AbstractController {
 		return result;
 	}
 
-	//Create
+	// Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		Tutorial tutorial;
 
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final HandyWorker a = this.handyWorkerService
+				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
+						.getId());
 		tutorial = this.tutorialService.create(a.getId());
 		result = this.createEditModelAndView(tutorial);
 		result.addObject("handyWorkerId", a.getId());
@@ -74,52 +79,76 @@ public class TutorialHandyWorkerController extends AbstractController {
 		return result;
 	}
 
-	//Edit
+	// Edit
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int tutorialId) {
+	public ModelAndView edit(@RequestParam final int tutorialId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Tutorial tutorial;
-
 		tutorial = this.tutorialService.findOne(tutorialId);
-		Assert.notNull(tutorial);
-		result = this.createEditModelAndView(tutorial);
-
+		HandyWorker h = handyWorkerService
+				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
+						.getId());
+		try {
+			Assert.notNull(tutorial);
+			Assert.isTrue(tutorial.getHandyWorker().equals(h));
+			result = this.createEditModelAndView(tutorial);
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:/tutorial/handyworker/list.do");
+			if (tutorial == null)
+				redirectAttrs.addFlashAttribute("message",
+						"tutorial.error.unexist");
+			else if(!tutorial.getHandyWorker().equals(h))
+				redirectAttrs.addFlashAttribute("message",
+						"tutorial.error.notActual");
+		}
 		return result;
 	}
 
-	//Save
+	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Tutorial tutorial, final BindingResult binding) {
+	public ModelAndView save(@Valid final Tutorial tutorial,
+			final BindingResult binding) {
 
 		ModelAndView result;
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final HandyWorker a = this.handyWorkerService
+				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
+						.getId());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(tutorial);
 		else
 			try {
 				this.tutorialService.save(tutorial);
-				result = new ModelAndView("redirect:/tutorial/handyworker/list.do?=" + a.getId());
+				result = new ModelAndView(
+						"redirect:/tutorial/handyworker/list.do?=" + a.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
+				result = this.createEditModelAndView(tutorial,
+						"tutorial.commit.error");
 
 			}
 		return result;
 	}
 
-	//DELETE
+	// DELETE
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Tutorial tutorial, final BindingResult binding) {
+	public ModelAndView delete(@Valid final Tutorial tutorial,
+			final BindingResult binding) {
 
 		ModelAndView result;
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final HandyWorker a = this.handyWorkerService
+				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
+						.getId());
 		try {
 			this.tutorialService.delete(tutorial);
-			result = new ModelAndView("redirect:list.do?handyWorkerId=" + a.getId());
+			result = new ModelAndView("redirect:list.do?handyWorkerId="
+					+ a.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(tutorial, "tutorial.commit.error");
+			result = this.createEditModelAndView(tutorial,
+					"tutorial.commit.error");
 		}
 		return result;
 	}
+
 	protected ModelAndView createEditModelAndView(final Tutorial tutorial) {
 		ModelAndView result;
 
@@ -128,12 +157,15 @@ public class TutorialHandyWorkerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Tutorial tutorial, final String message) {
+	protected ModelAndView createEditModelAndView(final Tutorial tutorial,
+			final String message) {
 		ModelAndView result;
 		Collection<Sponsorship> sponsorships;
 
 		sponsorships = this.sponsorshipService.findAll();
-		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final HandyWorker a = this.handyWorkerService
+				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
+						.getId());
 		result = new ModelAndView("tutorial/edit");
 		result.addObject("tutorial", tutorial);
 		result.addObject("message", message);
