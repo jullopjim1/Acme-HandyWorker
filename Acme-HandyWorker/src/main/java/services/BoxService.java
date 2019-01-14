@@ -144,6 +144,7 @@ public class BoxService {
 		return result;
 	}
 
+	@SuppressWarnings("unused")
 	private void delete(final Collection<Box> subBoxes) {
 		if (subBoxes.size() > 0)
 			for (final Box box : subBoxes) {

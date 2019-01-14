@@ -103,6 +103,7 @@ public class ApplicationCustomerController extends AbstractController {
 		final ApplicationForm applicationForm = new ApplicationForm();
 		try {
 			application = this.applicationService.findOne(applicationId);
+			Assert.notNull(application);
 			Assert.isTrue(application.getFixUpTask().getCustomer().equals(c));
 
 			applicationForm.setId(application.getId());
