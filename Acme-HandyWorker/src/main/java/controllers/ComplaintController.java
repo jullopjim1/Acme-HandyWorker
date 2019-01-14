@@ -32,7 +32,6 @@ public class ComplaintController extends AbstractController {
 	public ComplaintController() {
 		super();
 	}
-
 	//List------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

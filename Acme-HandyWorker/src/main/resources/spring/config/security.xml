@@ -307,7 +307,7 @@
 
 		<!-- REFEREE -->
 		<security:intercept-url pattern="/note/list.do"
-			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
+			access="hasAnyRole('CUSTOMER','HANDY')" />
 
 		<security:intercept-url pattern="/note/edit.do"
 			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
@@ -319,16 +319,26 @@
 			access="hasRole('REFEREE')" />
 		<security:intercept-url pattern="/note/referee/list.do"
 			access="hasRole('REFEREE')" />
+		
+		<security:intercept-url pattern="/note/referee/myList.do"
+			access="hasRole('REFEREE')" />
+			
 		<security:intercept-url pattern="/note/create.do"
 			access="hasRole('REFEREE')" />
 
 		<security:intercept-url pattern="/report/referee/edit.do"
+			access="hasRole('REFEREE')" />
+		
+		<security:intercept-url pattern="/report/referee/create.do"
 			access="hasRole('REFEREE')" />
 
 		<security:intercept-url pattern="/complaint/referee/list.do"
 			access="hasRole('REFEREE')" />
 
 		<security:intercept-url pattern="/report/referee/list.do"
+			access="hasRole('REFEREE')" />
+			
+		<security:intercept-url pattern="/complaint/list.do"
 			access="hasRole('REFEREE')" />
 
 
@@ -392,8 +402,6 @@
 			access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/complaint/customer/create.do"
 			access="hasRole('CUSTOMER')" />
-		<security:intercept-url pattern="/complaint/list.do"
-			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
 		<security:intercept-url pattern="/complaint/show.do"
 			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
 		<security:intercept-url pattern="/complaint/showComplaint.do"

@@ -52,26 +52,20 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('CUSTOMER')">
-			<li><a class="fNiv" href="complaint/list.do"><spring:message
-						code="master.page.complaint" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="complaint/customer/list.do"><spring:message
-								code="master.page.myComplaint" /></a></li>
-				</ul></li>
+
+			<li><a href="complaint/customer/list.do"><spring:message
+						code="master.page.myComplaint" /></a></li>
+
 		</security:authorize>
 
 
 		<security:authorize access="hasRole('HANDY')">
 			<li><a class="fNiv" href="fixUpTask/handyWorker/list.do"><spring:message
 						code="master.page.fixuptasks2" /></a></li>
-			<li><a class="fNiv" href="complaint/list.do"><spring:message
-						code="master.page.complaint" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="complaint/handyWorker/list.do"><spring:message
-								code="master.page.myComplaint" /></a></li>
-				</ul></li>
+
+			<li><a href="complaint/handyWorker/list.do"><spring:message
+						code="master.page.myComplaint" /></a></li>
+
 
 			<li><a href="application/handyworker/list.do"><spring:message
 						code="master.page.handy.application.list" /></a></li>
@@ -110,18 +104,19 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('REFEREE')">
-			<li><a class="fNiv" href="note/referee/list.do"><spring:message
+			<li><a class="fNiv" href="note/referee/myList.do"><spring:message
 						code="master.page.note" /></a></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('REFEREE')">
-			<li><a class="fNiv" href="complaint/list.do"><spring:message
+		<li><a class="fNiv" href="complaint/list.do"><spring:message
 						code="master.page.complaint" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="complaint/referee/list.do"><spring:message
 								code="master.page.myComplaint" /></a></li>
 				</ul></li>
+
 
 		</security:authorize>
 
@@ -178,8 +173,8 @@
 						href="<jstl:url value="register/administrator/newActor.do?authority=ADMIN"/>"><spring:message
 								code="master.page.register.admin" /></a></li>
 				</ul></li>
-				
-				
+
+
 			<li><a class="fNiv"><spring:message
 						code="master.page.endorsement" /></a>
 				<ul>
@@ -189,7 +184,7 @@
 					<li><a href="endorsement/administrator/calculateScore.do"><spring:message
 								code="master.page.endorsement.calculate" /></a></li>
 				</ul></li>
-				
+
 		</security:authorize>
 
 

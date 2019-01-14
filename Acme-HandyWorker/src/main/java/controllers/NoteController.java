@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.NoteService;
+import services.ReportService;
 import domain.Note;
 
 @Controller
@@ -22,7 +23,10 @@ public class NoteController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private NoteService	noteService;
+	private NoteService		noteService;
+
+	@Autowired
+	private ReportService	reportService;
 
 
 	//Constructor---------------------------------------------------------
@@ -41,6 +45,7 @@ public class NoteController extends AbstractController {
 
 		result = new ModelAndView("note/list");
 		result.addObject("note", note);
+
 		result.addObject("requestURI", "note/list.do");
 		return result;
 	}
@@ -94,7 +99,7 @@ public class NoteController extends AbstractController {
 
 		try {
 			this.noteService.delete(note);
-			result = new ModelAndView("redirect:/note/referee/list.do");
+			result = new ModelAndView("redirect:/note/referee/list.do?reportId=" + note.getReport().getId());
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(note, "note.commit.error");
 		}

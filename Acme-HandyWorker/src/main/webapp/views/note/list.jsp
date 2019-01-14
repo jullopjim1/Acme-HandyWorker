@@ -25,8 +25,18 @@
 <display:table name="note" id="row" requestURI="${requestURI}"
 	pagesize="5" class="displaytag">
 
-	<security:authorize access="hasAnyRole('CUSTOMER','HANDY','REFEREE')">
+	<security:authorize access="hasRole('REFEREE')">
 
+		<display:column>
+			<jstl:if test="${row.isFinal==false && refereeId==row.report.referee.id}">
+				<a href="note/edit.do?noteId=${row.id}"> <spring:message
+						code="note.edit" />
+				</a>
+			</jstl:if>
+		</display:column>
+		
+	</security:authorize>
+	<security:authorize access="hasAnyRole('CUSTOMER','HANDY')">
 		<display:column>
 			<jstl:if test="${row.isFinal==false}">
 				<a href="note/edit.do?noteId=${row.id}"> <spring:message
@@ -34,9 +44,7 @@
 				</a>
 			</jstl:if>
 		</display:column>
-
 	</security:authorize>
-
 	<display:column property="moment" titleKey="note.moment" />
 
 	<display:column property="mandatoryCommentReferee"
