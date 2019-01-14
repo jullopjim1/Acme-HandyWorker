@@ -1,4 +1,3 @@
-
 package controllers.Administrator;
 
 import java.util.Collection;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import services.WarrantyService;
 import controllers.AbstractController;
@@ -22,19 +22,18 @@ import domain.Warranty;
 @RequestMapping("/warranty/administrator")
 public class WarrantyAdministratorController extends AbstractController {
 
-	//Service---------------------------------------------------------
+	// Service---------------------------------------------------------
 
 	@Autowired
-	private WarrantyService	warrantyService;
+	private WarrantyService warrantyService;
 
-
-	//Constructor-----------------------------------------------------
+	// Constructor-----------------------------------------------------
 
 	public WarrantyAdministratorController() {
 		super();
 	}
 
-	//List------------------------------------------------------------
+	// List------------------------------------------------------------
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -49,7 +48,7 @@ public class WarrantyAdministratorController extends AbstractController {
 
 	}
 
-	//Create-----------------------------------------------------------------------
+	// Create-----------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
@@ -61,22 +60,36 @@ public class WarrantyAdministratorController extends AbstractController {
 		return result;
 	}
 
-	//Edit-------------------------------------------------------------------------
+	// Edit-------------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int warrantyId) {
-		final ModelAndView result;
-		Warranty warranty;
+	public ModelAndView edit(@RequestParam final int warrantyId,
+			final RedirectAttributes redirectAttrs) {
+		ModelAndView result;
+		Warranty warranty = this.warrantyService.findOne(warrantyId);
 
-		warranty = this.warrantyService.findOne(warrantyId);
-		Assert.notNull(warranty);
-		result = this.createEditModelAndView(warranty);
+		try {
+			Assert.notNull(warranty);
+			Assert.isTrue(!warranty.getIsFinal());
+			result = this.createEditModelAndView(warranty);
 
+		} catch (Throwable e) {
+			result = new ModelAndView(
+					"redirect:/warranty/administrator/list.do");
+			if (warranty == null)
+				redirectAttrs.addFlashAttribute("message",
+						"warranty.error.unexist");
+			else if (warranty.getIsFinal() == true)
+				redirectAttrs.addFlashAttribute("message",
+						"application.error.isFinal");
+		}
 		return result;
 	}
-	//Save-------------------------------------------------------------------------
+
+	// Save-------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Warranty warranty, final BindingResult binding) {
+	public ModelAndView save(@Valid final Warranty warranty,
+			final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -84,28 +97,33 @@ public class WarrantyAdministratorController extends AbstractController {
 		else
 			try {
 				this.warrantyService.save(warranty);
-				result = new ModelAndView("redirect:/warranty/administrator/list.do");
+				result = new ModelAndView(
+						"redirect:/warranty/administrator/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(warranty, "warranty.commit.error");
+				result = this.createEditModelAndView(warranty,
+						"warranty.commit.error");
 			}
 		return result;
 	}
 
-	//Delete----------------------------------------------------------------------
+	// Delete----------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Warranty warranty, final BindingResult binding) {
+	public ModelAndView delete(@Valid final Warranty warranty,
+			final BindingResult binding) {
 		ModelAndView result;
 
 		try {
 			this.warrantyService.delete(warranty);
-			result = new ModelAndView("redirect:/warranty/administrator/list.do");
+			result = new ModelAndView(
+					"redirect:/warranty/administrator/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(warranty, "warranty.commit.error");
+			result = this.createEditModelAndView(warranty,
+					"warranty.commit.error");
 		}
 		return result;
 	}
 
-	//ModelAndView-----------------------------------------------------------------
+	// ModelAndView-----------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(final Warranty warranty) {
 		ModelAndView result;
 
@@ -114,7 +132,8 @@ public class WarrantyAdministratorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Warranty warranty, final String message) {
+	protected ModelAndView createEditModelAndView(final Warranty warranty,
+			final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("warranty/edit");
