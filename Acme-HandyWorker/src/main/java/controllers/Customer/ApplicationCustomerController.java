@@ -192,7 +192,7 @@ public class ApplicationCustomerController extends AbstractController {
 						"application.error.noCustomer");
 			else if (application.getStatus() != "PENDING")
 				redirectAttrs.addFlashAttribute("message",
-						"application.error.statusNoPending");
+						"application.error.statusNoPendingDecline");
 			else
 				result = this.declineModelAndView(applicationForm,
 						"commit.error");
@@ -203,18 +203,18 @@ public class ApplicationCustomerController extends AbstractController {
 
 	@RequestMapping(value = "/reject", method = RequestMethod.POST, params = "save")
 	public ModelAndView decline(@Valid final ApplicationForm applicationForm,
-			final BindingResult binding) {
+			RedirectAttributes redirectAttrs, final BindingResult binding) {
 		ModelAndView result = null;
+		final Application a = this.applicationService.findOne(applicationForm
+				.getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService
+				.getPrincipal().getId());
 
 		if (binding.hasErrors())
 			result = this.createAndEditModelAndView(applicationForm,
 					"commit.error");
 		else
 			try {
-				final Customer c = this.customerService
-						.findByUserAccount(LoginService.getPrincipal().getId());
-				final Application a = this.applicationService
-						.findOne(applicationForm.getId());
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
 
 				a.setStatus("REJECTED");
@@ -224,8 +224,20 @@ public class ApplicationCustomerController extends AbstractController {
 						"redirect:/application/customer/list.do");
 
 			} catch (final Throwable oops) {
-				result = this.createAndEditModelAndView(applicationForm,
-						"commit.error");
+				result = new ModelAndView(
+						"redirect:/application/customer/list.do");
+				if (a == null)
+					redirectAttrs.addFlashAttribute("message",
+							"application.error.unexist");
+				else if (!a.getFixUpTask().getCustomer().equals(c))
+					redirectAttrs.addFlashAttribute("message",
+							"application.error.noCustomer");
+				else if (a.getStatus() != "PENDING")
+					redirectAttrs.addFlashAttribute("message",
+							"application.error.statusNoPendingDecline");
+				else
+					result = this.declineModelAndView(applicationForm,
+							"commit.error");
 			}
 		return result;
 	}
@@ -296,8 +308,8 @@ public class ApplicationCustomerController extends AbstractController {
 				final Application a = this.applicationService
 						.findOne(applicationForm.getApplicationId());
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
-				Assert.isTrue(!((applicationForm.getExpirationYear() == year)
-						&& (applicationForm.getExpirationMonth() <= month)));
+				Assert.isTrue(!((applicationForm.getExpirationYear() == year) && (applicationForm
+						.getExpirationMonth() <= month)));
 				final CreditCard cc = this.creditCardService.create();
 
 				cc.setBrandName(applicationForm.getBrandName());
