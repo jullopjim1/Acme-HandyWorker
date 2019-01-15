@@ -69,11 +69,12 @@
 	<jstl:if test="${isRead == false}">
 		<input type="submit" name="save"
 			value="<spring:message code="fixuptask.save" />" />
+<jstl:if test="${fixUpTask.id != 0}">
 
 		<input type="submit" name="delete"
 			value="<spring:message code="fixuptask.delete" />"
 			onclick="javascript: return confirm('<spring:message code="fixuptask.confirmDelete" />')" />
-
+</jstl:if>
 		<input type="button" name="cancel"
 			value="<spring:message code="fixuptask.cancel" />"
 			onclick="javascript: relativeRedir('fixUpTask/customer/list.do');" />
