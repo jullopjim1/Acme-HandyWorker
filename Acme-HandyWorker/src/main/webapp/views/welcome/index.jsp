@@ -26,7 +26,7 @@
 
 <p>${welomeMessage}</p>
 
-<p>
+<p><jstl:if test="${moment!=null}">
 	<spring:message code="welcome.greeting.current.time" />
-	${moment}
+	${moment}</jstl:if>
 </p>

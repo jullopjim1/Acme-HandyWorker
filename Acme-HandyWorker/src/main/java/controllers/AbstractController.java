@@ -11,6 +11,7 @@
 package controllers;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.hibernate.TypeMismatchException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,12 +26,16 @@ public class AbstractController {
 	public ModelAndView panic(final Throwable oops) {
 		ModelAndView result;
 
-		result = new ModelAndView("misc/panic");
-		result.addObject("name", ClassUtils.getShortName(oops.getClass()));
-		result.addObject("exception", oops.getMessage());
-		result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));
+		if (!ClassUtils.getShortName(new TypeMismatchException("").getClass()).equals(ClassUtils.getShortName(oops.getClass()))) {
+			result = new ModelAndView("misc/panic");
+			result.addObject("name", ClassUtils.getShortName(oops.getClass()));
+			result.addObject("exception", oops.getMessage());
+			result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));
+		} else {
 
+			result = new ModelAndView("welcome/index");
+			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+		}
 		return result;
 	}
-
 }
