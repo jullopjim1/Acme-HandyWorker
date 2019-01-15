@@ -595,7 +595,27 @@
 	<bean id="ticker12" class="domain.Ticker">
 		<property name="ticker" value="111111-AA12AA" />
 	</bean>
-
+	
+		<bean id="ticker13" class="domain.Ticker">
+		<property name="ticker" value="111111-AA13AA" />
+	</bean>
+	
+			<bean id="ticker14" class="domain.Ticker">
+		<property name="ticker" value="111111-AA14AA" />
+	</bean>
+	
+			<bean id="ticker15" class="domain.Ticker">
+		<property name="ticker" value="111111-AA15AA" />
+	</bean>
+<!-- 	
+			<bean id="ticker16" class="domain.Ticker">
+		<property name="ticker" value="111111-AA16AA" />
+	</bean>
+	
+			<bean id="ticker17" class="domain.Ticker">
+		<property name="ticker" value="111111-AA17AA" />
+	</bean>
+ -->
 
 	<!-- CURRICULUM -->
 
@@ -1111,7 +1131,7 @@
 	</bean>
 
 	<bean id="complaint3" class="domain.Complaint">
-		<property name="ticker" ref="ticker1" />
+		<property name="ticker" ref="ticker14" />
 		<property name="moment" value="2014/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments2.com" />
@@ -1121,7 +1141,7 @@
 	</bean>
 
 	<bean id="complaint4" class="domain.Complaint">
-		<property name="ticker" ref="ticker1" />
+		<property name="ticker" ref="ticker15" />
 		<property name="moment" value="2014/01/02 12:12" />
 		<property name="description" value="description1" />
 		<property name="attachments" value="http://www.attachments2.com" />
@@ -1477,7 +1497,7 @@
 	</bean>
 
 	<bean id="fixuptask5" class="domain.FixUpTask">
-		<property name="ticker" ref="ticker12" />
+		<property name="ticker" ref="ticker13" />
 		<property name="moment" value="2018/08/05 09:45" />
 		<property name="description" value="description4" />
 		<property name="adress" value="adress4" />
@@ -1574,23 +1594,8 @@
 		<property name="handyWorker" ref="handyWorker1" />
 	</bean>
 
-	<bean id="application7" class="domain.Application">
-		<property name="moment" value="2018/01/02 11:12" />
-		<property name="status" value="PENDING" />
-		<property name="price" value="5.0" />
-		<property name="comments" value="comments7" />
-		<property name="fixUpTask" ref="fixuptask5" />
-		<property name="handyWorker" ref="handyWorker1" />
-	</bean>
 
-	<bean id="application8" class="domain.Application">
-		<property name="moment" value="2018/01/02 11:12" />
-		<property name="status" value="PENDING" />
-		<property name="price" value="5.0" />
-		<property name="comments" value="comments8" />
-		<property name="fixUpTask" ref="fixuptask1" />
-		<property name="handyWorker" ref="handyWorker1" />
-	</bean>
+
 
 	<!-- BOX -->
 
