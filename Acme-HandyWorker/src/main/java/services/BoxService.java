@@ -86,13 +86,12 @@ public class BoxService {
 		Box oldRootBox;
 
 		final Box newRootBox = box.getRootbox();
-
 		Assert.isTrue(!box.getIsSystem(), "No se puede modificar una carpeta del sistema");
 		if (box.getId() == 0)
 			Assert.isTrue(!systemBox.contains(box.getName()), "No se puede crear carpetas con nombres reservados");
 		else {
 			oldRootBox = this.findOne(box.getId()).getRootbox();
-			if (!newRootBox.equals(oldRootBox)) {
+			if (oldRootBox != null && !newRootBox.equals(oldRootBox)) {
 				oldRootBox.getSubboxes().remove(box);
 				this.boxRepository.save(oldRootBox);
 			}

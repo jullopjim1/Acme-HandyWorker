@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.ArrayList;
@@ -26,22 +27,20 @@ import domain.Box;
 public class BoxController extends AbstractController {
 
 	@Autowired
-	private BoxService boxService;
+	private BoxService		boxService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService	actorService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Box> boxes = new ArrayList<>();
-		final Actor actor = this.actorService.findByUserAccount(LoginService
-				.getPrincipal());
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
-		final Collection<Box> allBoxes = this.boxService
-				.findBoxesByActorId(actor.getId());
-		final Collection<Box> systemBoxes = this.boxService
-				.findSystemBoxesByActorId(actor.getId());
+		final Collection<Box> allBoxes = this.boxService.findBoxesByActorId(actor.getId());
+		final Collection<Box> systemBoxes = this.boxService.findSystemBoxesByActorId(actor.getId());
 		allBoxes.removeAll(systemBoxes);
 		boxes.addAll(systemBoxes);
 		boxes.addAll(allBoxes);
@@ -65,8 +64,7 @@ public class BoxController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int boxId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int boxId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView;
 		try {
 
@@ -79,19 +77,15 @@ public class BoxController extends AbstractController {
 
 			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
 
-			Box box = this.boxService.findOne(boxId);
-			final Actor actor = this.actorService
-					.findByUserAccount(LoginService.getPrincipal());
+			final Box box = this.boxService.findOne(boxId);
+			final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
-			if (box == null) {
+			if (box == null)
 				redirectAttrs.addFlashAttribute("message", "box.error.unexist");
-			} else if (box.getIsSystem() == true) {
-				redirectAttrs
-						.addFlashAttribute("message", "box.error.esSystem");
-			} else if (!(box.getActor().equals(actor))) {
-				redirectAttrs.addFlashAttribute("message",
-						"box.error.notFromThisActor");
-			}
+			else if (box.getIsSystem() == true)
+				redirectAttrs.addFlashAttribute("message", "box.error.esSystem");
+			else if (!(box.getActor().equals(actor)))
+				redirectAttrs.addFlashAttribute("message", "box.error.notFromThisActor");
 		}
 
 		return modelAndView;
@@ -110,17 +104,13 @@ public class BoxController extends AbstractController {
 				this.boxService.save(box);
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
-				String username = LoginService.getPrincipal().getUsername();
-				Actor a = actorService.findActorByUsername(username);
-				Box boxCompare = boxService.findBoxByActorIdAndName(a.getId(),
-						box.getName());
-				if (boxCompare != null) {
-					result = this.createEditModelAndView(box,
-							"box.commit.error.nameExists");
-				} else {
-					result = this.createEditModelAndView(box,
-							"box.commit.error");
-				}
+				final String username = LoginService.getPrincipal().getUsername();
+				final Actor a = this.actorService.findActorByUsername(username);
+				final Box boxCompare = this.boxService.findBoxByActorIdAndName(a.getId(), box.getName());
+				if (boxCompare != null)
+					result = this.createEditModelAndView(box, "box.commit.error.nameExists");
+				else
+					result = this.createEditModelAndView(box, "box.commit.error");
 			}
 		return result;
 	}
@@ -149,16 +139,13 @@ public class BoxController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Box box,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Box box, final String message) {
 		ModelAndView result;
 
-		final Actor actor = this.actorService.findByUserAccount(LoginService
-				.getPrincipal());
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final int actorId = actor.getId();
 
-		final Collection<Box> boxes = this.boxService
-				.findBoxesByActorId(actorId);
+		final Collection<Box> boxes = this.boxService.findBoxesByActorId(actorId);
 		boxes.removeAll(this.boxService.findSystemBoxesByActorId(actorId));
 
 		if (box.getId() != 0)
