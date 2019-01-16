@@ -16,11 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.ActorService;
+import services.ComplaintService;
 import services.NoteService;
 import services.RefereeService;
 import services.ReportService;
 import controllers.AbstractController;
 import domain.Actor;
+import domain.Complaint;
 import domain.Referee;
 import domain.Report;
 
@@ -31,16 +33,19 @@ public class ReportRefereeController extends AbstractController {
 	//Service---------------------------------------------------------
 
 	@Autowired
-	private ReportService	reportService;
+	private ReportService		reportService;
 
 	@Autowired
-	private RefereeService	refereeService;
+	private RefereeService		refereeService;
 
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private NoteService		noteService;
+	private NoteService			noteService;
+
+	@Autowired
+	private ComplaintService	complaintService;
 
 
 	//Constructor-----------------------------------------------------
@@ -95,9 +100,15 @@ public class ReportRefereeController extends AbstractController {
 		final Report report;
 
 		final Actor referee = this.actorService.findByUserAccount(LoginService.getPrincipal());
-		report = this.reportService.create(complaintId, referee.getId());
-		result = this.createEditModelAndView(report);
 
+		final Complaint complaint = this.complaintService.findOne(complaintId);
+		if (complaint == null) {
+			result = new ModelAndView("welcome/index");
+			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+		} else {
+			report = this.reportService.create(complaintId, referee.getId());
+			result = this.createEditModelAndView(report);
+		}
 		return result;
 	}
 
@@ -105,12 +116,24 @@ public class ReportRefereeController extends AbstractController {
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int reportId) {
-		final ModelAndView result;
+		ModelAndView result;
 		Report report;
+		try {
 
-		report = this.reportService.findOne(reportId);
-		Assert.notNull(report);
-		result = this.createEditModelAndView(report);
+			report = this.reportService.findOne(reportId);
+			Assert.notNull(report);
+			final int refereeId = this.refereeService.findByUseraccount(LoginService.getPrincipal()).getId();
+			final Collection<Report> reports = this.reportService.findReportByRefereeId(refereeId);
+			final boolean isYourReport = reports.contains(report);
+
+			Assert.isTrue(isYourReport);
+
+			result = this.createEditModelAndView(report);
+
+		} catch (final Exception e) {
+			result = new ModelAndView("welcome/index");
+			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+		}
 
 		return result;
 	}
