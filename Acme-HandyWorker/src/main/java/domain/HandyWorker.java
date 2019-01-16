@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class HandyWorker extends Endorser {
@@ -18,7 +16,7 @@ public class HandyWorker extends Endorser {
 	// ATRIBUTOS
 	private String make;
 
-	@NotBlank
+
 	public String getMake() {
 		return this.make;
 	}
@@ -27,8 +25,10 @@ public class HandyWorker extends Endorser {
 		this.make = make;
 	}
 
+
 	// Relationships ---------------------------------------------------------
 	private Finder finder;
+
 
 	@Valid
 	@OneToOne(cascade = CascadeType.ALL, optional = true)
