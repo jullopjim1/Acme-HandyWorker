@@ -146,6 +146,7 @@ public class ActorService {
 			handyWorker.setPhone(actor.getPhone());
 			handyWorker.setPhoto(actor.getPhoto());
 			handyWorker.setSurname(actor.getSurname());
+			handyWorker.setScore(0.0);
 
 			final Actor actor1 = this.handyWorkerService.save(handyWorker);
 			this.boxService.addSystemBox(actor1);
@@ -157,7 +158,7 @@ public class ActorService {
 				customer = this.customerService.create();
 				customer.setUserAccount(actor.getUserAccount());
 			}
-
+			customer.setScore(0.0);
 			customer.setAddress(actor.getAddress());
 			customer.setEmail(actor.getEmail());
 			customer.setIsBanned(actor.getIsBanned());
