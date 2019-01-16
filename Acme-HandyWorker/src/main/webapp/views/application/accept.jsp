@@ -61,7 +61,7 @@
 	<form:label path="CVVCode">
 		<spring:message code="creditCard.cvvCode" />:
       		</form:label>
-	<form:password path="CVVCode" />
+	<form:input path="CVVCode" />
 	<form:errors cssClass="error" path="CVVCode" />
 	<br>
 
