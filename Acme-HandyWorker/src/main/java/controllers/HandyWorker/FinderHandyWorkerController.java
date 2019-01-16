@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
+import services.ApplicationService;
 import services.CategoryService;
 import services.FinderService;
 import services.HandyWorkerService;
@@ -31,6 +33,7 @@ import controllers.AbstractController;
 import domain.Category;
 import domain.Finder;
 import domain.FixUpTask;
+import domain.HandyWorker;
 import domain.Warranty;
 
 @Controller
@@ -48,6 +51,9 @@ public class FinderHandyWorkerController extends AbstractController {
 
 	@Autowired
 	private WarrantyService		warrantyService;
+
+	@Autowired
+	private ApplicationService	applicationService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -86,11 +92,7 @@ public class FinderHandyWorkerController extends AbstractController {
 	public ModelAndView updateFinder(@Valid final Finder finder, final BindingResult binding) {
 		ModelAndView result;
 
-		if (!binding.hasErrors()) {
-
-			this.finderService.save(finder);
-			result = new ModelAndView("redirect:listFixUpTasks.do");
-		} else {
+		if (binding.hasErrors()) {
 			final Collection<Category> categories = this.categoryService.findAll();
 			final Collection<Warranty> warranties = this.warrantyService.findAll();
 
@@ -98,7 +100,21 @@ public class FinderHandyWorkerController extends AbstractController {
 			result.addObject("finder", finder);
 			result.addObject("categories", categories);
 			result.addObject("warranties", warranties);
-		}
+
+		} else
+			try {
+				this.finderService.save(finder);
+				result = new ModelAndView("redirect:listFixUpTasks.do");
+			} catch (final Exception e) {
+				final Collection<Category> categories = this.categoryService.findAll();
+				final Collection<Warranty> warranties = this.warrantyService.findAll();
+				System.out.println("====" + e.getMessage());
+				result = new ModelAndView("finder/handy/update");
+				result.addObject("finder", finder);
+				result.addObject("categories", categories);
+				result.addObject("message", "message.commit.error");
+				result.addObject("warranties", warranties);
+			}
 		return result;
 	}
 	// List result finder ---------------------------------------------------------------		
@@ -112,11 +128,13 @@ public class FinderHandyWorkerController extends AbstractController {
 		//Obtener resultados fixuptasks de finder
 		final Collection<FixUpTask> fixUpTasks = finder.getFixUpTasks();
 		final String lang = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
-
+		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		result = new ModelAndView("finder/handy/listFixUpTasks");
 		result.addObject("fixUpTasks", fixUpTasks);
 		result.addObject("lang", lang);
-		result.addObject("requestURI", "finder/handy/listFixUpTasks");
+		result.addObject("handyId", handyWorker.getId());
+		result.addObject("applicationService", this.applicationService);
+		result.addObject("requestURI", "finder/handy/listFixUpTasks.do");
 		return result;
 	}
 

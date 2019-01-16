@@ -52,7 +52,7 @@
 
 		<display:column titleKey="fixUpTask.application.create">
 			<jstl:if
-				test="${applicationService.findApplicationByHandyWorkerIdAndTaskId(handyId, row.id) == null }">
+				test="${applicationService.findApplicationByHandyWorkerIdAndTaskId(handyId, row.id) == null and applicationService.findApplicationAcceptedByFixUpTaskId(row.id) == null}">
 				<a href="application/handyworker/create.do?fixUpTaskId=${row.id}"><spring:message
 						code="fixUpTask.application.create" /></a>
 			</jstl:if>
