@@ -1,6 +1,7 @@
 
 package repositories;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.data.domain.Page;
@@ -26,4 +27,7 @@ public interface FinderRepository extends JpaRepository<Finder, Integer> {
 
 	@Query("select h.finder from HandyWorker h where h.id=?1")
 	Finder findByHandyWorker(int handyWorkerId);
+	
+	@Query("select f from Finder f where ?1 member of f.fixUpTasks")
+	public Collection<Finder> findersByFixUpTask(int fixUpTaskId);
 }

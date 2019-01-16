@@ -1,4 +1,3 @@
-
 package services;
 
 import java.util.ArrayList;
@@ -29,28 +28,28 @@ import security.UserAccount;
 @Transactional
 public class FinderService {
 
-	//Repository-------------------------------------------------------------------------
+	// Repository-------------------------------------------------------------------------
 
 	@Autowired
-	private FinderRepository		finderRepository;
+	private FinderRepository finderRepository;
 
-	//Services---------------------------------------------------------------------------
+	// Services---------------------------------------------------------------------------
 	@Autowired
-	private ConfigurationService	configurationService;
+	private ConfigurationService configurationService;
 	@Autowired
-	private ActorService			actorService;
+	private ActorService actorService;
 
 	@Autowired
-	private HandyWorkerService		handyWorkerService;
+	private HandyWorkerService handyWorkerService;
 
-
-	//Constructor------------------------------------------------------------------------
+	// Constructor------------------------------------------------------------------------
 
 	public FinderService() {
 		super();
 	}
 
-	//Simple CRUD------------------------------------------------------------------------
+	// Simple
+	// CRUD------------------------------------------------------------------------
 
 	public Finder create() {
 		final UserAccount userAccount = LoginService.getPrincipal();
@@ -58,7 +57,10 @@ public class FinderService {
 
 		final Authority handyAuthority = new Authority();
 		handyAuthority.setAuthority("HANDY");
-		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los handyWorker tiene finder");
+		Assert.isTrue(
+				actor.getUserAccount().getAuthorities()
+						.contains(handyAuthority),
+				"Solo los handyWorker tiene finder");
 
 		final Finder finder = new Finder();
 
@@ -80,6 +82,7 @@ public class FinderService {
 
 		return finder;
 	}
+
 	public List<Finder> findAll() {
 		return this.finderRepository.findAll();
 	}
@@ -90,6 +93,7 @@ public class FinderService {
 
 		return finder;
 	}
+
 	public Finder save(Finder finder) {
 		this.check(finder);
 
@@ -97,38 +101,50 @@ public class FinderService {
 
 		finder = this.updateFinder(finder);
 
-		final Finder saved = this.finderRepository.save(this.updateFinder(finder));
+		final Finder saved = this.finderRepository.save(this
+				.updateFinder(finder));
 		if (finder.getId() == 0) {
 			final UserAccount userAccount = LoginService.getPrincipal();
-			final HandyWorker handy = this.handyWorkerService.findHandyWorkerByUserAccount(userAccount.getId());
+			final HandyWorker handy = this.handyWorkerService
+					.findHandyWorkerByUserAccount(userAccount.getId());
 			handy.setFinder(saved);
 			this.handyWorkerService.save(handy);
 		}
 		return saved;
 	}
+	
+	public Finder saveByFixUpTask(Finder finder) {		
+		final Finder saved = this.finderRepository.save(finder);
+		return saved;
+	}
+
 	/**
 	 * No se puede borrar un finder
 	 */
-	//	public void delete(final Finder entity) {
+	// public void delete(final Finder entity) {
 	//
-	//	}
+	// }
 
-	//Other Methods---------------------------------------------------------------------------
+	// Other
+	// Methods---------------------------------------------------------------------------
 
 	public Finder updateFinder(final Finder finder) {
 		this.check(finder);
 		final Finder result = this.checkPrincipal(finder);
 
-		final Configuration configuration = this.configurationService.findAll().iterator().next();
+		final Configuration configuration = this.configurationService.findAll()
+				.iterator().next();
 
 		final Date currentDate = new Date();
-		final Date updateFinder = new Date(currentDate.getTime() - configuration.getFinderCacheTime() * 1000 * 60 * 60);
+		final Date updateFinder = new Date(currentDate.getTime()
+				- configuration.getFinderCacheTime() * 1000 * 60 * 60);
 		final Date lastUpdate = new Date(currentDate.getTime() - 1000);
 
 		if (!finder.getLastUpdate().after(updateFinder)) {
-			result.setFixUpTasks(this.searchFixUpTask(finder, configuration.getFinderMaxResults()));
+			result.setFixUpTasks(this.searchFixUpTask(finder,
+					configuration.getFinderMaxResults()));
 			result.setLastUpdate(lastUpdate);
-			//result = this.finderRepository.save(result);
+			// result = this.finderRepository.save(result);
 		}
 
 		return result;
@@ -136,7 +152,9 @@ public class FinderService {
 
 	private Date updateTime() {
 		final Date currentDate = new Date();
-		final Date updateFinder = new Date(currentDate.getTime() - this.configurationService.findOne().getFinderCacheTime() * 1000 * 60 * 60);
+		final Date updateFinder = new Date(currentDate.getTime()
+				- this.configurationService.findOne().getFinderCacheTime()
+				* 1000 * 60 * 60);
 		final Date lastUpdate = new Date(updateFinder.getTime() - 1000);
 
 		return lastUpdate;
@@ -163,29 +181,45 @@ public class FinderService {
 			f.setDateMin(currentDate);
 
 		if (f.getDateMax() == null)
-			f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));// 315360000000L son 10 años en milisegundos
+			f.setDateMax(new Date(currentDate.getTime() + 315360000000L * 2));// 315360000000L
+																				// son
+																				// 10
+																				// años
+																				// en
+																				// milisegundos
 
 		result = f;
 
 		return result;
 	}
-	public Collection<FixUpTask> searchFixUpTask(final Finder f, final int maxResult) {
+
+	public Collection<FixUpTask> searchFixUpTask(final Finder f,
+			final int maxResult) {
 		List<FixUpTask> result = new ArrayList<>();
 		final String nameCategory = f.getNamecategory();
-		final String langCategory = LocaleContextHolder.getLocale().getLanguage().toUpperCase();
+		final String langCategory = LocaleContextHolder.getLocale()
+				.getLanguage().toUpperCase();
 		final Finder finder = this.checkPrincipal(f);
 
 		Page<FixUpTask> p;
 		if (nameCategory == null || nameCategory.equals(""))
-			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), finder.getPriceMin(), finder.getPriceMax(), finder.getNamewarranty(), new PageRequest(0, maxResult));
+			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(),
+					finder.getDateMin(), finder.getDateMax(),
+					finder.getPriceMin(), finder.getPriceMax(),
+					finder.getNamewarranty(), new PageRequest(0, maxResult));
 		else
-			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(), finder.getDateMin(), finder.getDateMax(), finder.getPriceMin(), finder.getPriceMax(), langCategory, nameCategory, finder.getNamewarranty(), new PageRequest(0, maxResult));
+			p = this.finderRepository.searchFixUpTasks(finder.getKeyword(),
+					finder.getDateMin(), finder.getDateMax(), finder
+							.getPriceMin(), finder.getPriceMax(), langCategory,
+					nameCategory, finder.getNamewarranty(), new PageRequest(0,
+							maxResult));
 
 		if (p.getContent() != null)
 			result = new ArrayList<>(p.getContent());
 
 		return result;
 	}
+
 	public Finder findFinderByHandyWorkerId(final int handyWorkerId) {
 		return this.finderRepository.findByHandyWorker(handyWorkerId);
 	}
@@ -199,15 +233,20 @@ public class FinderService {
 
 		final Finder finder = this.findFinderByHandyWorkerId(actor.getId());
 
-		Assert.isTrue(actor.getUserAccount().getAuthorities().contains(handyAuthority), "Solo los handyWorker tiene finder");
+		Assert.isTrue(
+				actor.getUserAccount().getAuthorities()
+						.contains(handyAuthority),
+				"Solo los handyWorker tiene finder");
 
-		Assert.isTrue(f.equals(finder) || (f.getId() == 0 && finder == null), "Un finder solo puede ser modificado por su dueño");
+		Assert.isTrue(f.equals(finder) || (f.getId() == 0 && finder == null),
+				"Un finder solo puede ser modificado por su dueño");
 
 	}
 
 	public Finder findFinder() {
 		final UserAccount userAccount = LoginService.getPrincipal();
-		final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(userAccount.getId());
+		final HandyWorker handyWorker = this.handyWorkerService
+				.findHandyWorkerByUserAccount(userAccount.getId());
 
 		Finder finder = this.findFinderByHandyWorkerId(handyWorker.getId());
 
@@ -216,5 +255,9 @@ public class FinderService {
 
 		return finder;
 
+	}
+
+	public Collection<Finder> findersByFixUpTask(int fixUpTaskId) {
+		return finderRepository.findersByFixUpTask(fixUpTaskId);
 	}
 }

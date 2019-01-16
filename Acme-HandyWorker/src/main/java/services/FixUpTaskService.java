@@ -11,16 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import repositories.FixUpTaskRepository;
+import security.LoginService;
 import domain.Actor;
 import domain.Application;
 import domain.Complaint;
 import domain.Customer;
+import domain.Finder;
 import domain.FixUpTask;
 import domain.HandyWorker;
 import domain.Phase;
 import domain.Ticker;
-import repositories.FixUpTaskRepository;
-import security.LoginService;
 
 @Service
 @Transactional
@@ -51,6 +52,9 @@ public class FixUpTaskService {
 
 	@Autowired
 	private ConfigurationService configurationService;
+	
+	@Autowired
+	private FinderService finderService;
 
 	// Constructor----------------------------------------------
 	public FixUpTaskService() {
@@ -126,6 +130,15 @@ public class FixUpTaskService {
 			Assert.notNull(null,
 					"SOLO EL CUSTOMER PUEDE BORRAR SU PROPIA FIXUPTASK O BIEN EL ADMIN");
 
+		//QUITO FIXUPTASK DE FINDERS
+		Collection<Finder> finders = finderService.findersByFixUpTask(fixUpTask.getId());
+		if(!finders.isEmpty()){
+			for(Finder f : finders){
+				f.getFixUpTasks().remove(fixUpTask);
+				finderService.saveByFixUpTask(f);
+			}
+		}
+		
 		// BORRO SU COMPLAINT
 		final Complaint complaint = this.complaintService
 				.findComplaintByTaskId(fixUpTask.getId());
