@@ -23,7 +23,7 @@
 
 <jstl:out value="${score}"/>
 <display:table name="endorser" id="row" requestURI="${requestURI}"
-	pagesize="5" class="displaytag">
+	pagesize="15" class="displaytag">
 
 	<display:column property="userAccount.username" titleKey="endorsement.endorser" />
 	<display:column property="score" titleKey="actor.score" />
