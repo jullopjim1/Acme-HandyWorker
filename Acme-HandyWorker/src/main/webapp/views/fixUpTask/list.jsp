@@ -102,6 +102,12 @@
 
 
 	<security:authorize access="hasRole('CUSTOMER')">
+		<display:column titleKey="fixuptask.details">
+			<a href="fixUpTask/customer/show.do?fixUpTaskId=${row.id}"> <spring:message
+					code="fixuptask.show" />
+			</a>
+		</display:column>
+
 		<display:column titleKey="complaint.create">
 			<jstl:if
 				test="${complaintService.findComplaintByTaskId(row.id) == null}">
