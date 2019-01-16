@@ -98,7 +98,7 @@ public class TutorialHandyWorkerController extends AbstractController {
 			if (tutorial == null)
 				redirectAttrs.addFlashAttribute("message",
 						"tutorial.error.unexist");
-			else if(!tutorial.getHandyWorker().equals(h))
+			else if (!tutorial.getHandyWorker().equals(h))
 				redirectAttrs.addFlashAttribute("message",
 						"tutorial.error.notActual");
 		}
@@ -111,13 +111,14 @@ public class TutorialHandyWorkerController extends AbstractController {
 			final BindingResult binding) {
 
 		ModelAndView result;
-		final HandyWorker a = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(tutorial);
+			result = this.createEditModelAndView(tutorial,
+					"message.commit.error");
 		else
 			try {
+				final HandyWorker a = this.handyWorkerService
+						.findHandyWorkerByUserAccount(LoginService
+								.getPrincipal().getId());
 				this.tutorialService.save(tutorial);
 				result = new ModelAndView(
 						"redirect:/tutorial/handyworker/list.do?=" + a.getId());

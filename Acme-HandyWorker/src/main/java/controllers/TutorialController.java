@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import services.HandyWorkerService;
 import services.SponsorshipService;
 import services.TutorialService;
 import domain.HandyWorker;
@@ -28,6 +29,9 @@ public class TutorialController extends AbstractController {
 
 	@Autowired
 	private SponsorshipService sponsorshipService;
+
+	@Autowired
+	private HandyWorkerService handyWorkerService;
 
 	// Constructor---------------------------------------------------------
 
@@ -74,18 +78,30 @@ public class TutorialController extends AbstractController {
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView view(@RequestParam final int handyWorkerId) {
+	public ModelAndView view(@RequestParam final int handyWorkerId,
+			final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Collection<Tutorial> tutorials;
+		HandyWorker h = handyWorkerService.findOne(handyWorkerId);
 
-		tutorials = this.tutorialService
-				.findTutorialsByHandyWorkerId(handyWorkerId);
+		try {
+			Assert.notNull(h);
+			tutorials = this.tutorialService
+					.findTutorialsByHandyWorkerId(handyWorkerId);
 
-		result = new ModelAndView("tutorial/list");
-		result.addObject("tutorials", tutorials);
-		result.addObject("requestURI", "/view.do?handyWorkerId="
-				+ handyWorkerId);
-		result.addObject("handyWorkerId", handyWorkerId);
+			result = new ModelAndView("tutorial/list");
+			result.addObject("tutorials", tutorials);
+			result.addObject("requestURI", "/view.do?handyWorkerId="
+					+ handyWorkerId);
+			result.addObject("handyWorkerId", handyWorkerId);
+
+		} catch (Throwable e) {
+			result = new ModelAndView("redirect:list.do");
+
+			if (h == null)
+				redirectAttrs.addFlashAttribute("message",
+						"tutorial.error.unexisthandy");
+		}
 		return result;
 	}
 
