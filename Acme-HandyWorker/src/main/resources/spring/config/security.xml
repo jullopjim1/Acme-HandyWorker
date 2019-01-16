@@ -310,7 +310,7 @@
 
 		<!-- REFEREE -->
 		<security:intercept-url pattern="/note/list.do"
-			access="hasAnyRole('CUSTOMER','HANDY')" />
+			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
 
 		<security:intercept-url pattern="/note/edit.do"
 			access="hasAnyRole('CUSTOMER','HANDY','REFEREE')" />
