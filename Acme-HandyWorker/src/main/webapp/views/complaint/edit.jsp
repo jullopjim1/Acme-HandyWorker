@@ -76,8 +76,15 @@
 	</jstl:if>
 
 	<jstl:if test="${isRead == true}">
+	<security:authorize access="hasRole('CUSTOMER')">
 		<input type="button" name="cancel"
 			value="<spring:message code="complaint.back" />"
+			onclick="javascript: relativeRedir('complaint/customer/list.do');" />
+			</security:authorize>
+	<security:authorize access="hasAnyRole('HANDY','REFEREE')">	
+			<input type="button" name="cancel"
+			value="<spring:message code="complaint.back" />"
 			onclick="javascript: relativeRedir('complaint/list.do');" />
+	</security:authorize>		
 	</jstl:if>
 </form:form>

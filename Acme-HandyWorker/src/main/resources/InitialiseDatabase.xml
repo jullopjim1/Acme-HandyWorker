@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2018 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
-
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	">
-	
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="enabled" value="true" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -29,7 +19,423 @@
 			</list>
 		</property>
 	</bean>
-	
-	<!-- Other domain beans come here -->	
-	
+
+
+	<!-- ADMINISTRATOR -->
+	<bean id="admin" class="domain.Administrator">
+		<property name="name" value="Admin" />
+		<property name="middleName" value="middleName19" />
+		<property name="surname" value="surname19" />
+		<property name="photo" value="http://www.photo12.com" />
+		<property name="email" value="emailadministrator1@gmail.com" />
+		<property name="phone" value="650190124" />
+		<property name="address" value="adress10" />
+		<property name="isSuspicious" value="false" />
+		<property name="isBanned" value="false" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+
+
+	<!-- CONFIGURATION -->
+	<bean id="configuration1" class="domain.Configuration">
+		<property name="varTax" value="21" />
+		<property name="countryCode" value="+34" />
+		<property name="banner" value="https://tinyurl.com/acme-handy-worker-logo" />
+		<property name="welcomeMessage">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Welcome to Acme Handy Worker! Price, quality, and trust in
+						a
+						single place
+					</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>¡Bienvenidos a Acme Handy Worker! Precio, calidad y
+						confianza
+						en el mismo sitio
+					</value>
+				</entry>
+			</map>
+		</property>
+		<property name="spamWords">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<list>
+						<value>sex</value>
+						<value>viagra</value>
+						<value>cialis</value>
+						<value>nigeria</value>
+						<value>one million</value>
+						<value>you've been selected</value>
+					</list>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<list>
+						<value>sexo</value>
+						<value>viagra</value>
+						<value>cialis</value>
+						<value>nigeria</value>
+						<value>un millon</value>
+						<value>has sido seleccionado</value>
+					</list>
+				</entry>
+			</map>
+		</property>
+		<property name="finderCacheTime" value="1" />
+		<property name="finderMaxResults" value="10" />
+		<property name="negativeWords">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<list>
+						<value>not</value>
+						<value>bad</value>
+						<value>horrible</value>
+						<value>average</value>
+						<value>disaster</value>
+					</list>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<list>
+						<value>no</value>
+						<value>malo</value>
+						<value>horrible</value>
+						<value>mediocre</value>
+						<value>desastre</value>
+					</list>
+				</entry>
+			</map>
+		</property>
+
+		<property name="positiveWords">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<list>
+						<value>good</value>
+						<value>fantastic</value>
+						<value>excellent</value>
+						<value>great</value>
+						<value>amazing</value>
+						<value>terrific</value>
+						<value>beautiful</value>
+					</list>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<list>
+						<value>bueno</value>
+						<value>fantastico</value>
+						<value>excelente</value>
+						<value>genial</value>
+						<value>increible</value>
+						<value>tremendo</value>
+						<value>precioso</value>
+					</list>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+
+	<!-- CATEGORY -->
+
+	<bean id="rootCategory" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>CATEGORY</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>CATEGORIA</value>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="category1" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Carpentry</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Carpinteria</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category2" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Ceiling Repair</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Reparacion de techos</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category3" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Cleaning</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Limpieza</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category4" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Concrete Work</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Trabajos concretos</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category5" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Doors</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Puertas</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category6" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Kitchen furniture</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Muebles cocina</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="category1" />
+	</bean>
+	<bean id="category7" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Installation</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Instalaciones</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="rootCategory" />
+	</bean>
+
+	<bean id="category8" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Appliance</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Electrodomestico</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="category7" />
+	</bean>
+
+	<bean id="category10" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Ceramic hob</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Vitrocerámica</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="category8" />
+	</bean>
+
+
+	<bean id="category9" class="domain.Category">
+		<property name="name">
+			<map>
+				<entry>
+					<key>
+						<value>EN</value>
+					</key>
+					<value>Air conditioning</value>
+				</entry>
+				<entry>
+					<key>
+						<value>ES</value>
+					</key>
+					<value>Aire acondicionado</value>
+				</entry>
+			</map>
+		</property>
+		<property name="rootcategory" ref="category7" />
+	</bean>
+
+
+	<!-- BOX -->
+
+	<bean id="trashBoxA" class="domain.Box">
+		<property name="name" value="trash box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="inBoxA" class="domain.Box">
+		<property name="name" value="in box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="outBoxA" class="domain.Box">
+		<property name="name" value="out box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+
+	<bean id="spamBoxA" class="domain.Box">
+		<property name="name" value="spam box" />
+		<property name="isSystem" value="true" />
+		<property name="subboxes">
+			<list>
+			</list>
+		</property>
+		<property name="rootbox">
+			<null />
+		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
 </beans>

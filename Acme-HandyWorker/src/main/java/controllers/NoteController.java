@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.NoteService;
+import services.RefereeService;
+import services.ReportService;
 import domain.Note;
+import domain.Report;
 
 @Controller
 @RequestMapping("/note")
@@ -22,7 +28,13 @@ public class NoteController extends AbstractController {
 	//Services-----------------------------------------------------------
 
 	@Autowired
-	private NoteService	noteService;
+	private NoteService		noteService;
+
+	@Autowired
+	private ReportService	reportService;
+
+	@Autowired
+	private RefereeService	refereeService;
 
 
 	//Constructor---------------------------------------------------------
@@ -61,11 +73,21 @@ public class NoteController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int reportId) {
 		ModelAndView result;
-		Note note;
+		final Report report = this.reportService.findOne(reportId);
+		final int refereeId = this.refereeService.findByUseraccount(LoginService.getPrincipal()).getId();
+		final Collection<Report> reports = this.reportService.findReportByRefereeId(refereeId);
 
-		note = this.noteService.create(reportId);
-		result = this.createEditModelAndView(note);
+		final boolean isYourReport = reports.contains(report);
 
+		Note note = this.noteService.findNoteReportById(reportId);
+		if (note != null || !isYourReport) {
+			result = new ModelAndView("welcome/index");
+			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+		} else {
+
+			note = this.noteService.create(reportId);
+			result = this.createEditModelAndView(note);
+		}
 		return result;
 	}
 

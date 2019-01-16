@@ -88,13 +88,16 @@ public class ComplaintController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Complaint complaint, final String message) {
 		ModelAndView result;
-
-		result = new ModelAndView("complaint/edit");
-		result.addObject("complaint", complaint);
-		result.addObject("message", message);
-		result.addObject("isRead", false);
-		result.addObject("requestURI", "complaint/edit.do");
-
+		if (complaint == null) {
+			result = new ModelAndView("welcome/index");
+			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+		} else {
+			result = new ModelAndView("complaint/edit");
+			result.addObject("complaint", complaint);
+			result.addObject("message", message);
+			result.addObject("isRead", false);
+			result.addObject("requestURI", "complaint/edit.do");
+		}
 		return result;
 	}
 }
