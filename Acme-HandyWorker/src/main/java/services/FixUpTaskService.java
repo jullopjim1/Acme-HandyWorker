@@ -1,5 +1,6 @@
 package services;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -112,7 +113,10 @@ public class FixUpTaskService {
 		// GUARDO FIXUPTASK
 		final double price = this.configurationService.calculate(fixUpTask
 				.getMaxPrice());
-		fixUpTask.setMaxPrice(price);
+		DecimalFormat df = new DecimalFormat("#.00");
+		String number = df.format(price); 
+		double priceWithDecimals = Double.parseDouble(number);		
+		fixUpTask.setMaxPrice(priceWithDecimals);
 		final FixUpTask saved = this.fixUpTaskRepository.save(fixUpTask);
 		return saved;
 	}

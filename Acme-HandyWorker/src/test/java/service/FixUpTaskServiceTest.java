@@ -80,9 +80,9 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		final int phaseId = this.getEntityId("phase1");
 		final int fixUpTaskId = this.getEntityId("fixuptask3");
 
-		// LOGIN COMO ADMIN
+		// LOGIN COMO OTRO CUSTOMER
 		unauthenticate();
-		authenticate("admin");
+		authenticate("customer3");
 
 		// BORRO FIXUPTASK
 		fixUpTaskService.delete(fixUpTaskService.findOne(fixUpTaskId));
@@ -229,9 +229,9 @@ public class FixUpTaskServiceTest extends AbstractTest {
 		final int phaseId = this.getEntityId("phase1");
 		final int fixUpTaskId = this.getEntityId("fixuptask3");
 
-		// LOGIN COMO ADMIN
+		// LOGIN COMO OTRO CUSTOMER
 		unauthenticate();
-		authenticate("admin");
+		authenticate("customer3");
 
 		// BORRO FIXUPTASK
 		fixUpTaskService.delete(fixUpTaskService.findOne(fixUpTaskId));
