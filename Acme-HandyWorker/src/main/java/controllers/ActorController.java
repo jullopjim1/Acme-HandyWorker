@@ -25,9 +25,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import security.LoginService;
 import services.ActorService;
 import services.EndorserService;
+import services.HandyWorkerService;
 import services.TutorialService;
 import domain.Actor;
 import domain.Endorser;
+import domain.HandyWorker;
 import domain.Tutorial;
 
 @Controller
@@ -35,13 +37,17 @@ import domain.Tutorial;
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private TutorialService tutorialService;
+	private HandyWorkerService	handyWorkerService;
 
 	@Autowired
-	private EndorserService endorserService;
+	private TutorialService		tutorialService;
+
+	@Autowired
+	private EndorserService		endorserService;
+
 
 	// Edit ---------------------------------------------------------------
 
@@ -49,8 +55,7 @@ public class ActorController extends AbstractController {
 	public ModelAndView edit() {
 		ModelAndView result;
 
-		final Actor a = this.actorService.findByUserAccount(LoginService
-				.getPrincipal());
+		final Actor a = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		Assert.notNull(a);
 
 		result = this.createEditModelAndView(a);
@@ -60,41 +65,33 @@ public class ActorController extends AbstractController {
 
 	// Show
 	@RequestMapping(value = "/showProfileTutorial", method = RequestMethod.GET)
-	public ModelAndView showByTutorial(@RequestParam final int tutorialId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView showByTutorial(@RequestParam final int tutorialId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView;
 		final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 
 		try {
 			Assert.notNull(tutorial);
-			final Actor actor1 = this.actorService.findByUserAccount(tutorial
-					.getHandyWorker().getUserAccount());
-			Assert.notNull(actor1);
-			final int handyWorkerId = actor1.getId();
-			modelAndView = this.createEditModelAndView(actor1);
+			final HandyWorker handyWorker = this.handyWorkerService.findHandyWorkerByUserAccount(tutorial.getHandyWorker().getUserAccount().getId());
+			Assert.notNull(handyWorker);
+			final int handyWorkerId = handyWorker.getId();
+			modelAndView = this.createEditModelAndView(handyWorker);
 			modelAndView.addObject("isRead", true);
 			modelAndView.addObject("handyWorkerId", handyWorkerId);
-			modelAndView.addObject(
-					"requestURI",
-					"/actor/showProfileTutorial.do?tutorialId="
-							+ tutorial.getId());
-			final Endorser e = this.endorserService.findOne(actor1.getId());
+			modelAndView.addObject("requestURI", "/actor/showProfileTutorial.do?tutorialId=" + tutorial.getId());
+			modelAndView.addObject("make", handyWorker.getMake());
+			final Endorser e = this.endorserService.findOne(handyWorkerId);
 			modelAndView.addObject("score", e.getScore());
 
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:/tutorial/list.do");
-			if (tutorial == null) {
-				redirectAttrs.addFlashAttribute("message",
-						"tutorial.error.unexisthandy");
-			}
+			if (tutorial == null)
+				redirectAttrs.addFlashAttribute("message", "tutorial.error.unexisthandy");
 		}
 		return modelAndView;
 	}
-
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Actor actor,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Actor actor, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -105,8 +102,7 @@ public class ActorController extends AbstractController {
 				this.actorService.update(actor);
 				result = new ModelAndView("redirect:/welcome/index.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(actor,
-						"actor.commit.error");
+				result = this.createEditModelAndView(actor, "actor.commit.error");
 
 			}
 		return result;
@@ -123,8 +119,7 @@ public class ActorController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Actor actor,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Actor actor, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("actor/edit");

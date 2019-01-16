@@ -39,4 +39,8 @@
 		<put-attribute name="body" value="/views/actor/showCustomer.jsp" />
 	</definition>
 
+		<definition name="actor/make" extends="master.page">
+		<put-attribute name="title" value="Marca" />
+		<put-attribute name="body" value="/views/actor/make.jsp" />
+	</definition>
 </tiles-definitions>

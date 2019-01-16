@@ -211,6 +211,10 @@
 			</a>
 				<ul>
 					<li class="arrow"></li>
+					<security:authorize access="hasRole('HANDY')">
+					<li><a href="make/handyworker/edit.do"><spring:message
+								code="master.page.make.edit" /></a></li>
+					</security:authorize>
 					<li><a href="actor/edit.do"><spring:message
 								code="master.page.profile.edit" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message

@@ -80,6 +80,17 @@
 	<form:errors cssClass="error" path="address" />
 	<br />
 
+	<jstl:if test="${isRead == true}">
+		<jstl:if test="${make != null}">
+			<h3>
+				<spring:message code="actor.make" />
+				:
+				<jstl:out value="${make}" />
+			</h3>
+		</jstl:if>
+	</jstl:if>
+
+
 	<form:label path="phone">
 		<spring:message code="personalRecord.phone" />
 	</form:label>
