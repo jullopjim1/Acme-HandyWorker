@@ -58,7 +58,7 @@ public class ProfessionalRecordService {
 	public ProfessionalRecord save(final ProfessionalRecord professionalRecord) {
 		Assert.notNull(professionalRecord);
 		this.checkPrincipal(professionalRecord);
-		Assert.isTrue(professionalRecord.getStartMoment().before(professionalRecord.getEndMoment()), "DateError");
+		Assert.isTrue(professionalRecord.getEndMoment() != null && professionalRecord.getStartMoment().before(professionalRecord.getEndMoment()), "DateError");
 		final ProfessionalRecord saved = this.professionalRecordRepository.save(professionalRecord);
 		return saved;
 	}
