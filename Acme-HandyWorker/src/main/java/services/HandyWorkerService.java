@@ -11,12 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import domain.Actor;
+import domain.HandyWorker;
 import repositories.HandyWorkerRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
-import domain.HandyWorker;
 
 @Service
 @Transactional
@@ -51,7 +51,6 @@ public class HandyWorkerService {
 		userAccount.setAuthorities(authorities);
 		userAccount.setEnabled(true);
 		handyWorker.setUserAccount(userAccount);
-
 		handyWorker.setIsBanned(false);
 		handyWorker.setIsSuspicious(false);
 
@@ -81,7 +80,7 @@ public class HandyWorkerService {
 		}
 
 		// MAKE POR DEFECTO
-		if (handyWorker.getMake() == null)
+		if (handyWorker.getMake().isEmpty())
 			handyWorker.setMake(handyWorker.getSurname() + " " + handyWorker.getMiddleName() + " " + handyWorker.getName());
 
 		// GUARDO HANDYWORKER
