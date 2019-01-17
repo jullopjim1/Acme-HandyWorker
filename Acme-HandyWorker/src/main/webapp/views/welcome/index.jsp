@@ -19,14 +19,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <p>
-	<img alt="banner"
-		src="https://irp-cdn.multiscreensite.com/3737b2b6/dms3rep/multi/desktop/4-2000x889.jpg"
-		width="500" height="250">
+	<img src="${banner}" width="500" height="250">
 </p>
 
 <p>${welomeMessage}</p>
 
-<p><jstl:if test="${moment!=null}">
-	<spring:message code="welcome.greeting.current.time" />
+<p>
+	<jstl:if test="${moment!=null}">
+		<spring:message code="welcome.greeting.current.time" />
 	${moment}</jstl:if>
 </p>

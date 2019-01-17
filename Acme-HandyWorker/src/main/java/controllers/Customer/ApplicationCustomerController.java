@@ -300,7 +300,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			result = this.acceptModelAndView(applicationForm,
-					"application.invalidCreditCard");
+					binding.toString());
 		} else
 			try {
 				final Customer c = this.customerService
@@ -331,14 +331,14 @@ public class ApplicationCustomerController extends AbstractController {
 
 				if (applicationForm.getExpirationYear() < year) {
 					result = this.acceptModelAndView(applicationForm,
-							"commit.errorCredit");
+							oops.getMessage());
 				} else if ((applicationForm.getExpirationYear() == year)
 						&& (applicationForm.getExpirationMonth() <= month)) {
 					result = this.acceptModelAndView(applicationForm,
-							"commit.errorCredit");
+							oops.getMessage());
 				} else {
 					result = this.acceptModelAndView(applicationForm,
-							"application.invalidCreditCard");
+							oops.getMessage());
 				}
 			}
 		return result;
