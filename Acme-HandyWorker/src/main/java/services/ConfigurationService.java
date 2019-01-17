@@ -73,6 +73,7 @@ public class ConfigurationService {
 	}
 
 	public Configuration save(final Configuration configuration) {
+		Assert.notNull(configuration);
 		final Configuration saved = this.configurationRepository.save(configuration);
 		return saved;
 	}
