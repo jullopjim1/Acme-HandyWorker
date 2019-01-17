@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.ArrayList;
@@ -29,17 +30,17 @@ import domain.Message;
 public class MessageController extends AbstractController {
 
 	@Autowired
-	private MessageService messageService;
+	private MessageService	messageService;
 
 	@Autowired
-	private BoxService boxService;
+	private BoxService		boxService;
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService	actorService;
+
 
 	@RequestMapping(value = "/actor/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int boxId,
-			RedirectAttributes redirectAttrs) {
+	public ModelAndView list(@RequestParam final int boxId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 
 		final Box box1 = this.boxService.findOne(boxId);
@@ -47,8 +48,7 @@ public class MessageController extends AbstractController {
 		try {
 			Assert.notNull(box1);
 			this.boxService.checkPrincipal(box1);
-			final Collection<Message> messages = this.messageService
-					.findByBox(box1);
+			final Collection<Message> messages = this.messageService.findByBox(box1);
 
 			result = new ModelAndView("message/actor/list");
 			result.addObject("messages", messages);
@@ -57,16 +57,13 @@ public class MessageController extends AbstractController {
 
 			result = new ModelAndView("redirect:/box/actor/list.do");
 
-			Box box = this.boxService.findOne(boxId);
-			final Actor actor = this.actorService
-					.findByUserAccount(LoginService.getPrincipal());
+			final Box box = this.boxService.findOne(boxId);
+			final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
-			if (box == null) {
+			if (box == null)
 				redirectAttrs.addFlashAttribute("message", "box.error.unexist");
-			} else if (!(box.getActor().equals(actor))) {
-				redirectAttrs.addFlashAttribute("message",
-						"box.error.notFromThisActor");
-			}
+			else if (!(box.getActor().equals(actor)))
+				redirectAttrs.addFlashAttribute("message", "box.error.notFromThisActor");
 		}
 
 		return result;
@@ -78,8 +75,7 @@ public class MessageController extends AbstractController {
 		final ModelAndView modelAndView;
 
 		final Message message = this.messageService.create();
-		message.setRecipient(this.actorService.findByUserAccount(LoginService
-				.getPrincipal()));
+		message.setRecipient(this.actorService.findByUserAccount(LoginService.getPrincipal()));
 
 		modelAndView = this.createEditModelAndView(message);
 
@@ -90,8 +86,7 @@ public class MessageController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/administrator/broadcastMessage", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveBroadcast(@Valid final Message message,
-			final BindingResult binding) {
+	public ModelAndView saveBroadcast(@Valid final Message message, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -104,8 +99,7 @@ public class MessageController extends AbstractController {
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
 				System.out.println("==============   " + oops);
-				result = this.createEditModelAndView(message,
-						"message.commit.error");
+				result = this.createEditModelAndView(message, "message.commit.error");
 				result.setViewName("message/administrator/broadcastMessage");
 			}
 		return result;
@@ -125,8 +119,7 @@ public class MessageController extends AbstractController {
 
 	// Show
 	@RequestMapping(value = "/actor/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int messageId,
-			RedirectAttributes redirectAttrs) {
+	public ModelAndView show(@RequestParam final int messageId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView;
 		final Message message = this.messageService.findOne(messageId);
 		try {
@@ -139,17 +132,12 @@ public class MessageController extends AbstractController {
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
 			final UserAccount userAccount = LoginService.getPrincipal();
-			final Actor actor = this.actorService
-					.findByUserAccount(userAccount);
+			final Actor actor = this.actorService.findByUserAccount(userAccount);
 
-			if (message == null) {
-				redirectAttrs.addFlashAttribute("message",
-						"message.error.unexist");
-			} else if (!(message.getSender().equals(actor) || message
-					.getRecipient().equals(actor))) {
-				redirectAttrs.addFlashAttribute("message",
-						"message.error.notFromThisActor");
-			}
+			if (message == null)
+				redirectAttrs.addFlashAttribute("message", "message.error.unexist");
+			else if (!(message.getSender().equals(actor) || message.getRecipient().equals(actor)))
+				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
 		}
 
 		return modelAndView;
@@ -157,18 +145,16 @@ public class MessageController extends AbstractController {
 
 	// Move message
 	@RequestMapping(value = "/actor/move", method = RequestMethod.GET)
-	public ModelAndView move(@RequestParam final int messageId, RedirectAttributes redirectAttrs) {
+	public ModelAndView move(@RequestParam final int messageId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView;
-		final Actor actor = this.actorService.findByUserAccount(LoginService
-				.getPrincipal());
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final Message message = this.messageService.findOne(messageId);
-		
+
 		try {
 			Assert.notNull(message);
 			this.messageService.checkPrincipal(message);
 
-			final Collection<Box> boxes = this.boxService
-					.findBoxesByActorId(actor.getId());
+			final Collection<Box> boxes = this.boxService.findBoxesByActorId(actor.getId());
 
 			modelAndView = this.createEditModelAndView(message);
 			modelAndView.setViewName("message/actor/move");
@@ -177,14 +163,10 @@ public class MessageController extends AbstractController {
 			modelAndView.addObject("boxes", boxes);
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
-			if (message == null) {
-				redirectAttrs.addFlashAttribute("message",
-						"message.error.unexist");
-			} else if (!(message.getSender().equals(actor) || message
-					.getRecipient().equals(actor))) {
-				redirectAttrs.addFlashAttribute("message",
-						"message.error.notFromThisActor");
-			}
+			if (message == null)
+				redirectAttrs.addFlashAttribute("message", "message.error.unexist");
+			else if (!(message.getSender().equals(actor) || message.getRecipient().equals(actor)))
+				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
 		}
 
 		return modelAndView;
@@ -192,12 +174,11 @@ public class MessageController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/actor/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Message message,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Message message, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(message);
+			result = this.createEditModelAndView(message, "message.error.field");
 			if (message.getId() != 0) {
 				result.setViewName("message/actor/move");
 				result.addObject("isRead", true);
@@ -212,8 +193,8 @@ public class MessageController extends AbstractController {
 
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(message,
-						"message.commit.error");
+				result = this.createEditModelAndView(message, "message.commit.error");
+				result.addObject("oops", oops.getMessage());
 				if (message.getId() != 0) {
 					result.setViewName("message/actor/move");
 					result.addObject("isRead", true);
@@ -232,10 +213,8 @@ public class MessageController extends AbstractController {
 			this.messageService.delete(message);
 			result = new ModelAndView("redirect:/box/actor/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(message,
-					"message.commit.error");
-			System.out.println("========== " + oops.getMessage()
-					+ " ==========");
+			result = this.createEditModelAndView(message, "message.commit.error");
+			System.out.println("========== " + oops.getMessage() + " ==========");
 			result.setViewName("message/actor/move");
 			result.addObject("isRead", true);
 			result.addObject("isMove", true);
@@ -254,11 +233,9 @@ public class MessageController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Message entityMessage,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Message entityMessage, final String message) {
 		ModelAndView result;
-		final Actor actor = this.actorService.findByUserAccount(LoginService
-				.getPrincipal());
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final Collection<Actor> actors = this.actorService.findAll();
 		actors.remove(actor);
 		final Collection<String> priorities = new ArrayList<>();
