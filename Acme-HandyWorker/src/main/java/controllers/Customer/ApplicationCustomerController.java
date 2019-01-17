@@ -212,7 +212,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 		if (binding.hasErrors())
 			result = this.createAndEditModelAndView(applicationForm,
-					binding.toString());
+					"commit.error");
 		else
 			try {
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
@@ -225,19 +225,19 @@ public class ApplicationCustomerController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				result = new ModelAndView(
-						oops.getMessage());
+						"redirect:/application/customer/list.do");
 				if (a == null)
 					redirectAttrs.addFlashAttribute("message",
-							oops.getMessage());
+							"application.error.unexist");
 				else if (!a.getFixUpTask().getCustomer().equals(c))
 					redirectAttrs.addFlashAttribute("message",
-							oops.getMessage());
+							"application.error.noCustomer");
 				else if (a.getStatus() != "PENDING")
 					redirectAttrs.addFlashAttribute("message",
-							oops.getMessage());
+							"application.error.statusNoPendingDecline");
 				else
 					result = this.declineModelAndView(applicationForm,
-							oops.getMessage());
+							"commit.error");
 			}
 		return result;
 	}
@@ -300,7 +300,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 		if (binding.hasErrors()) {
 			result = this.acceptModelAndView(applicationForm,
-					binding.toString());
+					"application.invalidCreditCard");
 		} else
 			try {
 				final Customer c = this.customerService
@@ -331,14 +331,14 @@ public class ApplicationCustomerController extends AbstractController {
 
 				if (applicationForm.getExpirationYear() < year) {
 					result = this.acceptModelAndView(applicationForm,
-							oops.getMessage());
+							"commit.errorCredit");
 				} else if ((applicationForm.getExpirationYear() == year)
 						&& (applicationForm.getExpirationMonth() <= month)) {
 					result = this.acceptModelAndView(applicationForm,
-							oops.getMessage());
+							"commit.errorCredit");
 				} else {
 					result = this.acceptModelAndView(applicationForm,
-							oops.getMessage());
+							"application.invalidCreditCard");
 				}
 			}
 		return result;
