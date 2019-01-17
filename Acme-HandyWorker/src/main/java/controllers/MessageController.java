@@ -190,11 +190,10 @@ public class MessageController extends AbstractController {
 					this.messageService.moveMessage(message, message.getBox());
 				else
 					this.messageService.save(message);
-
 				result = new ModelAndView("redirect:/box/actor/list.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(message, "message.commit.error");
-				result.addObject("oops", oops.getMessage());
+				result.addObject("oops", oops.getStackTrace());
 				if (message.getId() != 0) {
 					result.setViewName("message/actor/move");
 					result.addObject("isRead", true);
