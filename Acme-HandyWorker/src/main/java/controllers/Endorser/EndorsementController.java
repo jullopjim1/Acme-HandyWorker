@@ -16,17 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import controllers.AbstractController;
-import domain.Actor;
-import domain.Customer;
-import domain.Endorsement;
-import domain.Endorser;
-import domain.HandyWorker;
 import security.LoginService;
 import services.CustomerService;
 import services.EndorsementService;
 import services.EndorserService;
 import services.HandyWorkerService;
+import controllers.AbstractController;
+import domain.Endorsement;
+import domain.Endorser;
 
 @Controller
 @RequestMapping("/endorsement")
@@ -173,20 +170,23 @@ public class EndorsementController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Endorsement endorsement, final String message) {
 		ModelAndView result;
 
-		final ArrayList<Actor> endorsees = new ArrayList<>();
-		final Collection<HandyWorker> handyWorkers = this.handyWorkerService.findAll();
-		final Collection<Customer> customers = this.customerService.findAll();
+		Collection<Endorser> endorsees = new ArrayList<>();
+		endorsees = this.endorserService.findEndorsees();
 
-		endorsees.addAll(customers);
-		endorsees.addAll(handyWorkers);
+		if (endorsees.isEmpty()) {
+			result = this.list();
 
-		result = new ModelAndView("endorsement/edit");
-		result.addObject("endorsement", endorsement);
-		if (endorsees != null)
-			result.addObject("endorsees", endorsees);
-		result.addObject("message", message);
-		result.addObject("isRead", false);
+			result.addObject("message", "endorsement.listEndorsee.empty");
+
+		} else {
+
+			result = new ModelAndView("endorsement/edit");
+			result.addObject("endorsement", endorsement);
+			if (endorsees != null)
+				result.addObject("endorsees", endorsees);
+			result.addObject("message", message);
+			result.addObject("isRead", false);
+		}
 		return result;
 	}
-
 }
