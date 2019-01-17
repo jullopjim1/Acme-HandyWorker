@@ -212,7 +212,7 @@ public class ApplicationCustomerController extends AbstractController {
 
 		if (binding.hasErrors())
 			result = this.createAndEditModelAndView(applicationForm,
-					"commit.error");
+					binding.toString());
 		else
 			try {
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
@@ -225,19 +225,19 @@ public class ApplicationCustomerController extends AbstractController {
 
 			} catch (final Throwable oops) {
 				result = new ModelAndView(
-						"redirect:/application/customer/list.do");
+						oops.getMessage());
 				if (a == null)
 					redirectAttrs.addFlashAttribute("message",
-							"application.error.unexist");
+							oops.getMessage());
 				else if (!a.getFixUpTask().getCustomer().equals(c))
 					redirectAttrs.addFlashAttribute("message",
-							"application.error.noCustomer");
+							oops.getMessage());
 				else if (a.getStatus() != "PENDING")
 					redirectAttrs.addFlashAttribute("message",
-							"application.error.statusNoPendingDecline");
+							oops.getMessage());
 				else
 					result = this.declineModelAndView(applicationForm,
-							"commit.error");
+							oops.getMessage());
 			}
 		return result;
 	}
