@@ -1,3 +1,4 @@
+
 package controllers.Endorser;
 
 import java.util.ArrayList;
@@ -15,22 +16,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import security.LoginService;
-import services.EndorsementService;
-import services.EndorserService;
 import controllers.AbstractController;
+import domain.Actor;
+import domain.Customer;
 import domain.Endorsement;
 import domain.Endorser;
+import domain.HandyWorker;
+import security.LoginService;
+import services.CustomerService;
+import services.EndorsementService;
+import services.EndorserService;
+import services.HandyWorkerService;
 
 @Controller
 @RequestMapping("/endorsement")
 public class EndorsementController extends AbstractController {
 
 	@Autowired
-	private EndorsementService endorsementService;
+	private EndorsementService	endorsementService;
 
 	@Autowired
-	private EndorserService endorserService;
+	private EndorserService		endorserService;
+
+	@Autowired
+	private HandyWorkerService	handyWorkerService;
+
+	@Autowired
+	private CustomerService		customerService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -38,11 +51,9 @@ public class EndorsementController extends AbstractController {
 		Collection<Endorsement> endorsements = new ArrayList<>();
 		result = new ModelAndView("endorsement/list");
 		try {
-			final Endorser endorser = this.endorserService
-					.findEndorserByUseraccount(LoginService.getPrincipal());
+			final Endorser endorser = this.endorserService.findEndorserByUseraccount(LoginService.getPrincipal());
 			endorsements = this.endorsementService.findByEndorser(endorser);
-			final Collection<Endorsement> endorsementsEndorsee = this.endorsementService
-					.findByEndorsee(endorser);
+			final Collection<Endorsement> endorsementsEndorsee = this.endorsementService.findByEndorsee(endorser);
 			final Double score = endorser.getScore();
 			result.addObject("score", score);
 			result.addObject("endorsements", endorsements);
@@ -74,11 +85,9 @@ public class EndorsementController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int endorsementId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView show(@RequestParam final int endorsementId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView;
-		final Endorsement endorsement = this.endorsementService
-				.findOne(endorsementId);
+		final Endorsement endorsement = this.endorsementService.findOne(endorsementId);
 		try {
 			Assert.notNull(endorsement);
 			this.endorsementService.checkPrincipal(endorsement);
@@ -87,24 +96,19 @@ public class EndorsementController extends AbstractController {
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/endorsement/list.do");
 
-			if (endorsement == null) {
-				redirectAttrs.addFlashAttribute("message",
-						"endorsement.error.unexist");
-			} else {
-				redirectAttrs.addFlashAttribute("message",
-						"tutorial.error.notActualCustomer");
-			}
+			if (endorsement == null)
+				redirectAttrs.addFlashAttribute("message", "endorsement.error.unexist");
+			else
+				redirectAttrs.addFlashAttribute("message", "tutorial.error.notActualCustomer");
 		}
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int endorsementId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int endorsementId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView;
-		final Endorsement endorsement = this.endorsementService
-				.findOne(endorsementId);
+		final Endorsement endorsement = this.endorsementService.findOne(endorsementId);
 		try {
 			Assert.notNull(endorsement);
 			this.endorsementService.checkPrincipal(endorsement);
@@ -112,13 +116,10 @@ public class EndorsementController extends AbstractController {
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/endorsement/list.do");
 
-			if (endorsement == null) {
-				redirectAttrs.addFlashAttribute("message",
-						"endorsement.error.unexist");
-			} else {
-				redirectAttrs.addFlashAttribute("message",
-						"tutorial.error.notActualCustomer");
-			}
+			if (endorsement == null)
+				redirectAttrs.addFlashAttribute("message", "endorsement.error.unexist");
+			else
+				redirectAttrs.addFlashAttribute("message", "tutorial.error.notActualCustomer");
 		}
 
 		return modelAndView;
@@ -126,21 +127,18 @@ public class EndorsementController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Endorsement endorsement,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Endorsement endorsement, final BindingResult binding) {
 
 		ModelAndView result;
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(endorsement,
-					"message.commit.error");
+			result = this.createEditModelAndView(endorsement, "message.commit.error");
 		else
 			try {
 				this.endorsementService.save(endorsement);
 				result = new ModelAndView("redirect:/endorsement/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(endorsement,
-						"message.commit.error");
+				result = this.createEditModelAndView(endorsement, "message.commit.error");
 			}
 		return result;
 	}
@@ -150,15 +148,13 @@ public class EndorsementController extends AbstractController {
 
 		ModelAndView result;
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(endorsement,
-					"message.commit.error");
+			result = this.createEditModelAndView(endorsement, "message.commit.error");
 		else
 			try {
 				this.endorsementService.delete(endorsement);
 				result = new ModelAndView("redirect:/endorsement/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(endorsement,
-						"message.commit.error");
+				result = this.createEditModelAndView(endorsement, "message.commit.error");
 			}
 		return result;
 	}
@@ -174,16 +170,20 @@ public class EndorsementController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(
-			final Endorsement endorsement, final String message) {
+	protected ModelAndView createEditModelAndView(final Endorsement endorsement, final String message) {
 		ModelAndView result;
 
-		final Collection<Endorser> endorsees = this.endorserService
-				.findEndorsees();
+		final Collection<Actor> endorsees = null;
+		final Collection<HandyWorker> handyWorkers = this.handyWorkerService.findAll();
+		final Collection<Customer> customers = this.customerService.findAll();
+
+		endorsees.addAll(customers);
+		endorsees.addAll(handyWorkers);
 
 		result = new ModelAndView("endorsement/edit");
 		result.addObject("endorsement", endorsement);
-		result.addObject("endorsees", endorsees);
+		if (endorsees != null)
+			result.addObject("endorsees", endorsees);
 		result.addObject("message", message);
 		result.addObject("isRead", false);
 		return result;
