@@ -173,7 +173,7 @@ public class EndorsementController extends AbstractController {
 	protected ModelAndView createEditModelAndView(final Endorsement endorsement, final String message) {
 		ModelAndView result;
 
-		final Collection<Actor> endorsees = null;
+		final ArrayList<Actor> endorsees = new ArrayList<>();
 		final Collection<HandyWorker> handyWorkers = this.handyWorkerService.findAll();
 		final Collection<Customer> customers = this.customerService.findAll();
 
