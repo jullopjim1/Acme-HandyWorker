@@ -1,8 +1,8 @@
 /*
  * DomainEntity.java
- * 
+ *
  * Copyright (C) 2018 Universidad de Sevilla
- * 
+ *
  * The use of this project is hereby constrained to the conditions of the
  * TDG Licence, a copy of which you may download from
  * http://www.tdg-seville.info/License.html
@@ -20,11 +20,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Version;
 
-import org.hibernate.annotations.Immutable;
-
 @Entity
 @Access(AccessType.PROPERTY)
-@Immutable
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class DomainEntity {
 
