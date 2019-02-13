@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -88,7 +89,7 @@ public class EndorsementService {
 
 		Assert.notNull(endorsement.getEndorsee(), "El destinatario de la endorsement no puede ser nulo");
 
-		final Endorsement saved = this.endorsementRepository.save(endorsement);
+		final Endorsement saved = this.endorsementRepository.saveAndFlush(endorsement);
 
 		return saved;
 	}
@@ -146,9 +147,19 @@ public class EndorsementService {
 	}
 
 	public double calculateScoreByEndorser(final int endorserId) {
+
+		final Collection<Endorsement> endorsements = this.endorsementRepository.findByEndorseeId(endorserId);
+		final Collection<Endorsement> e = new ArrayList<>();
+		for (final Endorsement endorsement : endorsements) {
+			endorsement.setScore(this.calculateScore(endorsement));
+			e.add(endorsement);
+		}
+		this.endorsementRepository.save(e);
+
 		Double score = this.endorsementRepository.calculateScoreByEndorser(endorserId);
 		if (score == null)
 			score = 0.0;
+
 		return score;
 	}
 	public Collection<Endorsement> findByEndorser(final Endorser endorser) {
