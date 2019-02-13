@@ -135,7 +135,7 @@ public class PhaseHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("phase/edit");
 		result.addObject("phase", phase);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 
 		result.addObject("fixUpTaskId", phase.getFixUpTask().getId());

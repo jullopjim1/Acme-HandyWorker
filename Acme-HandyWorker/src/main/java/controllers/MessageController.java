@@ -61,9 +61,9 @@ public class MessageController extends AbstractController {
 			final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
 			if (box == null)
-				redirectAttrs.addFlashAttribute("message", "box.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "box.error.unexist");
 			else if (!(box.getActor().equals(actor)))
-				redirectAttrs.addFlashAttribute("message", "box.error.notFromThisActor");
+				redirectAttrs.addFlashAttribute("message1", "box.error.notFromThisActor");
 		}
 
 		return result;
@@ -164,9 +164,9 @@ public class MessageController extends AbstractController {
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/box/actor/list.do");
 			if (message == null)
-				redirectAttrs.addFlashAttribute("message", "message.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "message.error.unexist");
 			else if (!(message.getSender().equals(actor) || message.getRecipient().equals(actor)))
-				redirectAttrs.addFlashAttribute("message", "message.error.notFromThisActor");
+				redirectAttrs.addFlashAttribute("message1", "message.error.notFromThisActor");
 		}
 
 		return modelAndView;

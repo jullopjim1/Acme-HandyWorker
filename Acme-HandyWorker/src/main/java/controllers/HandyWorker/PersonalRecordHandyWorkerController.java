@@ -132,7 +132,7 @@ public class PersonalRecordHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("personal/edit");
 		result.addObject("personalRecord", personalRecord);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("handyWorkerId", handyWorkerId);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "personalRecord/handyworker/edit.do");

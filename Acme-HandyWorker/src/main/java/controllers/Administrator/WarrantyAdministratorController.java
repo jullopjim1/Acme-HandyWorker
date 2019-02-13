@@ -1,3 +1,4 @@
+
 package controllers.Administrator;
 
 import java.util.Collection;
@@ -25,7 +26,8 @@ public class WarrantyAdministratorController extends AbstractController {
 	// Service---------------------------------------------------------
 
 	@Autowired
-	private WarrantyService warrantyService;
+	private WarrantyService	warrantyService;
+
 
 	// Constructor-----------------------------------------------------
 
@@ -63,33 +65,28 @@ public class WarrantyAdministratorController extends AbstractController {
 	// Edit-------------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int warrantyId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int warrantyId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		Warranty warranty = this.warrantyService.findOne(warrantyId);
+		final Warranty warranty = this.warrantyService.findOne(warrantyId);
 
 		try {
 			Assert.notNull(warranty);
 			Assert.isTrue(!warranty.getIsFinal());
 			result = this.createEditModelAndView(warranty);
 
-		} catch (Throwable e) {
-			result = new ModelAndView(
-					"redirect:/warranty/administrator/list.do");
+		} catch (final Throwable e) {
+			result = new ModelAndView("redirect:/warranty/administrator/list.do");
 			if (warranty == null)
-				redirectAttrs.addFlashAttribute("message",
-						"warranty.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "warranty.error.unexist");
 			else if (warranty.getIsFinal() == true)
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.isFinal");
+				redirectAttrs.addFlashAttribute("message1", "application.error.isFinal");
 		}
 		return result;
 	}
 
 	// Save-------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Warranty warranty,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Warranty warranty, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -97,28 +94,23 @@ public class WarrantyAdministratorController extends AbstractController {
 		else
 			try {
 				this.warrantyService.save(warranty);
-				result = new ModelAndView(
-						"redirect:/warranty/administrator/list.do");
+				result = new ModelAndView("redirect:/warranty/administrator/list.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(warranty,
-						"warranty.commit.error");
+				result = this.createEditModelAndView(warranty, "warranty.commit.error");
 			}
 		return result;
 	}
 
 	// Delete----------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Warranty warranty,
-			final BindingResult binding) {
+	public ModelAndView delete(@Valid final Warranty warranty, final BindingResult binding) {
 		ModelAndView result;
 
 		try {
 			this.warrantyService.delete(warranty);
-			result = new ModelAndView(
-					"redirect:/warranty/administrator/list.do");
+			result = new ModelAndView("redirect:/warranty/administrator/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(warranty,
-					"warranty.commit.error");
+			result = this.createEditModelAndView(warranty, "warranty.commit.error");
 		}
 		return result;
 	}
@@ -132,13 +124,12 @@ public class WarrantyAdministratorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Warranty warranty,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Warranty warranty, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("warranty/edit");
 		result.addObject("warranty", warranty);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 
 		result.addObject("requestURI", "warranty/administrator/edit.do");

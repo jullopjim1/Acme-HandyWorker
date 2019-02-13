@@ -112,7 +112,7 @@ public class FinderHandyWorkerController extends AbstractController {
 				result = new ModelAndView("finder/handy/update");
 				result.addObject("finder", finder);
 				result.addObject("categories", categories);
-				result.addObject("message", "message.commit.error");
+				result.addObject("message1", "message.commit.error");
 				result.addObject("warranties", warranties);
 			}
 		return result;

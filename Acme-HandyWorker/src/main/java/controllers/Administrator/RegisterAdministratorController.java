@@ -114,7 +114,7 @@ public class RegisterAdministratorController extends AbstractController {
 			throw new NullPointerException();
 
 		result.addObject("actor", actor);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		return result;
 	}

@@ -30,7 +30,7 @@ public class EndorsementAdministratorController extends AbstractController {
 		} catch (final Exception e) {
 
 			result.setViewName("welcome/index.do");
-			result.addObject("message", "message.commit.error");
+			result.addObject("message1", "message.commit.error");
 		}
 
 		return result;
@@ -66,7 +66,7 @@ public class EndorsementAdministratorController extends AbstractController {
 
 		result = new ModelAndView("administrator/endorser/list");
 		result.addObject("endorser", endorser);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		return result;
 	}
 

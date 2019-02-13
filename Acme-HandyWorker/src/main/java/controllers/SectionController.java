@@ -33,10 +33,11 @@ public class SectionController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private SectionService sectionService;
+	private SectionService	sectionService;
 
 	@Autowired
-	private TutorialService tutorialService;
+	private TutorialService	tutorialService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -46,8 +47,7 @@ public class SectionController extends AbstractController {
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int tutorialId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView list(@RequestParam final int tutorialId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Collection<Section> sections;
 		final Tutorial t = this.tutorialService.findOne(tutorialId);
@@ -58,11 +58,10 @@ public class SectionController extends AbstractController {
 			result.addObject("sections", sections);
 			result.addObject("requestURI", "section/list.do");
 			result.addObject("handyWorkerId", t.getHandyWorker().getId());
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/tutorial/list.do");
 			if (t == null)
-				redirectAttrs.addFlashAttribute("message",
-						"tutorial.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "tutorial.error.unexist");
 		}
 		return result;
 	}

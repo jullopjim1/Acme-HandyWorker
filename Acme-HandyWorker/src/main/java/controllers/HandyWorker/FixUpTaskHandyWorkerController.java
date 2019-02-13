@@ -16,12 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import controllers.AbstractController;
-import domain.Category;
-import domain.Finder;
-import domain.FixUpTask;
-import domain.HandyWorker;
-import domain.Warranty;
 import security.LoginService;
 import services.ApplicationService;
 import services.CategoryService;
@@ -30,6 +24,12 @@ import services.FinderService;
 import services.FixUpTaskService;
 import services.HandyWorkerService;
 import services.WarrantyService;
+import controllers.AbstractController;
+import domain.Category;
+import domain.Finder;
+import domain.FixUpTask;
+import domain.HandyWorker;
+import domain.Warranty;
 
 @Controller
 @RequestMapping("/fixUpTask/handyWorker")
@@ -149,7 +149,7 @@ public class FixUpTaskHandyWorkerController extends AbstractController {
 		final int varTax = this.configurationService.findOne().getVarTax();
 
 		result = new ModelAndView("fixUpTask/edit");
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("requestURI", "fixUpTask/handyworker/show.do?fixUptaskId=" + fixUpTask.getId());
 		result.addObject("fixUpTask", fixUpTask);
 		result.addObject("warranties", warranties);

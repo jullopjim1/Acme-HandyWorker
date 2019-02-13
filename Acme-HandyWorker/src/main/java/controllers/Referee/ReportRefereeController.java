@@ -104,7 +104,7 @@ public class ReportRefereeController extends AbstractController {
 		final Complaint complaint = this.complaintService.findOne(complaintId);
 		if (complaint == null) {
 			result = new ModelAndView("welcome/index");
-			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+			result.getModel().put("message1", "org.hibernate.validator.constraints.URL.message");
 		} else {
 			report = this.reportService.create(complaintId, referee.getId());
 			result = this.createEditModelAndView(report);
@@ -132,7 +132,7 @@ public class ReportRefereeController extends AbstractController {
 
 		} catch (final Exception e) {
 			result = new ModelAndView("welcome/index");
-			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+			result.getModel().put("message1", "org.hibernate.validator.constraints.URL.message");
 		}
 
 		return result;
@@ -183,7 +183,7 @@ public class ReportRefereeController extends AbstractController {
 		final Referee a = this.refereeService.findByUseraccount(LoginService.getPrincipal());
 		result = new ModelAndView("report/edit");
 		result.addObject("report", report);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("refereeId", a.getId());
 		result.addObject("requestURI", "report/referee/edit.do");

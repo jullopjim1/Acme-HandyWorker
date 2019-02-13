@@ -58,7 +58,7 @@ public class EndorsementController extends AbstractController {
 			result.addObject("requestURI", "endorsements/list.do");
 		} catch (final Exception e) {
 			result.setViewName("redirect:/welcome/index.do");
-			result.addObject("message", "message.commit.error");
+			result.addObject("message1", "message.commit.error");
 		}
 
 		return result;
@@ -75,7 +75,7 @@ public class EndorsementController extends AbstractController {
 
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:/welcome/index.do");
-			modelAndView.addObject("message", "message.commit.error");
+			modelAndView.addObject("message1", "message.commit.error");
 		}
 
 		return modelAndView;
@@ -94,9 +94,9 @@ public class EndorsementController extends AbstractController {
 			modelAndView = new ModelAndView("redirect:/endorsement/list.do");
 
 			if (endorsement == null)
-				redirectAttrs.addFlashAttribute("message", "endorsement.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "endorsement.error.unexist");
 			else
-				redirectAttrs.addFlashAttribute("message", "tutorial.error.notActualCustomer");
+				redirectAttrs.addFlashAttribute("message1", "tutorial.error.notActualCustomer");
 		}
 
 		return modelAndView;
@@ -114,9 +114,9 @@ public class EndorsementController extends AbstractController {
 			modelAndView = new ModelAndView("redirect:/endorsement/list.do");
 
 			if (endorsement == null)
-				redirectAttrs.addFlashAttribute("message", "endorsement.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "endorsement.error.unexist");
 			else
-				redirectAttrs.addFlashAttribute("message", "tutorial.error.notActualCustomer");
+				redirectAttrs.addFlashAttribute("message1", "tutorial.error.notActualCustomer");
 		}
 
 		return modelAndView;
@@ -176,7 +176,7 @@ public class EndorsementController extends AbstractController {
 		if (endorsees.isEmpty()) {
 			result = this.list();
 
-			result.addObject("message", "endorsement.listEndorsee.empty");
+			result.addObject("message1", "endorsement.listEndorsee.empty");
 
 		} else {
 
@@ -184,7 +184,7 @@ public class EndorsementController extends AbstractController {
 			result.addObject("endorsement", endorsement);
 			if (endorsees != null)
 				result.addObject("endorsees", endorsees);
-			result.addObject("message", message);
+			result.addObject("message1", message);
 			result.addObject("isRead", false);
 		}
 		return result;

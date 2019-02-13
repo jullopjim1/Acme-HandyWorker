@@ -122,9 +122,9 @@ public class CategoryAdministratorController extends AbstractController {
 
 			result = new ModelAndView("redirect:/category/administrator/list.do");
 			if (category == null)
-				redirectAttrs.addFlashAttribute("message", "category.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "category.error.unexist");
 			else if (categoryId == this.categoryService.findRootCategory().getId())
-				redirectAttrs.addFlashAttribute("message", "category.error.rootCategoryDelete");
+				redirectAttrs.addFlashAttribute("message1", "category.error.rootCategoryDelete");
 		}
 		return result;
 	}
@@ -189,7 +189,7 @@ public class CategoryAdministratorController extends AbstractController {
 		final Collection<Category> categories = this.categoryService.findAll();
 
 		result = new ModelAndView("category/create");
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("requestURI", "category/administrator/create.do");
 		result.addObject("categoryForm", categoryForm);
 		result.addObject("categories", categories);
@@ -212,7 +212,7 @@ public class CategoryAdministratorController extends AbstractController {
 			categories.remove(category);
 
 		result = new ModelAndView("category/edit");
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("requestURI", "category/administrator/edit.do");
 		result.addObject("categoryForm", categoryForm);
 		result.addObject("categories", categories);

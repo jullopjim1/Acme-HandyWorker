@@ -88,7 +88,7 @@ public class CustomerProfileHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("actor/showCustomer");
 		result.addObject("customer", customer);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "handyWorker/viewProfileCustomer.do?customerId" + customer.getId());
 

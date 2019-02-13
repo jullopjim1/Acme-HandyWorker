@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.Collection;
@@ -25,13 +26,14 @@ public class TutorialController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private TutorialService tutorialService;
+	private TutorialService		tutorialService;
 
 	@Autowired
-	private SponsorshipService sponsorshipService;
+	private SponsorshipService	sponsorshipService;
 
 	@Autowired
-	private HandyWorkerService handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -56,51 +58,44 @@ public class TutorialController extends AbstractController {
 
 	// Show
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int tutorialId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView show(@RequestParam final int tutorialId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView;
 		final Tutorial tutorial = this.tutorialService.findOne(tutorialId);
 		try {
 			Assert.notNull(tutorial);
 			modelAndView = this.createEditModelAndView(tutorial);
 			modelAndView.addObject("isRead", true);
-			modelAndView.addObject("requestURI", "/show.do?tutorialId="
-					+ tutorialId);
-		} catch (Throwable e) {
+			modelAndView.addObject("requestURI", "/show.do?tutorialId=" + tutorialId);
+		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:list.do");
 
 			if (tutorial == null)
-				redirectAttrs.addFlashAttribute("message",
-						"tutorial.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "tutorial.error.unexist");
 		}
 		return modelAndView;
 	}
 
 	// List ---------------------------------------------------------------
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView view(@RequestParam final int handyWorkerId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView view(@RequestParam final int handyWorkerId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Collection<Tutorial> tutorials;
-		HandyWorker h = handyWorkerService.findOne(handyWorkerId);
+		final HandyWorker h = this.handyWorkerService.findOne(handyWorkerId);
 
 		try {
 			Assert.notNull(h);
-			tutorials = this.tutorialService
-					.findTutorialsByHandyWorkerId(handyWorkerId);
+			tutorials = this.tutorialService.findTutorialsByHandyWorkerId(handyWorkerId);
 
 			result = new ModelAndView("tutorial/list");
 			result.addObject("tutorials", tutorials);
-			result.addObject("requestURI", "/view.do?handyWorkerId="
-					+ handyWorkerId);
+			result.addObject("requestURI", "/view.do?handyWorkerId=" + handyWorkerId);
 			result.addObject("handyWorkerId", handyWorkerId);
 
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:list.do");
 
 			if (h == null)
-				redirectAttrs.addFlashAttribute("message",
-						"tutorial.error.unexisthandy");
+				redirectAttrs.addFlashAttribute("message1", "tutorial.error.unexisthandy");
 		}
 		return result;
 	}
@@ -116,8 +111,7 @@ public class TutorialController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Tutorial tutorial,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Tutorial tutorial, final String message) {
 		ModelAndView result;
 
 		Collection<Sponsorship> sponsorships;
@@ -129,7 +123,7 @@ public class TutorialController extends AbstractController {
 
 		result = new ModelAndView("tutorial/edit");
 		result.addObject("tutorial", tutorial);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "tutorial/handyworker/edit.do");
 		result.addObject("sponsorships", sponsorships);

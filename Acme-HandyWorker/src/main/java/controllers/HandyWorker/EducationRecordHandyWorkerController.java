@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Curriculum;
-import domain.EducationRecord;
-import domain.HandyWorker;
 import security.LoginService;
 import services.CurriculumService;
 import services.EducationRecordService;
 import services.HandyWorkerService;
+import controllers.AbstractController;
+import domain.Curriculum;
+import domain.EducationRecord;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping("/educationRecord/handyworker")
@@ -147,7 +147,7 @@ public class EducationRecordHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("educationRecord/edit");
 		result.addObject("educationRecord", educationRecord);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("curriculumId", curriculum.getId());
 
 		return result;

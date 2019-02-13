@@ -82,7 +82,7 @@ public class NoteController extends AbstractController {
 		Note note = this.noteService.findNoteReportById(reportId);
 		if (note != null || !isYourReport) {
 			result = new ModelAndView("welcome/index");
-			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+			result.getModel().put("message1", "org.hibernate.validator.constraints.URL.message");
 		} else {
 
 			note = this.noteService.create(reportId);
@@ -137,7 +137,7 @@ public class NoteController extends AbstractController {
 
 		result = new ModelAndView("note/edit");
 		result.addObject("note", note);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("reportId", note.getReport().getId());
 		result.addObject("requestURI", "note/edit.do");

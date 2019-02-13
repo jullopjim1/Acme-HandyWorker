@@ -1,3 +1,4 @@
+
 package controllers.HandyWorker;
 
 import javax.validation.Valid;
@@ -28,13 +29,14 @@ public class SectionHandyWorkerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private SectionService sectionService;
+	private SectionService		sectionService;
 
 	@Autowired
-	private TutorialService tutorialService;
-	
+	private TutorialService		tutorialService;
+
 	@Autowired
-	private HandyWorkerService handyWorkerService;
+	private HandyWorkerService	handyWorkerService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -44,21 +46,18 @@ public class SectionHandyWorkerController extends AbstractController {
 
 	// Create
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int tutorialId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView create(@RequestParam final int tutorialId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Section section;
-		Tutorial t = tutorialService.findOne(tutorialId);
-		final HandyWorker h = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
+		final Tutorial t = this.tutorialService.findOne(tutorialId);
+		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			Assert.notNull(t);
 			Assert.isTrue(t.getHandyWorker().equals(h));
 			section = this.sectionService.create(tutorialId);
 			result = this.createEditModelAndView(section);
-	
-		} catch (Throwable e) {
+
+		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/tutorial/handyworker/list.do");
 		}
 		return result;
@@ -78,8 +77,7 @@ public class SectionHandyWorkerController extends AbstractController {
 
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Section section,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Section section, final BindingResult binding) {
 
 		ModelAndView result;
 
@@ -88,16 +86,12 @@ public class SectionHandyWorkerController extends AbstractController {
 		else
 			try {
 				this.sectionService.save(section);
-				result = new ModelAndView(
-						"redirect:/section/list.do?tutorialId="
-								+ section.getTutorial().getId());
+				result = new ModelAndView("redirect:/section/list.do?tutorialId=" + section.getTutorial().getId());
 			} catch (final Throwable oops) {
 				if (oops.getMessage().equals("positionerror"))
-					result = this.createEditModelAndView(section,
-							"position.error");
+					result = this.createEditModelAndView(section, "position.error");
 				else
-					result = this.createEditModelAndView(section,
-							"section.commit.error");
+					result = this.createEditModelAndView(section, "section.commit.error");
 
 			}
 		return result;
@@ -105,18 +99,15 @@ public class SectionHandyWorkerController extends AbstractController {
 
 	// Delete
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Section section,
-			final BindingResult binding) {
+	public ModelAndView delete(@Valid final Section section, final BindingResult binding) {
 
 		ModelAndView result;
 
 		try {
 			this.sectionService.delete(section);
-			result = new ModelAndView("redirect:/section/list.do?tutorialId="
-					+ section.getTutorial().getId());
+			result = new ModelAndView("redirect:/section/list.do?tutorialId=" + section.getTutorial().getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(section,
-					"section.commit.error");
+			result = this.createEditModelAndView(section, "section.commit.error");
 		}
 		return result;
 	}
@@ -129,13 +120,12 @@ public class SectionHandyWorkerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Section section,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Section section, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("section/edit");
 		result.addObject("section", section);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("tutorialId", section.getTutorial().getId());
 

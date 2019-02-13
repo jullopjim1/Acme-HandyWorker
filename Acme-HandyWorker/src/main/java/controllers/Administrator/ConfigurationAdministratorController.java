@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ConfigurationService;
 import controllers.AbstractController;
 import domain.Configuration;
 import forms.ConfigurationForm;
-import services.ConfigurationService;
 
 @Controller
 @RequestMapping("/configuration/administrator")
@@ -28,7 +28,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 	//Service----------------------------------------------------------------
 
 	@Autowired
-	private ConfigurationService configurationService;
+	private ConfigurationService	configurationService;
 
 
 	//Constructor------------------------------------------------------------
@@ -173,7 +173,7 @@ public class ConfigurationAdministratorController extends AbstractController {
 
 		result = new ModelAndView("configuration/edit");
 		result.addObject("configurationForm", configurationForm);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 
 		result.addObject("requestURI", "configuration/administrator/edit.do");

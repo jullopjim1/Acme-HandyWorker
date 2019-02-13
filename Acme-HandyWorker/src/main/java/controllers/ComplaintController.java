@@ -94,7 +94,7 @@ public class ComplaintController extends AbstractController {
 		} else {
 			result = new ModelAndView("complaint/edit");
 			result.addObject("complaint", complaint);
-			result.addObject("message", message);
+			result.addObject("message1", message);
 			result.addObject("isRead", false);
 			result.addObject("requestURI", "complaint/edit.do");
 		}

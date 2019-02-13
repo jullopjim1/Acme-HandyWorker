@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import controllers.AbstractController;
-import domain.Curriculum;
-import domain.EndorserRecord;
-import domain.HandyWorker;
 import security.LoginService;
 import services.CurriculumService;
 import services.EndorserRecordService;
 import services.HandyWorkerService;
+import controllers.AbstractController;
+import domain.Curriculum;
+import domain.EndorserRecord;
+import domain.HandyWorker;
 
 @Controller
 @RequestMapping("/endorserRecord/handyworker")
@@ -142,7 +142,7 @@ public class EndorserRecordHandyWorkerController extends AbstractController {
 
 		result = new ModelAndView("endorserRecord/edit");
 		result.addObject("endorserRecord", endorserRecord);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("curriculumId", curriculum.getId());
 
 		return result;

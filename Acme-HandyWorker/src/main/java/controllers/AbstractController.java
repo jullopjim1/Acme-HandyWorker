@@ -34,7 +34,7 @@ public class AbstractController {
 		} else {
 
 			result = new ModelAndView("welcome/index");
-			result.getModel().put("message", "org.hibernate.validator.constraints.URL.message");
+			result.getModel().put("message1", "org.hibernate.validator.constraints.URL.message");
 		}
 		return result;
 	}

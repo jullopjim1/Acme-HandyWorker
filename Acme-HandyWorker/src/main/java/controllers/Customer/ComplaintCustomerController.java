@@ -1,3 +1,4 @@
+
 package controllers.Customer;
 
 import java.util.Collection;
@@ -29,13 +30,14 @@ public class ComplaintCustomerController extends AbstractController {
 	// Service---------------------------------------------------------
 
 	@Autowired
-	private ComplaintService complaintService;
+	private ComplaintService	complaintService;
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	private ReportService reportService;
+	private ReportService		reportService;
+
 
 	// Constructor-----------------------------------------------------
 
@@ -50,10 +52,8 @@ public class ComplaintCustomerController extends AbstractController {
 		final ModelAndView result;
 		Collection<Complaint> complaints;
 
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
-		complaints = this.complaintService
-				.findComplaintsByCustomerId(c.getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+		complaints = this.complaintService.findComplaintsByCustomerId(c.getId());
 
 		result = new ModelAndView("complaint/list");
 		result.addObject("complaints", complaints);
@@ -80,42 +80,34 @@ public class ComplaintCustomerController extends AbstractController {
 	// Edit-------------------------------------------------------------------------
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int complaintId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int complaintId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Complaint complaint;
 		complaint = this.complaintService.findOne(complaintId);
-		Customer customer = customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
+		final Customer customer = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			Assert.notNull(complaint);
 			Assert.isTrue(complaint.getCustomer().equals(customer));
 			Assert.isTrue(!complaint.getIsFinal());
 			result = this.createEditModelAndView(complaint);
 
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			result = new ModelAndView("redirect:/complaint/customer/list.do");
 			if (complaint == null)
-				redirectAttrs.addFlashAttribute("message",
-						"complaint.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "complaint.error.unexist");
 			else if (!(complaint.getCustomer().equals(customer)))
-				redirectAttrs.addFlashAttribute("message",
-						"complaint.error.noCustomer");
-			else if(complaint.getIsFinal()==true){
-				redirectAttrs.addFlashAttribute("message",
-						"complaint.error.isFinal");
-			}
+				redirectAttrs.addFlashAttribute("message1", "complaint.error.noCustomer");
+			else if (complaint.getIsFinal() == true)
+				redirectAttrs.addFlashAttribute("message1", "complaint.error.isFinal");
 			else
-				result = this.createEditModelAndView(complaint,
-						"commit.error");
+				result = this.createEditModelAndView(complaint, "commit.error");
 		}
 		return result;
 	}
 
 	// Save-------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Complaint complaint,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Complaint complaint, final BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors())
@@ -123,31 +115,23 @@ public class ComplaintCustomerController extends AbstractController {
 		else
 			try {
 				this.complaintService.save(complaint);
-				result = new ModelAndView(
-						"redirect:/complaint/customer/list.do?customerId="
-								+ complaint.getCustomer().getId());
+				result = new ModelAndView("redirect:/complaint/customer/list.do?customerId=" + complaint.getCustomer().getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(complaint,
-						"complaint.commit.error");
+				result = this.createEditModelAndView(complaint, "complaint.commit.error");
 			}
 		return result;
 	}
 
 	// Delete----------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Complaint complaint,
-			final BindingResult binding) {
+	public ModelAndView delete(@Valid final Complaint complaint, final BindingResult binding) {
 		ModelAndView result;
-		final Customer a = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
+		final Customer a = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.complaintService.delete(complaint);
-			result = new ModelAndView(
-					"redirect:/complaint/customer/list.do?customerId="
-							+ a.getId());
+			result = new ModelAndView("redirect:/complaint/customer/list.do?customerId=" + a.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(complaint,
-					"complaint.commit.error");
+			result = this.createEditModelAndView(complaint, "complaint.commit.error");
 		}
 		return result;
 	}
@@ -161,17 +145,15 @@ public class ComplaintCustomerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Complaint complaint,
-			final String message) {
+	protected ModelAndView createEditModelAndView(final Complaint complaint, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("complaint/edit");
 		result.addObject("complaint", complaint);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("customerId", complaint.getCustomer().getId());
-		result.addObject("requestURI", "complaint/customer/edit.do?fixUpTask="
-				+ complaint.getFixUpTask().getId());
+		result.addObject("requestURI", "complaint/customer/edit.do?fixUpTask=" + complaint.getFixUpTask().getId());
 
 		return result;
 	}

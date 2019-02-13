@@ -1,3 +1,4 @@
+
 package controllers.HandyWorker;
 
 import java.util.ArrayList;
@@ -32,13 +33,14 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private ApplicationService applicationService;
+	private ApplicationService		applicationService;
 
 	@Autowired
-	private HandyWorkerService handyWorkerService;
+	private HandyWorkerService		handyWorkerService;
 
 	@Autowired
-	private ConfigurationService configurationService;
+	private ConfigurationService	configurationService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -52,27 +54,22 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		ModelAndView result;
 		final Collection<Application> applications;
 
-		final HandyWorker h = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
+		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		final int handyWorkerId = h.getId();
-		applications = this.applicationService
-				.findApplicationByHandyWorkerId(handyWorkerId);
+		applications = this.applicationService.findApplicationByHandyWorkerId(handyWorkerId);
 
-		Date actualDate = new Date();
-		Collection<ApplicationColour> applicationsColour = new ArrayList<ApplicationColour>();
-		for (Application a : applications) {
-			ApplicationColour apc = new ApplicationColour();
+		final Date actualDate = new Date();
+		final Collection<ApplicationColour> applicationsColour = new ArrayList<ApplicationColour>();
+		for (final Application a : applications) {
+			final ApplicationColour apc = new ApplicationColour();
 			apc.setApplication(a);
 			String color = "PENDING";
-			if (a.getStatus().equals("ACCEPTED")) {
+			if (a.getStatus().equals("ACCEPTED"))
 				color = "ACCEPTED";
-			} else if (a.getStatus().equals("REJECTED")) {
+			else if (a.getStatus().equals("REJECTED"))
 				color = "REJECTED";
-			} else if ((a.getStatus().equals("PENDING"))
-					&& (a.getFixUpTask().getDeadline().before(actualDate))) {
+			else if ((a.getStatus().equals("PENDING")) && (a.getFixUpTask().getDeadline().before(actualDate)))
 				color = "PENDINGANDPASSED";
-			}
 			apc.setColor(color);
 			applicationsColour.add(apc);
 		}
@@ -88,31 +85,23 @@ public class ApplicationHandyWorkerController extends AbstractController {
 	// Show------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int applicationId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView show(@RequestParam final int applicationId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final HandyWorker h = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
-		final Application application = this.applicationService
-				.findOne(applicationId);
+		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
+		final Application application = this.applicationService.findOne(applicationId);
 		try {
 			Assert.notNull(application);
 			Assert.isTrue(application.getHandyWorker().equals(h));
 			result = this.createEditModelAndView(application);
 			result.addObject("isRead", true);
-			result.addObject("requestURI", "/show.do?applicationId="
-					+ applicationId);
+			result.addObject("requestURI", "/show.do?applicationId=" + applicationId);
 
 		} catch (final Throwable e) {
-			result = new ModelAndView(
-					"redirect:/application/handyworker/list.do");
+			result = new ModelAndView("redirect:/application/handyworker/list.do");
 			if (application == null)
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "application.error.unexist");
 			else if (!application.getHandyWorker().equals(h))
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.noHandy");
+				redirectAttrs.addFlashAttribute("message1", "application.error.noHandy");
 		}
 
 		return result;
@@ -124,9 +113,7 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		ModelAndView result;
 		Application applications;
 
-		final HandyWorker a = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		applications = this.applicationService.create(fixUpTaskId);
 		result = this.createEditModelAndView(applications);
 		result.addObject("handyWorkerId", a.getId());
@@ -136,14 +123,11 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	// Edit
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int applicationId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(@RequestParam final int applicationId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
 		Application application;
 		application = this.applicationService.findOne(applicationId);
-		final HandyWorker h = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
+		final HandyWorker h = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			Assert.notNull(application);
 			Assert.isTrue(application.getHandyWorker().equals(h));
@@ -151,43 +135,32 @@ public class ApplicationHandyWorkerController extends AbstractController {
 			result = this.createEditModelAndView(application);
 
 		} catch (final Throwable e) {
-			result = new ModelAndView(
-					"redirect:/application/handyworker/list.do");
+			result = new ModelAndView("redirect:/application/handyworker/list.do");
 			if (application == null)
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "application.error.unexist");
 			else if (!application.getHandyWorker().equals(h))
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.noHandy");
-			else if(!(application.getStatus().equals("PENDING"))){
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.statusNoPending");
-			}
+				redirectAttrs.addFlashAttribute("message1", "application.error.noHandy");
+			else if (!(application.getStatus().equals("PENDING")))
+				redirectAttrs.addFlashAttribute("message1", "application.error.statusNoPending");
 		}
 		return result;
 	}
 
 	// Save
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Application applications,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final Application applications, final BindingResult binding) {
 
 		ModelAndView result;
 
-		final HandyWorker a = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(applications);
 		else
 			try {
 				this.applicationService.save(applications);
-				result = new ModelAndView(
-						"redirect:/application/handyworker/list.do?="
-								+ a.getId());
+				result = new ModelAndView("redirect:/application/handyworker/list.do?=" + a.getId());
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(applications,
-						"application.commit.error");
+				result = this.createEditModelAndView(applications, "application.commit.error");
 
 			}
 		return result;
@@ -195,21 +168,15 @@ public class ApplicationHandyWorkerController extends AbstractController {
 
 	// DELETE
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(@Valid final Application applications,
-			final BindingResult binding) {
+	public ModelAndView delete(@Valid final Application applications, final BindingResult binding) {
 
 		ModelAndView result;
-		final HandyWorker a = this.handyWorkerService
-				.findHandyWorkerByUserAccount(LoginService.getPrincipal()
-						.getId());
+		final HandyWorker a = this.handyWorkerService.findHandyWorkerByUserAccount(LoginService.getPrincipal().getId());
 		try {
 			this.applicationService.delete(applications);
-			result = new ModelAndView(
-					"redirect:/application/handyworker/list.do?handyWorkerId="
-							+ a.getId());
+			result = new ModelAndView("redirect:/application/handyworker/list.do?handyWorkerId=" + a.getId());
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(applications,
-					"application.commit.error");
+			result = this.createEditModelAndView(applications, "application.commit.error");
 		}
 		return result;
 	}
@@ -222,15 +189,14 @@ public class ApplicationHandyWorkerController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(
-			final Application application, final String message) {
+	protected ModelAndView createEditModelAndView(final Application application, final String message) {
 		ModelAndView result;
 
 		final int varTax = this.configurationService.findOne().getVarTax();
 
 		result = new ModelAndView("application/edit");
 		result.addObject("application", application);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("varTax", varTax);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "application/handyworker/edit.do");

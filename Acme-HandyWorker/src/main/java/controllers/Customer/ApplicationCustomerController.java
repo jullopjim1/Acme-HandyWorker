@@ -1,3 +1,4 @@
+
 package controllers.Customer;
 
 import java.util.ArrayList;
@@ -38,16 +39,17 @@ public class ApplicationCustomerController extends AbstractController {
 	// Services-----------------------------------------------------------
 
 	@Autowired
-	private ApplicationService applicationService;
+	private ApplicationService	applicationService;
 
 	@Autowired
-	private FixUpTaskService fixUpTaskService;
+	private FixUpTaskService	fixUpTaskService;
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService		customerService;
 
 	@Autowired
-	private CreditCardService creditCardService;
+	private CreditCardService	creditCardService;
+
 
 	// Constructor---------------------------------------------------------
 
@@ -60,12 +62,9 @@ public class ApplicationCustomerController extends AbstractController {
 	public ModelAndView list() {
 		final ModelAndView result;
 		final Collection<Application> applications = new HashSet<Application>();
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
-		for (final FixUpTask f : this.fixUpTaskService
-				.findFixUpTaskByCustomerId(c.getId()))
-			applications.addAll(this.applicationService
-					.findApplicationsByFixUpTeaskId(f.getId()));
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+		for (final FixUpTask f : this.fixUpTaskService.findFixUpTaskByCustomerId(c.getId()))
+			applications.addAll(this.applicationService.findApplicationsByFixUpTeaskId(f.getId()));
 
 		final Date actualDate = new Date();
 		final Collection<ApplicationColour> applicationsColour = new ArrayList<ApplicationColour>();
@@ -77,8 +76,7 @@ public class ApplicationCustomerController extends AbstractController {
 				color = "ACCEPTED";
 			else if (a.getStatus().equals("REJECTED"))
 				color = "REJECTED";
-			else if ((a.getStatus().equals("PENDING"))
-					&& (a.getFixUpTask().getDeadline().before(actualDate)))
+			else if ((a.getStatus().equals("PENDING")) && (a.getFixUpTask().getDeadline().before(actualDate)))
 				color = "PENDINGANDPASSED";
 			apc.setColor(color);
 			applicationsColour.add(apc);
@@ -94,11 +92,9 @@ public class ApplicationCustomerController extends AbstractController {
 	// EDIT
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(final int applicationId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView edit(final int applicationId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		Application application = null;
 		final ApplicationForm applicationForm = new ApplicationForm();
 		try {
@@ -115,48 +111,38 @@ public class ApplicationCustomerController extends AbstractController {
 
 			result = new ModelAndView("redirect:/application/customer/list.do");
 			if (application == null)
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "application.error.unexist");
 			else if (!application.getFixUpTask().getCustomer().equals(c))
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.noCustomer");
+				redirectAttrs.addFlashAttribute("message1", "application.error.noCustomer");
 			else
-				result = this.createAndEditModelAndView(applicationForm,
-						"commit.error");
+				result = this.createAndEditModelAndView(applicationForm, "commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final ApplicationForm applicationForm,
-			final BindingResult binding) {
+	public ModelAndView save(@Valid final ApplicationForm applicationForm, final BindingResult binding) {
 		ModelAndView result = null;
 
 		if (binding.hasErrors())
-			result = this.createAndEditModelAndView(applicationForm,
-					"commit.error");
+			result = this.createAndEditModelAndView(applicationForm, "commit.error");
 		else
 			try {
-				final Customer c = this.customerService
-						.findByUserAccount(LoginService.getPrincipal().getId());
-				final Application a = this.applicationService
-						.findOne(applicationForm.getId());
+				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+				final Application a = this.applicationService.findOne(applicationForm.getId());
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
 
 				a.setComments(applicationForm.getComments());
 				this.applicationService.save(a);
 
-				result = new ModelAndView(
-						"redirect:/application/customer/list.do");
+				result = new ModelAndView("redirect:/application/customer/list.do");
 
 			} catch (final Throwable oops) {
 				if (oops.getMessage().equals("errorCredit"))
-					result = this.createAndEditModelAndView(applicationForm,
-							"commit.errorCredit");
+					result = this.createAndEditModelAndView(applicationForm, "commit.errorCredit");
 				else
-					result = this.createAndEditModelAndView(applicationForm,
-							"commit.error");
+					result = this.createAndEditModelAndView(applicationForm, "commit.error");
 
 			}
 		return result;
@@ -164,11 +150,9 @@ public class ApplicationCustomerController extends AbstractController {
 
 	// DECLINE
 	@RequestMapping(value = "/reject", method = RequestMethod.GET)
-	public ModelAndView decline(final int applicationId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView decline(final int applicationId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		Application application = null;
 		final ApplicationForm applicationForm = new ApplicationForm();
 		try {
@@ -185,34 +169,26 @@ public class ApplicationCustomerController extends AbstractController {
 
 			result = new ModelAndView("redirect:/application/customer/list.do");
 			if (application == null)
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "application.error.unexist");
 			else if (!application.getFixUpTask().getCustomer().equals(c))
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.noCustomer");
+				redirectAttrs.addFlashAttribute("message1", "application.error.noCustomer");
 			else if (application.getStatus() != "PENDING")
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.statusNoPendingDecline");
+				redirectAttrs.addFlashAttribute("message1", "application.error.statusNoPendingDecline");
 			else
-				result = this.declineModelAndView(applicationForm,
-						"commit.error");
+				result = this.declineModelAndView(applicationForm, "commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/reject", method = RequestMethod.POST, params = "save")
-	public ModelAndView decline(@Valid final ApplicationForm applicationForm,
-			RedirectAttributes redirectAttrs, final BindingResult binding) {
+	public ModelAndView decline(@Valid final ApplicationForm applicationForm, final RedirectAttributes redirectAttrs, final BindingResult binding) {
 		ModelAndView result = null;
-		final Application a = this.applicationService.findOne(applicationForm
-				.getId());
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
+		final Application a = this.applicationService.findOne(applicationForm.getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 
 		if (binding.hasErrors())
-			result = this.createAndEditModelAndView(applicationForm,
-					"commit.error");
+			result = this.createAndEditModelAndView(applicationForm, "commit.error");
 		else
 			try {
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
@@ -220,35 +196,27 @@ public class ApplicationCustomerController extends AbstractController {
 				a.setStatus("REJECTED");
 				this.applicationService.save(a);
 
-				result = new ModelAndView(
-						"redirect:/application/customer/list.do");
+				result = new ModelAndView("redirect:/application/customer/list.do");
 
 			} catch (final Throwable oops) {
-				result = new ModelAndView(
-						"redirect:/application/customer/list.do");
+				result = new ModelAndView("redirect:/application/customer/list.do");
 				if (a == null)
-					redirectAttrs.addFlashAttribute("message",
-							"application.error.unexist");
+					redirectAttrs.addFlashAttribute("message1", "application.error.unexist");
 				else if (!a.getFixUpTask().getCustomer().equals(c))
-					redirectAttrs.addFlashAttribute("message",
-							"application.error.noCustomer");
+					redirectAttrs.addFlashAttribute("message1", "application.error.noCustomer");
 				else if (a.getStatus() != "PENDING")
-					redirectAttrs.addFlashAttribute("message",
-							"application.error.statusNoPendingDecline");
+					redirectAttrs.addFlashAttribute("message1", "application.error.statusNoPendingDecline");
 				else
-					result = this.declineModelAndView(applicationForm,
-							"commit.error");
+					result = this.declineModelAndView(applicationForm, "commit.error");
 			}
 		return result;
 	}
 
 	// ACCEPT
 	@RequestMapping(value = "/accept", method = RequestMethod.GET)
-	public ModelAndView accept(final int applicationId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView accept(final int applicationId, final RedirectAttributes redirectAttrs) {
 		ModelAndView result;
-		final Customer c = this.customerService.findByUserAccount(LoginService
-				.getPrincipal().getId());
+		final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
 		Application application = null;
 		final CreditCard cc = this.creditCardService.create();
 		final ApplicationForm2 applicationForm = new ApplicationForm2();
@@ -272,44 +240,34 @@ public class ApplicationCustomerController extends AbstractController {
 
 			result = new ModelAndView("redirect:/application/customer/list.do");
 			if (application == null)
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "application.error.unexist");
 			else if (!application.getFixUpTask().getCustomer().equals(c))
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.noCustomer");
+				redirectAttrs.addFlashAttribute("message1", "application.error.noCustomer");
 			else if (application.getStatus() != "PENDING")
-				redirectAttrs.addFlashAttribute("message",
-						"application.error.statusNoPendingAccept");
+				redirectAttrs.addFlashAttribute("message1", "application.error.statusNoPendingAccept");
 			else
-				result = this.acceptModelAndView(applicationForm,
-						"commit.error");
+				result = this.acceptModelAndView(applicationForm, "commit.error");
 		}
 
 		return result;
 	}
 
 	@RequestMapping(value = "/accept", method = RequestMethod.POST, params = "save")
-	public ModelAndView acceptSave(
-			@Valid final ApplicationForm2 applicationForm,
-			final BindingResult binding) {
+	public ModelAndView acceptSave(@Valid final ApplicationForm2 applicationForm, final BindingResult binding) {
 		ModelAndView result = null;
 		CreditCard creditCardSaved = null;
-		Calendar cal = Calendar.getInstance();
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH) + 1;
+		final Calendar cal = Calendar.getInstance();
+		final int year = cal.get(Calendar.YEAR);
+		final int month = cal.get(Calendar.MONTH) + 1;
 
-		if (binding.hasErrors()) {
-			result = this.acceptModelAndView(applicationForm,
-					"application.invalidCreditCard");
-		} else
+		if (binding.hasErrors())
+			result = this.acceptModelAndView(applicationForm, "application.invalidCreditCard");
+		else
 			try {
-				final Customer c = this.customerService
-						.findByUserAccount(LoginService.getPrincipal().getId());
-				final Application a = this.applicationService
-						.findOne(applicationForm.getApplicationId());
+				final Customer c = this.customerService.findByUserAccount(LoginService.getPrincipal().getId());
+				final Application a = this.applicationService.findOne(applicationForm.getApplicationId());
 				Assert.isTrue(a.getFixUpTask().getCustomer().equals(c));
-				Assert.isTrue(!((applicationForm.getExpirationYear() == year) && (applicationForm
-						.getExpirationMonth() <= month)));
+				Assert.isTrue(!((applicationForm.getExpirationYear() == year) && (applicationForm.getExpirationMonth() <= month)));
 				final CreditCard cc = this.creditCardService.create();
 
 				cc.setBrandName(applicationForm.getBrandName());
@@ -324,85 +282,66 @@ public class ApplicationCustomerController extends AbstractController {
 				a.setCreditCard(creditCardSaved);
 				this.applicationService.save(a);
 
-				result = new ModelAndView(
-						"redirect:/application/customer/list.do");
+				result = new ModelAndView("redirect:/application/customer/list.do");
 
 			} catch (final Throwable oops) {
 
-				if (applicationForm.getExpirationYear() < year) {
-					result = this.acceptModelAndView(applicationForm,
-							"commit.errorCredit");
-				} else if ((applicationForm.getExpirationYear() == year)
-						&& (applicationForm.getExpirationMonth() <= month)) {
-					result = this.acceptModelAndView(applicationForm,
-							"commit.errorCredit");
-				} else {
-					result = this.acceptModelAndView(applicationForm,
-							"application.invalidCreditCard");
-				}
+				if (applicationForm.getExpirationYear() < year)
+					result = this.acceptModelAndView(applicationForm, "commit.errorCredit");
+				else if ((applicationForm.getExpirationYear() == year) && (applicationForm.getExpirationMonth() <= month))
+					result = this.acceptModelAndView(applicationForm, "commit.errorCredit");
+				else
+					result = this.acceptModelAndView(applicationForm, "application.invalidCreditCard");
 			}
 		return result;
 	}
 
 	// METHODS
-	protected ModelAndView createAndEditModelAndView(
-			final ApplicationForm applicationForm) {
+	protected ModelAndView createAndEditModelAndView(final ApplicationForm applicationForm) {
 		ModelAndView result;
 		result = this.createAndEditModelAndView(applicationForm, null);
 		return result;
 	}
 
-	protected ModelAndView createAndEditModelAndView(
-			final ApplicationForm applicationForm, final String message) {
+	protected ModelAndView createAndEditModelAndView(final ApplicationForm applicationForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("application/editForm");
-		result.addObject("message", message);
-		result.addObject(
-				"requestURI",
-				"application/customer/edit.do?applicationId="
-						+ applicationForm.getId());
+		result.addObject("message1", message);
+		result.addObject("requestURI", "application/customer/edit.do?applicationId=" + applicationForm.getId());
 		result.addObject("applicationForm", applicationForm);
 
 		return result;
 	}
 
-	protected ModelAndView acceptModelAndView(
-			final ApplicationForm2 applicationForm) {
+	protected ModelAndView acceptModelAndView(final ApplicationForm2 applicationForm) {
 		ModelAndView result;
 		result = this.acceptModelAndView(applicationForm, null);
 		return result;
 	}
 
-	protected ModelAndView acceptModelAndView(
-			final ApplicationForm2 applicationForm, final String message) {
+	protected ModelAndView acceptModelAndView(final ApplicationForm2 applicationForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("application/accept");
-		result.addObject("message", message);
-		result.addObject("requestURI",
-				"application/customer/accept.do?applicationId="
-						+ applicationForm.getApplicationId());
+		result.addObject("message1", message);
+		result.addObject("requestURI", "application/customer/accept.do?applicationId=" + applicationForm.getApplicationId());
 		result.addObject("applicationForm", applicationForm);
 		return result;
 	}
 
-	protected ModelAndView declineModelAndView(
-			final ApplicationForm applicationForm) {
+	protected ModelAndView declineModelAndView(final ApplicationForm applicationForm) {
 		ModelAndView result;
 		result = this.declineModelAndView(applicationForm, null);
 		return result;
 	}
 
-	protected ModelAndView declineModelAndView(
-			final ApplicationForm applicationForm, final String message) {
+	protected ModelAndView declineModelAndView(final ApplicationForm applicationForm, final String message) {
 		final ModelAndView result;
 
 		result = new ModelAndView("application/reject");
-		result.addObject("message", message);
-		result.addObject("requestURI",
-				"application/customer/reject.do?applicationId="
-						+ applicationForm.getId());
+		result.addObject("message1", message);
+		result.addObject("requestURI", "application/customer/reject.do?applicationId=" + applicationForm.getId());
 		result.addObject("applicationForm", applicationForm);
 
 		return result;

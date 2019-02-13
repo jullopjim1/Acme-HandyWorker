@@ -85,7 +85,7 @@ public class ActorController extends AbstractController {
 		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:/tutorial/list.do");
 			if (tutorial == null)
-				redirectAttrs.addFlashAttribute("message", "tutorial.error.unexisthandy");
+				redirectAttrs.addFlashAttribute("message1", "tutorial.error.unexisthandy");
 		}
 		return modelAndView;
 	}
@@ -124,7 +124,7 @@ public class ActorController extends AbstractController {
 
 		result = new ModelAndView("actor/edit");
 		result.addObject("actor", actor);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "actor/edit.do");
 

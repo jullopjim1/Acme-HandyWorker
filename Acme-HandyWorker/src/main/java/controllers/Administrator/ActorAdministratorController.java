@@ -1,3 +1,4 @@
+
 package controllers.Administrator;
 
 import java.util.Collection;
@@ -24,10 +25,11 @@ public class ActorAdministratorController extends AbstractController {
 	// Service---------------------------------------------------------
 
 	@Autowired
-	private ActorService actorService;
+	private ActorService	actorService;
 
 	@Autowired
-	private EndorserService endorserService;
+	private EndorserService	endorserService;
+
 
 	// Constructor-----------------------------------------------------
 
@@ -41,8 +43,7 @@ public class ActorAdministratorController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView modelAndView;
 
-		final Collection<Actor> actors = this.actorService
-				.findSuspiciousActors();
+		final Collection<Actor> actors = this.actorService.findSuspiciousActors();
 
 		modelAndView = new ModelAndView("actor/list");
 		modelAndView.addObject("actors", actors);
@@ -55,8 +56,7 @@ public class ActorAdministratorController extends AbstractController {
 	// Show------------------------------------------------------------
 
 	@RequestMapping(value = "/show", method = RequestMethod.GET)
-	public ModelAndView show(@RequestParam final int actorId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView show(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView = new ModelAndView("actor/edit");
 
 		final Actor actor = this.actorService.findOne(actorId);
@@ -72,14 +72,12 @@ public class ActorAdministratorController extends AbstractController {
 			modelAndView.addObject("isRead", true);
 			modelAndView.addObject("isProfile", true);
 			modelAndView.addObject("score", score);
-			modelAndView.addObject("requestURI",
-					"/actor/administrator/show.do?actorId=" + actorId);
-		} catch (Throwable e) {
+			modelAndView.addObject("requestURI", "/actor/administrator/show.do?actorId=" + actorId);
+		} catch (final Throwable e) {
 			modelAndView = new ModelAndView("redirect:list.do");
 
 			if (actor == null)
-				redirectAttrs.addFlashAttribute("message",
-						"actor.error.unexist");
+				redirectAttrs.addFlashAttribute("message1", "actor.error.unexist");
 		}
 		return modelAndView;
 
@@ -88,26 +86,22 @@ public class ActorAdministratorController extends AbstractController {
 	// Ban-------------------------------------------------------------
 
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
-	public ModelAndView ban(@RequestParam final int actorId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView ban(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		final Actor actor = this.actorService.findOne(actorId);
 		try {
 			Assert.notNull(actor);
-			Assert.isTrue((actor.getIsBanned() == false)
-					&& (actor.getIsSuspicious() == true));
+			Assert.isTrue((actor.getIsBanned() == false) && (actor.getIsSuspicious() == true));
 			this.actorService.ban(actor);
 			modelAndView = new ModelAndView("redirect:list.do");
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:list.do");
 
 			if (actor == null)
-				redirectAttrs.addFlashAttribute("message",
-						"actor.error.unexist");
-			else if (!((actor.getIsBanned() == false) && (actor
-					.getIsSuspicious() == true)))
-				redirectAttrs.addFlashAttribute("message", "actor.error.toBan");
+				redirectAttrs.addFlashAttribute("message1", "actor.error.unexist");
+			else if (!((actor.getIsBanned() == false) && (actor.getIsSuspicious() == true)))
+				redirectAttrs.addFlashAttribute("message1", "actor.error.toBan");
 		}
 
 		return modelAndView;
@@ -117,27 +111,23 @@ public class ActorAdministratorController extends AbstractController {
 	// UnBan-------------------------------------------------------------
 
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
-	public ModelAndView unban(@RequestParam final int actorId,
-			final RedirectAttributes redirectAttrs) {
+	public ModelAndView unban(@RequestParam final int actorId, final RedirectAttributes redirectAttrs) {
 		ModelAndView modelAndView = null;
 
 		final Actor actor = this.actorService.findOne(actorId);
 		try {
 			Assert.notNull(actor);
-			Assert.isTrue((actor.getIsBanned() == true)
-					&& (actor.getIsSuspicious() == true));
+			Assert.isTrue((actor.getIsBanned() == true) && (actor.getIsSuspicious() == true));
 			this.actorService.unban(actor);
 			modelAndView = new ModelAndView("redirect:list.do");
-			
+
 		} catch (final Exception e) {
 			modelAndView = new ModelAndView("redirect:list.do");
 
 			if (actor == null)
-				redirectAttrs.addFlashAttribute("message",
-						"actor.error.unexist");
-			else if (!((actor.getIsBanned() == true) && (actor
-					.getIsSuspicious() == true)))
-				redirectAttrs.addFlashAttribute("message", "actor.error.toUnban");
+				redirectAttrs.addFlashAttribute("message1", "actor.error.unexist");
+			else if (!((actor.getIsBanned() == true) && (actor.getIsSuspicious() == true)))
+				redirectAttrs.addFlashAttribute("message1", "actor.error.toUnban");
 		}
 
 		return modelAndView;

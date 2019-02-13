@@ -134,7 +134,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		result = new ModelAndView("sponsorship/edit");
 		result.addObject("sponsorship", sponsorship);
-		result.addObject("message", message);
+		result.addObject("message1", message);
 		result.addObject("isRead", false);
 		result.addObject("requestURI", "sponsorship/sponsor/edit.do");
 
