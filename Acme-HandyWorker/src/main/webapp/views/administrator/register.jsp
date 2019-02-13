@@ -82,7 +82,7 @@
 	<form:label path="phone">
 		<spring:message code="actor.phone" />:
 	</form:label>
-	<form:input path="phone" />
+	<form:input path="phone" id="tlf" />
 	<form:errors cssClass="error" path="phone" />
 	<br />
 
@@ -106,8 +106,10 @@
 		}
 	</script>
 
+	
 	<input type="submit" name="save"
-		value="<spring:message code="actor.save" />" />&nbsp; 
+			value='<spring:message code="actor.save"/>'
+			onclick=" javascript: return isValid();">
 
 	<input type="button" name="cancel"
 		value="<spring:message code="message.cancel" />"

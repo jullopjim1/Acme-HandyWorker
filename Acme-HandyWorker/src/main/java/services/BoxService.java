@@ -188,11 +188,21 @@ public class BoxService {
 	 * Crea y guarda las system box pasando por parametro el actor
 	 */
 	public void addSystemBox(final Actor actor) {
-		// Se inician las boxes
-		final Collection<Box> systemBoxes = this.createSystemBox(actor);
+		boolean systemBox = false;
+		try {
+			final Collection<Box> boxes = this.boxRepository.findSystemBoxByActorId(actor.getId());
+			if (boxes != null && !boxes.isEmpty())
+				systemBox = true;
 
-		// Se guarda en la base de datos, despues de guardar el actor
-		this.boxRepository.save(systemBoxes);
+		} catch (final Exception e) {
+			// TODO: handle exception
+		}
+		if (!systemBox) {
+			final Collection<Box> systemBoxes = this.createSystemBox(actor);
+
+			// Se guarda en la base de datos, despues de guardar el actor
+			this.boxRepository.save(systemBoxes);
+		}
 
 	}
 
