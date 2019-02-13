@@ -178,7 +178,7 @@ public class MessageController extends AbstractController {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {
-			result = this.createEditModelAndView(message, "message.error.field");
+			result = this.createEditModelAndView(message);
 			if (message.getId() != 0) {
 				result.setViewName("message/actor/move");
 				result.addObject("isRead", true);
@@ -232,7 +232,7 @@ public class MessageController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndView(final Message entityMessage, final String message) {
+	protected ModelAndView createEditModelAndView(final Message message, final String message1) {
 		ModelAndView result;
 		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final Collection<Actor> actors = this.actorService.findAll();
@@ -244,8 +244,8 @@ public class MessageController extends AbstractController {
 		priorities.add("LOW");
 
 		result = new ModelAndView("message/actor/exchangeMessage");
-		result.addObject("entityMessage", entityMessage);
 		result.addObject("message", message);
+		result.addObject("message1", message1);
 		result.addObject("receivers", actors);
 		result.addObject("priorities", priorities);
 		result.addObject("isRead", false);

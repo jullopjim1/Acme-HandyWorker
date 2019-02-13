@@ -18,7 +18,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
-<form:form action="message/actor/edit.do" modelAttribute="entityMessage">
+<form:form action="message/actor/edit.do" modelAttribute="message">
 
 	<form:hidden path="id" />
 	<form:hidden path="version" />
@@ -26,17 +26,17 @@
 	<form:hidden path="sender" />
 	<jstl:if test="${isRead==true}">
 		<spring:message code="message.sender" />:
-		<jstl:out value="${entityMessage.sender.userAccount.username}"></jstl:out>
+		<jstl:out value="${message.sender.userAccount.username}"></jstl:out>
 		<br />
 
 		<form:hidden path="recipient" />
 		<spring:message code="message.receiver" />:
-		<jstl:out value="${entityMessage.recipient.userAccount.username}"></jstl:out>
+		<jstl:out value="${message.recipient.userAccount.username}"></jstl:out>
 		<br />
 		<jstl:if test="${isMove==false }">
 			<form:hidden path="box" />
 			<spring:message code="message.box" />:
-			<jstl:out value="${entityMessage.box.name}"></jstl:out>
+			<jstl:out value="${message.box.name}"></jstl:out>
 			<br />
 		</jstl:if>
 		<jstl:if test="${isMove==true }">
@@ -114,7 +114,7 @@
 		<input type="submit" name="save"
 			value="<spring:message code="message.save" />" />&nbsp; 
 		
-		<jstl:if test="${entityMessage.id!=0}">
+		<jstl:if test="${message.id!=0}">
 			<input type="submit" name="delete"
 				value="<spring:message code="message.delete" />"
 				onclick="javascript: return confirm('<spring:message code="message.confirm.delete" />')" />
