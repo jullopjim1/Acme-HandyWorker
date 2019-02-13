@@ -127,7 +127,7 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a class="fNiv" href="box/actor/list.do"><spring:message
-								code="master.page.message.box.list" /></a></li>
+								code="master.page.box.list" /></a></li>
 					<li><a href="message/actor/exchangeMessage.do"><spring:message
 								code="master.page.message.exchange" /></a></li>
 					<security:authorize access="hasRole('ADMIN')">
